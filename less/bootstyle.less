@@ -5,6 +5,7 @@
 #app {
     @toolbar_width: 250px;
     @global_padding: 10px;
+    @global_margin: @global_padding;
 
     position: absolute;
     top: 0;
@@ -36,8 +37,8 @@
 
     .preview {
         padding: @global_padding * 2;
+        margin: @global_margin;
         margin-left: @toolbar_width;
-        background: #F5F5F5;
     }
 }
 

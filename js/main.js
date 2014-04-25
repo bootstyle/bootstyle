@@ -1,4 +1,6 @@
-angular.module('boostyleApp', []).controller('bootstyleController', ['$scope', function($scope) {
+var bootstyle = angular.module('boostyleApp', ['colorpicker.module']);
+
+bootstyle.controller('bootstyleController', ['$scope', function($scope) {
 
     $scope.init = function() {
         $scope.initStyle();
@@ -7,14 +9,18 @@ angular.module('boostyleApp', []).controller('bootstyleController', ['$scope', f
 
     $scope.initStyle = function() {
         $scope.style = {
-            border_radius: 4
+            border_radius: 4,
+            body_bg: '#ffffff'
         };
 
         $scope.applyStyle();
     };
     $scope.applyStyle = function() {
-        var buttons = angular.element('.btn');
+        // Color
+        angular.element('.preview').css("background", $scope.style.body_bg)
 
+        // Buttons
+        var buttons = angular.element('.btn');
         for (var i = 0; i < buttons.length; i++) {
             angular.element(buttons[i]).css(
                 "border-radius", parseInt($scope.style.border_radius)
@@ -74,7 +80,6 @@ angular.module('boostyleApp', []).controller('bootstyleController', ['$scope', f
     }, true);
 
     $scope.$watch('font', function(newValue, oldValue) {
-        console.log($scope.font.family);
         $scope.applyFont();
     }, true);
 }]);
