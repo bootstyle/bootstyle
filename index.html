@@ -20,16 +20,19 @@
 
         <!-- Vendor JavaScript -->
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js"></script>
-        <script src="js/vendor/angular.min.js"></script>
+        <script src="js/vendor/angular.js"></script>
         <script src="js/vendor/bootstrap-colorpicker-module.js"></script>
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.js"></script>
+        <!-- set options before less.js script -->
+        <script src="js/lessConfig.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.js"></script>
 
         <!-- Our JavaScript -->
         <script src="js/main.js"></script>
         <script src="js/plugins.js"></script>
+
 
     </head>
     <body>
@@ -54,22 +57,25 @@
             <aside class="toolbar">
                 <ul class="list-group">
                     <li class="list-group-item">
-                        <label>
-                            Background Color
-                            <input colorpicker type="text" ng-model="style.body_bg"/>
-                        </label>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="style.use_bootstrap_theme"> Bootstrap Theme
+                            </label>
+                        </div>
                     </li>
-                </ul>
-                <ul class="list-group">
                     <li class="list-group-item">
+                        <span class="badge">{{ style.body_bg }}</span>
+                        <label>Background Color</label>
+                        <input class="form-control" colorpicker type="text" ng-model="style.body_bg"/>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge">{{ style.border_radius_base }}px</span>
                         <label>
-                            Border Radius <span class="badge">{{ style.border_radius_base }}px</span>
+                            Border Radius
                             <input type="range" ng-model="style.border_radius_base" min="0" max="20" ng-change="parseInt(style.border_radius_base)"/>
                         </label>
                     </li>
-                </ul>
-                <ul class="list-group fonts">
-                    <li class="list-group-item">
+                    <li class="list-group-item fonts">
                         <span class="badge">{{ style.font_size_base }}px</span>
                         <label>
                             Font Size

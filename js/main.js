@@ -27,11 +27,6 @@ bootstyle.controller('bootstyleController', ['$scope', function($scope) {
             font_api_names.push(font_library[i].api_name);
         }
 
-        $scope.font = {
-            families: font_names,
-            family: font_names[0]
-        };
-
         WebFont.load({
             google: {
                 families: font_api_names
@@ -39,25 +34,41 @@ bootstyle.controller('bootstyleController', ['$scope', function($scope) {
         });
 
         $scope.style = {
+            use_bootstrap_theme: false,
             border_radius_base: 4,
+            font_families: font_names,
             font_size_base: 14,
             body_bg: '#ffffff',
             font_family_base: '"Helvetica Neue", Helvetica, Arial, sans-serif'
         };
-
-        $scope.applyStyle();
     };
 
     $scope.applyStyle = function() {
 
-        less.modifyVars({
-            '@body-bg': $scope.style.body_bg,
-            '@border-radius-base': $scope.style.border_radius_base + 'px',
-            '@border-radius-large': Math.floor($scope.style.border_radius_base * 1.5) + 'px',
-            '@border-radius-small': Math.floor($scope.style.border_radius_base * 0.5) + 'px',
-            '@font-size-base': $scope.style.font_size_base + 'px',
-            '@font-family-base': '"' + $scope.style.font_family_base + '"',
+        console.log('LESS GLOBAL VARS');
+        console.log(window.less.globalVars);
+        console.log('ANGULAR USE BOOTSTRAP');
+        console.log($scope.style.use_bootstrap_theme);
+
+        less.globalVars.use_bootstrap_theme = $scope.style.use_bootstrap_theme;
+
+        var new_less = document.createElement('script');
+        new_less.setAttribute('src', '//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.js');
+        document.head.appendChild(new_less, function() {
+            less.modifyVars({
+                '@use-bootstrap-theme': $scope.style.use_bootstrap_theme,
+                '@body-bg': $scope.style.body_bg,
+                '@border-radius-base': $scope.style.border_radius_base + 'px',
+                '@border-radius-large': Math.floor($scope.style.border_radius_base * 1.5) + 'px',
+                '@border-radius-small': Math.floor($scope.style.border_radius_base * 0.5) + 'px',
+                '@font-size-base': $scope.style.font_size_base + 'px',
+                '@font-family-base': '"' + $scope.style.font_family_base + '"',
+            });
         });
+
+
+        console.log('LESS GLOBAL VARS');
+        console.log(less.globalVars);
     };
 
     /**
@@ -65,9 +76,5 @@ bootstyle.controller('bootstyleController', ['$scope', function($scope) {
      */
     $scope.$watch('style', function(newValue, oldValue) {
         $scope.applyStyle();
-    }, true);
-
-    $scope.$watch('font', function(newValue, oldValue) {
-        $scope.applyFont();
     }, true);
 }]);

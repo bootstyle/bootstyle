@@ -1,7 +1,35 @@
 @import "bootstrap/bootstrap";
 
+/*
+ Bootstrap Theme
+ */
+
+.use_bootstrap_theme() when (@use_bootstrap_theme = true) {
+    @import "bootstrap/theme";
+    body {
+        background: red !important;
+    }
+}
+.use_bootstrap_theme();
+
+/*
+ Bootstrap Overrides
+ */
 @icon-font-path: 'fonts/';
 
+
+/*
+ LESS Error Message
+ */
+.less-error-message {
+    position: absolute;
+    z-index: 9999;
+    width: 100%;
+}
+
+/*
+ App styles
+ */
 #app {
     @toolbar_width: 250px;
     @global_padding: 10px;
