@@ -1,6 +1,6 @@
 @import "bootstrap/bootstrap";
 
-@body-bg: dimgray;
+@icon-font-path: 'fonts/';
 
 #app {
     @toolbar_width: 250px;
@@ -13,26 +13,42 @@
     right: 0;
     bottom: 0;
 
-    .top_nav {
-        padding: @global_padding;
-        background: #222;
-        overflow: hidden;
-
-        .logo {
-            font-size: 24px;
-            color: #EEE;
-        }
-
+    .navbar {
         .download_btn,
         .preview_btn {
             float: right;
-            margin-left: ceil((@global_padding * 0.5));
+            margin-left: ceil(@global_padding * 0.5);
         }
     }
     .toolbar {
         position: fixed;
         padding: @global_padding;
         width: @toolbar_width;
+        font-size: 14px;
+
+        .badge {
+            font-size: 12px;
+        }
+
+        .fonts {
+            .font_option {
+                cursor: pointer;
+                color: @text-muted;
+                &:hover {
+                    color: @text-color;
+                }
+                &.active {
+                    i {
+                        opacity: 1;
+                    }
+                }
+
+                i {
+                    opacity: 0;
+                    margin-right: ceil(@global_margin * 0.5);
+                }
+            }
+        }
     }
 
     .preview {

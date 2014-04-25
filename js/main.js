@@ -3,32 +3,6 @@ var bootstyle = angular.module('boostyleApp', ['colorpicker.module']);
 bootstyle.controller('bootstyleController', ['$scope', function($scope) {
 
     $scope.init = function() {
-        $scope.initStyle();
-        $scope.initFont();
-    };
-
-    $scope.initStyle = function() {
-        $scope.style = {
-            border_radius: 4,
-            body_bg: '#ffffff'
-        };
-
-        $scope.applyStyle();
-    };
-    $scope.applyStyle = function() {
-        // Color
-        angular.element('.preview').css("background", $scope.style.body_bg)
-
-        // Buttons
-        var buttons = angular.element('.btn');
-        for (var i = 0; i < buttons.length; i++) {
-            angular.element(buttons[i]).css(
-                "border-radius", parseInt($scope.style.border_radius)
-            );
-        }
-    };
-
-    $scope.initFont = function() {
         var font_library = [
             { name: 'Source Sans Pro', api_name: 'Source+Sans+Pro::latin'},
             { name: 'Droid Sans', api_name: 'Droid+Sans::latin'},
@@ -48,7 +22,7 @@ bootstyle.controller('bootstyleController', ['$scope', function($scope) {
         var font_names = [];
         var font_api_names = [];
 
-        for (var i=0; i<font_library.length; i++) {
+        for (var i = 0; i < font_library.length; i++) {
             font_names.push(font_library[i].name);
             font_api_names.push(font_library[i].api_name);
         }
@@ -64,13 +38,27 @@ bootstyle.controller('bootstyleController', ['$scope', function($scope) {
             }
         });
 
-        $scope.applyFont();
+        $scope.style = {
+            border_radius_base: 4,
+            font_size_base: 14,
+            body_bg: '#ffffff',
+            font_family_base: '"Helvetica Neue", Helvetica, Arial, sans-serif'
+        };
+
+        $scope.applyStyle();
     };
 
-    $scope.applyFont = function() {
-        angular.element('body').css('font-family', $scope.font.family)
-    };
+    $scope.applyStyle = function() {
 
+        less.modifyVars({
+            '@body-bg': $scope.style.body_bg,
+            '@border-radius-base': $scope.style.border_radius_base + 'px',
+            '@border-radius-large': Math.floor($scope.style.border_radius_base * 1.5) + 'px',
+            '@border-radius-small': Math.floor($scope.style.border_radius_base * 0.5) + 'px',
+            '@font-size-base': $scope.style.font_size_base + 'px',
+            '@font-family-base': '"' + $scope.style.font_family_base + '"',
+        });
+    };
 
     /**
      Watches
