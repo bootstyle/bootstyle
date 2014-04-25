@@ -1,0 +1,43 @@
+@import "bootstrap/bootstrap";
+
+@body-bg: dimgray;
+
+#app {
+    @toolbar_width: 250px;
+    @global_padding: 10px;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    .top_nav {
+        padding: @global_padding;
+        background: #222;
+        overflow: hidden;
+
+        .logo {
+            font-size: 24px;
+            color: #EEE;
+        }
+
+        .download_btn,
+        .preview_btn {
+            float: right;
+            margin-left: ceil((@global_padding * 0.5));
+        }
+    }
+    .toolbar {
+        position: fixed;
+        padding: @global_padding;
+        width: @toolbar_width;
+    }
+
+    .preview {
+        padding: @global_padding * 2;
+        margin-left: @toolbar_width;
+        background: #F5F5F5;
+    }
+}
+
