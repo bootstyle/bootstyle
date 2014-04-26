@@ -1,6 +1,6 @@
 var bootstyle = angular.module('boostyleApp', ['colorpicker.module']);
 
-bootstyle.controller('bootstyleController', ['$scope', function($scope) {
+bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($scope, $timeout) {
 
     $scope.init = function() {
         var font_library = [
@@ -45,54 +45,38 @@ bootstyle.controller('bootstyleController', ['$scope', function($scope) {
 
     $scope.applyStyle = function() {
 
-    /*
-     less.modifyVars({
-     '@use-bootstrap-theme': $scope.style.use_bootstrap_theme,
-     '@body-bg': $scope.style.body_bg,
-     '@border-radius-base': $scope.style.border_radius_base + 'px',
-     '@border-radius-large': Math.floor($scope.style.border_radius_base * 1.5) + 'px',
-     '@border-radius-small': Math.floor($scope.style.border_radius_base * 0.5) + 'px',
-     '@font-size-base': $scope.style.font_size_base + 'px',
-     '@font-family-base': '"' + $scope.style.font_family_base + '"',
-     });
+        // After angular has digested and applied scope ($timeout) re-grab all the links and refresh
+        $timeout(function() {
 
-     */
+            /*
+             START COPY
+             Copied from LESS browser.js v1.7.0 ln 633, or in less.js 1.7.0 ln 8171
+             This section of less.js could be wrapped as a method, less.loadLinks().
+             TODO: Lots of ppl want the ability to dynamically add less files, make a PR
+             */
+            var typePattern = /^text\/(x-)?less$/;
 
-        var link = document.createElement('link');
-        link.rel = "stylesheet";
-        link.type = "text/less";
-        link.href = 'less/bootstrap/theme.less';
+            var links = document.getElementsByTagName('link');
 
-        if ($scope.style.use_bootstrap_theme) {
-            for (var l in less.sheets) {
-                var push = true;
-                if (less.sheets[l].href.indexOf(link.href) !== -1) {
-                    push = false;
-                }
+            less.sheets = [];
 
-                if (push) {
-                    less.sheets.push(link);
+            for (var i = 0; i < links.length; i++) {
+                if (links[i].rel === 'stylesheet/less' || (links[i].rel.match(/stylesheet/) &&
+                    (links[i].type.match(typePattern)))) {
+                    less.sheets.push(links[i]);
                 }
             }
-        } else {
-            for (var j = less.sheets.length - 1; j >= 0; j--) {
-                if (less.sheets[j].href === link.href) {
-                    console.log('-----before');
-                    console.log(less.sheets);
-                    less.sheets.splice(j, 1);
-                    console.log('-----after');
-                    console.log(less.sheets);
-                }
-            }
-        }
+            // END COPY
 
-        less.refresh(true, {
-            '@body-bg': $scope.style.body_bg,
-            '@border-radius-base': $scope.style.border_radius_base + 'px',
-            '@border-radius-large': Math.floor($scope.style.border_radius_base * 1.5) + 'px',
-            '@border-radius-small': Math.floor($scope.style.border_radius_base * 0.5) + 'px',
-            '@font-size-base': $scope.style.font_size_base + 'px',
-            '@font-family-base': '"' + $scope.style.font_family_base + '"',
+            less.refresh(false, {
+                '@body-bg': $scope.style.body_bg,
+                '@border-radius-base': $scope.style.border_radius_base + 'px',
+                '@border-radius-large': Math.floor($scope.style.border_radius_base * 1.5) + 'px',
+                '@border-radius-small': Math.floor($scope.style.border_radius_base * 0.5) + 'px',
+                '@font-size-base': $scope.style.font_size_base + 'px',
+                '@font-family-base': '"' + $scope.style.font_family_base + '"',
+            });
+
         });
     };
 
