@@ -45,30 +45,55 @@ bootstyle.controller('bootstyleController', ['$scope', function($scope) {
 
     $scope.applyStyle = function() {
 
-        console.log('LESS GLOBAL VARS');
-        console.log(window.less.globalVars);
-        console.log('ANGULAR USE BOOTSTRAP');
-        console.log($scope.style.use_bootstrap_theme);
+    /*
+     less.modifyVars({
+     '@use-bootstrap-theme': $scope.style.use_bootstrap_theme,
+     '@body-bg': $scope.style.body_bg,
+     '@border-radius-base': $scope.style.border_radius_base + 'px',
+     '@border-radius-large': Math.floor($scope.style.border_radius_base * 1.5) + 'px',
+     '@border-radius-small': Math.floor($scope.style.border_radius_base * 0.5) + 'px',
+     '@font-size-base': $scope.style.font_size_base + 'px',
+     '@font-family-base': '"' + $scope.style.font_family_base + '"',
+     });
 
-        less.globalVars.use_bootstrap_theme = $scope.style.use_bootstrap_theme;
+     */
 
-        var new_less = document.createElement('script');
-        new_less.setAttribute('src', '//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.js');
-        document.head.appendChild(new_less, function() {
-            less.modifyVars({
-                '@use-bootstrap-theme': $scope.style.use_bootstrap_theme,
-                '@body-bg': $scope.style.body_bg,
-                '@border-radius-base': $scope.style.border_radius_base + 'px',
-                '@border-radius-large': Math.floor($scope.style.border_radius_base * 1.5) + 'px',
-                '@border-radius-small': Math.floor($scope.style.border_radius_base * 0.5) + 'px',
-                '@font-size-base': $scope.style.font_size_base + 'px',
-                '@font-family-base': '"' + $scope.style.font_family_base + '"',
-            });
+        var link = document.createElement('link');
+        link.rel = "stylesheet";
+        link.type = "text/less";
+        link.href = 'less/bootstrap/theme.less';
+
+        if ($scope.style.use_bootstrap_theme) {
+            for (var l in less.sheets) {
+                var push = true;
+                if (less.sheets[l].href.indexOf(link.href) !== -1) {
+                    push = false;
+                }
+
+                if (push) {
+                    less.sheets.push(link);
+                }
+            }
+        } else {
+            for (var j = less.sheets.length - 1; j >= 0; j--) {
+                if (less.sheets[j].href === link.href) {
+                    console.log('-----before');
+                    console.log(less.sheets);
+                    less.sheets.splice(j, 1);
+                    console.log('-----after');
+                    console.log(less.sheets);
+                }
+            }
+        }
+
+        less.refresh(true, {
+            '@body-bg': $scope.style.body_bg,
+            '@border-radius-base': $scope.style.border_radius_base + 'px',
+            '@border-radius-large': Math.floor($scope.style.border_radius_base * 1.5) + 'px',
+            '@border-radius-small': Math.floor($scope.style.border_radius_base * 0.5) + 'px',
+            '@font-size-base': $scope.style.font_size_base + 'px',
+            '@font-family-base': '"' + $scope.style.font_family_base + '"',
         });
-
-
-        console.log('LESS GLOBAL VARS');
-        console.log(less.globalVars);
     };
 
     /**
