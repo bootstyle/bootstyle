@@ -60,6 +60,7 @@
             <aside class="toolbar">
                 <ul class="list-group">
                     <li class="list-group-item">
+                        <label>Additional Styles</label>
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox" ng-model="style.use_bootstrap_theme"> Bootstrap Theme
@@ -68,7 +69,7 @@
                     </li>
                     <li class="list-group-item">
                         <span class="badge">{{ style.body_bg }}</span>
-                        <label>Background Color</label>
+                        <label>Background</label>
                         <input class="form-control" colorpicker type="text" ng-model="style.body_bg"/>
                     </li>
                     <li class="list-group-item">
@@ -81,17 +82,29 @@
                     <li class="list-group-item fonts">
                         <span class="badge">{{ style.font_size_base }}px</span>
                         <label>
-                            Font Size
-                            <input type="range" ng-model="style.font_size_base" min="10" max="21" ng-change="parseInt(style.font_size_base)"/>
+                            Font
+                            <input type="range" min="10" max="21" ng-model="style.font_size_base"/>
                         </label>
 
-                        <div class="font_option"
-                             style="font-family: {{ fam }} !important"
-                             ng-repeat="fam in style.font_families"
-                             ng-click="style.font_family_base = fam"
-                             ng-class="{'active': style.font_family_base === fam}">
-                            <i class="glyphicon glyphicon-ok"></i>{{ fam }}
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                {{ style.font_family_base }} <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li role="presentation" class="dropdown-header">Hover for preview</li>
+                                <li role="presentation" class="divider"></li>
+                                <li class="font_option"
+                                    style="font-family: {{ fam }} !important"
+                                    ng-repeat="fam in style.font_families"
+                                    ng-click="style.font_family_base = fam"
+                                    ng-mouseenter="style.font_family_base_preview = fam"
+                                    ng-mouseleave="style.font_family_base_preview = null"
+                                    ng-class="{'active': style.font_family_base === fam}">
+                                    <a href=""><i class="glyphicon glyphicon-ok"></i>{{ fam }}</a>
+                                </li>
+                            </ul>
                         </div>
+
                     </li>
                 </ul>
             </aside>

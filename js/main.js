@@ -3,44 +3,44 @@ var bootstyle = angular.module('boostyleApp', ['colorpicker.module']);
 bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($scope, $timeout) {
 
     $scope.init = function() {
-        var font_library = [
-            { name: 'Source Sans Pro', api_name: 'Source+Sans+Pro::latin'},
-            { name: 'Droid Sans', api_name: 'Droid+Sans::latin'},
-            { name: 'Lato', api_name: 'Lato::latin'},
-            { name: 'PT Sans', api_name: 'PT+Sans::latin'},
-            { name: 'Ubuntu', api_name: 'Ubuntu::latin'},
-            { name: 'Droid Serif', api_name: 'Droid+Serif::latin'},
-            { name: 'Open Sans', api_name: 'Open+Sans::latin'},
-            { name: 'Roboto', api_name: 'Roboto::latin'},
-            { name: 'Roboto Condensed', api_name: 'Roboto+Condensed::latin'},
-            { name: 'Oswald', api_name: 'Oswald::latin'},
-            { name: 'Open Sans Condensed', api_name: 'Open+Sans+Condensed:300:latin'},
-            { name: 'Montserrat', api_name: 'Montserrat::latin'},
-            { name: 'Raleway', api_name: 'Raleway::latin'}
-        ];
+        var bootstrap_fonts = [
+                'Helvetica'
+            ],
+            google_fonts = [
+                'Source Sans Pro',
+                'Droid Sans',
+                'Lato',
+                'PT Sans',
+                'Ubuntu',
+                'Droid Serif',
+                'Open Sans',
+                'Roboto',
+                'Roboto Condensed',
+                'Oswald',
+                'Open Sans Condensed',
+                'Montserrat',
+                'Raleway'
+            ],
+            font_library = bootstrap_fonts.concat(google_fonts);
 
-        var font_names = [];
-        var font_api_names = [];
+        $scope.style = {
+            body_bg: '#ffffff',
+            border_radius_base: 4,
+            font_families: font_library,
+            font_family_base: 'Helvetica Neue',
+            font_family_base_preview: null,
+            font_size_base: 14,
+            use_bootstrap_theme: false,
+        };
 
-        for (var i = 0; i < font_library.length; i++) {
-            font_names.push(font_library[i].name);
-            font_api_names.push(font_library[i].api_name);
-        }
+        $scope.BOOTSTYLE_APPLY_POLL = 400;
 
         WebFont.load({
             google: {
-                families: font_api_names
+                families: font_library
             }
         });
 
-        $scope.style = {
-            use_bootstrap_theme: false,
-            border_radius_base: 4,
-            font_families: font_names,
-            font_size_base: 14,
-            body_bg: '#ffffff',
-            font_family_base: '"Helvetica Neue", Helvetica, Arial, sans-serif'
-        };
     };
 
     $scope.applyStyle = function() {
@@ -68,14 +68,16 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
             }
             // END COPY
 
-            less.refresh(false, {
+            var updatedVars = {
                 '@body-bg': $scope.style.body_bg,
                 '@border-radius-base': $scope.style.border_radius_base + 'px',
                 '@border-radius-large': Math.floor($scope.style.border_radius_base * 1.5) + 'px',
                 '@border-radius-small': Math.floor($scope.style.border_radius_base * 0.5) + 'px',
                 '@font-size-base': $scope.style.font_size_base + 'px',
-                '@font-family-base': '"' + $scope.style.font_family_base + '"',
-            });
+                '@font-family-base': $scope.style.font_family_base_preview || $scope.style.font_family_base,
+            };
+
+            less.refresh(false, updatedVars);
 
         });
     };
@@ -84,6 +86,23 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
      Watches
      */
     $scope.$watch('style', function(newValue, oldValue) {
-        $scope.applyStyle();
+
+        console.log('style changed, starting timer');
+        $scope.last_edit = Date.now();
+        $scope.applyStyleTimer();
+
     }, true);
+
+    $scope.applyStyleTimer = function() {
+
+        window.applyStyleTimer = window.applyStyleTimer || setInterval(function() {
+            if (Date.now() - $scope.last_edit >= $scope.BOOTSTYLE_APPLY_POLL) {
+                window.clearInterval(window.applyStyleTimer);
+                window.applyStyleTimer = null;
+                $scope.applyStyle();
+            }
+
+        }, 20);
+    }
+
 }]);
