@@ -31,6 +31,7 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
             font_family_base_preview: null,
             font_size_base: 14,
             use_bootstrap_theme: false,
+            use_google_fonts: false,
         };
 
         $scope.BOOTSTYLE_APPLY_POLL = 400;

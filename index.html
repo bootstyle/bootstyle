@@ -86,12 +86,18 @@
                             <input type="range" min="10" max="21" ng-model="style.font_size_base"/>
                         </label>
 
-                        <div class="btn-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="style.use_google_fonts"> Use Google Fonts
+                            </label>
+                        </div>
+
+                        <div class="btn-group" ng-show="style.use_google_fonts">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                 {{ style.font_family_base }} <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
-                                <li role="presentation" class="dropdown-header">Hover for preview</li>
+                                <li role="presentation" class="dropdown-header">Hover to Preview</li>
                                 <li role="presentation" class="divider"></li>
                                 <li class="font_option"
                                     style="font-family: {{ fam }} !important"
