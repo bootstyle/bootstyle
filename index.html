@@ -87,7 +87,7 @@
 
                         <div class="font_option"
                              style="font-family: {{ fam }} !important"
-                             ng-repeat="fam in font.families"
+                             ng-repeat="fam in style.font_families"
                              ng-click="style.font_family_base = fam"
                              ng-class="{'active': style.font_family_base === fam}">
                             <i class="glyphicon glyphicon-ok"></i>{{ fam }}
