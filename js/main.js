@@ -87,7 +87,6 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
      */
     $scope.$watch('style', function(newValue, oldValue) {
 
-        console.log('style changed, starting timer');
         $scope.last_edit = Date.now();
         $scope.applyStyleTimer();
 
