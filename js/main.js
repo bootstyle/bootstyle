@@ -24,6 +24,12 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
             font_library = bootstrap_fonts.concat(google_fonts);
 
         $scope.style = {
+
+            brand_primary: '#428bca',
+            brand_success: '#5cb85c',
+            brand_info: '#5bc0de',
+            brand_warning: '#f0ad4e',
+            brand_danger: '#d9534f',
             body_bg: '#ffffff',
             border_radius_base: 4,
             font_families: font_library,
@@ -70,6 +76,12 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
             // END COPY
 
             var updatedVars = {
+
+                '@brand-primary': $scope.style.brand_primary,
+                '@brand-success': $scope.style.brand_success,
+                '@brand-info': $scope.style.brand_info,
+                '@brand-warning': $scope.style.brand_warning,
+                '@brand-danger': $scope.style.brand_danger,
                 '@body-bg': $scope.style.body_bg,
                 '@border-radius-base': $scope.style.border_radius_base + 'px',
                 '@border-radius-large': Math.floor($scope.style.border_radius_base * 1.5) + 'px',

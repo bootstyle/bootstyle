@@ -68,6 +68,12 @@
                         </div>
                     </li>
                     <li class="list-group-item">
+                        <label>Primary</label>
+                        <input class="form-control" colorpicker type="text" ng-model="style.brand_primary" style="color: {{ style.brand_primary }};"/>
+                        <label>Success</label>
+                        <input class="form-control" colorpicker type="text" ng-model="style.brand_success" style="color: {{ style.brand_success }};"/>
+                    </li>
+                    <li class="list-group-item">
                         <span class="badge">{{ style.body_bg }}</span>
                         <label>Background</label>
                         <input class="form-control" colorpicker type="text" ng-model="style.body_bg"/>
@@ -127,9 +133,10 @@
                 </div>
                 <hr/>
                 <div class="typography">
-                    <legend>Headings</legend>
+
+                    <legend>Typography</legend>
                     <h1>h1. Bootstrap heading <small>Secondary text</small></h1>
-                    <h2>h2. Bootstrap heading <small>Secondary text</small></h2>
+                    <h4>h4. Bootstrap heading <small>Secondary text</small></h4>
                     <h3>h3. Bootstrap heading <small>Secondary text</small></h3>
                     <h4>h4. Bootstrap heading <small>Secondary text</small></h4>
                     <h5>h5. Bootstrap heading <small>Secondary text</small></h5>
@@ -144,6 +151,13 @@
                         Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec ullamcorper nulla non metus auctor fringilla. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Donec ullamcorper nulla non metus auctor fringilla.<br/><br/>
                         Maecenas sed diam eget risus varius blandit sit amet non magna. Donec id elit non mi porta gravida at eget metus. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
                     </p>
+                    <hr/>
+                    <small>This line of text is meant to be treated as fine print.</small>
+                    <hr/>
+                    <strong>rendered as bold text</strong>
+                    <hr/>
+                    <em>rendered as italicized text</em>
+
                 </div>
                 <div class="loading">
                     <i class="glyphicon glyphicon-spinner"></i>
