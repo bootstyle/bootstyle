@@ -19,9 +19,6 @@
  App styles
  */
 #app {
-    @global_padding: 10px;
-    @global_margin: @global_padding;
-
     position: absolute;
     top: 0;
     left: 0;
@@ -32,21 +29,12 @@
 
         .navbar-btn {
             float: right;
-            margin-left: ceil(@global_padding * 0.5);
         }
 
     }
     .toolbar {
         .make-xs-column(4);
         .make-md-column(3);
-
-        .fonts {
-            .font_option {
-                i {
-                    margin-left: ceil(@global_margin * -0.5);
-                }
-            }
-        }
     }
 
     .preview {
