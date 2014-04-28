@@ -40,7 +40,11 @@
         <![endif]-->
 
         <!-- Dynamic LESS -->
-        <link ng-if="settings.use_bootstrap_theme" rel="stylesheet/less" href="less/bootstrap/theme.less">
+        <link ng-if="settings.additional_less.bootstrap_theme" rel="stylesheet/less" href="less/bootstrap/theme.less">
+        <link ng-if="settings.additional_less.button_style === 'stripe'" rel="stylesheet/less" href="less/buttons_stripe.less">
+        <link ng-if="settings.additional_less.button_style === 'basecamp'" rel="stylesheet/less" href="less/buttons_basecamp.less">
+        <link ng-if="settings.additional_less.button_style === 'geckoboard'" rel="stylesheet/less" href="less/buttons_geckoboard.less">
+        <link ng-if="settings.additional_less.button_style === 'zoomshift'" rel="stylesheet/less" href="less/buttons_zoomshift.less">
 
         <div id="app" ng-init="init()" ng-class="settings.grid_container_class">
             <div class="row">
@@ -50,19 +54,24 @@
                         <div class="navbar-header">
                             <a class="navbar-brand" href="#">Bootstyle</a>
                         </div>
-                        <ul class="nav navbar-nav">
+
+                        <ul class="nav navbar-nav navbar-right">
                             <li ng-click="reset()">
                                 <a href="">
                                     <i class="glyphicon glyphicon-refresh"></i> Reset
                                 </a>
                             </li>
+                            <li>
+                                <a href="#">
+                                    <i class="glyphicon glyphicon-eye-open"></i> Preview
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="glyphicon glyphicon-cloud-download"></i> Download
+                                </a>
+                            </li>
                         </ul>
-                        <button type="button" class="download_btn btn btn-default navbar-btn">
-                            Preview
-                        </button>
-                        <button type="button" class="preview_btn btn btn-primary navbar-btn">
-                            Download
-                        </button>
                     </div>
                 </nav>
 
@@ -75,7 +84,7 @@
                             <li class="list-group-item">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" ng-model="settings.use_bootstrap_theme"> Bootstrap Theme
+                                        <input type="checkbox" ng-model="settings.additional_less.bootstrap_theme"> Bootstrap Theme
                                     </label>
                                 </div>
                             </li>
@@ -83,11 +92,11 @@
                                 <label>Grid</label>
                                 <div class="control-group">
                                     <label class="radio-inline">
-                                        <input type="radio" name="container_class" value="container" ng-model="settings.grid_container_class">
+                                        <input type="radio" name="container_classes" name="container_class" value="container" ng-model="settings.grid_container_class">
                                         Fixed
                                     </label>
                                     <label class="radio-inline">
-                                        <input type="radio" name="container_class" value="container-fluid" ng-model="settings.grid_container_class">
+                                        <input type="radio" name="container_classes" name="container_class" value="container-fluid" ng-model="settings.grid_container_class">
                                         Fluid
                                     </label>
                                 </div>
@@ -105,6 +114,41 @@
                                     Border Radius
                                     <input type="range" ng-model="less.border_radius_base" min="0" max="20" ng-change="parseInt(less.border_radius_base)"/>
                                 </label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Button Styles</h1>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="button_styles" value="default" ng-model="settings.additional_less.button_style"> Default
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="button_styles" value="stripe" ng-model="settings.additional_less.button_style"> Stripe
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="button_styles" value="basecamp" ng-model="settings.additional_less.button_style"> Basecamp
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="button_styles" value="zoomshift" ng-model="settings.additional_less.button_style"> ZoomShift
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="button_styles" value="geckoboard" ng-model="settings.additional_less.button_style"> GeckoBoard
+                                    </label>
+                                </div>
+
                             </li>
                         </ul>
                     </div>
