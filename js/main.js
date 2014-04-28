@@ -6,7 +6,7 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
         $scope.fonts = {
             bootstrap: {
                 'Helvetica Neue': {
-                    display_name: 'Helvetica Neue',
+                    display_name: 'Helvetica Neue (default)',
                     style: '"Helvetica Neue", Helvetica, Arial, sans-serif'
                 }
             },
@@ -20,6 +20,7 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
             'Lato',
             'Montserrat',
             'Open Sans',
+            // TODO: this font doesnt render correctly?
             'Open Sans Condensed',
             'Oswald',
             'PT Sans',

@@ -75,173 +75,206 @@
                     </div>
                 </nav>
 
-                <aside class="toolbar">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h1 class="panel-title">General</h1>
-                        </div>
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" ng-model="settings.additional_less.bootstrap_theme"> Bootstrap Theme
-                                    </label>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <label>Grid</label>
-                                <div class="control-group">
-                                    <label class="radio-inline">
-                                        <input type="radio" name="container_classes" name="container_class" value="container" ng-model="settings.grid_container_class">
-                                        Fixed
-                                    </label>
-                                    <label class="radio-inline">
-                                        <input type="radio" name="container_classes" name="container_class" value="container-fluid" ng-model="settings.grid_container_class">
-                                        Fluid
-                                    </label>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <span class="badge">{{ less.padding.master }}px</span>
-                                <label>
-                                    Padding
-                                    <input type="range" ng-model="less.padding.master" min="1" max="20" ng-change="parseInt(less.padding.base.horizontal)"/>
-                                </label>
-                            </li>
-                            <li class="list-group-item">
-                                <span class="badge">{{ less.border_radius_base }}px</span>
-                                <label>
-                                    Border Radius
-                                    <input type="range" ng-model="less.border_radius_base" min="0" max="20" ng-change="parseInt(less.border_radius_base)"/>
-                                </label>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h1 class="panel-title">Button Styles</h1>
-                        </div>
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="button_styles" value="default" ng-model="settings.additional_less.button_style"> Default
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="button_styles" value="stripe" ng-model="settings.additional_less.button_style"> Stripe
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="button_styles" value="basecamp" ng-model="settings.additional_less.button_style"> Basecamp
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="button_styles" value="zoomshift" ng-model="settings.additional_less.button_style"> ZoomShift
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="button_styles" value="geckoboard" ng-model="settings.additional_less.button_style"> GeckoBoard
-                                    </label>
-                                </div>
-
-                            </li>
-                        </ul>
-                    </div>
+                <aside class="toolbar panel-group" id="toolbar">
 
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h1 class="panel-title">Font</h1>
+                            <h1 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_general">
+                                    General
+                                </a>
+                            </h1>
                         </div>
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <span class="badge">{{ less.font_size_base }}px</span>
-                                <label>
-                                    Size
-                                    <input type="range" min="10" max="21" ng-model="less.font_size_base"/>
-                                </label>
-                            </li>
-                            <li class="list-group-item fonts">
-                                <label>Headings</label>
-
-                                <div class="control-group">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
-                                            {{ less.headings_font_family.display_name }} <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li role="presentation" class="dropdown-header">Google Fonts</li>
-                                            <li class="font_option"
-                                                ng-repeat="f in fonts.library"
-                                                ng-click="less.headings_font_family = f"
-                                                ng-mouseenter="less.headings_font_family.preview = f.style"
-                                                ng-mouseleave="less.headings_font_family.preview = null"
-                                                ng-class="{'active': less.headings_font_family.style === f.style}"
-                                                style="font-family: {{ f.style }} !important">
-                                                <a href="">
-                                                    <i class="glyphicon glyphicon-ok" ng-show="less.headings_font_family.style === f.style"></i>
-                                                    {{ f.display_name }}
-                                                </a>
-                                            </li>
-                                        </ul>
+                        <div class="panel-collapse collapse in" id="toolbar_general">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" ng-model="settings.additional_less.bootstrap_theme"> Bootstrap Theme
+                                        </label>
                                     </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item fonts">
-                                <label>Body</label>
+                                </li>
+                                <li class="list-group-item">
+                                    <label>Grid</label>
 
-                                <div class="control-group">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
-                                            {{ less.font_family_base.display_name }} <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li role="presentation" class="dropdown-header">Google Fonts</li>
-                                            <li class="font_option"
-                                                ng-repeat="f in fonts.library"
-                                                ng-click="less.font_family_base = f"
-                                                ng-mouseenter="less.font_family_base.preview = f.style"
-                                                ng-mouseleave="less.font_family_base.preview = null"
-                                                ng-class="{'active': less.font_family_base.style === f.style}"
-                                                style="font-family: {{ f.style }} !important">
-                                                <a href="">
-                                                    <i class="glyphicon glyphicon-ok" ng-show="less.font_family_base.style === f.style"></i>
-                                                    {{ f.display_name }}
-                                                </a>
-                                            </li>
-                                        </ul>
+                                    <div class="control-group">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="container_classes" name="container_class" value="container" ng-model="settings.grid_container_class">
+                                            Fixed
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="container_classes" name="container_class" value="container-fluid" ng-model="settings.grid_container_class">
+                                            Fluid
+                                        </label>
                                     </div>
-                                </div>
-                            </li>
-                        </ul>
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="badge">{{ less.padding.master }}px</span>
+                                    <label>
+                                        Padding
+                                        <input type="range" ng-model="less.padding.master" min="1" max="20" ng-change="parseInt(less.padding.base.horizontal)"/>
+                                    </label>
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="badge">{{ less.border_radius_base }}px</span>
+                                    <label>
+                                        Border Radius
+                                        <input type="range" ng-model="less.border_radius_base" min="0" max="20" ng-change="parseInt(less.border_radius_base)"/>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
 
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h1 class="panel-title">Colors</h1>
+                            <h1 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_font">
+                                    Font
+                                </a>
+                            </h1>
                         </div>
-                        <li class="list-group-item">
-                            <span class="badge">{{ less.body_bg }}</span>
-                            <label>Background</label>
-                            <input class="form-control" colorpicker type="text" ng-model="less.body_bg"/>
-                        </li>
-                        <li class="list-group-item">
-                            <div ng-repeat="(k, v) in less.brand" class="form-group">
-                                <label>{{ k | capitalize }}</label>
+                        <div class="panel-collapse collapse" id="toolbar_font">
+                            <ul class="list-group fonts">
+                                <li class="list-group-item">
+                                    <span class="badge">{{ less.font_size_base }}px</span>
+                                    <label>
+                                        Font Size
+                                        <input type="range" min="10" max="21" ng-model="less.font_size_base"/>
+                                    </label>
+                                </li>
+                                <li class="list-group-item">
+                                    <label>Headings</label>
 
-                                <div class="input-group">
-                                    <span class="input-group-addon" style="background-color: {{ less.brand[k] }}"></span>
-                                    <input class="form-control" colorpicker type="text" ng-model="less.brand[k]" style="color: {{ less.brand[k] }};"/>
-                                </div>
-                            </div>
-                        </li>
+                                    <div class="control-group">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                                                {{ less.headings_font_family.display_name }} <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li class="font_option"
+                                                    ng-repeat="f in fonts.library"
+                                                    ng-click="less.headings_font_family = f"
+                                                    ng-mouseenter="less.headings_font_family.preview = f.style"
+                                                    ng-mouseleave="less.headings_font_family.preview = null"
+                                                    ng-class="{'active': less.headings_font_family.style === f.style}"
+                                                    style="font-family: {{ f.style }} !important">
+                                                    <a href="">
+                                                        <i class="glyphicon glyphicon-ok" ng-show="less.headings_font_family.style === f.style"></i>
+                                                        {{ f.display_name }}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <label>Body</label>
+
+                                    <div class="control-group">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                                                {{ less.font_family_base.display_name }} <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li role="presentation" class="dropdown-header">Google Fonts</li>
+                                                <li class="font_option"
+                                                    ng-repeat="f in fonts.library"
+                                                    ng-click="less.font_family_base = f"
+                                                    ng-mouseenter="less.font_family_base.preview = f.style"
+                                                    ng-mouseleave="less.font_family_base.preview = null"
+                                                    ng-class="{'active': less.font_family_base.style === f.style}"
+                                                    style="font-family: {{ f.style }} !important">
+                                                    <a href="">
+                                                        <i class="glyphicon glyphicon-ok" ng-show="less.font_family_base.style === f.style"></i>
+                                                        {{ f.display_name }}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
                     </div>
 
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_buttons">
+                                    Buttons
+                                </a>
+                            </h1>
+                        </div>
+                        <div class="panel-collapse collapse" id="toolbar_buttons">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <label>Styles</label>
+
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="button_styles" value="default" ng-model="settings.additional_less.button_style"> Default
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="button_styles" value="stripe" ng-model="settings.additional_less.button_style"> Stripe
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="button_styles" value="basecamp" ng-model="settings.additional_less.button_style"> Basecamp
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="button_styles" value="zoomshift" ng-model="settings.additional_less.button_style"> ZoomShift
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="button_styles" value="geckoboard" ng-model="settings.additional_less.button_style"> GeckoBoard
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_colors">
+                                    Colors
+                                </a>
+                            </h1>
+                        </div>
+                        <div class="panel-collapse collapse" id="toolbar_colors">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <div class="form-group">
+                                        <span class="badge">{{ less.body_bg }}</span>
+                                        <label>Background</label>
+                                        <input class="form-control" colorpicker type="text" ng-model="less.body_bg"/>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div ng-repeat="(k, v) in less.brand" class="form-group">
+                                        <label>{{ k | capitalize }}</label>
+
+                                        <div class="input-group">
+                                            <span class="input-group-addon" style="background-color: {{ less.brand[k] }}"></span>
+                                            <input class="form-control" colorpicker type="text" ng-model="less.brand[k]" style="color: {{ less.brand[k] }};"/>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </aside>
+
+                <!-- PREVIEW -->
 
                 <main class="preview">
                 <div class="buttons">

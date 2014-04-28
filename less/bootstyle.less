@@ -28,6 +28,23 @@
     .toolbar {
         .make-xs-column(4);
         .make-md-column(3);
+
+        .panel {
+            // let dropdowns that overflow be shown
+            overflow: visible;
+
+            .list-group {
+                margin-bottom: 0;
+
+                .list-group-item {
+                    border-left: none;
+                    border-right: none;
+                    border-bottom: none;
+                    border-radius: 0;
+                }
+
+            }
+        }
     }
 
     .preview {
