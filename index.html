@@ -51,11 +51,19 @@
                             <a class="navbar-brand" href="#">Bootstyle</a>
                         </div>
                         <ul class="nav navbar-nav">
-                            <li class="download_btn"><a href="#">Download</a></li>
-                            <li class="preview_btn"><a href="#">Preview</a></li>
+                            <li><a href="#">Add Some</a></li>
+                            <li><a href="#">Nav Here?</a></li>
                         </ul>
-                        <button type="button" class="download_btn btn btn-default navbar-btn">Preview</button>
-                        <button type="button" class="preview_btn btn btn-primary navbar-btn">Download</button>
+                        <button type="button" class="download_btn btn btn-default navbar-btn">
+                            Preview
+                        </button>
+                        <button type="button" class="preview_btn btn btn-primary navbar-btn">
+                            Download
+                        </button>
+                        <button type="button" class="reset_btn btn btn-primary navbar-btn" ng-click="reset()">
+                            <i class="glyphicon glyphicon-refresh"></i>
+                            Reset
+                        </button>
                     </div>
                 </nav>
 
@@ -108,26 +116,53 @@
                                 </label>
                             </li>
                             <li class="list-group-item fonts">
-                                <label>Family</label>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
-                                        {{ less.font_family_base.display_name }} <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li role="presentation" class="dropdown-header">Google Fonts</li>
-                                        <li class="font_option"
-                                            ng-repeat="f in fonts.library"
-                                            ng-click="less.font_family_base = f"
-                                            ng-mouseenter="less.font_family_base.preview = f.style"
-                                            ng-mouseleave="less.font_family_base.preview = null"
-                                            ng-class="{'active': less.font_family_base.style === f.style}"
-                                            style="font-family: {{ f.style }} !important">
-                                            <a href="">
-                                                <i class="glyphicon glyphicon-ok" ng-show="less.font_family_base.style === f.style"></i>
-                                                {{ f.display_name }}
-                                            </a>
-                                        </li>
-                                    </ul>
+                                <label>Headings</label>
+                                <div class="control-group">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                                            {{ less.headings_font_family.display_name }} <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li role="presentation" class="dropdown-header">Google Fonts</li>
+                                            <li class="font_option"
+                                                ng-repeat="f in fonts.library"
+                                                ng-click="less.headings_font_family = f"
+                                                ng-mouseenter="less.headings_font_family.preview = f.style"
+                                                ng-mouseleave="less.headings_font_family.preview = null"
+                                                ng-class="{'active': less.headings_font_family.style === f.style}"
+                                                style="font-family: {{ f.style }} !important">
+                                                <a href="">
+                                                    <i class="glyphicon glyphicon-ok" ng-show="less.headings_font_family.style === f.style"></i>
+                                                    {{ f.display_name }}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item fonts">
+                                <label>Body</label>
+                                <div class="control-group">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                                            {{ less.font_family_base.display_name }} <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li role="presentation" class="dropdown-header">Google Fonts</li>
+                                            <li class="font_option"
+                                                ng-repeat="f in fonts.library"
+                                                ng-click="less.font_family_base = f"
+                                                ng-mouseenter="less.font_family_base.preview = f.style"
+                                                ng-mouseleave="less.font_family_base.preview = null"
+                                                ng-class="{'active': less.font_family_base.style === f.style}"
+                                                style="font-family: {{ f.style }} !important">
+                                                <a href="">
+                                                    <i class="glyphicon glyphicon-ok" ng-show="less.font_family_base.style === f.style"></i>
+                                                    {{ f.display_name }}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </li>
                         </ul>
@@ -162,7 +197,6 @@
                         <div class="panel-body">
                             <div ng-repeat="(k, v) in less.brand" class="form-group">
                                 <label>{{ k | capitalize }}</label>
-
                                 <div class="input-group">
                                     <span class="input-group-addon" style="background-color: {{ less.brand[k] }}"></span>
                                     <input class="form-control" colorpicker type="text" ng-model="less.brand[k]" style="color: {{ less.brand[k] }};"/>

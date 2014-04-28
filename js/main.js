@@ -73,6 +73,12 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
                 style: $scope.fonts.bootstrap['Helvetica Neue'].style,
                 preview: null
             },
+            font_size_base: 14,
+            headings_font_family: {
+                display_name: $scope.fonts.bootstrap['Helvetica Neue'].display_name,
+                style: $scope.fonts.bootstrap['Helvetica Neue'].style,
+                preview: null
+            },
             padding: {
                 master: 10,
                 base: {
@@ -92,9 +98,14 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
                     horizontal: 5
                 }
             },
-            font_size_base: 14
         };
 
+    };
+
+    $scope.reset = function() {
+        var do_reset = confirm('Are you sure?');
+
+        if (do_reset) {  $scope.init() }
     };
 
     $scope.recompileLESS = function() {
@@ -140,6 +151,7 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
                 // font
                 '@font-size-base': $scope.less.font_size_base + 'px',
                 '@font-family-base': $scope.less.font_family_base.preview || $scope.less.font_family_base.style,
+                '@headings-font-family': $scope.less.headings_font_family.preview || $scope.less.headings_font_family.style,
 
                 // padding
                 '@padding-base-vertical': Math.floor($scope.less.padding.master * 0.6) + 'px',
