@@ -40,89 +40,141 @@
         <![endif]-->
 
         <!-- Dynamic LESS -->
-        <link ng-if="style.use_bootstrap_theme" rel="stylesheet/less" href="less/bootstrap/theme.less">
+        <link ng-if="settings.use_bootstrap_theme" rel="stylesheet/less" href="less/bootstrap/theme.less">
 
-        <div id="app" ng-init="init()">
+        <div id="app" ng-init="init()" ng-class="settings.grid_container_class">
+            <div class="row">
 
-            <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="#">Brand</a>
+                <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="#">Bootstyle</a>
+                        </div>
+                        <ul class="nav navbar-nav">
+                            <li class="download_btn"><a href="#">Download</a></li>
+                            <li class="preview_btn"><a href="#">Preview</a></li>
+                        </ul>
+                        <button type="button" class="download_btn btn btn-default navbar-btn">Preview</button>
+                        <button type="button" class="preview_btn btn btn-primary navbar-btn">Download</button>
                     </div>
-                    <ul class="nav navbar-nav">
-                        <li class="download_btn"><a href="#">Download</a></li>
-                        <li class="preview_btn"><a href="#">Preview</a></li>
-                    </ul>
-                    <button type="button" class="download_btn btn btn-default navbar-btn">Preview</button>
-                    <button type="button" class="preview_btn btn btn-primary navbar-btn">Download</button>
-                </div>
-            </nav>
-            <aside class="toolbar">
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <label>Additional Styles</label>
-                        <div class="checkbox">
+                </nav>
+
+                <aside class="toolbar">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Grid System</h3>
+                        </div>
+                        <div class="panel-body">
                             <label>
-                                <input type="checkbox" ng-model="style.use_bootstrap_theme"> Bootstrap Theme
+                                <input type="radio"
+                                       name="container_class"
+                                       value="container"
+                                       ng-model="settings.grid_container_class"> Fixed
+                            </label>
+                            <label>
+                                <input type="radio"
+                                       name="container_class"
+                                       value="container-fluid"
+                                       ng-model="settings.grid_container_class"> Fluid
                             </label>
                         </div>
-                    </li>
-                    <li class="list-group-item">
-                        <label>Primary</label>
-                        <input class="form-control" colorpicker type="text" ng-model="style.brand_primary" style="color: {{ style.brand_primary }};"/>
-                        <label>Success</label>
-                        <input class="form-control" colorpicker type="text" ng-model="style.brand_success" style="color: {{ style.brand_success }};"/>
-                    </li>
-                    <li class="list-group-item">
-                        <span class="badge">{{ style.body_bg }}</span>
-                        <label>Background</label>
-                        <input class="form-control" colorpicker type="text" ng-model="style.body_bg"/>
-                    </li>
-                    <li class="list-group-item">
-                        <span class="badge">{{ style.border_radius_base }}px</span>
-                        <label>
-                            Border Radius
-                            <input type="range" ng-model="style.border_radius_base" min="0" max="20" ng-change="parseInt(style.border_radius_base)"/>
-                        </label>
-                    </li>
-                    <li class="list-group-item fonts">
-                        <span class="badge">{{ style.font_size_base }}px</span>
-                        <label>
-                            Font
-                            <input type="range" min="10" max="21" ng-model="style.font_size_base"/>
-                        </label>
+                    </div>
 
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" ng-model="style.use_google_fonts"> Use Google Fonts
-                            </label>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Spacing</h1>
                         </div>
-
-                        <div class="btn-group" ng-show="style.use_google_fonts">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                {{ style.font_family_base }} <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li role="presentation" class="dropdown-header">Hover to Preview</li>
-                                <li role="presentation" class="divider"></li>
-                                <li class="font_option"
-                                    style="font-family: {{ fam }} !important"
-                                    ng-repeat="fam in style.font_families"
-                                    ng-click="style.font_family_base = fam"
-                                    ng-mouseenter="style.font_family_base_preview = fam"
-                                    ng-mouseleave="style.font_family_base_preview = null"
-                                    ng-class="{'active': style.font_family_base === fam}">
-                                    <a href=""><i class="glyphicon glyphicon-ok"></i>{{ fam }}</a>
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <span class="badge">{{ less.padding.master }}px</span>
+                                    <label>
+                                        Padding
+                                        <input type="range" ng-model="less.padding.master" min="1" max="20" ng-change="parseInt(less.padding.base.horizontal)"/>
+                                    </label>
                                 </li>
                             </ul>
-                        </div>
+                    </div>
 
-                    </li>
-                </ul>
-            </aside>
-            <main class="preview">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Font</h1>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <span class="badge">{{ less.font_size_base }}px</span>
+                                <label>
+                                    Size
+                                    <input type="range" min="10" max="21" ng-model="less.font_size_base"/>
+                                </label>
+                            </li>
+                            <li class="list-group-item fonts">
+                                <label>Family</label>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                                        {{ less.font_family_base.display_name }} <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li role="presentation" class="dropdown-header">Google Fonts</li>
+                                        <li class="font_option"
+                                            ng-repeat="f in fonts.library"
+                                            ng-click="less.font_family_base = f"
+                                            ng-mouseenter="less.font_family_base.preview = f.style"
+                                            ng-mouseleave="less.font_family_base.preview = null"
+                                            ng-class="{'active': less.font_family_base.style === f.style}"
+                                            style="font-family: {{ f.style }} !important">
+                                            <a href="">
+                                                <i class="glyphicon glyphicon-ok" ng-show="less.font_family_base.style === f.style"></i>
+                                                {{ f.display_name }}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <label>Additional Styles</label>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" ng-model="settings.use_bootstrap_theme"> Bootstrap Theme
+                                </label>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="badge">{{ less.body_bg }}</span>
+                            <label>Background</label>
+                            <input class="form-control" colorpicker type="text" ng-model="less.body_bg"/>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="badge">{{ less.border_radius_base }}px</span>
+                            <label>
+                                Border Radius
+                                <input type="range" ng-model="less.border_radius_base" min="0" max="20" ng-change="parseInt(less.border_radius_base)"/>
+                            </label>
+                        </li>
+                    </ul>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Colors</h1>
+                        </div>
+                        <div class="panel-body">
+                            <div ng-repeat="(k, v) in less.brand" class="form-group">
+                                <label>{{ k | capitalize }}</label>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon" style="background-color: {{ less.brand[k] }}"></span>
+                                    <input class="form-control" colorpicker type="text" ng-model="less.brand[k]" style="color: {{ less.brand[k] }};"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <main class="preview">
                 <div class="buttons">
-                    <legend>Buttons</legend>
+                    <h1 class="page-header">Buttons</h1>
                     <button type="button" class="btn btn-default">Default</button>
                     <button type="button" class="btn btn-primary">Primary</button>
                     <button type="button" class="btn btn-success">Success</button>
@@ -134,7 +186,7 @@
                 <hr/>
                 <div class="typography">
 
-                    <legend>Typography</legend>
+                    <h1 class="page-header">Typography</h1>
                     <h1>h1. Bootstrap heading <small>Secondary text</small></h1>
                     <h4>h4. Bootstrap heading <small>Secondary text</small></h4>
                     <h3>h3. Bootstrap heading <small>Secondary text</small></h3>
@@ -163,6 +215,8 @@
                     <i class="glyphicon glyphicon-spinner"></i>
                 </div>
             </main>
+
+            </div>
         </div>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->

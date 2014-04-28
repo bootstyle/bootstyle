@@ -19,7 +19,6 @@
  App styles
  */
 #app {
-    @toolbar_width: 250px;
     @global_padding: 10px;
     @global_margin: @global_padding;
 
@@ -30,37 +29,30 @@
     bottom: 0;
 
     .navbar {
+
         .download_btn,
         .preview_btn {
             float: right;
             margin-left: ceil(@global_padding * 0.5);
         }
+
     }
     .toolbar {
-        position: fixed;
-        padding: @global_padding;
-        width: @toolbar_width;
+        .make-xs-column(4);
+        .make-md-column(3);
 
         .fonts {
             .font_option {
-                &.active {
-                    i {
-                        opacity: 1;
-                    }
-                }
-
                 i {
-                    opacity: 0;
-                    margin-right: ceil(@global_margin * 0.5);
+                    margin-left: ceil(@global_margin * -0.5);
                 }
             }
         }
     }
 
     .preview {
-        padding: @global_padding * 2;
-        margin: @global_margin;
-        margin-left: @toolbar_width;
+        .make-xs-column(8);
+        .make-md-column(9);
     }
 }
 
