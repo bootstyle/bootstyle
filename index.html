@@ -46,43 +46,36 @@
         <link ng-if="settings.additional_less.button_style === 'geckoboard'" rel="stylesheet/less" href="less/buttons_geckoboard.less">
         <link ng-if="settings.additional_less.button_style === 'zoomshift'" rel="stylesheet/less" href="less/buttons_zoomshift.less">
 
-        <div id="app" ng-init="init()" ng-class="settings.grid_container_class">
-            <div class="row">
-
-                <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
-                    <div class="container-fluid">
-                        <div class="navbar-header">
-                            <a class="navbar-brand" href="#">Bootstyle</a>
-                        </div>
-
-                        <ul class="nav navbar-nav navbar-right">
-                            <li ng-click="reset()">
-                                <a href="">
-                                    <i class="glyphicon glyphicon-refresh"></i> Reset
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="glyphicon glyphicon-eye-open"></i> Preview
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="glyphicon glyphicon-cloud-download"></i> Download
-                                </a>
-                            </li>
-                        </ul>
+        <div id="app" ng-init="init()">
+            <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+                <div ng-class="settings.grid_container_class">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">Bootstyle</a>
                     </div>
-                </nav>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li ng-click="reset()">
+                            <a href=""> <i class="glyphicon glyphicon-refresh"></i> Reset </a>
+                        </li>
+                        <li>
+                            <a href="#"> <i class="glyphicon glyphicon-eye-open"></i> Preview </a>
+                        </li>
+                        <li>
+                            <a href="#"> <i class="glyphicon glyphicon-cloud-download"></i> Download </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div ng-class="settings.grid_container_class">
+                <div class="row">
 
                 <aside class="toolbar panel-group" id="toolbar">
 
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h1 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_general">
-                                    General
-                                </a>
+                                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_general"> General </a>
                             </h1>
                         </div>
                         <div class="panel-collapse collapse in" id="toolbar_general">
@@ -99,28 +92,19 @@
 
                                     <div class="control-group">
                                         <label class="radio-inline">
-                                            <input type="radio" name="container_classes" name="container_class" value="container" ng-model="settings.grid_container_class">
-                                            Fixed
-                                        </label>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="container_classes" name="container_class" value="container-fluid" ng-model="settings.grid_container_class">
-                                            Fluid
-                                        </label>
+                                            <input type="radio" name="container_classes" name="container_class" value="container" ng-model="settings.grid_container_class"> Fixed
+                                        </label> <label class="radio-inline">
+                                        <input type="radio" name="container_classes" name="container_class" value="container-fluid" ng-model="settings.grid_container_class"> Fluid
+                                    </label>
                                     </div>
                                 </li>
                                 <li class="list-group-item">
-                                    <span class="badge">{{ less.padding.master }}px</span>
-                                    <label>
-                                        Padding
-                                        <input type="range" ng-model="less.padding.master" min="1" max="20" ng-change="parseInt(less.padding.base.horizontal)"/>
-                                    </label>
+                                    <span class="badge">{{ less.padding.master }}px</span> <label> Padding <input type="range" ng-model="less.padding.master" min="1" max="20" ng-change="parseInt(less.padding.base.horizontal)"/>
+                                </label>
                                 </li>
                                 <li class="list-group-item">
-                                    <span class="badge">{{ less.border_radius_base }}px</span>
-                                    <label>
-                                        Border Radius
-                                        <input type="range" ng-model="less.border_radius_base" min="0" max="20" ng-change="parseInt(less.border_radius_base)"/>
-                                    </label>
+                                    <span class="badge">{{ less.border_radius_base }}px</span> <label> Border Radius <input type="range" ng-model="less.border_radius_base" min="0" max="20" ng-change="parseInt(less.border_radius_base)"/>
+                                </label>
                                 </li>
                             </ul>
                         </div>
@@ -129,19 +113,14 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h1 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_font">
-                                    Font
-                                </a>
+                                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_font"> Font </a>
                             </h1>
                         </div>
                         <div class="panel-collapse collapse" id="toolbar_font">
                             <ul class="list-group fonts">
                                 <li class="list-group-item">
-                                    <span class="badge">{{ less.font_size_base }}px</span>
-                                    <label>
-                                        Font Size
-                                        <input type="range" min="10" max="21" ng-model="less.font_size_base"/>
-                                    </label>
+                                    <span class="badge">{{ less.font_size_base }}px</span> <label> Font Size <input type="range" min="10" max="21" ng-model="less.font_size_base"/>
+                                </label>
                                 </li>
                                 <li class="list-group-item">
                                     <label>Headings</label>
@@ -160,8 +139,7 @@
                                                     ng-class="{'active': less.headings_font_family.style === f.style}"
                                                     style="font-family: {{ f.style }} !important">
                                                     <a href="">
-                                                        <i class="glyphicon glyphicon-ok" ng-show="less.headings_font_family.style === f.style"></i>
-                                                        {{ f.display_name }}
+                                                        <i class="glyphicon glyphicon-ok" ng-show="less.headings_font_family.style === f.style"></i> {{ f.display_name }}
                                                     </a>
                                                 </li>
                                             </ul>
@@ -186,8 +164,7 @@
                                                     ng-class="{'active': less.font_family_base.style === f.style}"
                                                     style="font-family: {{ f.style }} !important">
                                                     <a href="">
-                                                        <i class="glyphicon glyphicon-ok" ng-show="less.font_family_base.style === f.style"></i>
-                                                        {{ f.display_name }}
+                                                        <i class="glyphicon glyphicon-ok" ng-show="less.font_family_base.style === f.style"></i> {{ f.display_name }}
                                                     </a>
                                                 </li>
                                             </ul>
@@ -202,9 +179,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h1 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_buttons">
-                                    Buttons
-                                </a>
+                                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_buttons"> Buttons </a>
                             </h1>
                         </div>
                         <div class="panel-collapse collapse" id="toolbar_buttons">
@@ -245,17 +220,14 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h1 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_colors">
-                                    Colors
-                                </a>
+                                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_colors"> Colors </a>
                             </h1>
                         </div>
                         <div class="panel-collapse collapse" id="toolbar_colors">
                             <ul class="list-group">
                                 <li class="list-group-item">
                                     <div class="form-group">
-                                        <span class="badge">{{ less.body_bg }}</span>
-                                        <label>Background</label>
+                                        <span class="badge">{{ less.body_bg }}</span> <label>Background</label>
                                         <input class="form-control" colorpicker type="text" ng-model="less.body_bg"/>
                                     </div>
                                 </li>
@@ -277,68 +249,81 @@
                 <!-- PREVIEW -->
 
                 <main class="preview">
-                <div class="buttons">
-                    <h1 class="page-header">Buttons</h1>
-                    <p>
-                        <button type="button" class="btn btn-default">Default</button>
-                        <button type="button" class="btn btn-primary">Primary</button>
-                        <button type="button" class="btn btn-success">Success</button>
-                        <button type="button" class="btn btn-info">Info</button>
-                        <button type="button" class="btn btn-warning">Warning</button>
-                        <button type="button" class="btn btn-danger">Danger</button>
-                        <button type="button" class="btn btn-link">Link</button>
-                    </p>
-                    <hr/>
-                    <p>
-                        <button type="button" class="btn btn-primary btn-lg">Large button</button>
-                        <button type="button" class="btn btn-default btn-lg">Large button</button>
-                    </p>
-                    <p>
-                        <button type="button" class="btn btn-primary">Default button</button>
-                        <button type="button" class="btn btn-default">Default button</button>
-                    </p>
-                    <p>
-                        <button type="button" class="btn btn-primary btn-sm">Small button</button>
-                        <button type="button" class="btn btn-default btn-sm">Small button</button>
-                    </p>
-                    <p>
-                        <button type="button" class="btn btn-primary btn-xs">Extra small button</button>
-                        <button type="button" class="btn btn-default btn-xs">Extra small button</button>
-                    </p>
-                </div>
-                <hr/>
-                <div class="typography">
+                    <div class="buttons">
+                        <h1 class="page-header">Buttons</h1>
 
-                    <h1 class="page-header">Typography</h1>
-                    <h1>h1. Bootstrap heading <small>Secondary text</small></h1>
-                    <h4>h4. Bootstrap heading <small>Secondary text</small></h4>
-                    <h3>h3. Bootstrap heading <small>Secondary text</small></h3>
-                    <h4>h4. Bootstrap heading <small>Secondary text</small></h4>
-                    <h5>h5. Bootstrap heading <small>Secondary text</small></h5>
-                    <h6>h6. Bootstrap heading <small>Secondary text</small></h6>
+                        <p>
+                            <button type="button" class="btn btn-default">Default</button>
+                            <button type="button" class="btn btn-primary">Primary</button>
+                            <button type="button" class="btn btn-success">Success</button>
+                            <button type="button" class="btn btn-info">Info</button>
+                            <button type="button" class="btn btn-warning">Warning</button>
+                            <button type="button" class="btn btn-danger">Danger</button>
+                            <button type="button" class="btn btn-link">Link</button>
+                        </p>
+                        <hr/>
+                        <p>
+                            <button type="button" class="btn btn-primary btn-lg">Large button</button>
+                            <button type="button" class="btn btn-default btn-lg">Large button</button>
+                        </p>
+                        <p>
+                            <button type="button" class="btn btn-primary">Default button</button>
+                            <button type="button" class="btn btn-default">Default button</button>
+                        </p>
+                        <p>
+                            <button type="button" class="btn btn-primary btn-sm">Small button</button>
+                            <button type="button" class="btn btn-default btn-sm">Small button</button>
+                        </p>
+                        <p>
+                            <button type="button" class="btn btn-primary btn-xs">Extra small button</button>
+                            <button type="button" class="btn btn-default btn-xs">Extra small button</button>
+                        </p>
+                    </div>
                     <hr/>
-                    <p class="lead">
-                        Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus.
-                    </p>
-                    <hr/>
-                    <p>
-                        Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula.<br/><br/>
-                        Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec ullamcorper nulla non metus auctor fringilla. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Donec ullamcorper nulla non metus auctor fringilla.<br/><br/>
-                        Maecenas sed diam eget risus varius blandit sit amet non magna. Donec id elit non mi porta gravida at eget metus. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
-                    </p>
-                    <hr/>
-                    <small>This line of text is meant to be treated as fine print.</small>
-                    <hr/>
-                    <strong>rendered as bold text</strong>
-                    <hr/>
-                    <em>rendered as italicized text</em>
+                    <div class="typography">
+
+                        <h1 class="page-header">Typography</h1>
+
+                        <h1>h1. Bootstrap heading
+                            <small>Secondary text</small>
+                        </h1>
+                        <h4>h4. Bootstrap heading
+                            <small>Secondary text</small>
+                        </h4>
+                        <h3>h3. Bootstrap heading
+                            <small>Secondary text</small>
+                        </h3>
+                        <h4>h4. Bootstrap heading
+                            <small>Secondary text</small>
+                        </h4>
+                        <h5>h5. Bootstrap heading
+                            <small>Secondary text</small>
+                        </h5>
+                        <h6>h6. Bootstrap heading
+                            <small>Secondary text</small>
+                        </h6>
+                        <hr/>
+                        <p class="lead">
+                            Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus.
+                        </p>
+                        <hr/>
+                        <p>
+                            Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula.<br/><br/> Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec ullamcorper nulla non metus auctor fringilla. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Donec ullamcorper nulla non metus auctor fringilla.<br/><br/> Maecenas sed diam eget risus varius blandit sit amet non magna. Donec id elit non mi porta gravida at eget metus. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
+                        </p>
+                        <hr/>
+                        <small>This line of text is meant to be treated as fine print.</small>
+                        <hr/>
+                        <strong>rendered as bold text</strong>
+                        <hr/>
+                        <em>rendered as italicized text</em>
+
+                    </div>
+                    <div class="loading">
+                        <i class="glyphicon glyphicon-spinner"></i>
+                    </div>
+                </main>
 
                 </div>
-                <div class="loading">
-                    <i class="glyphicon glyphicon-spinner"></i>
-                </div>
-            </main>
-
             </div>
         </div>
 

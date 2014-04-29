@@ -107,7 +107,7 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
     };
 
     $scope.reset = function() {
-        var do_reset = confirm('Permanently loose all changes?');
+        var do_reset = confirm('Permanently lose all changes?');
 
         if (do_reset) {  $scope.init() }
     };
