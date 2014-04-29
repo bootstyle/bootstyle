@@ -329,44 +329,35 @@
                             </h4>
                         </div>
                         <div class="modal-body">
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" ng-model="settings.additional_less.bootstrap_theme"> Load Bootstrap Theme
-                                        </label>
-                                    </div>
-                                    <div ng-hide="settings.additional_less.bootstrap_theme">
-                                        Visually enhanced Bootstrap theme.
-                                    </div>
-                                    <div ng-show="settings.additional_less.bootstrap_theme">
-                                        <label>Usage</label>
-
-                                        <p>
-                                            Add this to your <code>&lt;head&gt;</code>:
-                                        </p>
-                                        <pre>&lt;link rel="stylesheet/less" href="path_to/theme.less"&gt;</pre>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="control-group">
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="container_classes" value="container" ng-model="settings.grid_container_class"> container
-                                            </label>
-                                        </div>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="container_classes" value="container-fluid" ng-model="settings.grid_container_class"> container-fluid
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label>Usage</label>
-                                        <pre>&lt;div class="{{ settings.grid_container_class }}"&gt;...&lt;/div&gt;</pre>
-                                    </div>
-                                </li>
-                            </ul>
+                            <label>Theme</label>
+                            <div class="control-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" ng-model="settings.additional_less.bootstrap_theme"> Bootstrap Theme
+                                    </label>
+                                </div>
+                                <div ng-show="settings.additional_less.bootstrap_theme">
+                                    <p>Add this to your <code>&lt;head&gt;</code>:</p>
+                                    <pre>&lt;link rel="stylesheet/less" href="path_to/theme.less"&gt;</pre>
+                                </div>
+                            </div>
+                            <hr/>
+                            <label>Container</label>
+                            <div class="control-group">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="container_classes" value="container" ng-model="settings.grid_container_class"> container
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="container_classes" value="container-fluid" ng-model="settings.grid_container_class"> container-fluid
+                                    </label>
+                                </div>
+                            </div>
+                            <div>
+                                <pre>&lt;div class="{{ settings.grid_container_class }}"&gt;...&lt;/div&gt;</pre>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
