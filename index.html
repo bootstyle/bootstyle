@@ -62,10 +62,10 @@
                         <li ng-click="reset()">
                             <a href=""> <i class="glyphicon glyphicon-refresh"></i> Reset </a>
                         </li>
-                        <li ng-click="settings.in_edit_mode = true" ng-hide="settings.in_edit_mode">
+                        <li ng-click="settings.is_edit_mode = true" ng-hide="settings.is_edit_mode">
                             <a href="#"> <i class="glyphicon glyphicon-pencil"></i> Edit Mode</a>
                         </li>
-                        <li ng-click="settings.in_edit_mode = false" ng-show="settings.in_edit_mode">
+                        <li ng-click="settings.is_edit_mode = false" ng-show="settings.is_edit_mode">
                             <a href="#"> <i class="glyphicon glyphicon-eye-open"></i> Preview </a>
                         </li>
                         <li ng-click="download()">
@@ -78,7 +78,7 @@
             <div ng-class="settings.grid_container_class">
                 <div class="row">
 
-                    <aside class="toolbar panel-group" id="toolbar" ng-show="settings.in_edit_mode">
+                    <aside class="toolbar panel-group" id="toolbar" ng-show="settings.is_edit_mode">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h1 class="panel-title">
@@ -106,10 +106,10 @@
                         <div class="panel panel-default">
                         <div class="panel-heading">
                             <h1 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_font"> Font </a>
+                                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_fonts"> Fonts </a>
                             </h1>
                         </div>
-                        <div class="panel-collapse collapse" id="toolbar_font">
+                        <div class="panel-collapse collapse" id="toolbar_fonts">
                             <ul class="list-group fonts">
                                 <li class="list-group-item">
                                     <span class="badge">{{ less.font_size_base }}px</span> <label> Font Size <input type="range" min="10" max="21" ng-model="less.font_size_base"/>
@@ -241,7 +241,7 @@
 
                     <!-- PREVIEW -->
 
-                    <main class="preview" ng-class="{'col-xs-8 col-md-9': settings.in_edit_mode}">
+                    <main class="preview" ng-class="{'col-xs-8 col-md-9': settings.is_edit_mode}">
                     <div class="buttons">
                         <h1 class="page-header">Buttons</h1>
 

@@ -60,7 +60,7 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
                 bootstrap_theme: false,
                 button_style: 'default'
             },
-            in_edit_mode: true,
+            is_edit_mode: true,
         };
 
         $scope.less = {
