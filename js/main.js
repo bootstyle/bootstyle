@@ -60,7 +60,7 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
                 bootstrap_theme: false,
                 button_style: 'default'
             },
-            is_edit_mode: true,
+            is_edit_mode: true
         };
 
         $scope.less = {
@@ -84,9 +84,15 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
                 style: $scope.fonts.bootstrap['Helvetica Neue'].style,
                 preview: null
             },
-            padding: {
-                master: 10,
+            line_height_base: function() {
+                return ($scope.less.font_size_base * 1.42857142857143) / $scope.less.font_size_base;
             },
+            navbar: {
+                height: 50
+            },
+            padding: {
+                master: 10
+            }
         };
 
         $scope.boostyle = {
@@ -142,6 +148,9 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
             '@font-family-base': $scope.less.font_family_base.preview || $scope.less.font_family_base.style,
             '@headings-font-family': $scope.less.headings_font_family.preview || $scope.less.headings_font_family.style,
 
+            // line height
+            '@line-height-base': $scope.less.line_height_base(),
+
             // padding
             '@padding-base-vertical': Math.floor($scope.less.padding.master * 0.6) + 'px',
             '@padding-base-horizontal': Math.floor($scope.less.padding.master * 1.2) + 'px',
@@ -153,7 +162,10 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
             '@padding-small-horizontal': Math.floor($scope.less.padding.master * 1) + 'px',
 
             '@padding-xs-vertical': Math.floor($scope.less.padding.master * 0.1) + 'px',
-            '@padding-xs-horizontal': Math.floor($scope.less.padding.master * 0.5) + 'px'
+            '@padding-xs-horizontal': Math.floor($scope.less.padding.master * 0.5) + 'px',
+
+            // navbar
+            '@navbar-height': $scope.less.navbar.height + 'px'
         };
 
         less.refresh(true, $scope.boostyle.calculated_less);

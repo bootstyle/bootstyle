@@ -82,28 +82,43 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h1 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_sizing"> Sizing </a>
+                                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_base"> Base</a>
                             </h1>
                         </div>
-                        <div class="panel-collapse collapse in" id="toolbar_sizing">
+                        <div class="panel-collapse collapse in" id="toolbar_base">
                             <ul class="list-group">
                                 <li class="list-group-item">
-                                    <span class="badge">{{ less.padding.master }}px</span>
-                                    <label>
-                                        Padding <input type="range" ng-model="less.padding.master" min="1" max="20" ng-change="parseInt(less.padding.base.horizontal)"/>
-                                    </label>
+                                    <span class="badge">{{ less.padding.master }}px</span> <label> Padding <input type="range" ng-model="less.padding.master" min="1" max="20" ng-change="ess.padding.base.horizontal"/>
+                                </label>
                                 </li>
                                 <li class="list-group-item">
-                                    <span class="badge">{{ less.border_radius_base }}px</span>
+                                    <span class="badge">{{ less.border_radius_base }}px</span> <label> Border Radius
+                                    <input type="range" ng-model="less.border_radius_base" min="0" max="20" ng-change="less.border_radius_base"/>
+                                </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_navbar"> Navbar</a>
+                            </h1>
+                        </div>
+                        <div class="panel-collapse collapse" id="toolbar_navbar">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <span class="badge">{{ less.navbar.height }}px</span>
                                     <label>
-                                        Border Radius <input type="range" ng-model="less.border_radius_base" min="0" max="20" ng-change="parseInt(less.border_radius_base)"/>
+                                        Height <input type="range" ng-model="less.navbar.height" min="20" max="150" ng-change="less.navbar.height"/>
                                     </label>
                                 </li>
                             </ul>
                         </div>
                     </div>
 
-                        <div class="panel panel-default">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <h1 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_fonts"> Fonts </a>
@@ -169,7 +184,7 @@
                         </div>
                     </div>
 
-                        <div class="panel panel-default">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <h1 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_buttons"> Buttons </a>
@@ -210,7 +225,7 @@
                         </div>
                     </div>
 
-                        <div class="panel panel-default">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <h1 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_colors"> Colors </a>
