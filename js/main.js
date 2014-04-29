@@ -86,24 +86,12 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
             },
             padding: {
                 master: 10,
-                base: {
-                    vertical: 6,
-                    horizontal: 12
-                },
-                large: {
-                    vertical: 10,
-                    horizontal: 16
-                },
-                small: {
-                    vertical: 5,
-                    horizontal: 10
-                },
-                xs: {
-                    vertical: 1,
-                    horizontal: 5
-                }
             },
         };
+
+        $scope.boostyle = {
+            calculated_less: {}
+        }
 
     };
 
@@ -134,7 +122,7 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
         }
         // END COPY
 
-        var updatedVars = {
+        $scope.boostyle.calculated_less = {
             // colors
             '@body-bg': $scope.less.body_bg,
 
@@ -168,7 +156,7 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
             '@padding-xs-horizontal': Math.floor($scope.less.padding.master * 0.5) + 'px'
         };
 
-        less.refresh(true, updatedVars);
+        less.refresh(true, $scope.boostyle.calculated_less);
 
     };
 
@@ -193,7 +181,20 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
             }
 
         }, 20);
-    }
+    };
+
+    $scope.download = function() {
+        var less_string = '';
+
+        for (var i in $scope.boostyle.calculated_less) {
+            if ($scope.boostyle.calculated_less.hasOwnProperty(i)) {
+                less_string += i + ': ' + $scope.boostyle.calculated_less[i] + ';\n';
+            }
+        }
+
+         var blob = new Blob([less_string], {type: "text/plain;charset=utf-8"});
+         saveAs(blob, "bootstyle_variables.less");
+    };
 
 }]);
 
