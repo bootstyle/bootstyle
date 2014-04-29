@@ -165,7 +165,7 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
      */
     $scope.$watch('[less, settings.additional_less]', function(newValue, oldValue) {
         $scope.last_LESS_edit = Date.now();
-        //$scope.timerRecompileLESS();
+        $scope.timerRecompileLESS();
 
     }, true);
 
