@@ -88,13 +88,24 @@
                         <div class="panel-collapse collapse in" id="toolbar_base">
                             <ul class="list-group">
                                 <li class="list-group-item">
-                                    <span class="badge">{{ less.padding.master }}px</span> <label> Padding <input type="range" ng-model="less.padding.master" min="1" max="20" ng-change="ess.padding.base.horizontal"/>
-                                </label>
+                                    <span class="badge">{{ less.padding.master }}px</span>
+                                    <label> Padding
+                                        <input type="range" ng-model="less.padding.master" min="1" max="20"/>
+                                    </label>
                                 </li>
                                 <li class="list-group-item">
-                                    <span class="badge">{{ less.border_radius_base }}px</span> <label> Border Radius
-                                    <input type="range" ng-model="less.border_radius_base" min="0" max="20" ng-change="less.border_radius_base"/>
-                                </label>
+                                    <span class="badge">{{ less.border_radius_base }}px</span>
+                                    <label>
+                                        Border Radius
+                                        <input type="range" ng-model="less.border_radius_base" min="0" max="20"/>
+                                    </label>
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="badge">{{ less.line_height_base.value() }}</span>
+                                    <label>
+                                        Line Height
+                                        <input type="range" ng-model="less.line_height_base.control" min="100" max="200"/>
+                                    </label>
                                 </li>
                             </ul>
                         </div>
@@ -111,7 +122,7 @@
                                 <li class="list-group-item">
                                     <span class="badge">{{ less.navbar.height }}px</span>
                                     <label>
-                                        Height <input type="range" ng-model="less.navbar.height" min="20" max="150" ng-change="less.navbar.height"/>
+                                        Height <input type="range" ng-model="less.navbar.height" min="20" max="150"/>
                                     </label>
                                 </li>
                             </ul>

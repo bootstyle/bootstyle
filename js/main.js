@@ -84,8 +84,11 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
                 style: $scope.fonts.bootstrap['Helvetica Neue'].style,
                 preview: null
             },
-            line_height_base: function() {
-                return ($scope.less.font_size_base * 1.42857142857143) / $scope.less.font_size_base;
+            line_height_base: {
+                control: 143,
+                value: function() {
+                    return ($scope.less.line_height_base.control / 100);
+                }
             },
             navbar: {
                 height: 50
@@ -149,7 +152,7 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
             '@headings-font-family': $scope.less.headings_font_family.preview || $scope.less.headings_font_family.style,
 
             // line height
-            '@line-height-base': $scope.less.line_height_base(),
+            '@line-height-base': $scope.less.line_height_base.value(),
 
             // padding
             '@padding-base-vertical': Math.floor($scope.less.padding.master * 0.6) + 'px',
