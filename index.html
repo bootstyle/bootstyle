@@ -54,14 +54,19 @@
                     </div>
 
                     <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="" data-toggle="modal" data-target="#settings_modal">
+                                <i class="glyphicon glyphicon-cog"></i> Settings
+                            </a>
+                        </li>
                         <li ng-click="reset()">
                             <a href=""> <i class="glyphicon glyphicon-refresh"></i> Reset </a>
                         </li>
-                        <li>
-                            <a href="#"> <i class="glyphicon glyphicon-eye-open"></i> Preview </a>
+                        <li ng-click="settings.in_edit_mode = true" ng-hide="settings.in_edit_mode">
+                            <a href="#"> <i class="glyphicon glyphicon-pencil"></i> Edit Mode</a>
                         </li>
-                        <li>
-                            <a href="#"> <i class="glyphicon glyphicon-pencil"></i> Edit </a>
+                        <li ng-click="settings.in_edit_mode = false" ng-show="settings.in_edit_mode">
+                            <a href="#"> <i class="glyphicon glyphicon-eye-open"></i> Preview </a>
                         </li>
                         <li ng-click="download()">
                             <a href="#"> <i class="glyphicon glyphicon-cloud-download"></i> Download </a>
@@ -73,81 +78,14 @@
             <div ng-class="settings.grid_container_class">
                 <div class="row">
 
-                <aside class="toolbar panel-group" id="toolbar">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h1 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_settings">
-                                <i class="glyphicon glyphicon-cog"></i>
-                                Settings
-                            </a>
-                        </h1>
-                    </div>
-                    <div class="panel-collapse collapse" id="toolbar_settings">
-                        <div class="alert alert-info alert-dismissable">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <p>
-                                <i class="glyphicon glyphicon-info-sign"></i> <strong>Preview only</strong> <br/><br/>
-                                These settings change HTML and therefore cannot be downloaded as a stylesheet.<br/><br/>
-                                Refer to <label>Usage</label> for each setting for instructions.
-                            </p>
-                            <br/>
-                            <button type="button" class="btn btn-info btn-sm" data-dismiss="alert" aria-hidden="true">Got it!</button>
-                        </div>
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" ng-model="settings.additional_less.bootstrap_theme"> Bootstrap Theme
-                                    </label>
-                                </div>
-                                <div>
-                                    <label>Usage</label>
-                                    <p ng-hide="settings.additional_less.bootstrap_theme">
-                                        Load the optional Bootstrap theme for a visually enhanced experience.<br/>
-                                        <a href="https://github.com/twbs/bootstrap/releases/tag/v3.0.0" target="_blank">More</a>
-                                    </p>
-                                    <div ng-show="settings.additional_less.bootstrap_theme">
-                                        <p>
-                                            Add this to your <code>&lt;head&gt;</code>:
-                                        </p>
-                                        <pre>&lt;link rel="stylesheet/less" href="path_to/theme.less"&gt;</pre>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="control-group">
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="container_classes" value="container" ng-model="settings.grid_container_class"> container
-                                        </label>
-                                    </div>
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="container_classes" value="container-fluid" ng-model="settings.grid_container_class"> container-fluid
-                                        </label>
-                                    </div>
-                                </div>
-                                <div>
-                                    <label>Usage</label>
-                                    <p>
-                                        <pre>&lt;div class="{{ settings.grid_container_class }}"&gt;...&lt;/div&gt;</pre>
-                                        <a href="http://getbootstrap.com/css/#overview-container" target="_blank">Container Docs</a>
-                                    </p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="panel panel-default">
+                    <aside class="toolbar panel-group" id="toolbar" ng-show="settings.in_edit_mode">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <h1 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_general"> General </a>
+                                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_sizing"> Sizing </a>
                             </h1>
                         </div>
-                        <div class="panel-collapse collapse in" id="toolbar_general">
+                        <div class="panel-collapse collapse in" id="toolbar_sizing">
                             <ul class="list-group">
                                 <li class="list-group-item">
                                     <span class="badge">{{ less.padding.master }}px</span>
@@ -165,7 +103,7 @@
                         </div>
                     </div>
 
-                    <div class="panel panel-default">
+                        <div class="panel panel-default">
                         <div class="panel-heading">
                             <h1 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_font"> Font </a>
@@ -231,7 +169,7 @@
                         </div>
                     </div>
 
-                    <div class="panel panel-default">
+                        <div class="panel panel-default">
                         <div class="panel-heading">
                             <h1 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_buttons"> Buttons </a>
@@ -272,7 +210,7 @@
                         </div>
                     </div>
 
-                    <div class="panel panel-default">
+                        <div class="panel panel-default">
                         <div class="panel-heading">
                             <h1 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_colors"> Colors </a>
@@ -299,11 +237,11 @@
                             </ul>
                         </div>
                     </div>
-                </aside>
+                    </aside>
 
-                <!-- PREVIEW -->
+                    <!-- PREVIEW -->
 
-                <main class="preview">
+                    <main class="preview" ng-class="{'col-xs-8 col-md-9': settings.in_edit_mode}">
                     <div class="buttons">
                         <h1 class="page-header">Buttons</h1>
 
@@ -342,9 +280,9 @@
                         <h1>h1. Bootstrap heading
                             <small>Secondary text</small>
                         </h1>
-                        <h4>h4. Bootstrap heading
+                        <h2>h4. Bootstrap heading
                             <small>Secondary text</small>
-                        </h4>
+                        </h2>
                         <h3>h3. Bootstrap heading
                             <small>Secondary text</small>
                         </h3>
@@ -359,10 +297,12 @@
                         </h6>
                         <hr/>
                         <p class="lead">
+                            Lead Body <br/>
                             Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus.
                         </p>
                         <hr/>
                         <p>
+                            Regular Body <br/>
                             Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula.<br/><br/> Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec ullamcorper nulla non metus auctor fringilla. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Donec ullamcorper nulla non metus auctor fringilla.<br/><br/> Maecenas sed diam eget risus varius blandit sit amet non magna. Donec id elit non mi porta gravida at eget metus. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
                         </p>
                         <hr/>
@@ -373,13 +313,68 @@
                         <em>rendered as italicized text</em>
 
                     </div>
-                    <div class="loading">
-                        <i class="glyphicon glyphicon-spinner"></i>
-                    </div>
                 </main>
-
                 </div>
             </div>
+
+            <!-- SETTINGS MODAL -->
+
+            <div class="modal fade" id="settings_modal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                <i class="glyphicon glyphicon-cog"></i> Preview Settings
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" ng-model="settings.additional_less.bootstrap_theme"> Load Bootstrap Theme
+                                        </label>
+                                    </div>
+                                    <div ng-hide="settings.additional_less.bootstrap_theme">
+                                        Visually enhanced Bootstrap theme.
+                                    </div>
+                                    <div ng-show="settings.additional_less.bootstrap_theme">
+                                        <label>Usage</label>
+
+                                        <p>
+                                            Add this to your <code>&lt;head&gt;</code>:
+                                        </p>
+                                        <pre>&lt;link rel="stylesheet/less" href="path_to/theme.less"&gt;</pre>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="control-group">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="container_classes" value="container" ng-model="settings.grid_container_class"> container
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="container_classes" value="container-fluid" ng-model="settings.grid_container_class"> container-fluid
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label>Usage</label>
+                                        <pre>&lt;div class="{{ settings.grid_container_class }}"&gt;...&lt;/div&gt;</pre>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
