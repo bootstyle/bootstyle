@@ -61,6 +61,9 @@
                             <a href="#"> <i class="glyphicon glyphicon-eye-open"></i> Preview </a>
                         </li>
                         <li>
+                            <a href="#"> <i class="glyphicon glyphicon-pencil"></i> Edit </a>
+                        </li>
+                        <li ng-click="download()">
                             <a href="#"> <i class="glyphicon glyphicon-cloud-download"></i> Download </a>
                         </li>
                     </ul>
@@ -72,7 +75,73 @@
 
                 <aside class="toolbar panel-group" id="toolbar">
 
-                    <div class="panel panel-default">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_settings">
+                                <i class="glyphicon glyphicon-cog"></i>
+                                Settings
+                            </a>
+                        </h1>
+                    </div>
+                    <div class="panel-collapse collapse" id="toolbar_settings">
+                        <div class="alert alert-info alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <p>
+                                <i class="glyphicon glyphicon-info-sign"></i> <strong>Preview only</strong> <br/><br/>
+                                These settings change HTML and therefore cannot be downloaded as a stylesheet.<br/><br/>
+                                Refer to <label>Usage</label> for each setting for instructions.
+                            </p>
+                            <br/>
+                            <button type="button" class="btn btn-info btn-sm" data-dismiss="alert" aria-hidden="true">Got it!</button>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" ng-model="settings.additional_less.bootstrap_theme"> Bootstrap Theme
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>Usage</label>
+                                    <p ng-hide="settings.additional_less.bootstrap_theme">
+                                        Load the optional Bootstrap theme for a visually enhanced experience.<br/>
+                                        <a href="https://github.com/twbs/bootstrap/releases/tag/v3.0.0" target="_blank">More</a>
+                                    </p>
+                                    <div ng-show="settings.additional_less.bootstrap_theme">
+                                        <p>
+                                            Add this to your <code>&lt;head&gt;</code>:
+                                        </p>
+                                        <pre>&lt;link rel="stylesheet/less" href="path_to/theme.less"&gt;</pre>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="control-group">
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="container_classes" value="container" ng-model="settings.grid_container_class"> container
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="container_classes" value="container-fluid" ng-model="settings.grid_container_class"> container-fluid
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label>Usage</label>
+                                    <p>
+                                        <pre>&lt;div class="{{ settings.grid_container_class }}"&gt;...&lt;/div&gt;</pre>
+                                        <a href="http://getbootstrap.com/css/#overview-container" target="_blank">Container Docs</a>
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
                         <div class="panel-heading">
                             <h1 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_general"> General </a>
@@ -81,30 +150,16 @@
                         <div class="panel-collapse collapse in" id="toolbar_general">
                             <ul class="list-group">
                                 <li class="list-group-item">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" ng-model="settings.additional_less.bootstrap_theme"> Bootstrap Theme
-                                        </label>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <label>Grid</label>
-
-                                    <div class="control-group">
-                                        <label class="radio-inline">
-                                            <input type="radio" name="container_classes" name="container_class" value="container" ng-model="settings.grid_container_class"> Fixed
-                                        </label> <label class="radio-inline">
-                                        <input type="radio" name="container_classes" name="container_class" value="container-fluid" ng-model="settings.grid_container_class"> Fluid
+                                    <span class="badge">{{ less.padding.master }}px</span>
+                                    <label>
+                                        Padding <input type="range" ng-model="less.padding.master" min="1" max="20" ng-change="parseInt(less.padding.base.horizontal)"/>
                                     </label>
-                                    </div>
                                 </li>
                                 <li class="list-group-item">
-                                    <span class="badge">{{ less.padding.master }}px</span> <label> Padding <input type="range" ng-model="less.padding.master" min="1" max="20" ng-change="parseInt(less.padding.base.horizontal)"/>
-                                </label>
-                                </li>
-                                <li class="list-group-item">
-                                    <span class="badge">{{ less.border_radius_base }}px</span> <label> Border Radius <input type="range" ng-model="less.border_radius_base" min="0" max="20" ng-change="parseInt(less.border_radius_base)"/>
-                                </label>
+                                    <span class="badge">{{ less.border_radius_base }}px</span>
+                                    <label>
+                                        Border Radius <input type="range" ng-model="less.border_radius_base" min="0" max="20" ng-change="parseInt(less.border_radius_base)"/>
+                                    </label>
                                 </li>
                             </ul>
                         </div>
