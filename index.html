@@ -40,15 +40,15 @@
         <![endif]-->
 
         <!-- Dynamic LESS -->
-        <link ng-if="settings.additional_less.bootstrap_theme" rel="stylesheet/less" href="less/bootstrap/theme.less">
-        <link ng-if="settings.additional_less.button_style === 'stripe'" rel="stylesheet/less" href="less/buttons_stripe.less">
-        <link ng-if="settings.additional_less.button_style === 'basecamp'" rel="stylesheet/less" href="less/buttons_basecamp.less">
-        <link ng-if="settings.additional_less.button_style === 'geckoboard'" rel="stylesheet/less" href="less/buttons_geckoboard.less">
-        <link ng-if="settings.additional_less.button_style === 'zoomshift'" rel="stylesheet/less" href="less/buttons_zoomshift.less">
+        <link ng-if="bootstyle.settings.sheets.bootstrap_theme" rel="stylesheet/less" href="less/bootstrap/theme.less">
+        <link ng-if="bootstyle.settings.sheets.button_style === 'stripe'" rel="stylesheet/less" href="less/buttons_stripe.less">
+        <link ng-if="bootstyle.settings.sheets.button_style === 'basecamp'" rel="stylesheet/less" href="less/buttons_basecamp.less">
+        <link ng-if="bootstyle.settings.sheets.button_style === 'geckoboard'" rel="stylesheet/less" href="less/buttons_geckoboard.less">
+        <link ng-if="bootstyle.settings.sheets.button_style === 'zoomshift'" rel="stylesheet/less" href="less/buttons_zoomshift.less">
 
         <div id="app" ng-init="init()">
             <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
-                <div ng-class="settings.grid_container_class">
+                <div ng-class="bootstyle.settings.grid_container_class">
                     <div class="navbar-header">
                         <a class="navbar-brand" href="#">Bootstyle</a>
                     </div>
@@ -62,10 +62,10 @@
                         <li ng-click="reset()">
                             <a href=""> <i class="glyphicon glyphicon-refresh"></i> Reset </a>
                         </li>
-                        <li ng-click="settings.is_edit_mode = true" ng-hide="settings.is_edit_mode">
+                        <li ng-click="bootstyle.settings.is_edit_mode = true" ng-hide="bootstyle.settings.is_edit_mode">
                             <a href="#"> <i class="glyphicon glyphicon-pencil"></i> Edit Mode</a>
                         </li>
-                        <li ng-click="settings.is_edit_mode = false" ng-show="settings.is_edit_mode">
+                        <li ng-click="bootstyle.settings.is_edit_mode = false" ng-show="bootstyle.settings.is_edit_mode">
                             <a href="#"> <i class="glyphicon glyphicon-eye-open"></i> Preview </a>
                         </li>
                         <li ng-click="download()">
@@ -75,10 +75,10 @@
                 </div>
             </nav>
 
-            <div ng-class="settings.grid_container_class">
+            <div ng-class="bootstyle.settings.grid_container_class">
                 <div class="row">
 
-                    <aside class="toolbar panel-group" id="toolbar" ng-show="settings.is_edit_mode">
+                    <aside class="toolbar panel-group" id="toolbar" ng-show="bootstyle.settings.is_edit_mode">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h1 class="panel-title">
@@ -88,23 +88,23 @@
                         <div class="panel-collapse collapse in" id="toolbar_base">
                             <ul class="list-group">
                                 <li class="list-group-item">
-                                    <span class="badge">{{ boostrap.less.padding.master }}px</span>
+                                    <span class="badge">{{ bootstrap.components.padding_control }}px</span>
                                     <label> Padding
-                                        <input type="range" ng-model="boostrap.less.padding.master" min="1" max="20"/>
+                                        <input type="range" ng-model="bootstrap.components.padding_control" min="1" max="20"/>
                                     </label>
                                 </li>
                                 <li class="list-group-item">
-                                    <span class="badge">{{ boostrap.less.border_radius_base }}px</span>
+                                    <span class="badge">{{ bootstrap.components.border_radius_base }}px</span>
                                     <label>
                                         Border Radius
-                                        <input type="range" ng-model="boostrap.less.border_radius_base" min="0" max="20"/>
+                                        <input type="range" ng-model="bootstrap.components.border_radius_base" min="0" max="20"/>
                                     </label>
                                 </li>
                                 <li class="list-group-item">
-                                    <span class="badge">{{ boostrap.less.line_height_base }}</span>
+                                    <span class="badge">{{ bootstrap.typography.line_height_base }}</span>
                                     <label>
                                         Line Height
-                                        <input type="range" ng-model="boostrap.less.line_height_base" min="1" max="2" step="0.01"/>
+                                        <input type="range" ng-model="bootstrap.typography.line_height_base" min="1" max="2" step="0.01"/>
                                     </label>
                                 </li>
                             </ul>
@@ -120,15 +120,15 @@
                         <div class="panel-collapse collapse" id="toolbar_navbar">
                             <ul class="list-group">
                                 <li class="list-group-item">
-                                    <span class="badge">{{ boostrap.less.navbar.height }}px</span>
+                                    <span class="badge">{{ bootstrap.navbar.height }}px</span>
                                     <label>
-                                        Height <input type="range" ng-model="boostrap.less.navbar.height" min="20" max="150"/>
+                                        Height <input type="range" ng-model="bootstrap.navbar.height" min="20" max="150"/>
                                     </label>
                                 </li>
                                 <li class="list-group-item">
-                                    <span class="badge">{{ boostrap.less.navbar.margin_bottom }}px</span>
+                                    <span class="badge">{{ bootstrap.navbar.margin_bottom }}px</span>
                                     <label>
-                                        Margin Bottom <input type="range" ng-model="boostrap.less.navbar.margin_bottom" min="0" max="200"/>
+                                        Margin Bottom <input type="range" ng-model="bootstrap.navbar.margin_bottom" min="0" max="100"/>
                                     </label>
                                 </li>
                             </ul>
@@ -144,32 +144,8 @@
                         <div class="panel-collapse collapse" id="toolbar_fonts">
                             <ul class="list-group fonts">
                                 <li class="list-group-item">
-                                    <span class="badge">{{ boostrap.less.font_size_base }}px</span> <label> Font Size <input type="range" min="10" max="21" ng-model="boostrap.less.font_size_base"/>
+                                    <span class="badge">{{ bootstrap.typography.font_size_base }}px</span> <label> Font Size <input type="range" min="10" max="21" ng-model="bootstrap.typography.font_size_base"/>
                                 </label>
-                                </li>
-                                <li class="list-group-item">
-                                    <label>Headings</label>
-
-                                    <div class="control-group">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
-                                                {{ boostrap.less.headings_font_family.display_name }} <span class="caret"></span>
-                                            </button>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li class="font_option"
-                                                    ng-repeat="f in fonts.library"
-                                                    ng-click="boostrap.less.headings_font_family = f"
-                                                    ng-mouseenter="boostrap.less.headings_font_family.preview = f.style"
-                                                    ng-mouseleave="boostrap.less.headings_font_family.preview = null"
-                                                    ng-class="{'active': boostrap.less.headings_font_family.style === f.style}"
-                                                    style="font-family: {{ f.style }} !important">
-                                                    <a href="">
-                                                        <i class="glyphicon glyphicon-ok" ng-show="boostrap.less.headings_font_family.style === f.style"></i> {{ f.display_name }}
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
                                 </li>
                                 <li class="list-group-item">
                                     <label>Body</label>
@@ -177,26 +153,49 @@
                                     <div class="control-group">
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
-                                                {{ boostrap.less.font_family_base.display_name }} <span class="caret"></span>
+                                                {{ bootstrap.typography.font_family_base.display_name }}
+                                                <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu" role="menu">
                                                 <li role="presentation" class="dropdown-header">Google Fonts</li>
                                                 <li class="font_option"
                                                     ng-repeat="f in fonts.library"
-                                                    ng-click="boostrap.less.font_family_base = f"
-                                                    ng-mouseenter="boostrap.less.font_family_base.preview = f.style"
-                                                    ng-mouseleave="boostrap.less.font_family_base.preview = null"
-                                                    ng-class="{'active': boostrap.less.font_family_base.style === f.style}"
+                                                    ng-click="bootstrap.typography.font_family_base = f"
+                                                    ng-mouseenter="bootstrap.typography.font_family_base.preview = f.style"
+                                                    ng-mouseleave="bootstrap.typography.font_family_base.preview = null"
+                                                    ng-class="{'active': bootstrap.typography.font_family_base.style === f.style}"
                                                     style="font-family: {{ f.style }} !important">
                                                     <a href="">
-                                                        <i class="glyphicon glyphicon-ok" ng-show="boostrap.less.font_family_base.style === f.style"></i> {{ f.display_name }}
+                                                        <i class="glyphicon glyphicon-ok" ng-show="bootstrap.typography.font_family_base.style === f.style"></i> {{ f.display_name }}
                                                     </a>
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
                                 </li>
-
+                                <li class="list-group-item">
+                                    <label>Headings</label>
+                                    <div class="control-group">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                                                {{ bootstrap.typography.headings_font_family.display_name }} <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li class="font_option"
+                                                    ng-repeat="f in fonts.library"
+                                                    ng-click="bootstrap.typography.headings_font_family = f"
+                                                    ng-mouseenter="bootstrap.typography.headings_font_family.preview = f.style"
+                                                    ng-mouseleave="bootstrap.typography.headings_font_family.preview = null"
+                                                    ng-class="{'active': bootstrap.typography.headings_font_family.style === f.style}"
+                                                    style="font-family: {{ f.style }} !important">
+                                                    <a href="">
+                                                        <i class="glyphicon glyphicon-ok" ng-show="bootstrap.typography.headings_font_family.style === f.style"></i> {{ f.display_name }}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -214,27 +213,27 @@
 
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="button_styles" value="default" ng-model="settings.additional_less.button_style"> Default
+                                            <input type="radio" name="button_styles" value="default" ng-model="bootstyle.settings.sheets.button_style"> Default
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="button_styles" value="stripe" ng-model="settings.additional_less.button_style"> Stripe
+                                            <input type="radio" name="button_styles" value="stripe" ng-model="bootstyle.settings.sheets.button_style"> Stripe
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="button_styles" value="basecamp" ng-model="settings.additional_less.button_style"> Basecamp
+                                            <input type="radio" name="button_styles" value="basecamp" ng-model="bootstyle.settings.sheets.button_style"> Basecamp
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="button_styles" value="zoomshift" ng-model="settings.additional_less.button_style"> ZoomShift
+                                            <input type="radio" name="button_styles" value="zoomshift" ng-model="bootstyle.settings.sheets.button_style"> ZoomShift
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="button_styles" value="geckoboard" ng-model="settings.additional_less.button_style"> GeckoBoard
+                                            <input type="radio" name="button_styles" value="geckoboard" ng-model="bootstyle.settings.sheets.button_style"> GeckoBoard
                                         </label>
                                     </div>
                                 </li>
@@ -251,18 +250,21 @@
                         <div class="panel-collapse collapse" id="toolbar_colors">
                             <ul class="list-group">
                                 <li class="list-group-item">
-                                    <div class="form-group">
-                                        <span class="badge">{{ boostrap.less.body_bg }}</span> <label>Background</label>
-                                        <input class="form-control" colorpicker type="text" ng-model="boostrap.less.body_bg"/>
+                                    <span class="badge">{{ bootstrap.scaffolding.body_bg }}</span>
+                                    <label>Background</label>
+
+                                    <div class="input-group">
+                                        <span class="input-group-addon" style="background-color: {{ bootstrap.scaffolding.body_bg }}"></span>
+                                        <input class="form-control" colorpicker type="text" ng-model="bootstrap.scaffolding.body_bg"/>
                                     </div>
                                 </li>
                                 <li class="list-group-item">
-                                    <div ng-repeat="(k, v) in boostrap.less.brand" class="form-group">
+                                    <div ng-repeat="(k, v) in bootstrap.colors.brand" class="form-group">
                                         <label>{{ k | capitalize }}</label>
 
                                         <div class="input-group">
-                                            <span class="input-group-addon" style="background-color: {{ boostrap.less.brand[k] }}"></span>
-                                            <input class="form-control" colorpicker type="text" ng-model="boostrap.less.brand[k]" style="color: {{ boostrap.less.brand[k] }};"/>
+                                            <span class="input-group-addon" style="background-color: {{ bootstrap.colors.brand[k] }}"></span>
+                                            <input class="form-control" colorpicker type="text" ng-model="bootstrap.colors.brand[k]" style="color: {{ bootstrap.colors.brand[k] }};"/>
                                         </div>
                                     </div>
                                 </li>
@@ -273,7 +275,7 @@
 
                     <!-- PREVIEW -->
 
-                    <main class="preview" ng-class="{'col-xs-8 col-md-9': settings.is_edit_mode}">
+                    <main class="preview" ng-class="{'col-xs-8 col-md-9': bootstyle.settings.is_edit_mode}">
                     <div class="buttons">
                         <h1 class="page-header">Buttons</h1>
 
@@ -365,10 +367,10 @@
                             <div class="control-group">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" ng-model="settings.additional_less.bootstrap_theme"> Bootstrap Theme
+                                        <input type="checkbox" ng-model="bootstyle.settings.sheets.bootstrap_theme"> Bootstrap Theme
                                     </label>
                                 </div>
-                                <div ng-show="settings.additional_less.bootstrap_theme">
+                                <div ng-show="bootstyle.settings.sheets.bootstrap_theme">
                                     <p>Add this to your <code>&lt;head&gt;</code>:</p>
                                     <pre>&lt;link rel="stylesheet/less" href="path_to/theme.less"&gt;</pre>
                                 </div>
@@ -378,17 +380,17 @@
                             <div class="control-group">
                                 <div class="radio">
                                     <label>
-                                        <input type="radio" name="container_classes" value="container" ng-model="settings.grid_container_class"> container
+                                        <input type="radio" name="container_classes" value="container" ng-model="bootstyle.settings.grid_container_class"> container
                                     </label>
                                 </div>
                                 <div class="radio">
                                     <label>
-                                        <input type="radio" name="container_classes" value="container-fluid" ng-model="settings.grid_container_class"> container-fluid
+                                        <input type="radio" name="container_classes" value="container-fluid" ng-model="bootstyle.settings.grid_container_class"> container-fluid
                                     </label>
                                 </div>
                             </div>
                             <div>
-                                <pre>&lt;div class="{{ settings.grid_container_class }}"&gt;...&lt;/div&gt;</pre>
+                                <pre>&lt;div class="{{ bootstyle.settings.grid_container_class }}"&gt;...&lt;/div&gt;</pre>
                             </div>
                         </div>
                         <div class="modal-footer">

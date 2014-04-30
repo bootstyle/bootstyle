@@ -60,11 +60,13 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
 
         // Colors
         $scope.bootstrap.colors = {
-            brand_primary: '#428bca',
-            brand_success: '#5cb85c',
-            brand_info: '#5bc0de',
-            brand_warning: '#f0ad4e',
-            brand_danger: '#d9534f'
+            brand: {
+                primary: '#428bca',
+                success: '#5cb85c',
+                info: '#5bc0de',
+                warning: '#f0ad4e',
+                danger: '#d9534f'
+            }
         };
 
         // Scaffolding
@@ -80,6 +82,11 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
                 preview: null
             },
             font_size_base: 14,
+            headings_font_family: {
+                display_name: 'inherit',
+                style: 'inherit',
+                preview: null
+            },
             line_height_base: 1.43
         };
         angular.extend($scope.bootstrap.typography, {
@@ -136,10 +143,8 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
 
         // Navbar
         $scope.bootstrap.navbar = {
-            navbar: {
-                height: 50,
-                margin_bottom: $scope.bootstrap.typography.line_height_computed()
-            }
+            height: 50,
+            margin_bottom: $scope.bootstrap.typography.line_height_computed()
         };
 
         $scope.bootstrap.navs = {};
@@ -161,29 +166,122 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
         $scope.bootstrap.breadcrumbs = {};
         $scope.bootstrap.carousel = {};
         $scope.bootstrap.close = {};
-
-        // Type
-        $scope.bootstrap.type = {
-            headings_font_family: {
-                display_name: $scope.fonts.bootstrap['Helvetica Neue'].display_name,
-                style: $scope.fonts.bootstrap['Helvetica Neue'].style,
-                preview: null
-            }
-        };
+        $scope.bootstrap.type = {};
         $scope.bootstrap.miscellaneous = {};
 
         /*
          Init Bootstyle
          */
         $scope.bootstyle = {
-            calculated_less: {
+            variables: {
+                download_format: function() {
+                    var download_format = '';
+
+                    for (var i in $scope.bootstyle.variables.methods) {
+                        if ($scope.bootstyle.variables.methods.hasOwnProperty(i)) {
+                            download_format += i + ': ' + $scope.bootstyle.variables.methods[i]() + ';\n';
+                        }
+                    }
+
+                    return download_format;
+                },
+                updated_object: function() {
+                    var updated_variables = {};
+
+                    for (var i in $scope.bootstyle.variables.methods) {
+                        if ($scope.bootstyle.variables.methods.hasOwnProperty(i)) {
+                            updated_variables[i] = $scope.bootstyle.variables.methods[i]();
+                        }
+                    }
+
+                    return updated_variables;
+                },
+                methods: {
+                    // Components
+                    '@body-bg': function() {
+                        return $scope.bootstrap.scaffolding.body_bg;
+                    },
+                    '@border-radius-base': function() {
+                        return $scope.bootstrap.components.border_radius_base + 'px';
+                    },
+                    '@border-radius-large': function() {
+                        return Math.floor($scope.bootstrap.components.border_radius_base * 1.5) + 'px';
+                    },
+                    '@border-radius-small': function() {
+                        return Math.floor($scope.bootstrap.components.border_radius_base * 0.5) + 'px';
+                    },
+                    '@padding-base-vertical': function() {
+                        return $scope.bootstrap.components.padding_base_vertical() + 'px';
+                    },
+                    '@padding-base-horizontal': function() {
+                        return $scope.bootstrap.components.padding_base_horizontal() + 'px';
+                    },
+                    '@padding-large-vertical': function() {
+                        return $scope.bootstrap.components.padding_large_vertical() + 'px';
+                    },
+                    '@padding-large-horizontal': function() {
+                        return $scope.bootstrap.components.padding_large_horizontal() + 'px';
+                    },
+                    '@padding-small-vertical': function() {
+                        return $scope.bootstrap.components.padding_small_vertical() + 'px';
+                    },
+                    '@padding-small-horizontal': function() {
+                        return $scope.bootstrap.components.padding_small_horizontal() + 'px';
+                    },
+                    '@padding-xs-vertical': function() {
+                        return $scope.bootstrap.components.padding_xs_vertical() + 'px';
+                    },
+                    '@padding-xs-horizontal': function() {
+                        return $scope.bootstrap.components.padding_xs_horizontal() + 'px';
+                    },
+
+                    // Colors
+                    '@brand-primary': function() {
+                        return $scope.bootstrap.colors.brand.primary;
+                    },
+                    '@brand-success': function() {
+                        return $scope.bootstrap.colors.brand.success;
+                    },
+                    '@brand-info': function() {
+                        return $scope.bootstrap.colors.brand.info;
+                    },
+                    '@brand-warning': function() {
+                        return $scope.bootstrap.colors.brand.warning;
+                    },
+
+                    '@brand-danger': function() {
+                        return $scope.bootstrap.colors.brand.danger;
+                    },
+
+                    // Typography
+                    '@font-size-base': function() {
+                        return $scope.bootstrap.typography.font_size_base + 'px';
+                    },
+                    '@font-family-base': function() {
+                        return $scope.bootstrap.typography.font_family_base.preview || $scope.bootstrap.typography.font_family_base.style;
+                    },
+                    '@headings-font-family': function() {
+                        return $scope.bootstrap.typography.headings_font_family.preview || $scope.bootstrap.typography.headings_font_family.style;
+                    },
+                    '@line-height-base': function() {
+                        return $scope.bootstrap.typography.line_height_base;
+                    },
+
+                    // Navbar
+                    '@navbar-height': function() {
+                        return $scope.bootstrap.navbar.height + 'px';
+                    },
+                    '@navbar-margin-bottom': function() {
+                        return $scope.bootstrap.navbar.margin_bottom + 'px';
+                    }
+                }
             },
             settings: {
                 grid_container_class: 'container',
                 RECOMPILE_LESS_DELAY: 300,
                 additional_less: {
                     bootstrap_theme: false,
-                    button_style: 'default'
+                    button_style: 'default',
                 },
                 is_edit_mode: true
             }
@@ -217,51 +315,16 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
         }
         // END COPY
 
-        $scope.bootstyle.calculated_less = {
-            // Components
-            '@body-bg': $scope.bootstrap.components.body_bg,
-
-            '@border-radius-base': $scope.bootstrap.components.border_radius_base + 'px',
-            '@border-radius-large': Math.floor($scope.bootstrap.components.border_radius_base * 1.5) + 'px',
-            '@border-radius-small': Math.floor($scope.bootstrap.components.border_radius_base * 0.5) + 'px',
-
-            '@padding-base-vertical': Math.floor($scope.bootstrap.components.padding_control * 0.6) + 'px',
-            '@padding-base-horizontal': Math.floor($scope.bootstrap.components.padding_control * 1.2) + 'px',
-            '@padding-large-vertical': Math.floor($scope.bootstrap.components.padding_control * 1) + 'px',
-            '@padding-large-horizontal': Math.floor($scope.bootstrap.components.padding_control * 1.6) + 'px',
-            '@padding-small-vertical': Math.floor($scope.bootstrap.components.padding_control * 0.5) + 'px',
-            '@padding-small-horizontal': Math.floor($scope.bootstrap.components.padding_control * 1) + 'px',
-            '@padding-xs-vertical': Math.floor($scope.bootstrap.components.padding_control * 0.1) + 'px',
-            '@padding-xs-horizontal': Math.floor($scope.bootstrap.components.padding_control * 0.5) + 'px',
-
-            // Colors
-            '@brand-primary': $scope.bootstrap.colors.brand_primary,
-            '@brand-success': $scope.bootstrap.colors.brand_success,
-            '@brand-info': $scope.bootstrap.colors.brand_info,
-            '@brand-warning': $scope.bootstrap.colors.brand_warning,
-            '@brand-danger': $scope.bootstrap.colors.brand_danger,
-
-            // Typography
-            '@font-size-base': $scope.bootstrap.typography.font_size_base + 'px',
-            '@font-family-base': $scope.bootstrap.typography.font_family_base.preview || $scope.bootstrap.typography.font_family_base.style,
-            '@line-height-base': $scope.bootstrap.typography.line_height_base,
-
-            // Type
-            '@headings-font-family': $scope.bootstrap.type.headings_font_family.preview || $scope.bootstrap.type.headings_font_family.style,
-
-            // Navbar
-            '@navbar-height': $scope.bootstrap.navbar.height + 'px'
-        };
-
-        less.refresh(true, $scope.bootstyle.calculated_less);
+        less.refresh(true, $scope.bootstyle.variables.updated_object());
 
     };
+
 
     /**
      Watches
      Any scope properties which require less to be recompiled are watched for changes
      */
-    $scope.$watch('[less, settings.additional_less]', function(newValue, oldValue) {
+    $scope.$watch('[bootstrap, bootstyle]', function(newValue, oldValue) {
         $scope.last_LESS_edit = Date.now();
         $scope.timerRecompileLESS();
 
@@ -281,15 +344,7 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
     };
 
     $scope.download = function() {
-        var less_string = '';
-
-        for (var i in $scope.bootstyle.calculated_less) {
-            if ($scope.bootstyle.calculated_less.hasOwnProperty(i)) {
-                less_string += i + ': ' + $scope.bootstyle.calculated_less[i] + ';\n';
-            }
-        }
-
-         var blob = new Blob([less_string], {type: "text/plain;charset=utf-8"});
+         var blob = new Blob([$scope.bootstyle.variables.download_format()], {type: "text/plain;charset=utf-8"});
          saveAs(blob, "bootstyle.less");
     };
 
