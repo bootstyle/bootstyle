@@ -24,6 +24,7 @@
         <script src="http://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js"></script>
         <script src="js/vendor/angular.js"></script>
         <script src="js/vendor/FileSaver.js"></script>
+        <script src="js/vendor/color-0.5.0.js"></script>
         <script src="js/vendor/bootstrap-colorpicker-module.js"></script>
         <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.js"></script>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.js"></script>
@@ -47,11 +48,19 @@
         <link ng-if="bootstyle.settings.sheets.button_style === 'zoomshift'" rel="stylesheet/less" href="less/buttons_zoomshift.less">
 
         <div id="app" ng-init="init()">
-            <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+            <nav class="navbar navbar-default navbar-static-top" role="navigation">
                 <div ng-class="bootstyle.settings.grid_container_class">
                     <div class="navbar-header">
                         <a class="navbar-brand" href="#">Bootstyle</a>
                     </div>
+
+                    <form class="navbar-form navbar-right">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary">
+                                <i class="glyphicon glyphicon-cloud-download"></i> Download
+                            </button>
+                        </div>
+                    </form>
 
                     <ul class="nav navbar-nav navbar-right">
                         <li>
@@ -67,9 +76,6 @@
                         </li>
                         <li ng-click="bootstyle.settings.is_edit_mode = false" ng-show="bootstyle.settings.is_edit_mode">
                             <a href="#"> <i class="glyphicon glyphicon-eye-open"></i> Preview </a>
-                        </li>
-                        <li ng-click="download()">
-                            <a href="#"> <i class="glyphicon glyphicon-cloud-download"></i> Download </a>
                         </li>
                     </ul>
                 </div>
@@ -87,6 +93,14 @@
                         </div>
                         <div class="panel-collapse collapse in" id="toolbar_base">
                             <ul class="list-group">
+                                <li class="list-group-item">
+                                    <span class="badge">{{ bootstrap.scaffolding.body_bg }}</span>
+                                    <label>Background</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon" colorpicker ng-model="bootstrap.scaffolding.body_bg" style="background-color: {{ bootstrap.scaffolding.body_bg }}"></span>
+                                        <input type="text" class="form-control" ng-model="bootstrap.scaffolding.body_bg"/>
+                                    </div>
+                                </li>
                                 <li class="list-group-item">
                                     <span class="badge">{{ bootstrap.components.padding_control }}px</span>
                                     <label> Padding
@@ -130,6 +144,31 @@
                                     <label>
                                         Margin Bottom <input type="range" ng-model="bootstrap.navbar.margin_bottom" min="0" max="100"/>
                                     </label>
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="badge">{{ bootstrap.navbar.bg_control }}</span>
+                                    <label>Background</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon" colorpicker ng-model="bootstrap.navbar.bg_control" style="background-color: {{ bootstrap.navbar.bg_control }}"></span>
+                                        <input class="form-control" type="text" colorpicker ng-model="bootstrap.navbar.bg_control"/>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="badge">{{ bootstyle.variables.methods['@navbar-default-color']() }}</span>
+                                    <label>Font Color</label>
+
+                                    <div class="control-group">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" ng-model="bootstyle.settings.navbar.has_auto_font_color"> Auto
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="input-group" ng-hide="bootstyle.settings.navbar.has_auto_font_color">
+                                        <span class="input-group-addon" colorpicker ng-model="bootstrap.navbar.color_control" style="background-color: {{ bootstrap.navbar.color_control }}"></span>
+                                        <input class="form-control" type="text" colorpicker ng-model="bootstrap.navbar.color_control"/>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
@@ -244,27 +283,18 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h1 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_colors"> Colors </a>
+                                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_brand_colors"> Brand Colors </a>
                             </h1>
                         </div>
-                        <div class="panel-collapse collapse" id="toolbar_colors">
+                        <div class="panel-collapse collapse" id="toolbar_brand_colors">
                             <ul class="list-group">
-                                <li class="list-group-item">
-                                    <span class="badge">{{ bootstrap.scaffolding.body_bg }}</span>
-                                    <label>Background</label>
-
-                                    <div class="input-group">
-                                        <span class="input-group-addon" style="background-color: {{ bootstrap.scaffolding.body_bg }}"></span>
-                                        <input class="form-control" colorpicker type="text" ng-model="bootstrap.scaffolding.body_bg"/>
-                                    </div>
-                                </li>
                                 <li class="list-group-item">
                                     <div ng-repeat="(k, v) in bootstrap.colors.brand" class="form-group">
                                         <label>{{ k | capitalize }}</label>
 
                                         <div class="input-group">
-                                            <span class="input-group-addon" style="background-color: {{ bootstrap.colors.brand[k] }}"></span>
-                                            <input class="form-control" colorpicker type="text" ng-model="bootstrap.colors.brand[k]" style="color: {{ bootstrap.colors.brand[k] }};"/>
+                                            <span class="input-group-addon" colorpicker ng-model="bootstrap.colors.brand[k]" style="background-color: {{ bootstrap.colors.brand[k] }}"></span>
+                                            <input class="form-control" type="text" colorpicker ng-model="bootstrap.colors.brand[k]"/>
                                         </div>
                                     </div>
                                 </li>

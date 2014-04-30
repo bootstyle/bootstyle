@@ -144,6 +144,8 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
         // Navbar
         $scope.bootstrap.navbar = {
             height: 50,
+            color_control: '#777',
+            bg_control: '#f8f8f8',
             margin_bottom: $scope.bootstrap.typography.line_height_computed()
         };
 
@@ -273,17 +275,85 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
                     },
                     '@navbar-margin-bottom': function() {
                         return $scope.bootstrap.navbar.margin_bottom + 'px';
+                    },
+                    '@navbar-default-bg': function() {
+                        return $scope.bootstrap.navbar.bg_control;
+                    },
+                    '@navbar-default-color': function() {
+                        var color;
+
+                        if ($scope.bootstyle.settings.navbar.has_auto_font_color) {
+                            color = $scope.bootstyle.utils.auto_overlaying_color($scope.bootstrap.navbar.bg_control);
+                        } else {
+                            color = $scope.bootstrap.navbar.color_control;
+                        }
+
+                        return color;
+                    },
+                    '@navbar-default-link-color': function() {
+                        var color;
+
+                        if ($scope.bootstyle.settings.navbar.has_auto_font_color) {
+                            color = $scope.bootstyle.utils.auto_overlaying_color($scope.bootstrap.navbar.bg_control);
+                        } else {
+                            color = $scope.bootstrap.navbar.color_control;
+                        }
+
+                        return color;
                     }
                 }
             },
             settings: {
-                grid_container_class: 'container',
-                RECOMPILE_LESS_DELAY: 300,
                 additional_less: {
                     bootstrap_theme: false,
                     button_style: 'default',
                 },
-                is_edit_mode: true
+                grid_container_class: 'container',
+                is_edit_mode: true,
+                navbar: {
+                    has_auto_font_color: true,
+                },
+                RECOMPILE_LESS_DELAY: 300,
+            },
+            utils: {
+                auto_overlaying_color: function(color, contrast) {
+                    var contrast = contrast || 0.9;
+
+                    var under = new Color(color);
+                    var over = new Color(color);
+
+                    var rgb = [
+                        under.red(),
+                        under.green(),
+                        under.blue(),
+                    ];
+
+                    var avg = (under.red() + under.blue() + under.green()) / 3;
+
+
+                    var bootstyle_brightness = avg;
+
+                    console.log('r: ' + under.red());
+                    console.log('g: ' + under.green());
+                    console.log('b: ' + under.blue());
+                    console.log('sat: ' + under.saturation());
+                    console.log('lit: ' + under.lightness());
+                    console.log('lum: ' + under.luminosity());
+                    console.log('brt:' + bootstyle_brightness);
+                    console.log('---------------');
+
+
+
+                    over.saturation(under.saturation() / (3 * contrast));
+
+                    if (bootstyle_brightness > 127) {
+                        over.lightness(bootstyle_brightness);
+                    } else {
+                        over.lightness(0)
+                    }
+
+                    return over.hexString();
+                },
             }
         }
     };
