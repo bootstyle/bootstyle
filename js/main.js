@@ -1,4 +1,4 @@
-var bootstyle = angular.module('boostyleApp', ['colorpicker.module']);
+var bootstyle = angular.module('bootstyleApp', ['colorpicker.module']);
 
 bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($scope, $timeout) {
 
@@ -31,6 +31,12 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
             'Ubuntu'
         ];
 
+        WebFont.load({
+            google: {
+                families: google_fonts
+            }
+        });
+
         // add all the fonts in google_fonts to $scope.fonts.google
         for (var font in google_fonts) {
             $scope.fonts.google[google_fonts[font]] = {
@@ -38,7 +44,7 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
                 style: google_fonts[font]
             }
         }
-        
+
         // add all google and bootstrap fonts to fonts.library
         for (var bf in $scope.fonts.bootstrap) {
             $scope.fonts.library[bf] = $scope.fonts.bootstrap[bf];
@@ -47,61 +53,141 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
             $scope.fonts.library[gf] = $scope.fonts.google[gf];
         }
 
-        WebFont.load({
-            google: {
-                families: google_fonts
-            }
-        });
+        /*
+         Init Bootstrap
+         */
+        $scope.bootstrap = {};
 
-        $scope.settings = {
-            grid_container_class: 'container',
-            RECOMPILE_LESS_DELAY: 300,
-            additional_less: {
-                bootstrap_theme: false,
-                button_style: 'default'
-            },
-            is_edit_mode: true
+        // Colors
+        $scope.bootstrap.colors = {
+            brand_primary: '#428bca',
+            brand_success: '#5cb85c',
+            brand_info: '#5bc0de',
+            brand_warning: '#f0ad4e',
+            brand_danger: '#d9534f'
         };
 
-        $scope.less = {
-            brand: {
-                primary: '#428bca',
-                success: '#5cb85c',
-                info: '#5bc0de',
-                warning: '#f0ad4e',
-                danger: '#d9534f'
-            },
-            body_bg: '#ffffff',
-            border_radius_base: 4,
+        // Scaffolding
+        $scope.bootstrap.scaffolding = {
+            body_bg: '#ffffff'
+        };
+
+        // Typography
+        $scope.bootstrap.typography = {
             font_family_base: {
                 display_name: $scope.fonts.bootstrap['Helvetica Neue'].display_name,
                 style: $scope.fonts.bootstrap['Helvetica Neue'].style,
                 preview: null
             },
             font_size_base: 14,
+            line_height_base: 1.43
+        };
+        angular.extend($scope.bootstrap.typography, {
+            line_height_computed: function() {
+                return Math.floor(($scope.bootstrap.typography.font_size_base * $scope.bootstrap.typography.line_height_base));
+            }
+        });
+
+        // Iconography
+        $scope.bootstrap.iconography = {
+
+        };
+
+        // Components
+        $scope.bootstrap.components = {
+            padding_control: 10,
+            border_radius_base: 4
+        };
+        angular.extend($scope.bootstrap.components, {
+            'padding_base_vertical': function() {
+                return Math.floor($scope.bootstrap.components.padding_control * 0.6)
+            },
+            'padding_base_horizontal': function() {
+                return Math.floor($scope.bootstrap.components.padding_control * 1.2)
+            },
+            'padding_large_vertical': function() {
+                return Math.floor($scope.bootstrap.components.padding_control * 1)
+            },
+            'padding_large_horizontal': function() {
+                return Math.floor($scope.bootstrap.components.padding_control * 1.6)
+            },
+            'padding_small_vertical': function() {
+                return Math.floor($scope.bootstrap.components.padding_control * 0.5)
+            },
+            'padding_small_horizontal': function() {
+                return Math.floor($scope.bootstrap.components.padding_control * 1)
+            },
+            'padding_xs_vertical': function() {
+                return Math.floor($scope.bootstrap.components.padding_control * 0.1)
+            },
+            'padding_xs_horizontal': function() {
+                return Math.floor($scope.bootstrap.components.padding_control * 0.5)
+            }
+        });
+
+        $scope.bootstrap.tables = {};
+        $scope.bootstrap.buttons = {};
+        $scope.bootstrap.forms = {};
+        $scope.bootstrap.dropdowns = {};
+        $scope.bootstrap.zindex_master_list = {};
+        $scope.bootstrap.media_queries = {};
+        $scope.bootstrap.grid_system = {};
+        $scope.bootstrap.container_sizes = {};
+
+        // Navbar
+        $scope.bootstrap.navbar = {
+            navbar: {
+                height: 50,
+                margin_bottom: $scope.bootstrap.typography.line_height_computed()
+            }
+        };
+
+        $scope.bootstrap.navs = {};
+        $scope.bootstrap.pagination = {};
+        $scope.bootstrap.pager = {};
+        $scope.bootstrap.jumbotron = {};
+        $scope.bootstrap.form_states_and_alerts = {};
+        $scope.bootstrap.tooltips = {};
+        $scope.bootstrap.popovers = {};
+        $scope.bootstrap.labels = {};
+        $scope.bootstrap.modals = {};
+        $scope.bootstrap.alerts = {};
+        $scope.bootstrap.progress_bars = {};
+        $scope.bootstrap.list_groups = {};
+        $scope.bootstrap.panels = {};
+        $scope.bootstrap.thumbnails = {};
+        $scope.bootstrap.wells = {};
+        $scope.bootstrap.badges = {};
+        $scope.bootstrap.breadcrumbs = {};
+        $scope.bootstrap.carousel = {};
+        $scope.bootstrap.close = {};
+
+        // Type
+        $scope.bootstrap.type = {
             headings_font_family: {
                 display_name: $scope.fonts.bootstrap['Helvetica Neue'].display_name,
                 style: $scope.fonts.bootstrap['Helvetica Neue'].style,
                 preview: null
-            },
-            line_height_base: {
-                control: 143,
-                value: function() {
-                    return ($scope.less.line_height_base.control / 100);
-                }
-            },
-            navbar: {
-                height: 50
-            },
-            padding: {
-                master: 10
             }
         };
+        $scope.bootstrap.miscellaneous = {};
 
-        $scope.boostyle = {
-            calculated_less: {}
+        /*
+         Init Bootstyle
+         */
+        $scope.bootstyle = {
+            calculated_less: {
+            },
+            settings: {
+                grid_container_class: 'container',
+                RECOMPILE_LESS_DELAY: 300,
+                additional_less: {
+                    bootstrap_theme: false,
+                    button_style: 'default'
+                },
+                is_edit_mode: true
+            }
         }
-
     };
 
     $scope.reset = function() {
@@ -131,47 +217,43 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
         }
         // END COPY
 
-        $scope.boostyle.calculated_less = {
-            // colors
-            '@body-bg': $scope.less.body_bg,
+        $scope.bootstyle.calculated_less = {
+            // Components
+            '@body-bg': $scope.bootstrap.components.body_bg,
 
-            '@brand-primary': $scope.less.brand.primary,
-            '@brand-success': $scope.less.brand.success,
-            '@brand-info': $scope.less.brand.info,
-            '@brand-warning': $scope.less.brand.warning,
-            '@brand-danger': $scope.less.brand.danger,
+            '@border-radius-base': $scope.bootstrap.components.border_radius_base + 'px',
+            '@border-radius-large': Math.floor($scope.bootstrap.components.border_radius_base * 1.5) + 'px',
+            '@border-radius-small': Math.floor($scope.bootstrap.components.border_radius_base * 0.5) + 'px',
 
-            // border radius
-            '@border-radius-base': $scope.less.border_radius_base + 'px',
-            '@border-radius-large': Math.floor($scope.less.border_radius_base * 1.5) + 'px',
-            '@border-radius-small': Math.floor($scope.less.border_radius_base * 0.5) + 'px',
+            '@padding-base-vertical': Math.floor($scope.bootstrap.components.padding_control * 0.6) + 'px',
+            '@padding-base-horizontal': Math.floor($scope.bootstrap.components.padding_control * 1.2) + 'px',
+            '@padding-large-vertical': Math.floor($scope.bootstrap.components.padding_control * 1) + 'px',
+            '@padding-large-horizontal': Math.floor($scope.bootstrap.components.padding_control * 1.6) + 'px',
+            '@padding-small-vertical': Math.floor($scope.bootstrap.components.padding_control * 0.5) + 'px',
+            '@padding-small-horizontal': Math.floor($scope.bootstrap.components.padding_control * 1) + 'px',
+            '@padding-xs-vertical': Math.floor($scope.bootstrap.components.padding_control * 0.1) + 'px',
+            '@padding-xs-horizontal': Math.floor($scope.bootstrap.components.padding_control * 0.5) + 'px',
 
-            // font
-            '@font-size-base': $scope.less.font_size_base + 'px',
-            '@font-family-base': $scope.less.font_family_base.preview || $scope.less.font_family_base.style,
-            '@headings-font-family': $scope.less.headings_font_family.preview || $scope.less.headings_font_family.style,
+            // Colors
+            '@brand-primary': $scope.bootstrap.colors.brand_primary,
+            '@brand-success': $scope.bootstrap.colors.brand_success,
+            '@brand-info': $scope.bootstrap.colors.brand_info,
+            '@brand-warning': $scope.bootstrap.colors.brand_warning,
+            '@brand-danger': $scope.bootstrap.colors.brand_danger,
 
-            // line height
-            '@line-height-base': $scope.less.line_height_base.value(),
+            // Typography
+            '@font-size-base': $scope.bootstrap.typography.font_size_base + 'px',
+            '@font-family-base': $scope.bootstrap.typography.font_family_base.preview || $scope.bootstrap.typography.font_family_base.style,
+            '@line-height-base': $scope.bootstrap.typography.line_height_base,
 
-            // padding
-            '@padding-base-vertical': Math.floor($scope.less.padding.master * 0.6) + 'px',
-            '@padding-base-horizontal': Math.floor($scope.less.padding.master * 1.2) + 'px',
+            // Type
+            '@headings-font-family': $scope.bootstrap.type.headings_font_family.preview || $scope.bootstrap.type.headings_font_family.style,
 
-            '@padding-large-vertical': Math.floor($scope.less.padding.master * 1) + 'px',
-            '@padding-large-horizontal': Math.floor($scope.less.padding.master * 1.6) + 'px',
-
-            '@padding-small-vertical': Math.floor($scope.less.padding.master * 0.5) + 'px',
-            '@padding-small-horizontal': Math.floor($scope.less.padding.master * 1) + 'px',
-
-            '@padding-xs-vertical': Math.floor($scope.less.padding.master * 0.1) + 'px',
-            '@padding-xs-horizontal': Math.floor($scope.less.padding.master * 0.5) + 'px',
-
-            // navbar
-            '@navbar-height': $scope.less.navbar.height + 'px'
+            // Navbar
+            '@navbar-height': $scope.bootstrap.navbar.height + 'px'
         };
 
-        less.refresh(true, $scope.boostyle.calculated_less);
+        less.refresh(true, $scope.bootstyle.calculated_less);
 
     };
 
@@ -189,7 +271,7 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
 
         // wait RECOMPILE_LESS_DELAY seconds before recompiling LESS
         window.timerRecompileLESS = window.timerRecompileLESS || setInterval(function() {
-            if (Date.now() - $scope.last_LESS_edit >= $scope.settings.RECOMPILE_LESS_DELAY) {
+            if (Date.now() - $scope.last_LESS_edit >= $scope.bootstyle.settings.RECOMPILE_LESS_DELAY) {
                 window.clearInterval(window.timerRecompileLESS);
                 window.timerRecompileLESS = null;
                 $scope.recompileLESS();
@@ -201,14 +283,14 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
     $scope.download = function() {
         var less_string = '';
 
-        for (var i in $scope.boostyle.calculated_less) {
-            if ($scope.boostyle.calculated_less.hasOwnProperty(i)) {
-                less_string += i + ': ' + $scope.boostyle.calculated_less[i] + ';\n';
+        for (var i in $scope.bootstyle.calculated_less) {
+            if ($scope.bootstyle.calculated_less.hasOwnProperty(i)) {
+                less_string += i + ': ' + $scope.bootstyle.calculated_less[i] + ';\n';
             }
         }
 
          var blob = new Blob([less_string], {type: "text/plain;charset=utf-8"});
-         saveAs(blob, "bootstyle_variables.less");
+         saveAs(blob, "bootstyle.less");
     };
 
 }]);
