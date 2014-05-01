@@ -314,43 +314,47 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
                     has_auto_font_color: true,
                 },
                 RECOMPILE_LESS_DELAY: 300,
+                auto_font_color: {
+                    contrast: 0.9,
+                    breakpoint: 57,
+                }
             },
             utils: {
                 auto_overlaying_color: function(color, contrast) {
-                    var contrast = contrast || 0.9;
+                    var contrast = contrast || $scope.bootstyle.settings.auto_font_color.contrast;
 
                     var under = new Color(color);
                     var over = new Color(color);
+                    
+                    /*
+                    Bootstyle brightness is value and the lack of saturation.
+                    100v +   0s = 100  ( colorpicker top left     )
+                    100v + 100s =  50  ( colorpicker top right    )
+                     50v +  50s =  50  ( colorpicker center       )
+                      0v +   0s =   0  ( colorpicker bottom left  )
+                      0v + 100s =   0  ( colorpicker bottom right )
+                     */
 
-                    var rgb = [
-                        under.red(),
-                        under.green(),
-                        under.blue(),
-                    ];
+                    var bootstyle_brightness = Math.floor(under.value() - (((under.value() / 100) * under.saturationv()) / 2));
+                    var value, saturation;
 
-                    var avg = (under.red() + under.blue() + under.green()) / 3;
-
-
-                    var bootstyle_brightness = avg;
-
-                    console.log('r: ' + under.red());
-                    console.log('g: ' + under.green());
-                    console.log('b: ' + under.blue());
-                    console.log('sat: ' + under.saturation());
-                    console.log('lit: ' + under.lightness());
-                    console.log('lum: ' + under.luminosity());
-                    console.log('brt:' + bootstyle_brightness);
-                    console.log('---------------');
-
-
-
-                    over.saturation(under.saturation() / (3 * contrast));
-
-                    if (bootstyle_brightness > 127) {
-                        over.lightness(bootstyle_brightness);
+                    if (bootstyle_brightness >= $scope.bootstyle.settings.auto_font_color.breakpoint) {
+                        // light underlay, dark overlay
+                        value = Math.floor((bootstyle_brightness / 2) * (1 - contrast) + (bootstyle_brightness / 5));
+                        saturation = Math.floor((under.saturation()) * (1 - contrast));
                     } else {
-                        over.lightness(0)
+                        // light underlay, dark overlay
+                        value = Math.floor(((bootstyle_brightness / 5) * contrast) + (100 - bootstyle_brightness / 5));
+                        saturation = Math.floor((under.saturation() / 2) * (1 - contrast));
                     }
+                    // console.log('-----------------');
+                    // console.log(saturation);
+                    // console.log(value);
+                    // console.log('-----------------');
+
+                    // sat must be set first for proper effect
+                    over.saturation(saturation);
+                    over.value(value);
 
                     return over.hexString();
                 },
