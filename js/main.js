@@ -1,4 +1,4 @@
-var bootstyle = angular.module('bootstyleApp', ['colorpicker.module']);
+var bootstyle = angular.module('bootstyleApp', ['ngSanitize', 'colorpicker.module']);
 
 bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($scope, $timeout) {
 
@@ -358,8 +358,23 @@ bootstyle.controller('bootstyleController', ['$scope', '$timeout', function($sco
 
                     return over.hexString();
                 },
-            }
-        }
+            },
+        };
+
+        $scope.code_mirror = CodeMirror.fromTextArea(document.getElementById('code_mirror'), {
+            theme: "ambiance",
+            mode: 'html',
+            value: angular.element('.preview').html()
+        });
+
+        $scope.code_mirror.on('change', function(e) {
+            var content = e.getValue();
+
+            $scope.code = content;
+            $scope.$apply();
+
+            $scope.recompileLESS();
+        });
     };
 
     $scope.reset = function() {
