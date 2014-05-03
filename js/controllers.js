@@ -150,8 +150,8 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
             // Navbar
             $scope.bootstrap.navbar = {
                 height: 50,
-                color_control: '#777',
-                bg_control: '#f8f8f8',
+                color_control: '@gray-light',
+                bg_control: '#222',
                 margin_bottom: $scope.bootstrap.typography.line_height_computed()
             };
 
@@ -257,7 +257,6 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                         '@brand-warning': function() {
                             return $scope.bootstrap.colors.brand.warning;
                         },
-
                         '@brand-danger': function() {
                             return $scope.bootstrap.colors.brand.danger;
                         },
@@ -283,10 +282,10 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                         '@navbar-margin-bottom': function() {
                             return $scope.bootstrap.navbar.margin_bottom + 'px';
                         },
-                        '@navbar-default-bg': function() {
+                        '@navbar-inverse-bg': function() {
                             return $scope.bootstrap.navbar.bg_control;
                         },
-                        '@navbar-default-color': function() {
+                        '@navbar-inverse-color': function() {
                             var color;
 
                             if ($scope.bootstyle.settings.navbar.has_auto_font_color) {
@@ -297,7 +296,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
 
                             return color;
                         },
-                        '@navbar-default-link-color': function() {
+                        '@navbar-inverse-link-color': function() {
                             var color;
 
                             if ($scope.bootstyle.settings.navbar.has_auto_font_color) {
@@ -307,7 +306,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                             }
 
                             return color;
-                        }
+                        },
                     }
                 },
                 settings: {
@@ -400,7 +399,6 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
          Toolbar
          */
         $scope.toggle_toolbar = function() {
-            console.log('asdf');
             $scope.bootstyle.settings.is_edit_mode = !$scope.bootstyle.settings.is_edit_mode;
         };
 

@@ -1,14 +1,18 @@
-<pre>
+<div class="alert alert-info alert-dismissable">
+    <p><i class="glyphicon glyphicon-info-sign"></i> <strong>Exclude Containers</strong></p>
+    <p>This HTML is inserted into a Bootstrap container.  Adding a container here will bork the layout.</p>
+    <p>
+        <pre>
 &lt;div class="{{ bootstyle.settings.grid_container_class }}"&gt;
   &lt;div class="row"&gt;
     &lt;div class="{{ bootstyle.settings.preview_column_class() }}"&gt;
-
-      ... Code Editor ...
-
+      ...
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-</pre>
+        </pre>
+    </p>
+    <button type="button" class="btn btn-info" data-dismiss="alert"><i class="glyphicon glyphicon-ok"></i> Got It!</button>
+</div>
 
 <div id="code_editor" class="CodeMirror-scroll" ng-if="bootstyle.initialized" ng-init="init_code_editor()"></div>
-

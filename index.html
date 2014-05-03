@@ -61,10 +61,6 @@
             <ng-include src=" 'partials/_navbar.html' "></ng-include>
 
             <div ng-class="bootstyle.settings.grid_container_class">
-                <div class="row">
-                    <div class="col-xs-12">
-                    </div>
-                </div>
 
                 <div class="row">
                     <aside class="toolbar col-md-3 col-xs-4" ng-show="bootstyle.settings.is_edit_mode">
@@ -72,14 +68,21 @@
                     </aside>
 
                     <main ng-class="bootstyle.settings.preview_column_class()">
-                        <ul class="nav nav-tabs" ng-show="bootstyle.settings.is_edit_mode">
-                            <li ng-click="preview_tab_clicked()" ng-class="{active: bootstyle.tab === 'preview'}">
-                                <a href="">Preview</a>
-                            </li>
-                            <li ng-click="edit_tab_clicked()" ng-class="{active: bootstyle.tab === 'edit_html'}">
-                                <a href="">Edit HTML</a>
-                            </li>
-                        </ul>
+                        <div class="row">
+                            <div class="col-md-1 col-xs-2">
+                                <toggle-toolbar></toggle-toolbar>
+                            </div>
+                            <div class="col-md-11 col-xs-10">
+                                <ul class="nav nav-tabs">
+                                    <li ng-click="preview_tab_clicked()" ng-class="{active: bootstyle.tab === 'preview'}">
+                                        <a href=""><i class="glyphicon glyphicon-eye-open"></i> Preview</a>
+                                    </li>
+                                    <li ng-click="edit_tab_clicked()" ng-class="{active: bootstyle.tab === 'edit_html'}">
+                                        <a href=""><i class="glyphicon glyphicon-chevron-left"></i><i class="glyphicon glyphicon-chevron-right"></i> Edit HTML</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
 
                         <ng-include src=" 'partials/_preview.html' " ng-show="bootstyle.tab === 'preview'"></ng-include>
                         <ng-include src=" 'partials/_code_editor.html' " ng-show="bootstyle.tab === 'edit_html'"></ng-include>
