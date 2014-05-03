@@ -439,8 +439,13 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
 
         })
 
+        $scope.edit_tab_clicked = function() {
+            $scope.bootstyle.tab = 'edit_html';
+        }
+
     }])
     .controller('CodeEditorCtrl', ['$scope', 'read_file', function($scope, read_file) {
+        $scope.code_editor_initialized = false;
         $scope.init_code_editor = function() {
 
             read_file('templates/_base_preview.html', function(file_contents) {
@@ -465,4 +470,6 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
         $scope.update_html = function() {
             $scope.$emit('update_preview_html', $scope.code_editor.getValue())
         };
+
+        $scope.code_editor_initialized = true;
     }]);
