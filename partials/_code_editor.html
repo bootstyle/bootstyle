@@ -1,3 +1,14 @@
-<div id="code_editor" class="CodeMirror-scroll" ng-controller="CodeEditorCtrl" ng-init="init_code_editor()">
+<pre>
+&lt;div class="{{ bootstyle.settings.grid_container_class }}"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="{{ bootstyle.settings.preview_column_class() }}"&gt;
 
-</div>
+      ... Code Editor ...
+
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+
+<div id="code_editor" class="CodeMirror-scroll" ng-if="bootstyle.initialized" ng-init="init_code_editor()"></div>
+

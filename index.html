@@ -62,15 +62,21 @@
 
             <div ng-class="bootstyle.settings.grid_container_class">
                 <div class="row">
+                    <div class="col-xs-12">
+                        <button type="button" class="btn btn-link btn-lg" ng-click="toggle_toolbar()">
+                            <i class="glyphicon glyphicon-cog"></i>
+                        </button>
+                    </div>
+                </div>
 
+                <div class="row">
                     <aside class="toolbar col-md-3 col-xs-4" ng-show="bootstyle.settings.is_edit_mode">
                         <ng-include src=" 'partials/_toolbar.html' "></ng-include>
                     </aside>
 
-                    <main ng-class="{'col-xs-8 col-md-9': bootstyle.settings.is_edit_mode}">
-
-                        <ul class="nav nav-tabs">
-                            <li ng-click="bootstyle.tab = 'preview'" ng-class="{active: bootstyle.tab === 'preview'}">
+                    <main ng-class="bootstyle.settings.preview_column_class()">
+                        <ul class="nav nav-tabs" ng-show="bootstyle.settings.is_edit_mode">
+                            <li ng-click="preview_tab_clicked()" ng-class="{active: bootstyle.tab === 'preview'}">
                                 <a href="">Preview</a>
                             </li>
                             <li ng-click="edit_tab_clicked()" ng-class="{active: bootstyle.tab === 'edit_html'}">
@@ -80,9 +86,7 @@
 
                         <ng-include src=" 'partials/_preview.html' " ng-show="bootstyle.tab === 'preview'"></ng-include>
                         <ng-include src=" 'partials/_code_editor.html' " ng-show="bootstyle.tab === 'edit_html'"></ng-include>
-
                     </main>
-
                 </div>
             </div>
         </div>

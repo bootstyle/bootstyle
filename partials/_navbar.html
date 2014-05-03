@@ -13,18 +13,11 @@
         </form>
 
         <ul class="nav navbar-nav navbar-right">
-            <li>
-                <a href="" data-toggle="modal" data-target="#settings_modal">
-                    <i class="glyphicon glyphicon-cog"></i> Settings </a>
+            <li data-toggle="modal" data-target="#settings_modal">
+                <a href=""> <i class="glyphicon glyphicon-wrench"></i> Configure </a>
             </li>
             <li ng-click="reset()">
                 <a href=""> <i class="glyphicon glyphicon-refresh"></i> Reset </a>
-            </li>
-            <li ng-click="bootstyle.settings.is_edit_mode = true" ng-hide="bootstyle.settings.is_edit_mode">
-                <a href="#"> <i class="glyphicon glyphicon-pencil"></i> Edit Mode</a>
-            </li>
-            <li ng-click="bootstyle.settings.is_edit_mode = false" ng-show="bootstyle.settings.is_edit_mode">
-                <a href="#"> <i class="glyphicon glyphicon-eye-open"></i> Preview </a>
             </li>
         </ul>
     </div>

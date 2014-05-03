@@ -4,8 +4,8 @@
  Controllers
  */
 
-angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
-    .controller('BootstyleCtrl', ['$scope', '$sce', function($scope, $sce) {
+angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module']).
+    controller('BootstyleCtrl', ['$scope', 'read_file', function($scope, read_file) {
 
         $scope.init_bootstyle = function() {
 
@@ -177,6 +177,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
             $scope.bootstrap.type = {};
             $scope.bootstrap.miscellaneous = {};
 
+
             /*
              Init Bootstyle
              */
@@ -315,6 +316,9 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                         button_style: 'default',
                     },
                     grid_container_class: 'container',
+                    preview_column_class: function() {
+                        return $scope.bootstyle.settings.is_edit_mode ? 'col-md-9 col-xs-8' : 'col-xs-12'
+                    },
                     is_edit_mode: true,
                     navbar: {
                         has_auto_font_color: true,
@@ -367,8 +371,64 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     },
                 },
             };
+
+            read_file('partials/_preview_base.html', function(file_contents) {
+                $scope.update_preview_html(file_contents);
+                $scope.bootstyle.initialized = true;
+                $scope.$apply();
+            });
         };
 
+
+        /*
+         Code Editor
+         */
+        $scope.init_code_editor = function() {
+            $scope.code_editor = CodeMirror(document.getElementById('code_editor'), {
+                theme: "ambiance",
+                mode: 'htmlmixed',
+                lineNumbers: true,
+                value: angular.element('.preview').html()
+            });
+
+            $scope.code_editor.on('change', function() {
+                $scope.update_preview_html($scope.code_editor.getValue());
+            });
+        };
+
+
+        /*
+         Toolbar
+         */
+        $scope.toggle_toolbar = function() {
+            console.log('asdf');
+            $scope.bootstyle.settings.is_edit_mode = !$scope.bootstyle.settings.is_edit_mode;
+        };
+
+        /*
+         Tabs
+         */
+        $scope.set_tab = function(tab) {
+            $scope.bootstyle.tab = tab;
+        };
+        $scope.preview_tab_clicked = function() {
+            $scope.set_tab('preview');
+        };
+        $scope.edit_tab_clicked = function() {
+            $scope.set_tab('edit_html');
+        };
+
+
+        /*
+         Preview
+         */
+        $scope.update_preview_html = function(html) {
+            $scope.preview_html = html;
+        };
+
+        /*
+         Nav Methods
+         */
         $scope.reset = function() {
             var do_reset = confirm('Permanently lose all changes?');
 
@@ -377,10 +437,40 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
             }
         };
 
-        $scope.recompileLESS = function() {
+        $scope.download = function() {
+            var blob = new Blob([$scope.bootstyle.variables.download_format()], {type: "text/plain;charset=utf-8"});
+            saveAs(blob, "bootstyle.less");
+        };
 
+
+        /*
+         LESS Compiling
+         */
+
+        // Watch for changes
+        // TODO: Only watch values that necessitate a recompile
+        $scope.$watch('[bootstrap, bootstyle]', function(newValue, oldValue) {
+            $scope.last_LESS_edit = Date.now();
+            $scope.timerRecompileLESS();
+        }, true);
+
+
+        // Call recompileLESS after a certain amount of inactivity
+        $scope.timerRecompileLESS = function() {
+            window.timerRecompileLESS = window.timerRecompileLESS || setInterval(function() {
+                if (Date.now() - $scope.last_LESS_edit >= $scope.bootstyle.settings.RECOMPILE_LESS_DELAY) {
+                    window.clearInterval(window.timerRecompileLESS);
+                    window.timerRecompileLESS = null;
+                    $scope.recompileLESS();
+                }
+
+            }, 20);
+        };
+
+        // Gather stylesheets and recompile LESS
+        $scope.recompileLESS = function() {
             /*
-             START COPY from LESS browser.js v1.7.0 ln 633, or in less.js 1.7.0 ln 8171
+             START COPY from LESS browser.js v1.7.0 ln 633 === less.js 1.7.0 ln 8171
              This section of less.js could be wrapped as a method, less.loadLinks().
              TODO: Lots of ppl want the ability to dynamically add less files, make a PR?
              */
@@ -399,77 +489,6 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
             // END COPY
 
             less.refresh(true, $scope.bootstyle.variables.updated_object());
-
         };
 
-        /**
-         Watches
-         Any scope properties which require less to be recompiled are watched for changes
-         */
-        $scope.$watch('[bootstrap, bootstyle]', function(newValue, oldValue) {
-            $scope.last_LESS_edit = Date.now();
-            $scope.timerRecompileLESS();
-
-        }, true);
-
-        $scope.timerRecompileLESS = function() {
-
-            // wait RECOMPILE_LESS_DELAY seconds before recompiling LESS
-            window.timerRecompileLESS = window.timerRecompileLESS || setInterval(function() {
-                if (Date.now() - $scope.last_LESS_edit >= $scope.bootstyle.settings.RECOMPILE_LESS_DELAY) {
-                    window.clearInterval(window.timerRecompileLESS);
-                    window.timerRecompileLESS = null;
-                    $scope.recompileLESS();
-                }
-
-            }, 20);
-        };
-
-        $scope.download = function() {
-            var blob = new Blob([$scope.bootstyle.variables.download_format()], {type: "text/plain;charset=utf-8"});
-            saveAs(blob, "bootstyle.less");
-        };
-
-        $scope.$on('update_preview_html', function(e, html) {
-            $scope.preview_html = html;
-
-            console.log($scope.preview_html);
-
-            $scope.$apply();
-
-        })
-
-        $scope.edit_tab_clicked = function() {
-            $scope.bootstyle.tab = 'edit_html';
-        }
-
-    }])
-    .controller('CodeEditorCtrl', ['$scope', 'read_file', function($scope, read_file) {
-        $scope.code_editor_initialized = false;
-        $scope.init_code_editor = function() {
-
-            read_file('templates/_base_preview.html', function(file_contents) {
-                $scope.code_editor = CodeMirror(document.getElementById('code_editor'), {
-                    theme: "ambiance",
-                    mode: 'htmlmixed',
-                    lineNumbers: true,
-                    value: file_contents,
-                    height: 'auto',
-                    class: ''
-                });
-
-                $scope.code_editor.on('change', function() {
-                    $scope.update_html();
-                });
-
-                $scope.update_html();
-
-            });
-        };
-
-        $scope.update_html = function() {
-            $scope.$emit('update_preview_html', $scope.code_editor.getValue())
-        };
-
-        $scope.code_editor_initialized = true;
     }]);
