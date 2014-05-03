@@ -1,0 +1,35 @@
+<div class="modal fade" id="download_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title" id="myModalLabel">
+                    <i class="glyphicon glyphicon-cloud-download"></i> Download
+                </h3>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-warning">
+                    <i class="glyphicon glyphicon-warning-sign"></i> <strong>DOM Setup Required</strong>
+                    <p>In order to get an identical theme to the one you are viewing, you need to make the following changes to your HTML.</p>
+                </div>
+
+                <hr/>
+
+                <h4>Head</h4>
+                <p>Add this to your <code>&lt;head&gt;</code>:</p>
+                <pre>&lt;link rel="stylesheet/less" href="path_to/bootstrap.less"&gt;<br/><span ng-if="bootstyle.settings.sheets.bootstrap_theme">&lt;link rel="stylesheet/less" href="path_to/theme.less"&gt;<br/></span>&lt;link rel="stylesheet/less" href="path_to/bootstyle.less"&gt;</pre>
+
+                <hr/>
+
+                <h4>Containers</h4>
+                <p>All containers need this class:</p>
+                <pre>&lt;div class="<strong>{{ bootstyle.settings.grid_container_class }}</strong>"&gt;...&lt;/div&gt;</pre>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-lg btn-block" ng-click="download()">
+                    <i class="glyphicon glyphicon-cloud-download"></i> Download the LESS
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

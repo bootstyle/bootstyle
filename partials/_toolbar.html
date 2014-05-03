@@ -5,8 +5,32 @@
                 <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_base"> Base</a>
             </h1>
         </div>
-        <div class="panel-collapse collapse" id="toolbar_base">
+        <div class="panel-collapse collapse in" id="toolbar_base">
             <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="control-group">
+                        <div class="checkbox">
+                            <label> Bootstrap Theme
+                                <input type="checkbox" ng-model="bootstyle.settings.sheets.bootstrap_theme">
+                            </label>
+                        </div>
+                        <small>Visually enhanced experience.</small>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <label>Container</label>
+
+                    <div class="control-group">
+                        <label class="radio-inline">
+                            <input class="radio-inline" type="radio" name="container_classes" value="container" ng-model="bootstyle.settings.grid_container_class">
+                            Fixed
+                        </label>
+                        <label class="radio-inline">
+                            <input class="radio-inline" type="radio" name="container_classes" value="container-fluid" ng-model="bootstyle.settings.grid_container_class">
+                            Fluid
+                        </label>
+                    </div>
+                </li>
                 <li class="list-group-item">
                     <span class="badge">{{ bootstrap.components.padding_control }}px</span>
                     <label> Padding
