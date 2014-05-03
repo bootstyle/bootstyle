@@ -375,7 +375,6 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
             read_file('partials/_preview_base.html', function(file_contents) {
                 $scope.update_preview_html(file_contents);
                 $scope.bootstyle.initialized = true;
-                $scope.$apply();
             });
         };
 

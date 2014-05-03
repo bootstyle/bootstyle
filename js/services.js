@@ -7,21 +7,15 @@
 angular.module('bootstyleApp.services', []).
     value('version', 'v0.1').
 
-    factory('read_file', function() {
-        return function(file, callback) {
-            var rawFile = new XMLHttpRequest();
-            rawFile.open("GET", file, true);
+    factory('read_file', ['$http', function($http) {
 
-            rawFile.onreadystatechange = function() {
-                if (rawFile.readyState === 4) {
-                    if (rawFile.status === 200 || rawFile.status === 0) {
-                        callback(rawFile.responseText);
-                    }
-                }
-            };
-            rawFile.send(null);
+        return function(file, callback) {
+            $http.get(file).
+                success(function(data) {
+                    callback(data);
+                });
         };
-    }).
+    }]).
 
     filter('trustAsHTML', ['$sce', function($sce) {
         return function(val) {
