@@ -448,7 +448,9 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     theme: "ambiance",
                     mode: 'htmlmixed',
                     lineNumbers: true,
-                    value: file_contents
+                    value: file_contents,
+                    height: 'auto',
+                    class: ''
                 });
 
                 $scope.code_editor.on('change', function() {
