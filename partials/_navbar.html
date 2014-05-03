@@ -1,0 +1,31 @@
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
+    <div ng-class="bootstyle.settings.grid_container_class">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Bootstyle <span bootstyle-version></span></a>
+        </div>
+
+        <form class="navbar-form navbar-right">
+            <div class="form-group">
+                <button type="button" class="btn btn-primary" ng-click="download()">
+                    <i class="glyphicon glyphicon-cloud-download"></i> Download
+                </button>
+            </div>
+        </form>
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href="" data-toggle="modal" data-target="#settings_modal">
+                    <i class="glyphicon glyphicon-cog"></i> Settings </a>
+            </li>
+            <li ng-click="reset()">
+                <a href=""> <i class="glyphicon glyphicon-refresh"></i> Reset </a>
+            </li>
+            <li ng-click="bootstyle.settings.is_edit_mode = true" ng-hide="bootstyle.settings.is_edit_mode">
+                <a href="#"> <i class="glyphicon glyphicon-pencil"></i> Edit Mode</a>
+            </li>
+            <li ng-click="bootstyle.settings.is_edit_mode = false" ng-show="bootstyle.settings.is_edit_mode">
+                <a href="#"> <i class="glyphicon glyphicon-eye-open"></i> Preview </a>
+            </li>
+        </ul>
+    </div>
+</nav>

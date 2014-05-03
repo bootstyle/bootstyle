@@ -1,0 +1,51 @@
+<div class="modal fade" id="settings_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">
+                    <i class="glyphicon glyphicon-cog"></i> Preview Settings
+                </h4>
+            </div>
+            <div class="modal-body">
+                <label>Theme</label>
+
+                <div class="control-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="bootstyle.settings.sheets.bootstrap_theme">
+                            Bootstrap Theme
+                        </label>
+                    </div>
+                    <div ng-show="bootstyle.settings.sheets.bootstrap_theme">
+                        <p>Add this to your <code>&lt;head&gt;</code>:</p>
+                        <pre>&lt;link rel="stylesheet/less" href="path_to/theme.less"&gt;</pre>
+                    </div>
+                </div>
+                <hr/>
+                <label>Container</label>
+
+                <div class="control-group">
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="container_classes" value="container" ng-model="bootstyle.settings.grid_container_class">
+                            container
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="container_classes" value="container-fluid" ng-model="bootstyle.settings.grid_container_class">
+                            container-fluid
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <pre>&lt;div class="{{ bootstyle.settings.grid_container_class }}"&gt;...&lt;/div&gt;</pre>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
