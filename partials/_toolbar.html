@@ -8,15 +8,6 @@
         <div class="panel-collapse collapse" id="toolbar_base">
             <ul class="list-group">
                 <li class="list-group-item">
-                    <span class="badge">{{ bootstrap.scaffolding.body_bg }}</span>
-                    <label>Background</label>
-
-                    <div class="input-group">
-                        <span class="input-group-addon" colorpicker ng-model="bootstrap.scaffolding.body_bg" style="background-color: {{ bootstrap.scaffolding.body_bg }}"></span>
-                        <input type="text" class="form-control" ng-model="bootstrap.scaffolding.body_bg"/>
-                    </div>
-                </li>
-                <li class="list-group-item">
                     <span class="badge">{{ bootstrap.components.padding_control }}px</span>
                     <label> Padding
                         <input type="range" ng-model="bootstrap.components.padding_control" min="1" max="20"/>
@@ -28,34 +19,9 @@
                         <input type="range" ng-model="bootstrap.components.border_radius_base" min="0" max="20"/>
                     </label>
                 </li>
-                <li class="list-group-item">
-                    <span class="badge">{{ bootstrap.typography.line_height_base }}</span>
-                    <label> Line Height
-                        <input type="range" ng-model="bootstrap.typography.line_height_base" min="1" max="2" step="0.01"/>
-                    </label>
-                </li>
             </ul>
         </div>
     </div>
-
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h1 class="panel-title">
-                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_auto_font_color">AutoFont</a>
-            </h1>
-        </div>
-        <div class="panel-collapse collapse in" id="toolbar_auto_font_color">
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <span class="badge">{{ bootstyle.settings.auto_font_color.contrast }}</span>
-                    <label> Contrast
-                        <input type="range" ng-model="bootstyle.settings.auto_font_color.contrast" min="0" max="1" step="0.01"/>
-                    </label>
-                </li>
-            </ul>
-        </div>
-    </div>
-
 
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -94,7 +60,7 @@
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox" ng-model="bootstyle.settings.navbar.has_auto_font_color">
-                                AutoFont Color
+                                Auto
                             </label>
                         </div>
                     </div>
@@ -111,15 +77,29 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h1 class="panel-title">
-                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_fonts"> Fonts </a>
+                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_typography"> Typography </a>
             </h1>
         </div>
-        <div class="panel-collapse collapse" id="toolbar_fonts">
+        <div class="panel-collapse collapse" id="toolbar_typography">
             <ul class="list-group fonts">
                 <li class="list-group-item">
                     <span class="badge">{{ bootstrap.typography.font_size_base }}px</span>
                     <label> Font Size
                         <input type="range" min="10" max="21" ng-model="bootstrap.typography.font_size_base"/>
+                    </label>
+                </li>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <span class="badge">{{ bootstyle.settings.auto_font_color.contrast }}</span>
+                        <label> Contrast
+                            <input type="range" ng-model="bootstyle.settings.auto_font_color.contrast" min="0" max="1" step="0.01"/>
+                        </label>
+                    </li>
+                </ul>
+                <li class="list-group-item">
+                    <span class="badge">{{ bootstrap.typography.line_height_base }}</span>
+                    <label> Line Height
+                        <input type="range" ng-model="bootstrap.typography.line_height_base" min="1" max="2" step="0.01"/>
                     </label>
                 </li>
                 <li class="list-group-item">
@@ -147,8 +127,6 @@
                             </ul>
                         </div>
                     </div>
-                </li>
-                <li class="list-group-item">
                     <label>Headings</label>
 
                     <div class="control-group">
@@ -226,11 +204,20 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h1 class="panel-title">
-                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_brand_colors"> Brand Colors </a>
+                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_colors">Colors</a>
             </h1>
         </div>
-        <div class="panel-collapse collapse" id="toolbar_brand_colors">
+        <div class="panel-collapse collapse" id="toolbar_colors">
             <ul class="list-group">
+                <li class="list-group-item">
+                    <span class="badge">{{ bootstrap.scaffolding.body_bg }}</span>
+                    <label>Body</label>
+
+                    <div class="input-group">
+                        <span class="input-group-addon" colorpicker ng-model="bootstrap.scaffolding.body_bg" style="background-color: {{ bootstrap.scaffolding.body_bg }}"></span>
+                        <input type="text" class="form-control" colorpicker ng-model="bootstrap.scaffolding.body_bg"/>
+                    </div>
+                </li>
                 <li class="list-group-item">
                     <div ng-repeat="(k, v) in bootstrap.colors.brand" class="form-group">
                         <label>{{ k | capitalize }}</label>

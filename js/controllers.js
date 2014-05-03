@@ -326,7 +326,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     RECOMPILE_LESS_DELAY: 300,
                     auto_font_color: {
                         contrast: 0.9,
-                        breakpoint: 57
+                        breakpoint: 60
                     }
                 },
                 tab: 'preview',
@@ -372,7 +372,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                 },
             };
 
-            read_file('partials/_preview_base.html', function(file_contents) {
+            read_file('partials/_preview_bootstyle.html', function(file_contents) {
                 $scope.update_preview_html(file_contents);
                 $scope.bootstyle.initialized = true;
             });
@@ -387,7 +387,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                 theme: "ambiance",
                 mode: 'htmlmixed',
                 lineNumbers: true,
-                value: angular.element('.preview').html()
+                value: $scope.preview_html
             });
 
             $scope.code_editor.on('change', function() {
