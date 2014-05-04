@@ -67,31 +67,29 @@
                         <ng-include src=" 'partials/_toolbar.html' "></ng-include>
                     </aside>
 
-                    <main ng-class="bootstyle.settings.preview_column_class()">
+                    <main ng-class="preview.column_class">
                         <div class="row">
                             <div class="col-md-1 col-xs-2">
                                 <toggle-toolbar></toggle-toolbar>
                             </div>
                             <div class="col-md-11 col-xs-10">
-                                <ul class="nav nav-tabs">
-                                    <li ng-click="preview_tab_clicked()" ng-class="{active: bootstyle.tab === 'preview'}">
-                                        <a href=""><i class="glyphicon glyphicon-eye-open"></i> Preview</a>
-                                    </li>
-                                    <li ng-click="edit_tab_clicked()" ng-class="{active: bootstyle.tab === 'edit_html'}">
-                                        <a href=""><i class="glyphicon glyphicon-chevron-left"></i><i class="glyphicon glyphicon-chevron-right"></i> Edit HTML</a>
+                                <ul class="nav nav-tabs preview_tabs">
+                                    <li ng-repeat="tab in tabs.list" ng-click="tabs.set_current(tab.key)" ng-class="tab.class">
+                                        <a href=""><i ng-class="tab.icon_class"></i> {{ tab.label }}</a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
 
-                        <ng-include src=" 'partials/_preview.html' " ng-show="bootstyle.tab === 'preview'"></ng-include>
-                        <ng-include src=" 'partials/_code_editor.html' " ng-show="bootstyle.tab === 'edit_html'"></ng-include>
+                        <ng-include src=" 'partials/_preview.html' " ng-show="tabs.current === 'preview'"></ng-include>
+                        <ng-include src=" 'partials/_code_editor.html' " ng-show="tabs.current === 'edit_html'"></ng-include>
                     </main>
                 </div>
             </div>
         </div>
 
         <ng-include src=" 'partials/_download_modal.html' "></ng-include>
+        <ng-include src=" 'partials/_reset_modal.html' "></ng-include>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>

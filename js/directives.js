@@ -16,6 +16,6 @@ angular.module('bootstyleApp.directives', []).
             link: function(scope, elem, attrs) {
 
             },
-            templateUrl: 'partials/_toggle_toolbar.html'
+            templateUrl: 'partials/_toolbar_toggle.html'
         };
     });

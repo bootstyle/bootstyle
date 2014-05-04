@@ -315,11 +315,12 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                         button_style: 'default',
                     },
                     grid_container_class: 'container',
-                    preview_column_class: function() {
-                        return $scope.bootstyle.settings.is_edit_mode ? 'col-md-9 col-xs-8' : 'col-xs-12'
+                    toolbar: {
+
                     },
                     is_edit_mode: true,
                     navbar: {
+                        is_inverse: true,
                         has_auto_font_color: true,
                     },
                     RECOMPILE_LESS_DELAY: 300,
@@ -328,7 +329,6 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                         breakpoint: 60
                     }
                 },
-                tab: 'preview',
                 utils: {
                     auto_overlaying_color: function(color, contrast) {
                         var contrast = contrast || $scope.bootstyle.settings.auto_font_color.contrast;
@@ -372,7 +372,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
             };
 
             read_file('partials/_preview_bootstyle.html', function(file_contents) {
-                $scope.update_preview_html(file_contents);
+                $scope.preview.set_html(file_contents);
                 $scope.bootstyle.initialized = true;
             });
         };
@@ -386,11 +386,11 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                 theme: "ambiance",
                 mode: 'htmlmixed',
                 lineNumbers: true,
-                value: $scope.preview_html
+                value: $scope.preview.html
             });
 
             $scope.code_editor.on('change', function() {
-                $scope.update_preview_html($scope.code_editor.getValue());
+                $scope.preview.set_html($scope.code_editor.getValue());
             });
         };
 
@@ -398,40 +398,77 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
         /*
          Toolbar
          */
-        $scope.toggle_toolbar = function() {
-            $scope.bootstyle.settings.is_edit_mode = !$scope.bootstyle.settings.is_edit_mode;
+        $scope.toolbar = {
+            toggle: function() {
+                $scope.bootstyle.settings.is_edit_mode = !$scope.bootstyle.settings.is_edit_mode;
+
+                $scope.preview.update_column_class()
+            }
         };
 
         /*
          Tabs
          */
-        $scope.set_tab = function(tab) {
-            $scope.bootstyle.tab = tab;
+        $scope.tabs = {
+            set_current: function(tab) {
+                $scope.tabs.current = tab;
+                $scope.tabs.set_active_class();
+            },
+            set_active_class: function() {
+                for (var i in $scope.tabs.list) {
+                    for (var key in $scope.tabs.list[i]) {
+                        if ($scope.tabs.list[i].hasOwnProperty(key) && $scope.tabs.list[i].key === $scope.tabs.current) {
+                            $scope.tabs.list[i].class = 'active';
+                        } else {
+                            $scope.tabs.list[i].class = '';
+                        }
+                    }
+                }
+            },
+            list: [
+                {
+                    label: 'Preview',
+                    icon_class: 'glyphicon glyphicon-eye-open',
+                    key: 'preview',
+                    class: 'active'
+                },
+                {
+                    label: 'Edit HTML',
+                    icon_class: 'glyphicon glyphicon-pencil',
+                    key: 'edit_html',
+                    class: ''
+                }
+            ]
         };
-        $scope.preview_tab_clicked = function() {
-            $scope.set_tab('preview');
-        };
-        $scope.edit_tab_clicked = function() {
-            $scope.set_tab('edit_html');
-        };
+        angular.extend($scope.tabs, {
+            current: $scope.tabs.list[0].key
+        });
 
 
         /*
          Preview
          */
-        $scope.update_preview_html = function(html) {
-            $scope.preview_html = html;
+        $scope.preview = {
+            column_class: 'col-md-9 col-xs-8',
+            html: null,
+            update_column_class: function() {
+                if ($scope.bootstyle.settings.is_edit_mode) {
+                    $scope.preview.column_class = 'col-md-9 col-xs-8';
+                } else {
+                    $scope.preview.column_class = 'col-xs-12';
+                }
+            },
+            set_html: function(html) {
+                $scope.preview.html = html;
+            }
         };
+
 
         /*
          Nav Methods
          */
         $scope.reset = function() {
-            var do_reset = confirm('Permanently lose all changes?');
-
-            if (do_reset) {
-                $scope.init_bootstyle()
-            }
+            $scope.init_bootstyle()
         };
 
         $scope.download = function() {
