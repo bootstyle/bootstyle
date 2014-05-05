@@ -14,7 +14,6 @@
                                 <input type="checkbox" ng-model="bootstyle.settings.sheets.bootstrap_theme">
                             </label>
                         </div>
-                        <small>Visually enhanced experience.</small>
                     </div>
                 </li>
                 <li class="list-group-item">
@@ -68,16 +67,16 @@
                     </label>
                 </li>
                 <li class="list-group-item">
-                    <span class="badge">{{ bootstrap.navbar.bg_control }}</span>
+                    <span class="badge">{{ bootstyle.variables.methods['@navbar-default-bg']() }}</span>
                     <label>Background</label>
 
                     <div class="input-group">
-                        <span class="input-group-addon" colorpicker ng-model="bootstrap.navbar.bg_control" style="background-color: {{ bootstrap.navbar.bg_control }}"></span>
+                        <span class="input-group-addon" colorpicker ng-model="bootstrap.navbar.bg_control" style="background-color: {{ bootstrap.variables.methods['@navbar-default-bg']() }}"></span>
                         <input class="form-control" type="text" colorpicker ng-model="bootstrap.navbar.bg_control"/>
                     </div>
                 </li>
                 <li class="list-group-item">
-                    <span class="badge">{{ bootstyle.variables.methods['@navbar-inverse-color']() }}</span>
+                    <span class="badge">{{ bootstyle.variables.methods['@navbar-default-color']() }}</span>
                     <label>Font Color</label>
 
                     <div class="control-group">
@@ -88,9 +87,8 @@
                             </label>
                         </div>
                     </div>
-
                     <div class="input-group" ng-hide="bootstyle.settings.navbar.has_auto_font_color">
-                        <span class="input-group-addon" colorpicker ng-model="bootstrap.navbar.color_control" style="background-color: {{ bootstrap.navbar.color_control }}"></span>
+                        <span class="input-group-addon" colorpicker ng-model="bootstrap.navbar.color_control" style="background-color: {{ bootstrap.variables.methods['@navbar-default-color']() }}"></span>
                         <input class="form-control" type="text" colorpicker ng-model="bootstrap.navbar.color_control"/>
                     </div>
                 </li>
@@ -234,7 +232,7 @@
         <div class="panel-collapse collapse" id="toolbar_colors">
             <ul class="list-group">
                 <li class="list-group-item">
-                    <span class="badge">{{ bootstrap.scaffolding.body_bg }}</span>
+                    <span class="badge">{{ bootstyle.variables.methods['@body-bg']() }}</span>
                     <label>Body</label>
 
                     <div class="input-group">

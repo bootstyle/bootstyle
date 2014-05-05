@@ -315,12 +315,8 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                         button_style: 'default',
                     },
                     grid_container_class: 'container',
-                    toolbar: {
-
-                    },
                     is_edit_mode: true,
                     navbar: {
-                        is_inverse: true,
                         has_auto_font_color: true,
                     },
                     RECOMPILE_LESS_DELAY: 300,
@@ -405,6 +401,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                 $scope.preview.update_column_class()
             }
         };
+
 
         /*
          Tabs
