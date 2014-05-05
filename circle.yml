@@ -1,0 +1,9 @@
+test:
+  override:
+    - ls index.html
+
+deployment:
+  production:
+    branch: master
+    heroku:
+      appname: bootstyle

@@ -26,8 +26,6 @@
     bottom: 0;
 
     .toolbar {
-        .make-xs-column(4);
-        .make-md-column(3);
 
         .panel {
             // let dropdowns that overflow be shown
@@ -45,4 +43,15 @@
             }
         }
     }
+    .preview_tabs {
+        margin-bottom: @line-height-computed;
+    }
+}
+
+#code_editor {
+    overflow: hidden;
+    border-radius: @border-radius-base;
+    padding-bottom: 0;
+    margin-right: 0;
+    margin-bottom: @line-height-computed;
 }

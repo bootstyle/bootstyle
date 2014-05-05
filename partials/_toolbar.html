@@ -1,0 +1,256 @@
+<aside class="toolbar panel-group" id="toolbar">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h1 class="panel-title">
+                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_base"> Base</a>
+            </h1>
+        </div>
+        <div class="panel-collapse collapse in" id="toolbar_base">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="control-group">
+                        <div class="checkbox">
+                            <label> Bootstrap Theme
+                                <input type="checkbox" ng-model="bootstyle.settings.sheets.bootstrap_theme">
+                            </label>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <label>Container</label>
+
+                    <div class="control-group">
+                        <label class="radio-inline">
+                            <input class="radio-inline" type="radio" name="container_classes" value="container" ng-model="bootstyle.settings.grid_container_class">
+                            Fixed
+                        </label>
+                        <label class="radio-inline">
+                            <input class="radio-inline" type="radio" name="container_classes" value="container-fluid" ng-model="bootstyle.settings.grid_container_class">
+                            Fluid
+                        </label>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">{{ bootstrap.components.padding_control }}px</span>
+                    <label> Padding
+                        <input type="range" ng-model="bootstrap.components.padding_control" min="1" max="20"/>
+                    </label>
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">{{ bootstrap.components.border_radius_base }}px</span>
+                    <label> Border Radius
+                        <input type="range" ng-model="bootstrap.components.border_radius_base" min="0" max="20"/>
+                    </label>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h1 class="panel-title">
+                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_navbar"> Navbar</a>
+            </h1>
+        </div>
+        <div class="panel-collapse collapse" id="toolbar_navbar">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <span class="badge">{{ bootstrap.navbar.height }}px</span>
+                    <label> Height
+                        <input type="range" ng-model="bootstrap.navbar.height" min="20" max="150"/>
+                    </label>
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">{{ bootstrap.navbar.margin_bottom }}px</span>
+                    <label> Margin Bottom
+                        <input type="range" ng-model="bootstrap.navbar.margin_bottom" min="0" max="100"/>
+                    </label>
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">{{ bootstyle.variables.methods['@navbar-default-bg']() }}</span>
+                    <label>Background</label>
+
+                    <div class="input-group">
+                        <span class="input-group-addon" colorpicker ng-model="bootstrap.navbar.bg_control" style="background-color: {{ bootstrap.variables.methods['@navbar-default-bg']() }}"></span>
+                        <input class="form-control" type="text" colorpicker ng-model="bootstrap.navbar.bg_control"/>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">{{ bootstyle.variables.methods['@navbar-default-color']() }}</span>
+                    <label>Font Color</label>
+
+                    <div class="control-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="bootstyle.settings.navbar.has_auto_font_color">
+                                Auto
+                            </label>
+                        </div>
+                    </div>
+                    <div class="input-group" ng-hide="bootstyle.settings.navbar.has_auto_font_color">
+                        <span class="input-group-addon" colorpicker ng-model="bootstrap.navbar.color_control" style="background-color: {{ bootstrap.variables.methods['@navbar-default-color']() }}"></span>
+                        <input class="form-control" type="text" colorpicker ng-model="bootstrap.navbar.color_control"/>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h1 class="panel-title">
+                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_typography"> Typography </a>
+            </h1>
+        </div>
+        <div class="panel-collapse collapse" id="toolbar_typography">
+            <ul class="list-group fonts">
+                <li class="list-group-item">
+                    <span class="badge">{{ bootstrap.typography.font_size_base }}px</span>
+                    <label> Font Size
+                        <input type="range" min="10" max="21" ng-model="bootstrap.typography.font_size_base"/>
+                    </label>
+                </li>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <span class="badge">{{ bootstyle.settings.auto_font_color.contrast }}</span>
+                        <label> Contrast
+                            <input type="range" ng-model="bootstyle.settings.auto_font_color.contrast" min="0" max="1" step="0.01"/>
+                        </label>
+                    </li>
+                </ul>
+                <li class="list-group-item">
+                    <span class="badge">{{ bootstrap.typography.line_height_base }}</span>
+                    <label> Line Height
+                        <input type="range" ng-model="bootstrap.typography.line_height_base" min="1" max="2" step="0.01"/>
+                    </label>
+                </li>
+                <li class="list-group-item">
+                    <label>Body</label>
+
+                    <div class="control-group">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                                {{ bootstrap.typography.font_family_base.display_name }}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li role="presentation" class="dropdown-header">Google Fonts</li>
+                                <li class="font_option"
+                                    ng-repeat="f in fonts.library"
+                                    ng-click="bootstrap.typography.font_family_base = f"
+                                    ng-mouseenter="bootstrap.typography.font_family_base.preview = f.style"
+                                    ng-mouseleave="bootstrap.typography.font_family_base.preview = null"
+                                    ng-class="{'active': bootstrap.typography.font_family_base.style === f.style}"
+                                    style="font-family: {{ f.style }} !important">
+                                    <a href="">
+                                        <i class="glyphicon glyphicon-ok" ng-show="bootstrap.typography.font_family_base.style === f.style"></i> {{ f.display_name }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <label>Headings</label>
+
+                    <div class="control-group">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                                {{ bootstrap.typography.headings_font_family.display_name }}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li class="font_option"
+                                    ng-repeat="f in fonts.library"
+                                    ng-click="bootstrap.typography.headings_font_family = f"
+                                    ng-mouseenter="bootstrap.typography.headings_font_family.preview = f.style"
+                                    ng-mouseleave="bootstrap.typography.headings_font_family.preview = null"
+                                    ng-class="{'active': bootstrap.typography.headings_font_family.style === f.style}"
+                                    style="font-family: {{ f.style }} !important">
+                                    <a href="">
+                                        <i class="glyphicon glyphicon-ok" ng-show="bootstrap.typography.headings_font_family.style === f.style"></i> {{ f.display_name }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h1 class="panel-title">
+                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_buttons"> Buttons </a>
+            </h1>
+        </div>
+        <div class="panel-collapse collapse" id="toolbar_buttons">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <label>Styles</label>
+
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="button_styles" value="default" ng-model="bootstyle.settings.sheets.button_style">
+                            Default
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="button_styles" value="stripe" ng-model="bootstyle.settings.sheets.button_style">
+                            Stripe
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="button_styles" value="basecamp" ng-model="bootstyle.settings.sheets.button_style">
+                            Basecamp
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="button_styles" value="zoomshift" ng-model="bootstyle.settings.sheets.button_style">
+                            ZoomShift
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="button_styles" value="geckoboard" ng-model="bootstyle.settings.sheets.button_style">
+                            GeckoBoard
+                        </label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h1 class="panel-title">
+                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_colors">Colors</a>
+            </h1>
+        </div>
+        <div class="panel-collapse collapse" id="toolbar_colors">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <span class="badge">{{ bootstyle.variables.methods['@body-bg']() }}</span>
+                    <label>Body</label>
+
+                    <div class="input-group">
+                        <span class="input-group-addon" colorpicker ng-model="bootstrap.scaffolding.body_bg" style="background-color: {{ bootstrap.scaffolding.body_bg }}"></span>
+                        <input type="text" class="form-control" colorpicker ng-model="bootstrap.scaffolding.body_bg"/>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div ng-repeat="(k, v) in bootstrap.colors.brand" class="form-group">
+                        <label>{{ k | capitalize }}</label>
+
+                        <div class="input-group">
+                            <span class="input-group-addon" colorpicker ng-model="bootstrap.colors.brand[k]" style="background-color: {{ bootstrap.colors.brand[k] }}"></span>
+                            <input class="form-control" type="text" colorpicker ng-model="bootstrap.colors.brand[k]"/>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</aside>
