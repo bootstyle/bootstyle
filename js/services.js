@@ -15,10 +15,4 @@ angular.module('bootstyleApp.services', []).
                     callback(data);
                 });
         };
-    }]).
-
-    filter('trustAsHTML', ['$sce', function($sce) {
-        return function(val) {
-            return $sce.trustAsHtml(val);
-        };
     }]);

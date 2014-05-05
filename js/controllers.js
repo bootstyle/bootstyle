@@ -315,7 +315,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                         button_style: 'default',
                     },
                     grid_container_class: 'container',
-                    is_edit_mode: true,
+                    show_toolbar: true,
                     navbar: {
                         has_auto_font_color: true,
                     },
@@ -353,10 +353,6 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                             value = Math.floor(((bootstyle_brightness / 5) * contrast) + (100 - bootstyle_brightness / 5));
                             saturation = Math.floor((under.saturation() / 2) * (1 - contrast));
                         }
-                        // console.log('-----------------');
-                        // console.log(saturation);
-                        // console.log(value);
-                        // console.log('-----------------');
 
                         // sat must be set first for proper effect
                         over.saturation(saturation);
@@ -396,7 +392,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
          */
         $scope.toolbar = {
             toggle: function() {
-                $scope.bootstyle.settings.is_edit_mode = !$scope.bootstyle.settings.is_edit_mode;
+                $scope.bootstyle.settings.show_toolbar = !$scope.bootstyle.settings.show_toolbar;
 
                 $scope.preview.update_column_class()
             }
@@ -449,7 +445,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
             column_class: 'col-md-9 col-xs-8',
             html: null,
             update_column_class: function() {
-                if ($scope.bootstyle.settings.is_edit_mode) {
+                if ($scope.bootstyle.settings.show_toolbar) {
                     $scope.preview.column_class = 'col-md-9 col-xs-8';
                 } else {
                     $scope.preview.column_class = 'col-xs-12';
