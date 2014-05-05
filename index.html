@@ -62,8 +62,8 @@
 
             <div ng-class="bootstyle.settings.grid_container_class">
 
-                <div class="row">
-                    <aside class="toolbar col-md-3 col-xs-4" ng-show="bootstyle.settings.show_toolbar">
+                <div class="row" ng-show="bootstyle.settings.show_toolbar">
+                    <aside class="col-md-3 col-xs-4">
                         <ng-include src=" 'partials/_toolbar.html' "></ng-include>
                     </aside>
 
@@ -81,8 +81,12 @@
                             </div>
                         </div>
 
-                        <ng-include src=" 'partials/_preview.html' " ng-show="tabs.current === 'preview'"></ng-include>
-                        <ng-include src=" 'partials/_code_editor.html' " ng-show="tabs.current === 'edit_html'"></ng-include>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <ng-include src=" 'partials/_preview.html' " ng-show="tabs.current === 'preview'"></ng-include>
+                                <ng-include src=" 'partials/_code_editor.html' " ng-show="tabs.current === 'edit_html'"></ng-include>
+                            </div>
+                        </div>
                     </main>
                 </div>
             </div>
