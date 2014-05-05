@@ -5,7 +5,7 @@
  */
 
 angular.module('bootstyleApp.services', []).
-    value('version', 'v0.1').
+    value('version', 'v0.0.1').
 
     factory('read_file', ['$http', function($http) {
 
