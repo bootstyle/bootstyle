@@ -310,7 +310,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     }
                 },
                 settings: {
-                    additional_less: {
+                    sheets: {
                         bootstrap_theme: false,
                         button_style: 'default',
                     },

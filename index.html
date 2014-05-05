@@ -62,9 +62,9 @@
 
             <div ng-class="bootstyle.settings.grid_container_class">
 
-                <div class="row" ng-show="bootstyle.settings.show_toolbar">
+                <div class="row">
                     <aside class="col-md-3 col-xs-4">
-                        <ng-include src=" 'partials/_toolbar.html' "></ng-include>
+                        <ng-include src=" 'partials/_toolbar.html' " ng-show="bootstyle.settings.show_toolbar"></ng-include>
                     </aside>
 
                     <main ng-class="preview.column_class">
