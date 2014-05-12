@@ -45,11 +45,8 @@
 
     <body ng-controller="BootstyleCtrl">
         <!-- Dynamic LESS -->
-        <link ng-if="bootstyle.settings.sheets.bootstrap_theme" rel="stylesheet/less" href="less/bootstrap/theme.less">
-        <link ng-if="bootstyle.settings.sheets.button_style === 'stripe'" rel="stylesheet/less" href="less/buttons_stripe.less">
-        <link ng-if="bootstyle.settings.sheets.button_style === 'basecamp'" rel="stylesheet/less" href="less/buttons_basecamp.less">
-        <link ng-if="bootstyle.settings.sheets.button_style === 'geckoboard'" rel="stylesheet/less" href="less/buttons_geckoboard.less">
-        <link ng-if="bootstyle.settings.sheets.button_style === 'zoomshift'" rel="stylesheet/less" href="less/buttons_zoomshift.less">
+        <link ng-repeat="s in stylesheets.base" ng-if="ctrls.button_style === s.name" rel="stylesheet/less" ng-href="{{ s.path }}"/>
+        <link ng-repeat="s in stylesheets.buttons" ng-if="ctrls.button_style === s.name" rel="stylesheet/less" ng-href="{{ s.path }}"/>
 
         <!--[if lt IE 7]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please
@@ -60,7 +57,7 @@
 
             <ng-include src=" 'partials/_navbar.html' "></ng-include>
 
-            <div ng-class="bootstyle.settings.grid_container_class">
+            <div ng-class="ctrls.container_class">
 
                 <div class="row">
                     <aside class="col-md-3 col-xs-4">

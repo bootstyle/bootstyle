@@ -9,6 +9,49 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
 
         $scope.init_bootstyle = function() {
 
+            $scope.ctrls = {
+                bootstrap_theme: false,
+                container_class: 'container',
+                padding: 10,
+                border_radius: 4,
+                navbar: {
+                    height: 50,
+                    margin_bottom: 20,
+                    bg: '#222',
+                    font_color: '@gray-light',
+                    is_auto_color: true,
+                },
+                font: {
+                    size: 14,
+                    contrast: 0.9,
+                },
+                line_height: 1.43,
+                body_bg: '#ffffff',
+                brand: {
+                    danger: '#d9534f',
+                    info: '#5bc0de',
+                    primary: '#428bca',
+                    success: '#5cb85c',
+                    warning: '#f0ad4e',
+                },
+                use_google_fonts: true,
+                button_style: 'Default',
+            };
+
+            $scope.stylesheets = {
+                base: [
+                    { name: 'Bootstrap Theme', path: 'less/bootstrap/theme.less' }
+                ],
+                buttons: [
+                    { name: 'Default', path: '' },
+                    { name: 'Stripe', path: 'less/buttons_stripe.less' },
+                    { name: 'Basecamp', path: 'less/buttons_basecamp.less' },
+                    { name: 'GeckoBoard', path: 'less/buttons_geckoboard.less' },
+                    { name: 'ZoomShift', path: 'less/buttons_zoomshift.less' },
+                ],
+
+            };
+
             $scope.fonts = {
                 bootstrap: {
                     'Helvetica Neue': {
@@ -89,7 +132,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                 },
                 font_size_base: 14,
                 headings_font_family: {
-                    display_name: 'inherit',
+                    display_name: 'Same as Body',
                     style: 'inherit',
                     preview: null
                 },
@@ -97,7 +140,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
             };
             angular.extend($scope.bootstrap.typography, {
                 line_height_computed: function() {
-                    return Math.floor(($scope.bootstrap.typography.font_size_base * $scope.bootstrap.typography.line_height_base));
+                    return Math.floor(($scope.ctrls.font.size * $scope.ctrls.line_height));
                 }
             });
 
@@ -113,28 +156,28 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
             };
             angular.extend($scope.bootstrap.components, {
                 'padding_base_vertical': function() {
-                    return Math.floor($scope.bootstrap.components.padding_control * 0.6)
+                    return Math.floor($scope.ctrls.padding * 0.6)
                 },
                 'padding_base_horizontal': function() {
-                    return Math.floor($scope.bootstrap.components.padding_control * 1.2)
+                    return Math.floor($scope.ctrls.padding * 1.2)
                 },
                 'padding_large_vertical': function() {
-                    return Math.floor($scope.bootstrap.components.padding_control * 1)
+                    return Math.floor($scope.ctrls.padding * 1)
                 },
                 'padding_large_horizontal': function() {
-                    return Math.floor($scope.bootstrap.components.padding_control * 1.6)
+                    return Math.floor($scope.ctrls.padding * 1.6)
                 },
                 'padding_small_vertical': function() {
-                    return Math.floor($scope.bootstrap.components.padding_control * 0.5)
+                    return Math.floor($scope.ctrls.padding * 0.5)
                 },
                 'padding_small_horizontal': function() {
-                    return Math.floor($scope.bootstrap.components.padding_control * 1)
+                    return Math.floor($scope.ctrls.padding * 1)
                 },
                 'padding_xs_vertical': function() {
-                    return Math.floor($scope.bootstrap.components.padding_control * 0.1)
+                    return Math.floor($scope.ctrls.padding * 0.1)
                 },
                 'padding_xs_horizontal': function() {
-                    return Math.floor($scope.bootstrap.components.padding_control * 0.5)
+                    return Math.floor($scope.ctrls.padding * 0.5)
                 }
             });
 
@@ -208,16 +251,16 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     methods: {
                         // Components
                         '@body-bg': function() {
-                            return $scope.bootstrap.scaffolding.body_bg;
+                            return $scope.ctrls.body_bg;
                         },
                         '@border-radius-base': function() {
-                            return $scope.bootstrap.components.border_radius_base + 'px';
+                            return $scope.ctrls.border_radius + 'px';
                         },
                         '@border-radius-large': function() {
-                            return Math.floor($scope.bootstrap.components.border_radius_base * 1.5) + 'px';
+                            return Math.floor($scope.ctrls.border_radius * 1.5) + 'px';
                         },
                         '@border-radius-small': function() {
-                            return Math.floor($scope.bootstrap.components.border_radius_base * 0.5) + 'px';
+                            return Math.floor($scope.ctrls.border_radius * 0.5) + 'px';
                         },
                         '@padding-base-vertical': function() {
                             return $scope.bootstrap.components.padding_base_vertical() + 'px';
@@ -246,24 +289,24 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
 
                         // Colors
                         '@brand-primary': function() {
-                            return $scope.bootstrap.colors.brand.primary;
+                            return $scope.ctrls.brand.primary;
                         },
                         '@brand-success': function() {
-                            return $scope.bootstrap.colors.brand.success;
+                            return $scope.ctrls.brand.success;
                         },
                         '@brand-info': function() {
-                            return $scope.bootstrap.colors.brand.info;
+                            return $scope.ctrls.brand.info;
                         },
                         '@brand-warning': function() {
-                            return $scope.bootstrap.colors.brand.warning;
+                            return $scope.ctrls.brand.warning;
                         },
                         '@brand-danger': function() {
-                            return $scope.bootstrap.colors.brand.danger;
+                            return $scope.ctrls.brand.danger;
                         },
 
                         // Typography
                         '@font-size-base': function() {
-                            return $scope.bootstrap.typography.font_size_base + 'px';
+                            return $scope.ctrls.font.size + 'px';
                         },
                         '@font-family-base': function() {
                             return $scope.bootstrap.typography.font_family_base.preview || $scope.bootstrap.typography.font_family_base.style;
@@ -272,26 +315,26 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                             return $scope.bootstrap.typography.headings_font_family.preview || $scope.bootstrap.typography.headings_font_family.style;
                         },
                         '@line-height-base': function() {
-                            return $scope.bootstrap.typography.line_height_base;
+                            return $scope.ctrls.line_height;
                         },
 
                         // Navbar
                         '@navbar-height': function() {
-                            return $scope.bootstrap.navbar.height + 'px';
+                            return $scope.ctrls.navbar.height + 'px';
                         },
                         '@navbar-margin-bottom': function() {
-                            return $scope.bootstrap.navbar.margin_bottom + 'px';
+                            return $scope.ctrls.navbar.margin_bottom + 'px';
                         },
                         '@navbar-inverse-bg': function() {
-                            return $scope.bootstrap.navbar.bg_control;
+                            return $scope.ctrls.navbar.bg;
                         },
                         '@navbar-inverse-color': function() {
                             var color;
 
-                            if ($scope.bootstyle.settings.navbar.has_auto_font_color) {
-                                color = $scope.bootstyle.utils.auto_overlaying_color($scope.bootstrap.navbar.bg_control);
+                            if ($scope.ctrls.navbar.is_auto_color) {
+                                color = $scope.bootstyle.utils.auto_overlaying_color($scope.ctrls.navbar.bg);
                             } else {
-                                color = $scope.bootstrap.navbar.color_control;
+                                color = $scope.ctrls.navbar.font_color;
                             }
 
                             return color;
@@ -299,10 +342,10 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                         '@navbar-inverse-link-color': function() {
                             var color;
 
-                            if ($scope.bootstyle.settings.navbar.has_auto_font_color) {
-                                color = $scope.bootstyle.utils.auto_overlaying_color($scope.bootstrap.navbar.bg_control);
+                            if ($scope.ctrls.navbar.is_auto_color) {
+                                color = $scope.bootstyle.utils.auto_overlaying_color($scope.ctrls.navbar.bg);
                             } else {
-                                color = $scope.bootstrap.navbar.color_control;
+                                color = $scope.ctrls.navbar.font_color;
                             }
 
                             return color;
@@ -323,11 +366,12 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     auto_font_color: {
                         contrast: 0.9,
                         breakpoint: 60
-                    }
+                    },
+                    use_google_fonts: true,
                 },
                 utils: {
                     auto_overlaying_color: function(color, contrast) {
-                        var contrast = contrast || $scope.bootstyle.settings.auto_font_color.contrast;
+                        var contrast = contrast || $scope.ctrls.font.contrast;
 
                         var under = new Color(color);
                         var over = new Color(color);
@@ -476,7 +520,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
 
         // Watch for changes
         // TODO: Only watch values that necessitate a recompile
-        $scope.$watch('[bootstrap, bootstyle]', function(newValue, oldValue) {
+        $scope.$watch('[bootstrap, bootstyle, ctrls, stylesheets]', function(newValue, oldValue) {
             $scope.last_LESS_edit = Date.now();
             $scope.timerRecompileLESS();
         }, true);

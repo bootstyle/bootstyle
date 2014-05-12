@@ -11,7 +11,7 @@
                     <div class="control-group">
                         <div class="checkbox">
                             <label> Bootstrap Theme
-                                <input type="checkbox" ng-model="bootstyle.settings.sheets.bootstrap_theme">
+                                <input type="checkbox" ng-model="ctrls.bootstrap_theme">
                             </label>
                         </div>
                     </div>
@@ -21,25 +21,25 @@
 
                     <div class="control-group">
                         <label class="radio-inline">
-                            <input class="radio-inline" type="radio" name="container_classes" value="container" ng-model="bootstyle.settings.grid_container_class">
+                            <input class="radio-inline" type="radio" name="container_classes" value="container" ng-model="ctrls.container_class">
                             Fixed
                         </label>
                         <label class="radio-inline">
-                            <input class="radio-inline" type="radio" name="container_classes" value="container-fluid" ng-model="bootstyle.settings.grid_container_class">
+                            <input class="radio-inline" type="radio" name="container_classes" value="container-fluid" ng-model="ctrls.container_class">
                             Fluid
                         </label>
                     </div>
                 </li>
                 <li class="list-group-item">
-                    <span class="badge">{{ bootstrap.components.padding_control }}px</span>
+                    <span class="badge">{{ ctrls.padding }}px</span>
                     <label> Padding
-                        <input type="range" ng-model="bootstrap.components.padding_control" min="1" max="20"/>
+                        <input type="range" ng-model="ctrls.padding" min="1" max="20"/>
                     </label>
                 </li>
                 <li class="list-group-item">
-                    <span class="badge">{{ bootstrap.components.border_radius_base }}px</span>
+                    <span class="badge">{{ ctrls.border_radius }}px</span>
                     <label> Border Radius
-                        <input type="range" ng-model="bootstrap.components.border_radius_base" min="0" max="20"/>
+                        <input type="range" ng-model="ctrls.border_radius" min="0" max="20"/>
                     </label>
                 </li>
             </ul>
@@ -55,15 +55,15 @@
         <div class="panel-collapse collapse" id="toolbar_navbar">
             <ul class="list-group">
                 <li class="list-group-item">
-                    <span class="badge">{{ bootstrap.navbar.height }}px</span>
+                    <span class="badge">{{ ctrls.navbar.height }}px</span>
                     <label> Height
-                        <input type="range" ng-model="bootstrap.navbar.height" min="20" max="150"/>
+                        <input type="range" ng-model="ctrls.navbar.height" min="20" max="150"/>
                     </label>
                 </li>
                 <li class="list-group-item">
-                    <span class="badge">{{ bootstrap.navbar.margin_bottom }}px</span>
+                    <span class="badge">{{ ctrls.navbar.margin_bottom }}px</span>
                     <label> Margin Bottom
-                        <input type="range" ng-model="bootstrap.navbar.margin_bottom" min="0" max="100"/>
+                        <input type="range" ng-model="ctrls.navbar.margin_bottom" min="0" max="100"/>
                     </label>
                 </li>
                 <li class="list-group-item">
@@ -71,8 +71,8 @@
                     <label>Background</label>
 
                     <div class="input-group">
-                        <span class="input-group-addon" colorpicker ng-model="bootstrap.navbar.bg_control" style="background-color: {{ bootstyle.variables.methods['@navbar-inverse-bg']() }}"></span>
-                        <input class="form-control" type="text" colorpicker ng-model="bootstrap.navbar.bg_control"/>
+                        <span class="input-group-addon" colorpicker ng-model="ctrls.navbar.bg" style="background-color: {{ bootstyle.variables.methods['@navbar-inverse-bg']() }}"></span>
+                        <input class="form-control" type="text" colorpicker ng-model="ctrls.navbar.bg"/>
                     </div>
                 </li>
                 <li class="list-group-item">
@@ -82,14 +82,14 @@
                     <div class="control-group">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" ng-model="bootstyle.settings.navbar.has_auto_font_color">
+                                <input type="checkbox" ng-model="ctrls.navbar.is_auto_color">
                                 Auto
                             </label>
                         </div>
                     </div>
-                    <div class="input-group" ng-hide="bootstyle.settings.navbar.has_auto_font_color">
-                        <span class="input-group-addon" colorpicker ng-model="bootstrap.navbar.color_control" style="background-color: {{ bootstyle.variables.methods['@navbar-inverse-color']() }}"></span>
-                        <input class="form-control" type="text" colorpicker ng-model="bootstrap.navbar.color_control"/>
+                    <div class="input-group" ng-hide="ctrls.navbar.is_auto_color">
+                        <span class="input-group-addon" colorpicker ng-model="ctrls.navbar.font_color" style="background-color: {{ bootstyle.variables.methods['@navbar-inverse-color']() }}"></span>
+                        <input class="form-control" type="text" colorpicker ng-model="ctrls.navbar.font_color"/>
                     </div>
                 </li>
             </ul>
@@ -105,26 +105,35 @@
         <div class="panel-collapse collapse" id="toolbar_typography">
             <ul class="list-group fonts">
                 <li class="list-group-item">
-                    <span class="badge">{{ bootstrap.typography.font_size_base }}px</span>
+                    <span class="badge">{{ ctrls.font.size }}px</span>
                     <label> Font Size
-                        <input type="range" min="10" max="21" ng-model="bootstrap.typography.font_size_base"/>
+                        <input type="range" min="10" max="21" ng-model="ctrls.font.size"/>
                     </label>
                 </li>
                 <ul class="list-group">
                     <li class="list-group-item">
-                        <span class="badge">{{ bootstyle.settings.auto_font_color.contrast }}</span>
+                        <span class="badge">{{ ctrls.font.contrast }}</span>
                         <label> Contrast
-                            <input type="range" ng-model="bootstyle.settings.auto_font_color.contrast" min="0" max="1" step="0.01"/>
+                            <input type="range" ng-model="ctrls.font.contrast" min="0" max="1" step="0.01"/>
                         </label>
                     </li>
                 </ul>
                 <li class="list-group-item">
-                    <span class="badge">{{ bootstrap.typography.line_height_base }}</span>
+                    <span class="badge">{{ ctrls.line_height }}</span>
                     <label> Line Height
-                        <input type="range" ng-model="bootstrap.typography.line_height_base" min="1" max="2" step="0.01"/>
+                        <input type="range" ng-model="ctrls.line_height" min="1" max="2" step="0.01"/>
                     </label>
                 </li>
                 <li class="list-group-item">
+                    <div class="control-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="bootstyle.settings.use_google_fonts">
+                                Use Google Fonts
+                            </label>
+                        </div>
+                    </div>
+
                     <label>Body</label>
 
                     <div class="control-group">
@@ -188,34 +197,10 @@
                 <li class="list-group-item">
                     <label>Styles</label>
 
-                    <div class="radio">
+                    <div class="radio" ng-repeat="s in stylesheets.buttons">
                         <label>
-                            <input type="radio" name="button_styles" value="default" ng-model="bootstyle.settings.sheets.button_style">
-                            Default
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="button_styles" value="stripe" ng-model="bootstyle.settings.sheets.button_style">
-                            Stripe
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="button_styles" value="basecamp" ng-model="bootstyle.settings.sheets.button_style">
-                            Basecamp
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="button_styles" value="zoomshift" ng-model="bootstyle.settings.sheets.button_style">
-                            ZoomShift
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="button_styles" value="geckoboard" ng-model="bootstyle.settings.sheets.button_style">
-                            GeckoBoard
+                            <input type="radio" name="button_styles" ng-value="s.name" ng-model="ctrls.button_style">
+                            {{ s.name }}
                         </label>
                     </div>
                 </li>
@@ -236,17 +221,17 @@
                     <label>Body</label>
 
                     <div class="input-group">
-                        <span class="input-group-addon" colorpicker ng-model="bootstrap.scaffolding.body_bg" style="background-color: {{ bootstrap.scaffolding.body_bg }}"></span>
-                        <input type="text" class="form-control" colorpicker ng-model="bootstrap.scaffolding.body_bg"/>
+                        <span class="input-group-addon" colorpicker ng-model="ctrls.body_bg" style="background-color: {{ ctrls.body_bg }}"></span>
+                        <input type="text" class="form-control" colorpicker ng-model="ctrls.body_bg"/>
                     </div>
                 </li>
                 <li class="list-group-item">
-                    <div ng-repeat="(k, v) in bootstrap.colors.brand" class="form-group">
+                    <div ng-repeat="(k, v) in ctrls.brand" class="form-group">
                         <label>{{ k | capitalize }}</label>
 
                         <div class="input-group">
-                            <span class="input-group-addon" colorpicker ng-model="bootstrap.colors.brand[k]" style="background-color: {{ bootstrap.colors.brand[k] }}"></span>
-                            <input class="form-control" type="text" colorpicker ng-model="bootstrap.colors.brand[k]"/>
+                            <span class="input-group-addon" colorpicker ng-model="ctrls.brand[k]" style="background-color: {{ ctrls.brand[k] }}"></span>
+                            <input class="form-control" type="text" colorpicker ng-model="ctrls.brand[k]"/>
                         </div>
                     </div>
                 </li>

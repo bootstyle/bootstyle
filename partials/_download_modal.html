@@ -17,13 +17,13 @@
 
                 <h4>Head</h4>
                 <p>Add this to your <code>&lt;head&gt;</code>:</p>
-                <pre>&lt;link rel="stylesheet/less" href="path_to/bootstrap.less"&gt;<br/><span ng-if="bootstyle.settings.sheets.bootstrap_theme">&lt;link rel="stylesheet/less" href="path_to/theme.less"&gt;<br/></span>&lt;link rel="stylesheet/less" href="path_to/bootstyle.less"&gt;</pre>
+                <pre>&lt;link rel="stylesheet/less" href="path_to/bootstrap.less"&gt;<br/><span ng-if="ctrls.bootstrap_theme">&lt;link rel="stylesheet/less" href="path_to/theme.less"&gt;<br/></span>&lt;link rel="stylesheet/less" href="path_to/bootstyle.less"&gt;</pre>
 
                 <hr/>
 
                 <h4>Containers</h4>
                 <p>All containers need this class:</p>
-                <pre>&lt;div class="<strong>{{ bootstyle.settings.grid_container_class }}</strong>"&gt;...&lt;/div&gt;</pre>
+                <pre>&lt;div class="<strong>{{ ctrls.container_class }}</strong>"&gt;...&lt;/div&gt;</pre>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary btn-lg btn-block" data-dismiss="modal" ng-click="download()">
