@@ -128,7 +128,7 @@
                     <div class="control-group">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" ng-model="bootstyle.settings.use_google_fonts">
+                                <input type="checkbox" ng-model="settings.use_google_fonts">
                                 Use Google Fonts
                             </label>
                         </div>
@@ -197,6 +197,12 @@
                 <li class="list-group-item">
                     <label>Styles</label>
 
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="button_styles" value="default" ng-model="ctrls.button_style">
+                            Default
+                        </label>
+                    </div>
                     <div class="radio" ng-repeat="s in stylesheets.buttons">
                         <label>
                             <input type="radio" name="button_styles" ng-value="s.name" ng-model="ctrls.button_style">

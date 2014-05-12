@@ -34,8 +34,12 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     success: '#5cb85c',
                     warning: '#f0ad4e',
                 },
+                button_style: 'default',
+            };
+
+            // only settings which don't require a LESS recompile
+            $scope.settings = {
                 use_google_fonts: true,
-                button_style: 'Default',
             };
 
             $scope.stylesheets = {
@@ -43,7 +47,6 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     { name: 'Bootstrap Theme', path: 'less/bootstrap/theme.less' }
                 ],
                 buttons: [
-                    { name: 'Default', path: '' },
                     { name: 'Stripe', path: 'less/buttons_stripe.less' },
                     { name: 'Basecamp', path: 'less/buttons_basecamp.less' },
                     { name: 'GeckoBoard', path: 'less/buttons_geckoboard.less' },
@@ -353,21 +356,12 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     }
                 },
                 settings: {
-                    sheets: {
-                        bootstrap_theme: false,
-                        button_style: 'default',
-                    },
-                    grid_container_class: 'container',
                     show_toolbar: true,
-                    navbar: {
-                        has_auto_font_color: true,
-                    },
                     RECOMPILE_LESS_DELAY: 300,
                     auto_font_color: {
                         contrast: 0.9,
                         breakpoint: 60
                     },
-                    use_google_fonts: true,
                 },
                 utils: {
                     auto_overlaying_color: function(color, contrast) {
