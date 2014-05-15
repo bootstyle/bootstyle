@@ -401,6 +401,8 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                 },
             };
 
+            $scope.preview.update_column_class();
+
             read_file('partials/_preview_bootstyle.html', function(file_contents) {
                 $scope.preview.set_html(file_contents);
                 $scope.bootstyle.initialized = true;
@@ -480,7 +482,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
          Preview
          */
         $scope.preview = {
-            column_class: 'col-md-9 col-xs-8',
+            column_class: null,
             html: null,
             update_column_class: function() {
                 if ($scope.bootstyle.settings.show_toolbar) {
