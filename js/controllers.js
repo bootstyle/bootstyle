@@ -41,6 +41,11 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
             $scope.settings = {
                 use_google_fonts: true,
                 show_toolbar: true,
+                RECOMPILE_LESS_DELAY: 200,
+                auto_font_color: {
+                    contrast: 0.9,
+                    breakpoint: 60
+                },
             };
 
             $scope.stylesheets = {
@@ -356,13 +361,6 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                         },
                     }
                 },
-                settings: {
-                    RECOMPILE_LESS_DELAY: 300,
-                    auto_font_color: {
-                        contrast: 0.9,
-                        breakpoint: 60
-                    },
-                },
                 utils: {
                     auto_overlaying_color: function(color, contrast) {
                         var contrast = contrast || $scope.ctrls.font.contrast;
@@ -382,7 +380,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                         var bootstyle_brightness = Math.floor(under.value() - (((under.value() / 100) * under.saturationv()) / 2));
                         var value, saturation;
 
-                        if (bootstyle_brightness >= $scope.bootstyle.settings.auto_font_color.breakpoint) {
+                        if (bootstyle_brightness >= $scope.settings.auto_font_color.breakpoint) {
                             // light underlay, dark overlay
                             value = Math.floor((bootstyle_brightness / 2) * (1 - contrast) + (bootstyle_brightness / 5));
                             saturation = Math.floor((under.saturation()) * (1 - contrast));
@@ -513,7 +511,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
         // Call recompileLESS after a certain amount of inactivity
         $scope.timerRecompileLESS = function() {
             window.timerRecompileLESS = window.timerRecompileLESS || setInterval(function() {
-                if (Date.now() - $scope.last_LESS_edit >= $scope.bootstyle.settings.RECOMPILE_LESS_DELAY) {
+                if (Date.now() - $scope.last_LESS_edit >= $scope.settings.RECOMPILE_LESS_DELAY) {
                     window.clearInterval(window.timerRecompileLESS);
                     window.timerRecompileLESS = null;
                     $scope.recompileLESS();
