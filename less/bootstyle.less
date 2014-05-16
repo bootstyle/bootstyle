@@ -1,12 +1,6 @@
 @import "bootstrap/bootstrap";
 
 /*
- Bootstrap Overrides
- */
-@icon-font-path: 'fonts/';
-
-
-/*
  LESS Error Message
  */
 .less-error-message {
@@ -16,31 +10,96 @@
 }
 
 /*
- App styles
+ Bootstrap Overrides
  */
+@icon-font-path: 'fonts/';
+
+/*
+ Colorpicker overrides
+ */
+.colorpicker {
+    position: fixed;
+}
+
+/*
+ Bootstyle styles
+ */
+
 #app {
+    @bootstyle_toolbar_width: 200px;
+    padding-top: @navbar-height + @navbar-margin-bottom;
 
-    .toolbar {
+    &.show_toolbar {
+        .toolbar_container {
+            margin-left: 0;
 
-        .panel {
-            // let dropdowns that overflow be shown
-            overflow: visible;
+            .toolbar_btn {
+                margin-left: @grid-gutter-width * 0.5;
+                padding-right: 0;
+            }
+        }
+        .content_container {
+            margin-left: @bootstyle_toolbar_width + @grid-gutter-width * 0.5;
+        }
+    }
 
-            .list-group {
-                margin-bottom: 0;
+    .toolbar_container {
+        margin-left: -@bootstyle_toolbar_width * 2;
+        .transition(margin-left 0.1s ease-out);
 
-                .list-group-item {
-                    border-left: none;
-                    border-right: none;
-                    border-bottom: none;
-                    border-radius: 0;
+        .toolbar_btn {
+            position: fixed;
+            padding: (@grid-gutter-width / 6) 0;
+            margin-left: -@grid-gutter-width * 0.333;
+            top: @navbar-height + 1px;
+            left: 0;
+            font-size: @font-size-base * 2;
+            line-height: 1;
+            color: @text-color;
+            cursor: pointer;
+            z-index: 9900;
+            .transition(margin-left 0.1s ease-out);
+
+            .menu_icon {
+
+            }
+            .arrow_icon {
+                font-size: @font-size-base * 0.825;
+                vertical-align: super;
+            }
+        }
+        .toolbar {
+            position: fixed;
+            padding-top: unit(@font-size-base * 2, px);
+            width: @bootstyle_toolbar_width;
+            z-index: 9800;
+
+            .panel {
+                // let dropdowns that overflow be shown
+                overflow: visible;
+
+                .list-group {
+                    margin-bottom: 0;
+
+                    .list-group-item {
+                        border-left: none;
+                        border-right: none;
+                        border-bottom: none;
+                        border-radius: 0;
+                    }
                 }
             }
         }
     }
-    .preview_tabs {
-        margin-bottom: @line-height-computed;
+
+    .content_container {
+        .transition(margin-left 0.1s ease-out);
+
+        .preview_tabs {
+            margin-bottom: @line-height-computed;
+        }
     }
+
 }
 
 #code_editor {

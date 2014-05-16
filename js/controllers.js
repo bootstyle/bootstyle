@@ -40,6 +40,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
             // only settings which don't require a LESS recompile
             $scope.settings = {
                 use_google_fonts: true,
+                show_toolbar: true,
             };
 
             $scope.stylesheets = {
@@ -356,7 +357,6 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     }
                 },
                 settings: {
-                    show_toolbar: true,
                     RECOMPILE_LESS_DELAY: 300,
                     auto_font_color: {
                         contrast: 0.9,
@@ -401,8 +401,6 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                 },
             };
 
-            $scope.preview.update_column_class();
-
             read_file('partials/_preview_bootstyle.html', function(file_contents) {
                 $scope.preview.set_html(file_contents);
                 $scope.bootstyle.initialized = true;
@@ -432,9 +430,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
          */
         $scope.toolbar = {
             toggle: function() {
-                $scope.bootstyle.settings.show_toolbar = !$scope.bootstyle.settings.show_toolbar;
-
-                $scope.preview.update_column_class()
+                $scope.settings.show_toolbar = !$scope.settings.show_toolbar;
             }
         };
 
@@ -482,15 +478,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
          Preview
          */
         $scope.preview = {
-            column_class: null,
             html: null,
-            update_column_class: function() {
-                if ($scope.bootstyle.settings.show_toolbar) {
-                    $scope.preview.column_class = 'col-md-9 col-xs-8';
-                } else {
-                    $scope.preview.column_class = 'col-xs-12';
-                }
-            },
             set_html: function(html) {
                 $scope.preview.html = html;
             }

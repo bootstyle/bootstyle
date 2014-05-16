@@ -45,7 +45,7 @@
 
     <body ng-controller="BootstyleCtrl">
         <!-- Dynamic LESS -->
-        <link ng-repeat="s in stylesheets.base" ng-if="ctrls.button_style === s.name" rel="stylesheet/less" ng-href="{{ s.path }}"/>
+        <link ng-if="ctrls.bootstrap_theme" rel="stylesheet/less" href="less/bootstrap/theme.less"/>
         <link ng-repeat="s in stylesheets.buttons" ng-if="ctrls.button_style === s.name" rel="stylesheet/less" ng-href="{{ s.path }}"/>
 
         <!--[if lt IE 7]>
@@ -53,38 +53,30 @@
             <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <div id="app" ng-init="init_bootstyle()">
+        <div id="app" ng-init="init_bootstyle()" ng-class="{ show_toolbar: settings.show_toolbar }">
 
             <ng-include src=" 'partials/_navbar.html' "></ng-include>
-
             <div ng-class="ctrls.container_class">
+                <div class="toolbar_container">
+                    <ng-include src=" 'partials/_toolbar_toggle.html' "></ng-include>
+                    <ng-include src=" 'partials/_toolbar.html' "></ng-include>
+                </div>
 
-                <div class="row">
-                    <aside class="col-md-3 col-xs-4">
-                        <ng-include src=" 'partials/_toolbar.html' " ng-show="bootstyle.settings.show_toolbar"></ng-include>
-                    </aside>
-
-                    <main ng-class="preview.column_class">
-                        <div class="row">
-                            <div class="col-md-1 col-xs-2">
-                                <toggle-toolbar></toggle-toolbar>
-                            </div>
-                            <div class="col-md-11 col-xs-10">
+                <div class="content_container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <main>
                                 <ul class="nav nav-tabs preview_tabs">
                                     <li ng-repeat="tab in tabs.list" ng-click="tabs.set_current(tab.key)" ng-class="tab.class">
                                         <a href=""><i ng-class="tab.icon_class"></i> {{ tab.label }}</a>
                                     </li>
                                 </ul>
-                            </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-xs-12">
                                 <ng-include src=" 'partials/_preview.html' " ng-show="tabs.current === 'preview'"></ng-include>
                                 <ng-include src=" 'partials/_code_editor.html' " ng-show="tabs.current === 'edit_html'"></ng-include>
-                            </div>
+                            </main>
                         </div>
-                    </main>
+                    </div>
                 </div>
             </div>
         </div>
