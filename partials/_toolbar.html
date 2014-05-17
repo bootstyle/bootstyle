@@ -5,7 +5,7 @@
                 <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_base"> Base</a>
             </h1>
         </div>
-        <div class="panel-collapse collapse in" id="toolbar_base">
+        <div class="panel-collapse collapse" id="toolbar_base">
             <ul class="list-group">
                 <li class="list-group-item">
                     <span class="badge">{{ ctrls.border_radius.control }}px</span>
@@ -102,7 +102,7 @@
                 <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_typography"> Typography </a>
             </h1>
         </div>
-        <div class="panel-collapse collapse" id="toolbar_typography">
+        <div class="panel-collapse collapse in" id="toolbar_typography">
             <ul class="list-group fonts">
                 <li class="list-group-item">
                     <span class="badge">{{ ctrls.font_size.control }}px</span>
@@ -126,59 +126,289 @@
                     <div class="control-group">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" ng-model="settings.use_google_fonts">
+                                <input type="checkbox" ng-model="ctrls.use_google_fonts.control">
                                 Use Google Fonts
                             </label>
                         </div>
                     </div>
 
-                    <label>Body</label>
+                    <div ng-hide="ctrls.use_google_fonts.control">
+                        <label>Headings</label>
+                        <div class="control-group">
+                            <div class="btn-group dropup">
+                                <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                                    {{ ctrls.headings_web_safe_font_family.control }}
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li role="presentation" class="dropdown-header" style="font-family: serif !important;">Serif</li>
+                                    <li class="font_option"
+                                        ng-repeat="f in fonts.web_safe.serif"
+                                        ng-mouseenter="ctrls.headings_web_safe_font_family.preview = f.style"
+                                        ng-mouseleave="ctrls.headings_web_safe_font_family.preview = null"
+                                        ng-click="ctrls.headings_web_safe_font_family.style = f.style; ctrls.headings_web_safe_font_family.control = f.display_name"
+                                        ng-class="{'active': ctrls.headings_web_safe_font_family.style === f.style}"
+                                        style="font-family: {{ f.style }} !important">
+                                        <a href="">{{ f.display_name }}</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li role="presentation" class="dropdown-header" style="font-family: sans-serif !important;">Sans-Serif</li>
+                                    <li class="font_option"
+                                        ng-repeat="f in fonts.web_safe.sans_serif"
+                                        ng-mouseenter="ctrls.headings_web_safe_font_family.preview = f.style"
+                                        ng-mouseleave="ctrls.headings_web_safe_font_family.preview = null"
+                                        ng-click="ctrls.headings_web_safe_font_family.style = f.style; ctrls.headings_web_safe_font_family.control = f.display_name"
+                                        ng-class="{'active': ctrls.headings_web_safe_font_family.style === f.style}"
+                                        style="font-family: {{ f.style }} !important">
+                                        <a href="">{{ f.display_name }}</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li role="presentation" class="dropdown-header" style="font-family: monospace !important;">Monospace</li>
+                                    <li class="font_option"
+                                        ng-repeat="f in fonts.web_safe.monospace"
+                                        ng-mouseenter="ctrls.headings_web_safe_font_family.preview = f.style"
+                                        ng-mouseleave="ctrls.headings_web_safe_font_family.preview = null"
+                                        ng-click="ctrls.headings_web_safe_font_family.style = f.style; ctrls.headings_web_safe_font_family.control = f.display_name"
+                                        ng-class="{'active': ctrls.headings_web_safe_font_family.style === f.style}"
+                                        style="font-family: {{ f.style }} !important">
+                                        <a href="">{{ f.display_name }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
 
-                    <div class="control-group">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
-                                {{ bootstrap.typography.font_family_base.display_name }}
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li role="presentation" class="dropdown-header">Google Fonts</li>
-                                <li class="font_option"
-                                    ng-repeat="f in fonts.library"
-                                    ng-click="bootstrap.typography.font_family_base = f"
-                                    ng-mouseenter="bootstrap.typography.font_family_base.preview = f.style"
-                                    ng-mouseleave="bootstrap.typography.font_family_base.preview = null"
-                                    ng-class="{'active': bootstrap.typography.font_family_base.style === f.style}"
-                                    style="font-family: {{ f.style }} !important">
-                                    <a href="">
-                                        <i class="glyphicon glyphicon-ok" ng-show="bootstrap.typography.font_family_base.style === f.style"></i> {{ f.display_name }}
-                                    </a>
-                                </li>
-                            </ul>
+                        <label>Body</label>
+                        <div class="control-group">
+                            <div class="btn-group dropup">
+                                <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                                    {{ ctrls.body_web_safe_font_family.control }}
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li role="presentation" class="dropdown-header" style="font-family: serif !important;">Serif</li>
+                                    <li class="font_option"
+                                        ng-repeat="f in fonts.web_safe.serif"
+                                        ng-mouseenter="ctrls.body_web_safe_font_family.preview = f.style"
+                                        ng-mouseleave="ctrls.body_web_safe_font_family.preview = null"
+                                        ng-click="ctrls.body_web_safe_font_family.style = f.style; ctrls.body_web_safe_font_family.control = f.display_name"
+                                        ng-class="{'active': ctrls.body_web_safe_font_family.style === f.style}"
+                                        style="font-family: {{ f.style }} !important">
+                                        <a href="">{{ f.display_name }}</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li role="presentation" class="dropdown-header" style="font-family: sans-serif !important;">Sans-Serif</li>
+                                    <li class="font_option"
+                                        ng-repeat="f in fonts.web_safe.sans_serif"
+                                        ng-mouseenter="ctrls.body_web_safe_font_family.preview = f.style"
+                                        ng-mouseleave="ctrls.body_web_safe_font_family.preview = null"
+                                        ng-click="ctrls.body_web_safe_font_family.style = f.style; ctrls.body_web_safe_font_family.control = f.display_name"
+                                        ng-class="{'active': ctrls.body_web_safe_font_family.style === f.style}"
+                                        style="font-family: {{ f.style }} !important">
+                                        <a href="">{{ f.display_name }}</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li role="presentation" class="dropdown-header" style="font-family: monospace !important;">Monospace</li>
+                                    <li class="font_option"
+                                        ng-repeat="f in fonts.web_safe.monospace"
+                                        ng-mouseenter="ctrls.body_web_safe_font_family.preview = f.style"
+                                        ng-mouseleave="ctrls.body_web_safe_font_family.preview = null"
+                                        ng-click="ctrls.body_web_safe_font_family.style = f.style; ctrls.body_web_safe_font_family.control = f.display_name"
+                                        ng-class="{'active': ctrls.body_web_safe_font_family.style === f.style}"
+                                        style="font-family: {{ f.style }} !important">
+                                        <a href="">{{ f.display_name }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <label>Code</label>
+                        <div class="control-group">
+                            <div class="btn-group dropup">
+                                <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                                    {{ ctrls.code_web_safe_font_family.control }}
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li role="presentation" class="dropdown-header" style="font-family: serif !important;">Serif</li>
+                                    <li class="font_option"
+                                        ng-repeat="f in fonts.web_safe.serif"
+                                        ng-mouseenter="ctrls.code_web_safe_font_family.preview = f.style"
+                                        ng-mouseleave="ctrls.code_web_safe_font_family.preview = null"
+                                        ng-click="ctrls.code_web_safe_font_family.style = f.style; ctrls.code_web_safe_font_family.control = f.display_name"
+                                        ng-class="{'active': ctrls.code_web_safe_font_family.style === f.style}"
+                                        style="font-family: {{ f.style }} !important">
+                                        <a href="">{{ f.display_name }}</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li role="presentation" class="dropdown-header" style="font-family: sans-serif !important;">Sans-Serif</li>
+                                    <li class="font_option"
+                                        ng-repeat="f in fonts.web_safe.sans_serif"
+                                        ng-mouseenter="ctrls.code_web_safe_font_family.preview = f.style"
+                                        ng-mouseleave="ctrls.code_web_safe_font_family.preview = null"
+                                        ng-click="ctrls.code_web_safe_font_family.style = f.style; ctrls.code_web_safe_font_family.control = f.display_name"
+                                        ng-class="{'active': ctrls.code_web_safe_font_family.style === f.style}"
+                                        style="font-family: {{ f.style }} !important">
+                                        <a href="">{{ f.display_name }}</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li role="presentation" class="dropdown-header" style="font-family: monospace !important;">Monospace</li>
+                                    <li class="font_option"
+                                        ng-repeat="f in fonts.web_safe.monospace"
+                                        ng-mouseenter="ctrls.code_web_safe_font_family.preview = f.style"
+                                        ng-mouseleave="ctrls.code_web_safe_font_family.preview = null"
+                                        ng-click="ctrls.code_web_safe_font_family.style = f.style; ctrls.code_web_safe_font_family.control = f.display_name"
+                                        ng-class="{'active': ctrls.code_web_safe_font_family.style === f.style}"
+                                        style="font-family: {{ f.style }} !important">
+                                        <a href="">{{ f.display_name }}</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                    <label>Headings</label>
 
-                    <div class="control-group">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
-                                {{ bootstrap.typography.headings_font_family.display_name }}
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li class="font_option"
-                                    ng-repeat="f in fonts.library"
-                                    ng-click="bootstrap.typography.headings_font_family = f"
-                                    ng-mouseenter="bootstrap.typography.headings_font_family.preview = f.style"
-                                    ng-mouseleave="bootstrap.typography.headings_font_family.preview = null"
-                                    ng-class="{'active': bootstrap.typography.headings_font_family.style === f.style}"
-                                    style="font-family: {{ f.style }} !important">
-                                    <a href="">
-                                        <i class="glyphicon glyphicon-ok" ng-show="bootstrap.typography.headings_font_family.style === f.style"></i> {{ f.display_name }}
-                                    </a>
-                                </li>
-                            </ul>
+                    <div ng-show="ctrls.use_google_fonts.control">
+                        <label>Headings</label>
+
+                        <div class="control-group">
+                            <div class="btn-group dropup">
+                                <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                                    {{ ctrls.headings_google_font_family.control }}
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li role="presentation" class="dropdown-header" style="font-family: serif !important;">Serif</li>
+                                    <li class="font_option"
+                                        ng-repeat="f in fonts.google.serif"
+                                        ng-mouseenter="ctrls.headings_google_font_family.preview = f.style"
+                                        ng-mouseleave="ctrls.headings_google_font_family.preview = null"
+                                        ng-click="ctrls.headings_google_font_family.style = f.style; ctrls.headings_google_font_family.control = f.display_name"
+                                        ng-class="{'active': ctrls.headings_google_font_family.style === f.style}"
+                                        style="font-family: {{ f.style }} !important">
+                                        <a href="">{{ f.display_name }}</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li role="presentation" class="dropdown-header" style="font-family: sans-serif !important;">Sans-Serif</li>
+                                    <li class="font_option"
+                                        ng-repeat="f in fonts.google.sans_serif"
+                                        ng-mouseenter="ctrls.headings_google_font_family.preview = f.style"
+                                        ng-mouseleave="ctrls.headings_google_font_family.preview = null"
+                                        ng-click="ctrls.headings_google_font_family.style = f.style; ctrls.headings_google_font_family.control = f.display_name"
+                                        ng-class="{'active': ctrls.headings_google_font_family.style === f.style}"
+                                        style="font-family: {{ f.style }} !important">
+                                        <a href="">{{ f.display_name }}</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li role="presentation" class="dropdown-header" style="font-family: monospace !important;">Monospace</li>
+                                    <li class="font_option"
+                                        ng-repeat="f in fonts.google.monospace"
+                                        ng-mouseenter="ctrls.headings_google_font_family.preview = f.style"
+                                        ng-mouseleave="ctrls.headings_google_font_family.preview = null"
+                                        ng-click="ctrls.headings_google_font_family.style = f.style; ctrls.headings_google_font_family.control = f.display_name"
+                                        ng-class="{'active': ctrls.headings_google_font_family.style === f.style}"
+                                        style="font-family: {{ f.style }} !important">
+                                        <a href="">{{ f.display_name }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <label>Body</label>
+
+                        <div class="control-group">
+                            <div class="btn-group dropup">
+                                <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                                    {{ ctrls.body_google_font_family.control }}
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li role="presentation" class="dropdown-header" style="font-family: serif !important;">Serif</li>
+                                    <li class="font_option"
+                                        ng-repeat="f in fonts.google.serif"
+                                        ng-mouseenter="ctrls.body_google_font_family.preview = f.style"
+                                        ng-mouseleave="ctrls.body_google_font_family.preview = null"
+                                        ng-click="ctrls.body_google_font_family.style = f.style; ctrls.body_google_font_family.control = f.display_name"
+                                        ng-class="{'active': ctrls.body_google_font_family.style === f.style}"
+                                        style="font-family: {{ f.style }} !important">
+                                        <a href="">{{ f.display_name }}</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li role="presentation" class="dropdown-header" style="font-family: sans-serif !important;">Sans-Serif</li>
+                                    <li class="font_option"
+                                        ng-repeat="f in fonts.google.sans_serif"
+                                        ng-mouseenter="ctrls.body_google_font_family.preview = f.style"
+                                        ng-mouseleave="ctrls.body_google_font_family.preview = null"
+                                        ng-click="ctrls.body_google_font_family.style = f.style; ctrls.body_google_font_family.control = f.display_name"
+                                        ng-class="{'active': ctrls.body_google_font_family.style === f.style}"
+                                        style="font-family: {{ f.style }} !important">
+                                        <a href="">{{ f.display_name }}</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li role="presentation" class="dropdown-header" style="font-family: monospace !important;">Monospace</li>
+                                    <li class="font_option"
+                                        ng-repeat="f in fonts.google.monospace"
+                                        ng-mouseenter="ctrls.body_google_font_family.preview = f.style"
+                                        ng-mouseleave="ctrls.body_google_font_family.preview = null"
+                                        ng-click="ctrls.body_google_font_family.style = f.style; ctrls.body_google_font_family.control = f.display_name"
+                                        ng-class="{'active': ctrls.body_google_font_family.style === f.style}"
+                                        style="font-family: {{ f.style }} !important">
+                                        <a href="">{{ f.display_name }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <label>Code</label>
+
+                        <div class="control-group">
+                            <div class="btn-group dropup">
+                                <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                                    {{ ctrls.code_google_font_family.control }}
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li role="presentation" class="dropdown-header" style="font-family: serif !important;">Serif</li>
+                                    <li class="font_option"
+                                        ng-repeat="f in fonts.google.serif"
+                                        ng-mouseenter="ctrls.code_google_font_family.preview = f.style"
+                                        ng-mouseleave="ctrls.code_google_font_family.preview = null"
+                                        ng-click="ctrls.code_google_font_family.style = f.style; ctrls.code_google_font_family.control = f.display_name"
+                                        ng-class="{'active': ctrls.code_google_font_family.style === f.style}"
+                                        style="font-family: {{ f.style }} !important">
+                                        <a href="">{{ f.display_name }}</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li role="presentation" class="dropdown-header" style="font-family: sans-serif !important;">Sans-Serif</li>
+                                    <li class="font_option"
+                                        ng-repeat="f in fonts.google.sans_serif"
+                                        ng-mouseenter="ctrls.code_google_font_family.preview = f.style"
+                                        ng-mouseleave="ctrls.code_google_font_family.preview = null"
+                                        ng-click="ctrls.code_google_font_family.style = f.style; ctrls.code_google_font_family.control = f.display_name"
+                                        ng-class="{'active': ctrls.code_google_font_family.style === f.style}"
+                                        style="font-family: {{ f.style }} !important">
+                                        <a href="">{{ f.display_name }}</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li role="presentation" class="dropdown-header" style="font-family: monospace !important;">Monospace</li>
+                                    <li class="font_option"
+                                        ng-repeat="f in fonts.google.monospace"
+                                        ng-mouseenter="ctrls.code_google_font_family.preview = f.style"
+                                        ng-mouseleave="ctrls.code_google_font_family.preview = null"
+                                        ng-click="ctrls.code_google_font_family.style = f.style; ctrls.code_google_font_family.control = f.display_name"
+                                        ng-class="{'active': ctrls.code_google_font_family.style === f.style}"
+                                        style="font-family: {{ f.style }} !important">
+                                        <a href="">{{ f.display_name }}</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
+
+                    <div class="btn btn-default btn-block" ng-click="swap_body_heading_typography()">
+                        Body
+                        <i class="glyphicon glyphicon-retweet"></i>
+                        Headings
+                    </div>
+
                 </li>
             </ul>
         </div>
@@ -230,7 +460,7 @@
                     </div>
                 </li>
                 <li class="list-group-item">
-                    <div class="form-group">
+                    <div class="control-group">
                         <label>Primary</label>
 
                         <div class="input-group">
@@ -238,7 +468,7 @@
                             <input class="form-control" type="text" colorpicker ng-model="ctrls.brand_primary.control"/>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="control-group">
                         <label>Success</label>
 
                         <div class="input-group">
@@ -246,7 +476,7 @@
                             <input class="form-control" type="text" colorpicker ng-model="ctrls.brand_success.control"/>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="control-group">
                         <label>Info</label>
 
                         <div class="input-group">
@@ -254,7 +484,7 @@
                             <input class="form-control" type="text" colorpicker ng-model="ctrls.brand_info.control"/>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="control-group">
                         <label>Warning</label>
 
                         <div class="input-group">
@@ -262,7 +492,7 @@
                             <input class="form-control" type="text" colorpicker ng-model="ctrls.brand_warning.control"/>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="control-group">
                         <label>Danger</label>
 
                         <div class="input-group">
