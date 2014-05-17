@@ -10,11 +10,14 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
         $scope.init_bootstyle = function() {
 
             $scope.ctrls = {
-                bootstrap_theme: {
-                    control: false
-                },
-                container_class: {
-                    control: 'container'
+                border_radius: {
+                    control: 4,
+                    calc: function() {
+                        var value = $scope.ctrls.border_radius.control;
+                        $scope.vars['@border-radius-base']  = Math.floor(value * 1)   + 'px';
+                        $scope.vars['@border-radius-large'] = Math.floor(value * 1.5) + 'px';
+                        $scope.vars['@border-radius-small'] = Math.floor(value * 0.5) + 'px';
+                    }
                 },
                 padding: {
                     control: 10,
@@ -30,14 +33,11 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                         $scope.vars['@padding-xs-horizontal']    = Math.floor(value * 0.5) + 'px';
                     }
                 },
-                border_radius: {
-                    control: 4,
-                    calc: function() {
-                        var value = $scope.ctrls.border_radius.control;
-                        $scope.vars['@border-radius-base']  = Math.floor(value * 1)   + 'px';
-                        $scope.vars['@border-radius-large'] = Math.floor(value * 1.5) + 'px';
-                        $scope.vars['@border-radius-small'] = Math.floor(value * 0.5) + 'px';
-                    }
+                container_class: {
+                    control: 'container'
+                },
+                bootstrap_theme: {
+                    control: false
                 },
                 navbar_height: {
                     control: 50,
@@ -65,23 +65,16 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                         var color;
 
                         if ($scope.ctrls.navbar_is_auto_color.control) {
-                            console.log('is auto');
-                            color = auto_overlay_color($scope.ctrls.navbar_bg.control);
+                            color = auto_overlay_color($scope.ctrls.navbar_bg.control, $scope.ctrls.font_contrast.control);
                         } else {
-                            console.log('is NOT auto');
                             color = $scope.ctrls.navbar_font_color.control;
                         }
-
-                        console.log(color);
 
                         $scope.vars['@navbar-inverse-color'] = color;
                         $scope.vars['@navbar-inverse-link-color'] = color;
 
                         $scope.vars['@navbar-default-color'] = color;
                         $scope.vars['@navbar-default-link-color'] = color;
-
-                        // TODO: why is scope apply required here to get the badge to show the right value?!
-                        $scope.$apply();
                     }
                 },
                 navbar_is_auto_color: {
@@ -90,11 +83,11 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                 font_size: {
                     control: 14,
                     calc: function() {
-
+                        $scope.vars['@font-size-base'] = $scope.ctrls.font_size.control + 'px';
                     }
                 },
                 font_contrast: {
-                    control: 0.9,
+                    control: 0.85,
                     calc: function() {
 
                     }
@@ -102,50 +95,47 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                 line_height: {
                     control: 1.43,
                     calc: function() {
-
+                        $scope.vars['@line-height-base'] = $scope.ctrls.line_height.control;
                     }
                 },
                 body_bg: {
                     control: '#ffffff',
                     calc: function() {
-
-                    }
-                },
-                brand_danger: {
-                    control: '#d9534f',
-                    calc: function() {
-
-                    }
-                },
-                brand_info: {
-                    control: '#5bc0de',
-                    calc: function() {
-
+                        $scope.vars['@body-bg'] = $scope.ctrls.body_bg.control;
                     }
                 },
                 brand_primary: {
                     control: '#428bca',
                     calc: function() {
-
+                        $scope.vars['@brand-primary'] = $scope.ctrls.brand_primary.control;
                     }
                 },
                 brand_success: {
                     control: '#5cb85c',
                     calc: function() {
-
+                        $scope.vars['@brand-success'] = $scope.ctrls.brand_success.control;
+                    }
+                },
+                brand_info: {
+                    control: '#5bc0de',
+                    calc: function() {
+                        $scope.vars['@brand-info'] = $scope.ctrls.brand_info.control;
                     }
                 },
                 brand_warning: {
                     control: '#f0ad4e',
                     calc: function() {
-
+                        $scope.vars['@brand-warning'] = $scope.ctrls.brand_warning.control;
+                    }
+                },
+                brand_danger: {
+                    control: '#d9534f',
+                    calc: function() {
+                        $scope.vars['@brand-danger'] = $scope.ctrls.brand_danger.control;
                     }
                 },
                 button_style: {
-                    control: 'default',
-                    calc: function() {
-
-                    }
+                    control: 'default'
                 },
             };
             angular.extend($scope.ctrls, {
@@ -166,13 +156,14 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     }
                 }
             });
+            // allows us to reset any individual control
             $scope.ctrls.set_defaults();
 
-            // Init all the variables
+            // Init all the LESS variables
             $scope.vars = {};
             $scope.ctrls.run_calcs();
 
-            // only settings which don't require a LESS recompile
+            // only settings which don't require a LESS recompile here
             $scope.settings = {
                 use_google_fonts: true,
                 show_toolbar: true,
@@ -243,122 +234,22 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
             }
 
             /*
-             Init Bootstrap
+             Bootstrap
              */
-            $scope.bootstrap = {};
-
-            // Colors
-            $scope.bootstrap.colors = {
-                brand: {
-                    primary: '#428bca',
-                    success: '#5cb85c',
-                    info: '#5bc0de',
-                    warning: '#f0ad4e',
-                    danger: '#d9534f'
+            $scope.bootstrap = {
+                typography: {
+                    font_family_base: {
+                        display_name: $scope.fonts.bootstrap['Helvetica Neue'].display_name,
+                        style: $scope.fonts.bootstrap['Helvetica Neue'].style,
+                        preview: null
+                    },
+                    headings_font_family: {
+                        display_name: 'Same as Body',
+                        style: 'inherit',
+                        preview: null
+                    },
                 }
             };
-
-            // Scaffolding
-            $scope.bootstrap.scaffolding = {
-                body_bg: '#ffffff'
-            };
-
-            // Typography
-            $scope.bootstrap.typography = {
-                font_family_base: {
-                    display_name: $scope.fonts.bootstrap['Helvetica Neue'].display_name,
-                    style: $scope.fonts.bootstrap['Helvetica Neue'].style,
-                    preview: null
-                },
-                font_size_base: 14,
-                headings_font_family: {
-                    display_name: 'Same as Body',
-                    style: 'inherit',
-                    preview: null
-                },
-                line_height_base: 1.43
-            };
-            angular.extend($scope.bootstrap.typography, {
-                line_height_computed: function() {
-                    return Math.floor(($scope.ctrls.font_size * $scope.ctrls.line_height));
-                }
-            });
-
-            // Iconography
-            $scope.bootstrap.iconography = {
-
-            };
-
-            // Components
-            $scope.bootstrap.components = {
-                padding_control: 10,
-                border_radius_base: 4
-            };
-            angular.extend($scope.bootstrap.components, {
-                'padding_base_vertical': function() {
-                    return Math.floor($scope.ctrls.padding * 0.6)
-                },
-                'padding_base_horizontal': function() {
-                    return Math.floor($scope.ctrls.padding * 1.2)
-                },
-                'padding_large_vertical': function() {
-                    return Math.floor($scope.ctrls.padding * 1)
-                },
-                'padding_large_horizontal': function() {
-                    return Math.floor($scope.ctrls.padding * 1.6)
-                },
-                'padding_small_vertical': function() {
-                    return Math.floor($scope.ctrls.padding * 0.5)
-                },
-                'padding_small_horizontal': function() {
-                    return Math.floor($scope.ctrls.padding * 1)
-                },
-                'padding_xs_vertical': function() {
-                    return Math.floor($scope.ctrls.padding * 0.1)
-                },
-                'padding_xs_horizontal': function() {
-                    return Math.floor($scope.ctrls.padding * 0.5)
-                }
-            });
-
-            $scope.bootstrap.tables = {};
-            $scope.bootstrap.buttons = {};
-            $scope.bootstrap.forms = {};
-            $scope.bootstrap.dropdowns = {};
-            $scope.bootstrap.zindex_master_list = {};
-            $scope.bootstrap.media_queries = {};
-            $scope.bootstrap.grid_system = {};
-            $scope.bootstrap.container_sizes = {};
-
-            // Navbar
-            $scope.bootstrap.navbar = {
-                height: 50,
-                color_control: '@gray-light',
-                bg_control: '#222',
-                margin_bottom: $scope.bootstrap.typography.line_height_computed()
-            };
-
-            $scope.bootstrap.navs = {};
-            $scope.bootstrap.pagination = {};
-            $scope.bootstrap.pager = {};
-            $scope.bootstrap.jumbotron = {};
-            $scope.bootstrap.form_states_and_alerts = {};
-            $scope.bootstrap.tooltips = {};
-            $scope.bootstrap.popovers = {};
-            $scope.bootstrap.labels = {};
-            $scope.bootstrap.modals = {};
-            $scope.bootstrap.alerts = {};
-            $scope.bootstrap.progress_bars = {};
-            $scope.bootstrap.list_groups = {};
-            $scope.bootstrap.panels = {};
-            $scope.bootstrap.thumbnails = {};
-            $scope.bootstrap.wells = {};
-            $scope.bootstrap.badges = {};
-            $scope.bootstrap.breadcrumbs = {};
-            $scope.bootstrap.carousel = {};
-            $scope.bootstrap.close = {};
-            $scope.bootstrap.type = {};
-            $scope.bootstrap.miscellaneous = {};
 
 
             /*
@@ -377,96 +268,13 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
 
                         return download_format;
                     },
-                    updated_object: function() {
-                        var updated_variables = {};
-
-                        for (var i in $scope.bootstyle.variables.methods) {
-                            if ($scope.bootstyle.variables.methods.hasOwnProperty(i)) {
-                                updated_variables[i] = $scope.bootstyle.variables.methods[i]();
-                            }
-                        }
-
-                        return updated_variables;
-                    },
                     methods: {
-                        // Components
-                        '@body-bg': function() {
-                            return $scope.ctrls.body_bg;
-                        },
-                        '@border-radius-base': function() {
-                            return $scope.ctrls.border_radius + 'px';
-                        },
-                        '@border-radius-large': function() {
-                            return Math.floor($scope.ctrls.border_radius * 1.5) + 'px';
-                        },
-                        '@border-radius-small': function() {
-                            return Math.floor($scope.ctrls.border_radius * 0.5) + 'px';
-                        },
-                        '@padding-base-vertical': function() {
-                            return $scope.bootstrap.components.padding_base_vertical() + 'px';
-                        },
-                        '@padding-base-horizontal': function() {
-                            return $scope.bootstrap.components.padding_base_horizontal() + 'px';
-                        },
-                        '@padding-large-vertical': function() {
-                            return $scope.bootstrap.components.padding_large_vertical() + 'px';
-                        },
-                        '@padding-large-horizontal': function() {
-                            return $scope.bootstrap.components.padding_large_horizontal() + 'px';
-                        },
-                        '@padding-small-vertical': function() {
-                            return $scope.bootstrap.components.padding_small_vertical() + 'px';
-                        },
-                        '@padding-small-horizontal': function() {
-                            return $scope.bootstrap.components.padding_small_horizontal() + 'px';
-                        },
-                        '@padding-xs-vertical': function() {
-                            return $scope.bootstrap.components.padding_xs_vertical() + 'px';
-                        },
-                        '@padding-xs-horizontal': function() {
-                            return $scope.bootstrap.components.padding_xs_horizontal() + 'px';
-                        },
-
-                        // Colors
-                        '@brand-primary': function() {
-                            return $scope.ctrls.brand_primary;
-                        },
-                        '@brand-success': function() {
-                            return $scope.ctrls.brand_success;
-                        },
-                        '@brand-info': function() {
-                            return $scope.ctrls.brand_info;
-                        },
-                        '@brand-warning': function() {
-                            return $scope.ctrls.brand_warning;
-                        },
-                        '@brand-danger': function() {
-                            return $scope.ctrls.brand_danger;
-                        },
-
                         // Typography
-                        '@font-size-base': function() {
-                            return $scope.ctrls.font_size + 'px';
-                        },
                         '@font-family-base': function() {
                             return $scope.bootstrap.typography.font_family_base.preview || $scope.bootstrap.typography.font_family_base.style;
                         },
                         '@headings-font-family': function() {
                             return $scope.bootstrap.typography.headings_font_family.preview || $scope.bootstrap.typography.headings_font_family.style;
-                        },
-                        '@line-height-base': function() {
-                            return $scope.ctrls.line_height;
-                        },
-
-                        // Navbar
-                        '@navbar-height': function() {
-                            return $scope.ctrls.navbar_height.calc();
-                        },
-                        '@navbar-margin-bottom': function() {
-                            return $scope.ctrls.navbar_margin_bottom + 'px';
-                        },
-                        '@navbar-inverse-bg': function() {
-                            return $scope.ctrls.navbar_bg;
                         },
                     }
                 },
@@ -478,6 +286,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
             });
         };
 
+        ////////////////////////////  END INIT  ////////////////////////////
 
         /*
          Code Editor
@@ -574,8 +383,9 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
          */
 
         // Watch for changes
-        // TODO: Only watch values that necessitate a recompile
-        $scope.$watch('[bootstrap, bootstyle, ctrls, stylesheets]', function(newValue, oldValue) {
+        $scope.$watch('[ctrls]', function(newValue, oldValue) {
+            $scope.ctrls.run_calcs();
+
             $scope.last_LESS_edit = Date.now();
             $scope.timerRecompileLESS();
         }, true);
@@ -613,8 +423,6 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                 }
             }
             // END COPY
-
-            $scope.ctrls.run_calcs();
 
             less.refresh(true, $scope.vars);
         };
