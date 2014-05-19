@@ -431,11 +431,20 @@
                             Default
                         </label>
                     </div>
-                    <div class="radio" ng-repeat="s in stylesheets.buttons">
+                    <div class="radio" ng-repeat="s in stylesheets.button_styles">
                         <label>
                             <input type="radio" name="button_styles" ng-value="s.name" ng-model="ctrls.button_style.control">
                             {{ s.name }}
                         </label>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="control-group">
+                        <div class="checkbox">
+                            <label> Uppercase
+                                <input type="checkbox" ng-model="ctrls.buttons_uppercase.control">
+                            </label>
+                        </div>
                     </div>
                 </li>
             </ul>

@@ -459,6 +459,9 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                 button_style: {
                     control: 'default'
                 },
+                buttons_uppercase: {
+                    control: false
+                },
                 body_bg: {
                     control: '#ffffff',
                     calc: function() {
@@ -541,9 +544,8 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                 base: [
                     { name: 'Bootstrap Theme', path: 'less/bootstrap/theme.less' }
                 ],
-                buttons: [
+                button_styles: [
                     { name: 'Stripe', path: 'less/buttons_stripe.less' },
-                    { name: 'Basecamp', path: 'less/buttons_basecamp.less' },
                     { name: 'GeckoBoard', path: 'less/buttons_geckoboard.less' },
                     { name: 'ZoomShift', path: 'less/buttons_zoomshift.less' },
                 ]
