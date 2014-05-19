@@ -57,7 +57,8 @@
             line-height: 1;
             color: @text-color;
             cursor: pointer;
-            z-index: 9900;
+            // below modal backdrop
+            z-index: 1030;
             .transition(margin-left 0.1s ease-out);
 
             .menu_icon {
@@ -72,7 +73,8 @@
             position: fixed;
             padding-top: unit(@font-size-base * 2, px);
             width: @bootstyle_toolbar_width;
-            z-index: 9800;
+            // below toolbar
+            z-index: 1020;
 
             .panel {
                 // let dropdowns that overflow be shown

@@ -5,7 +5,7 @@
  */
 
 angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module']).
-    controller('BootstyleCtrl', ['$scope', 'read_file', 'auto_overlay_color', function($scope, read_file, auto_overlay_color) {
+    controller('BootstyleCtrl', ['$scope', '$compile', '$timeout', 'read_file', 'auto_overlay_color', function($scope, $compile, $timeout, read_file, auto_overlay_color) {
 
         $scope.init_bootstyle = function() {
 
@@ -687,12 +687,24 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
          Nav Methods
          */
         $scope.reset = function() {
-            $scope.init_bootstyle()
+            for (var c in $scope.ctrls) {
+                if ($scope.ctrls.hasOwnProperty(c)) {
+                    if ($scope.ctrls[c].hasOwnProperty('control') && $scope.ctrls[c].hasOwnProperty('default')) {
+                        $scope.ctrls[c].control = $scope.ctrls[c].default;
+                    }
+                }
+            }
         };
 
         $scope.download = function() {
-            var blob = new Blob([$scope.bootstyle.variables.download_format()], {type: "text/plain;charset=utf-8"});
-            saveAs(blob, "bootstyle.less");
+            read_file('partials/_download_bootstyle.html', function(contents) {
+                var compiled_template = $compile(contents)($scope)[0];
+
+                $timeout(function() {
+                    var blob = new Blob([compiled_template.textContent], {type: "text/plain;charset=utf-8"});
+                    saveAs(blob, "bootstyle.less");
+                })
+            });
         };
 
 
