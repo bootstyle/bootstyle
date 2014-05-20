@@ -1,0 +1,6 @@
+heroku:
+    fork: bootstyle
+    addons:
+        - "blitz:250"
+    scale:
+        web: 1
