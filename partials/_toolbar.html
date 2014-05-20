@@ -135,7 +135,7 @@
                     <div ng-hide="ctrls.use_google_fonts.control">
                         <label>Headings</label>
                         <div class="control-group">
-                            <div class="btn-group dropup">
+                            <div class="btn-group">
                                 <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
                                     {{ ctrls.headings_web_safe_font_family.control }}
                                     <span class="caret"></span>
@@ -179,7 +179,7 @@
 
                         <label>Body</label>
                         <div class="control-group">
-                            <div class="btn-group dropup">
+                            <div class="btn-group">
                                 <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
                                     {{ ctrls.body_web_safe_font_family.control }}
                                     <span class="caret"></span>
@@ -223,7 +223,7 @@
 
                         <label>Code</label>
                         <div class="control-group">
-                            <div class="btn-group dropup">
+                            <div class="btn-group">
                                 <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
                                     {{ ctrls.code_web_safe_font_family.control }}
                                     <span class="caret"></span>
@@ -270,7 +270,7 @@
                         <label>Headings</label>
 
                         <div class="control-group">
-                            <div class="btn-group dropup">
+                            <div class="btn-group">
                                 <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
                                     {{ ctrls.headings_google_font_family.control }}
                                     <span class="caret"></span>
@@ -315,7 +315,7 @@
                         <label>Body</label>
 
                         <div class="control-group">
-                            <div class="btn-group dropup">
+                            <div class="btn-group">
                                 <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
                                     {{ ctrls.body_google_font_family.control }}
                                     <span class="caret"></span>
@@ -360,7 +360,7 @@
                         <label>Code</label>
 
                         <div class="control-group">
-                            <div class="btn-group dropup">
+                            <div class="btn-group">
                                 <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
                                     {{ ctrls.code_google_font_family.control }}
                                     <span class="caret"></span>
@@ -403,11 +403,11 @@
                         </div>
                     </div>
 
-                    <div class="btn btn-default btn-block" ng-click="swap_body_heading_typography()">
+                    <a href="" class="btn btn-default btn-block" ng-click="swap_body_heading_typography()">
                         Body
                         <i class="glyphicon glyphicon-retweet"></i>
                         Headings
-                    </div>
+                    </a>
 
                 </li>
             </ul>
@@ -422,6 +422,12 @@
         </div>
         <div class="panel-collapse collapse" id="toolbar_buttons">
             <ul class="list-group">
+                <li class="list-group-item">
+                    <span class="badge">{{ ctrls.button_font_weight.control }}</span>
+                    <label> Font Weight
+                        <input type="range" ng-model="ctrls.button_font_weight.control" min="100" max="900" step="100"/>
+                    </label>
+                </li>
                 <li class="list-group-item">
                     <label>Styles</label>
 

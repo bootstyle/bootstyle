@@ -354,7 +354,6 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     calc: function() {
                         var value = $scope.ctrls.navbar_bg.control;
                         $scope.vars['@navbar-inverse-bg'] = value;
-                        $scope.vars['@navbar-default-bg'] = value;
                     }
                 },
                 navbar_font_color: {
@@ -370,9 +369,6 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
 
                         $scope.vars['@navbar-inverse-color'] = color;
                         $scope.vars['@navbar-inverse-link-color'] = color;
-
-                        $scope.vars['@navbar-default-color'] = color;
-                        $scope.vars['@navbar-default-link-color'] = color;
                     }
                 },
                 navbar_is_auto_color: {
@@ -454,6 +450,12 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     control: 1.43,
                     calc: function() {
                         $scope.vars['@line-height-base'] = $scope.ctrls.line_height.control;
+                    }
+                },
+                button_font_weight: {
+                    control: 'normal',
+                    calc: function() {
+                        $scope.vars['@btn-font-weight'] =   $scope.ctrls.button_font_weight.control;
                     }
                 },
                 button_style: {
