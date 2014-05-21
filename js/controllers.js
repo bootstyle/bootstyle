@@ -5,7 +5,9 @@
  */
 
 angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module']).
-    controller('BootstyleCtrl', ['$scope', '$compile', '$timeout', 'read_file', 'auto_overlay_color', function($scope, $compile, $timeout, read_file, auto_overlay_color) {
+    controller('BootstyleCtrl',
+        ['$scope', '$compile', '$timeout', 'read_file', 'auto_overlay_color', 'FONT_CONTRAST',
+        function($scope, $compile, $timeout, read_file, auto_overlay_color, FONT_CONTRAST) {
 
         $scope.init_bootstyle = function() {
 
@@ -372,7 +374,70 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     }
                 },
                 navbar_is_auto_color: {
-                    control: false
+                    control: true
+                },
+                headings_font_size: {
+                    control: 14,
+                    calc: function() {
+                        $scope.vars['@font-size-h1'] = Math.floor($scope.ctrls.headings_font_size.control * 2.6) + 'px';
+                        $scope.vars['@font-size-h2'] = Math.floor($scope.ctrls.headings_font_size.control * 2.15) + 'px';
+                        $scope.vars['@font-size-h3'] = Math.floor($scope.ctrls.headings_font_size.control * 1.7) + 'px';
+                        $scope.vars['@font-size-h4'] = Math.floor($scope.ctrls.headings_font_size.control * 1.25) + 'px';
+                        $scope.vars['@font-size-h5'] = Math.floor($scope.ctrls.headings_font_size.control) + 'px';
+                        $scope.vars['@font-size-h6'] = Math.floor($scope.ctrls.headings_font_size.control * FONT_CONTRAST) + 'px';
+                    }
+                },
+                headings_font_weight: {
+                    control: 500,
+                    calc: function() {
+                        $scope.vars['@headings-font-weight'] = $scope.ctrls.headings_font_weight.control;
+                    }
+                },
+                headings_is_auto_color: {
+                    control: true
+                },
+                headings_font_color: {
+                    control: 'inherit',
+                    calc: function() {
+                        var color;
+
+                        if ($scope.ctrls.headings_is_auto_color.control) {
+                            color = auto_overlay_color($scope.ctrls.body_bg.control, $scope.ctrls.headings_font_contrast.control);
+                        } else {
+                            color = $scope.ctrls.headings_font_color.control;
+                        }
+
+                        $scope.vars['@headings-color'] = color;
+                    }
+                },
+                headings_font_contrast: {
+                    control: FONT_CONTRAST
+                },
+                headings_line_height: {
+                    control: 1.1,
+                    calc: function() {
+                        $scope.vars['@headings-line-height'] = $scope.ctrls.headings_line_height.control;
+                    }
+                },
+                headings_web_safe_font_family: {
+                    control: $scope.fonts.web_safe.sans_serif.helvetica_neue.display_name,
+                    style: $scope.fonts.web_safe.sans_serif.helvetica_neue.style,
+                    preview: null,
+                    calc: function() {
+                        if (!$scope.ctrls.use_google_fonts.control) {
+                            $scope.vars['@headings-font-family'] = $scope.ctrls.headings_web_safe_font_family.preview || $scope.ctrls.headings_web_safe_font_family.style;
+                        }
+                    }
+                },
+                headings_google_font_family: {
+                    control: $scope.fonts.google.sans_serif.droid_sans.display_name,
+                    style: $scope.fonts.google.sans_serif.droid_sans.style,
+                    preview: null,
+                    calc: function() {
+                        if ($scope.ctrls.use_google_fonts.control) {
+                            $scope.vars['@headings-font-family'] = $scope.ctrls.headings_google_font_family.preview || $scope.ctrls.headings_google_font_family.style;
+                        }
+                    }
                 },
                 font_size: {
                     control: 14,
@@ -381,7 +446,13 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     }
                 },
                 font_contrast: {
-                    control: 0.85
+                    control: FONT_CONTRAST
+                },
+                line_height: {
+                    control: 1.43,
+                    calc: function() {
+                        $scope.vars['@line-height-base'] = $scope.ctrls.line_height.control;
+                    }
                 },
                 use_google_fonts: {
                     control: false
@@ -393,16 +464,6 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     calc: function() {
                         if (!$scope.ctrls.use_google_fonts.control) {
                             $scope.vars['@font-family-base'] = $scope.ctrls.body_web_safe_font_family.preview || $scope.ctrls.body_web_safe_font_family.style
-                        }
-                    }
-                },
-                headings_web_safe_font_family: {
-                    control: $scope.fonts.web_safe.sans_serif.helvetica_neue.display_name,
-                    style: $scope.fonts.web_safe.sans_serif.helvetica_neue.style,
-                    preview: null,
-                    calc: function() {
-                        if (!$scope.ctrls.use_google_fonts.control) {
-                            $scope.vars['@headings-font-family'] = $scope.ctrls.headings_web_safe_font_family.preview || $scope.ctrls.headings_web_safe_font_family.style;
                         }
                     }
                 },
@@ -426,16 +487,6 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                         }
                     }
                 },
-                headings_google_font_family: {
-                    control: $scope.fonts.google.sans_serif.droid_sans.display_name,
-                    style: $scope.fonts.google.sans_serif.droid_sans.style,
-                    preview: null,
-                    calc: function() {
-                        if ($scope.ctrls.use_google_fonts.control) {
-                            $scope.vars['@headings-font-family'] = $scope.ctrls.headings_google_font_family.preview || $scope.ctrls.headings_google_font_family.style;
-                        }
-                    }
-                },
                 code_google_font_family: {
                     control: $scope.fonts.google.monospace.droid_sans_mono.display_name,
                     style: $scope.fonts.google.monospace.droid_sans_mono.style,
@@ -444,12 +495,6 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                         if ($scope.ctrls.use_google_fonts) {
                             $scope.vars['@font-family-monospace'] = $scope.ctrls.code_google_font_family.preview || $scope.ctrls.code_google_font_family.style;
                         }
-                    }
-                },
-                line_height: {
-                    control: 1.43,
-                    calc: function() {
-                        $scope.vars['@line-height-base'] = $scope.ctrls.line_height.control;
                     }
                 },
                 button_font_weight: {

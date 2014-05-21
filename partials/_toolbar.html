@@ -99,26 +99,79 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h1 class="panel-title">
-                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_typography"> Typography </a>
+                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_headings"> Headings </a>
+            </h1>
+        </div>
+        <div class="panel-collapse collapse" id="toolbar_headings">
+            <ul class="list-group fonts">
+                <li class="list-group-item">
+                    <span class="badge">{{ ctrls.headings_font_size.control }}px</span>
+                    <label>Size
+                        <input type="range" min="10" max="21" ng-model="ctrls.headings_font_size.control"/>
+                    </label>
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">{{ ctrls.headings_font_weight.control }}</span>
+                    <label>Weight
+                        <input type="range" ng-model="ctrls.headings_font_weight.control" min="100" max="900" step="100"/>
+                    </label>
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">{{ ctrls.headings_font_contrast.control }}</span>
+                    <label>Contrast
+                        <input type="range" ng-model="ctrls.headings_font_contrast.control" min="0" max="1" step="0.01"/>
+                    </label>
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">{{ ctrls.headings_line_height.control }}</span>
+                    <label>Line Height
+                        <input type="range" ng-model="ctrls.headings_line_height.control" min="1" max="2" step="0.01"/>
+                    </label>
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">{{ vars['@headings-color'] }}</span>
+                    <label>Color</label>
+
+                    <div class="control-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="ctrls.headings_is_auto_color.control">
+                                Auto
+                            </label>
+                        </div>
+                    </div>
+                    <div class="input-group" ng-hide="ctrls.headings_is_auto_color.control">
+                        <span class="input-group-addon" colorpicker ng-model="ctrls.headings_font_color.control" style="background-color: {{ vars['@headings-color'] }}"></span>
+                        <input class="form-control" type="text" colorpicker ng-model="ctrls.headings_font_color.control"/>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h1 class="panel-title">
+                <a data-toggle="collapse" data-parent="#toolbar" href="#toolbar_typography">Typography</a>
             </h1>
         </div>
         <div class="panel-collapse collapse" id="toolbar_typography">
             <ul class="list-group fonts">
                 <li class="list-group-item">
                     <span class="badge">{{ ctrls.font_size.control }}px</span>
-                    <label> Font Size
+                    <label>Size
                         <input type="range" min="10" max="21" ng-model="ctrls.font_size.control"/>
                     </label>
                 </li>
                 <li class="list-group-item">
                     <span class="badge">{{ ctrls.font_contrast.control }}</span>
-                    <label> Contrast
+                    <label>Contrast
                         <input type="range" ng-model="ctrls.font_contrast.control" min="0" max="1" step="0.01"/>
                     </label>
                 </li>
                 <li class="list-group-item">
                     <span class="badge">{{ ctrls.line_height.control }}</span>
-                    <label> Line Height
+                    <label>Line Height
                         <input type="range" ng-model="ctrls.line_height.control" min="1" max="2" step="0.01"/>
                     </label>
                 </li>
@@ -134,6 +187,7 @@
 
                     <div ng-hide="ctrls.use_google_fonts.control">
                         <label>Headings</label>
+
                         <div class="control-group">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
@@ -178,6 +232,7 @@
                         </div>
 
                         <label>Body</label>
+
                         <div class="control-group">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
@@ -222,6 +277,7 @@
                         </div>
 
                         <label>Code</label>
+
                         <div class="control-group">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">

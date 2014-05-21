@@ -7,6 +7,8 @@
 angular.module('bootstyleApp.services', []).
     value('version', 'v0.0.1').
 
+    constant('FONT_CONTRAST', 0.8).
+
     factory('read_file', ['$http', function($http) {
 
         return function(file, callback) {
@@ -17,10 +19,10 @@ angular.module('bootstyleApp.services', []).
         };
     }]).
 
-    factory('auto_overlay_color', function() {
+    factory('auto_overlay_color', ['FONT_CONTRAST', function(FONT_CONTRAST) {
 
         var auto_color = function(color, contrast) {
-            contrast = contrast || 0.85;
+            contrast = contrast || FONT_CONTRAST;
 
             var under = new Color(color),
                 over = new Color(color);
@@ -35,4 +37,4 @@ angular.module('bootstyleApp.services', []).
         };
 
         return auto_color;
-    });
+    }]);
