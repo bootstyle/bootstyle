@@ -6,8 +6,10 @@
 
 angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module']).
     controller('BootstyleCtrl',
-        ['$scope', '$compile', '$timeout', 'read_file', 'auto_overlay_color', 'FONT_CONTRAST',
-        function($scope, $compile, $timeout, read_file, auto_overlay_color, FONT_CONTRAST) {
+        ['$scope', '$compile', '$timeout', 'read_file', 'auto_overlay_color', 'FONT_CONTRAST', 'color_scheme',
+        function($scope, $compile, $timeout, read_file, auto_overlay_color, FONT_CONTRAST, color_scheme) {
+
+        $scope.initialized = false;
 
         $scope.init_bootstyle = function() {
 
@@ -310,6 +312,24 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
              Init Controls
              */
             $scope.ctrls = {
+                color_scheme_base_color: {
+                    control: '#428bca', // @brand-primary
+                    calc: function() {
+                        color_scheme.set_hue($scope.ctrls.color_scheme_base_color.control);
+                    }
+                },
+                color_scheme_scheme: {
+                    control: 'triad',
+                    calc: function() {
+                        color_scheme.set_scheme($scope.ctrls.color_scheme_base_color.control);
+                    }
+                },
+                color_scheme_variation: {
+                    control: 'soft',
+                    calc: function() {
+                        color_scheme.set_variation($scope.ctrls.color_scheme_base_color.control);
+                    }
+                },
                 border_radius: {
                     control: 4,
                     calc: function() {
@@ -599,28 +619,9 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
             };
 
 
-            /*
-             Init Bootstyle
-             */
-            $scope.bootstyle = {
-                variables: {
-                    download_format: function() {
-                        var download_format = '';
-
-                        for (var i in $scope.bootstyle.variables.methods) {
-                            if ($scope.bootstyle.variables.methods.hasOwnProperty(i)) {
-                                download_format += i + ': ' + $scope.bootstyle.variables.methods[i]() + ';\n';
-                            }
-                        }
-
-                        return download_format;
-                    },
-                },
-            };
-
             read_file('partials/_preview_bootstyle.html', function(file_contents) {
                 $scope.preview.set_html(file_contents);
-                $scope.bootstyle.initialized = true;
+                $scope.initialized = true;
             });
         };
 

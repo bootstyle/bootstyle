@@ -1,5 +1,26 @@
 <aside class="toolbar panel-group" id="toolbar">
     <div class="panel panel-default">
+        <div class="panel-heading" data-toggle="collapse" data-parent="#toolbar" data-target="#toolbar_color_scheme">
+            <h1 class="panel-title">
+                Color Scheme
+            </h1>
+        </div>
+        <div class="panel-collapse collapse in" id="toolbar_color_scheme">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <span class="badge">{{ ctrls.navbar_bg.control }}</span>
+                    <label>Background</label>
+
+                    <div class="input-group">
+                        <span class="input-group-addon" colorpicker ng-model="ctrls.navbar_bg.control" style="background-color: {{ ctrls.navbar_bg.control }}"></span>
+                        <input class="form-control" type="text" colorpicker ng-model="ctrls.navbar_bg.control"/>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
         <div class="panel-heading" data-toggle="collapse" data-parent="#toolbar" data-target="#toolbar_base">
             <h1 class="panel-title">
                 Base

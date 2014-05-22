@@ -37,4 +37,95 @@ angular.module('bootstyleApp.services', []).
         };
 
         return auto_color;
-    }]);
+    }]).
+
+    factory('color_scheme', function() {
+        return function() {
+            var scheme = new ColorScheme;
+
+            /*
+             Init Color Scheme
+             */
+            var color_scheme = {
+                setHue: function(hue) {
+                    scheme.from_hue(hue);
+
+                    var bg = scheme.colors()[0];
+                    $('#hue-box').css('background-color', '#' + bg);
+
+                    $('#hex').val(bg);
+                    $('#hex-box').css('background-color', '#' + bg);
+
+                    generateColors();
+                },
+
+                setHex: function(hex) {
+                    // Strip possible leading hash
+                    hex = hex.replace('#', '');
+
+                    console.log(hex);
+                    scheme.from_hex(hex);
+
+                    var bg = scheme.colors()[0];
+                    $('#hue-box').css('background-color', '#' + bg);
+                    $('#hex-box').css('background-color', '#' + hex);
+
+                    generateColors();
+                },
+
+                setScheme: function(newScheme) {
+                    if (newScheme == 'analogic') {
+                        $('#add-complement').show();
+                    }
+                    else {
+                        $('#add-complement').hide();
+                    }
+                    scheme.scheme(newScheme);
+                    generateColors();
+                },
+
+                addComplement: function() {
+                    if ($('#add-complement').hasClass('active')) {
+                        scheme.add_complement(false);
+                    }
+                    else {
+                        scheme.add_complement(true);
+                    }
+                    generateColors();
+                },
+
+                setDistance: function(distance) {
+                    scheme.distance(distance);
+                    generateColors();
+                },
+
+                setVariation: function(variation) {
+                    scheme.variation(variation);
+                    generateColors();
+                },
+
+                setWebSafe: function(websafe) {
+                    scheme.web_safe(websafe);
+                    generateColors();
+                },
+
+                randomHue: function() {
+                    var h = Math.round(Math.random() * 360);
+                    scheme.from_hue(h);
+                    generateColors();
+                }
+            };
+
+            function generateColors() {
+                $('#colors').html('');
+                var colors = scheme.colors();
+                for (var i in colors) {
+                    var c = colors[i];
+                    var newDiv = '<div class="color" style="background-color: #' + c + '"></div>';
+                    $('#colors').append(newDiv);
+                }
+            }
+
+            return color_scheme;
+        };
+    });
