@@ -6,8 +6,8 @@
 
 angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module']).
     controller('BootstyleCtrl',
-        ['$scope', '$compile', '$timeout', 'read_file', 'auto_overlay_color', 'FONT_CONTRAST', 'color_scheme',
-        function($scope, $compile, $timeout, read_file, auto_overlay_color, FONT_CONTRAST, color_scheme) {
+        ['$scope', '$compile', '$timeout', 'read_file', 'auto_overlay_color', 'FONT_CONTRAST', 'scheme',
+        function($scope, $compile, $timeout, read_file, auto_overlay_color, FONT_CONTRAST, scheme) {
 
         $scope.initialized = false;
 
@@ -309,27 +309,35 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
 
 
             /*
+             Color Scheme
+             */
+            $scope.scheme = {
+                colors: null,
+                base_color: '#428bca', // @brand-primary
+                scheme: 'triade',
+                variation: 'default',
+                generate_colors: function() {
+                    $scope.scheme.colors = scheme.colors()
+                }
+            };
+
+            $scope.$watch('scheme', function(newValue, oldValue) {
+                console.log('scheme changed');
+                scheme.set_hex($scope.scheme.base_color);
+                scheme.set_scheme($scope.scheme.scheme);
+                scheme.set_variation($scope.scheme.variation);
+                $scope.scheme.generate_colors();
+                console.log(scheme.colors());
+
+                $scope.last_LESS_edit = Date.now();
+                $scope.timerRecompileLESS();
+            }, true);
+
+
+            /*
              Init Controls
              */
             $scope.ctrls = {
-                color_scheme_base_color: {
-                    control: '#428bca', // @brand-primary
-                    calc: function() {
-                        color_scheme.set_hue($scope.ctrls.color_scheme_base_color.control);
-                    }
-                },
-                color_scheme_scheme: {
-                    control: 'triad',
-                    calc: function() {
-                        color_scheme.set_scheme($scope.ctrls.color_scheme_base_color.control);
-                    }
-                },
-                color_scheme_variation: {
-                    control: 'soft',
-                    calc: function() {
-                        color_scheme.set_variation($scope.ctrls.color_scheme_base_color.control);
-                    }
-                },
                 border_radius: {
                     control: 4,
                     calc: function() {
