@@ -5,370 +5,648 @@
  */
 
 angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module']).
-    controller('BootstyleCtrl', ['$scope', 'read_file', function($scope, read_file) {
+    controller('BootstyleCtrl',
+        ['$scope', '$compile', '$timeout', 'read_file', 'auto_overlay_color', 'FONT_CONTRAST', 'scheme',
+        function($scope, $compile, $timeout, read_file, auto_overlay_color, FONT_CONTRAST, scheme) {
+
+        $scope.initialized = false;
 
         $scope.init_bootstyle = function() {
 
             $scope.fonts = {
-                bootstrap: {
-                    'Helvetica Neue': {
-                        display_name: 'Helvetica Neue (default)',
-                        style: '"Helvetica Neue", Helvetica, Arial, sans-serif'
+                google: {
+                    serif: {
+                        droid_serif: {
+                            display_name: 'Droid Serif',
+                            style: '"Droid Serif", serif'
+                        },
+                        lora: {
+                            display_name: 'Lora',
+                            style: 'Lora, serif'
+                        },
+                        bitter: {
+                            display_name: 'Bitter',
+                            style: 'Bitter, serif'
+                        },
+                        merriweather: {
+                            display_name: 'Merriweather',
+                            style: 'Merriweather, serif'
+                        },
+                        arvo: {
+                            display_name: 'Arvo',
+                            style: 'Arvo, serif'
+                        },
+                        pt_serif: {
+                            display_name: 'PT Serif',
+                            style: '"PT Serif", serif'
+                        },
+                        roboto_slab: {
+                            display_name: 'Roboto Slab',
+                            style: '"Roboto Slab", serif'
+                        },
+                        Rokkitt: {
+                            display_name: 'Rokkitt',
+                            style: 'Rokkitt, serif'
+                        },
+                        playfair_display: {
+                            display_name: 'Playfair Display',
+                            style: '"Playfair Display", serif'
+                        },
+                        libre_baskerville: {
+                            display_name: 'Libre Baskerville',
+                            style: 'Libre Baskerville, serif'
+                        }
+                    },
+                    sans_serif: {
+                        open_sans: {
+                            display_name: 'Open Sans',
+                            style: 'Open Sans, sans-serif'
+                        },
+                        roboto: {
+                            display_name: 'Roboto',
+                            style: 'Roboto, sans-serif'
+                        },
+                        oswald: {
+                            display_name: 'Oswald',
+                            style: 'Oswald, sans-serif'
+                        },
+                        lato: {
+                            display_name: 'Lato',
+                            style: 'Lato, sans-serif'
+                        },
+                        roboto_condensed: {
+                            display_name: 'Roboto Condensed',
+                            style: '"Roboto Condensed", sans-serif'
+                        },
+                        droid_sans: {
+                            display_name: 'Droid Sans',
+                            style: '"Droid Sans", sans-serif'
+                        },
+                        open_sans_condensed: {
+                            display_name: 'Open Sans Condensed',
+                            style: '"Open Sans Condensed", sans-serif'
+                        },
+                        pt_sans: {
+                            display_name: 'PT Sans',
+                            style: '"PT Sans", sans-serif'
+                        },
+                        source_sans_pro: {
+                            display_name: 'Source Sans Pro',
+                            style: '"Source Sans Pro", sans-serif'
+                        },
+                        ubuntu: {
+                            display_name: 'Ubuntu',
+                            style: 'Ubuntu, sans-serif'
+                        },
+                        raleway: {
+                            display_name: 'Raleway',
+                            style: 'Raleway, sans-serif'
+                        },
+                        montserrat: {
+                            display_name: 'Montserrat',
+                            style: 'Montserrat, sans-serif'
+                        },
+                        pt_sans_narrow: {
+                            display_name: 'PT Sans Narrow',
+                            style: 'Arvo, sans-serif'
+                        },
+                        oxygen: {
+                            display_name: 'Oxygen',
+                            style: 'Oxygen, sans-serif'
+                        }
+                    },
+                    display: {
+                        lobster: {
+                            display_name: 'Lobster',
+                            style: 'Lobster, sans-serif'
+                        },
+                        audiowide: {
+                            display_name: 'Audiowide',
+                            style: 'Audiowide, sans-serif'
+                        },
+                        poiret_one: {
+                            display_name: 'Poiret One',
+                            style: '"Poiret One", sans-serif'
+                        },
+                        changa_one: {
+                            display_name: 'Changa One',
+                            style: 'Changa One, sans-serif'
+                        },
+                        special_elite: {
+                            display_name: 'Special Elite',
+                            style: '"Special Elite", sans-serif'
+                        },
+                        chewy: {
+                            display_name: 'Chewy',
+                            style: 'Chewy, sans-serif'
+                        },
+                        squada_one: {
+                            display_name: 'Squada One',
+                            style: '"Squada One", sans-serif'
+                        },
+                        playball: {
+                            display_name: 'Playball',
+                            style: 'Playball, sans-serif'
+                        },
+                        patua_one: {
+                            display_name: 'Patua One',
+                            style: '"Patua One", sans-serif'
+                        },
+                        griffy: {
+                            display_name: 'Griffy',
+                            style: 'Griffy, sans-serif'
+                        }
+                    },
+                    handwriting: {
+                        indie_flower: {
+                            display_name: 'Indie Flower',
+                            style: '"Indie Flower", sans-serif'
+                        },
+                        shadows_into_light: {
+                            display_name: 'Shadows Into Light',
+                            style: '"Shadows Into Light", sans-serif'
+                        },
+                        crafty_girls: {
+                            display_name: 'Crafty Girls',
+                            style: '"Crafty Girls", sans-serif'
+                        },
+                        pacifico: {
+                            display_name: 'Pacifico',
+                            style: 'Pacifico, sans-serif'
+                        },
+                        coming_soon: {
+                            display_name: 'Coming Soon',
+                            style: '"Coming Soon", sans-serif'
+                        }
+                    },
+                    monospace: {
+                        inconsolata: {
+                            display_name: 'Inconsolata',
+                            style: 'Inconsolata, monospace'
+                        },
+                        droid_sans_mono: {
+                            display_name: 'Droid Sans Mono',
+                            style: '"Droid Sans Mono", monospace'
+                        },
+                        ubuntu_mono: {
+                            display_name: 'Ubuntu Mono',
+                            style: '"Ubuntu Mono", monospace'
+                        },
+                        source_code_pro: {
+                            display_name: 'Source Code Pro',
+                            style: '"Source Code Pro", monospace'
+                        },
+                        cousine: {
+                            display_name: 'Cousine',
+                            style: 'Cousine, monospace'
+                        },
+                        anonymous_pro: {
+                            display_name: 'Anonymous Pro',
+                            style: '"Anonymous Pro", monospace'
+                        },
+                        vt323: {
+                            display_name: 'VT323',
+                            style: '"VT323", monospace'
+                        },
+                        nova_mono: {
+                            display_name: 'Nova Mono',
+                            style: '"Nova Mono", monospace'
+                        },
+                        pt_mono: {
+                            display_name: 'PT Mono',
+                            style: '"PT Mono", monospace'
+                        },
+                        cutive_mono: {
+                            display_name: 'Cutive Mono',
+                            style: '"Cutive Mono", monospace'
+                        }
                     }
                 },
-                google: {},
-                library: {}
+                web_safe: {
+                    serif: {
+                        georgia: {
+                            display_name: 'Georgia',
+                            style: 'Georgia, "Times New Roman", Times, serif'
+                        },
+                        palatino_linetype: {
+                            display_name: 'Palatino Linetype',
+                            style: '"Palatino Linotype", "Book Antiqua", Palatino, serif'
+                        },
+                        times_new_roman: {
+                            display_name: 'Times New Roman',
+                            style: '"Times New Roman", Times, serif'
+                        }
+                    },
+                    sans_serif: {
+                        arial: {
+                            display_name: 'Arial',
+                            style: 'Arial, Helvetica, sans-serif'
+                        },
+                        arial_black: {
+                            display_name: 'Arial Black',
+                            style: '"Arial Black", Gadget, sans-serif'
+                        },
+                        helvetica_neue: {
+                            display_name: 'Helvetica Neue',
+                            style: '"Helvetica Neue", Helvetica, Arial, sans-serif'
+                        },
+                        impact: {
+                            display_name: 'Impact',
+                            style: 'Impact, Charcoal, sans-serif'
+                        },
+                        lucida_sans_unicode: {
+                            display_name: 'Lucida Sans Unicode',
+                            style: '"Lucida Sans Unicode", "Lucida Grande", sans-serif'
+                        },
+                        tahoma: {
+                            display_name: 'Tahoma',
+                            style: 'Tahoma, Geneva, sans-serif'
+                        },
+                        trebuchet_ms: {
+                            display_name: 'Trebuchet MS',
+                            style: '"Trebuchet MS", Helvetica, sans-serif'
+                        },
+                        verdana: {
+                            display_name: 'Verdana',
+                            style: 'Verdana, Geneva, sans-serif'
+                        }
+                    },
+                    monospace: {
+                        courier_new: {
+                            display_name: 'Courier New',
+                            style: '"Courier New", Courier, monospace'
+                        },
+                        lucida_console: {
+                            display_name: 'Lucida Console',
+                            style: '"Lucida Console", Monaco, monospace'
+                        },
+                        menlo: {
+                            display_name: 'Menlo',
+                            style: 'Menlo, Monaco, Consolas, "Courier New", monospace;'
+                        }
+                    }
+                }
             };
 
-            var google_fonts = [
-                'Droid Sans',
-                'Droid Serif',
-                'Lato',
-                'Montserrat',
-                'Open Sans',
-                // TODO: this font doesnt render correctly?
-                'Open Sans Condensed',
-                'Oswald',
-                'PT Sans',
-                'Raleway',
-                'Roboto',
-                'Roboto Condensed',
-                'Source Sans Pro',
-                'Ubuntu'
-            ];
-
+            /*
+             Init Google Fonts
+             */
+            var google_fonts = [];
+            for (var gfam in $scope.fonts.google) {
+                if ($scope.fonts.google.hasOwnProperty(gfam)) {
+                    for (var gfont in $scope.fonts.google[gfam]) {
+                        if ($scope.fonts.google[gfam].hasOwnProperty(gfont)) {
+                            google_fonts.push($scope.fonts.google[gfam][gfont].display_name)
+                        }
+                    }
+                }
+            }
             WebFont.load({
                 google: {
                     families: google_fonts
                 }
             });
 
-            // add all the fonts in google_fonts to $scope.fonts.google
-            for (var font in google_fonts) {
-                $scope.fonts.google[google_fonts[font]] = {
-                    display_name: google_fonts[font],
-                    style: google_fonts[font]
-                }
-            }
-
-            // add all google and bootstrap fonts to fonts.library
-            for (var bf in $scope.fonts.bootstrap) {
-                $scope.fonts.library[bf] = $scope.fonts.bootstrap[bf];
-            }
-            for (var gf in $scope.fonts.google) {
-                $scope.fonts.library[gf] = $scope.fonts.google[gf];
-            }
 
             /*
-             Init Bootstrap
+             Color Scheme
              */
-            $scope.bootstrap = {};
+            $scope.scheme = {
+                colors: [],
+                base_color: '#428bca', // @brand-primary
+                scheme: 'triade',
+                variation: 'default',
+                distance: 0.5,
+                generate_colors: function() {
+                    $scope.scheme.colors = [];
+                    var colors = scheme.colors();
 
-            // Colors
-            $scope.bootstrap.colors = {
-                brand: {
-                    primary: '#428bca',
-                    success: '#5cb85c',
-                    info: '#5bc0de',
-                    warning: '#f0ad4e',
-                    danger: '#d9534f'
+                    for (var c in colors) {
+                        if (colors.hasOwnProperty(c)) {
+                            $scope.scheme.colors[c] = {
+                                id: c,
+                                hex: '#' + colors[c]
+                            };
+                        }
+                    }
                 }
             };
 
-            // Scaffolding
-            $scope.bootstrap.scaffolding = {
-                body_bg: '#ffffff'
-            };
+            $scope.$watch('scheme', function(newValue, oldValue) {
+                scheme.set_hex($scope.scheme.base_color);
+                scheme.set_scheme($scope.scheme.scheme);
+                scheme.set_variation($scope.scheme.variation);
+                scheme.set_distance($scope.scheme.distance);
+                
+                $scope.scheme.generate_colors();
 
-            // Typography
-            $scope.bootstrap.typography = {
-                font_family_base: {
-                    display_name: $scope.fonts.bootstrap['Helvetica Neue'].display_name,
-                    style: $scope.fonts.bootstrap['Helvetica Neue'].style,
-                    preview: null
-                },
-                font_size_base: 14,
-                headings_font_family: {
-                    display_name: 'inherit',
-                    style: 'inherit',
-                    preview: null
-                },
-                line_height_base: 1.43
-            };
-            angular.extend($scope.bootstrap.typography, {
-                line_height_computed: function() {
-                    return Math.floor(($scope.bootstrap.typography.font_size_base * $scope.bootstrap.typography.line_height_base));
-                }
-            });
-
-            // Iconography
-            $scope.bootstrap.iconography = {
-
-            };
-
-            // Components
-            $scope.bootstrap.components = {
-                padding_control: 10,
-                border_radius_base: 4
-            };
-            angular.extend($scope.bootstrap.components, {
-                'padding_base_vertical': function() {
-                    return Math.floor($scope.bootstrap.components.padding_control * 0.6)
-                },
-                'padding_base_horizontal': function() {
-                    return Math.floor($scope.bootstrap.components.padding_control * 1.2)
-                },
-                'padding_large_vertical': function() {
-                    return Math.floor($scope.bootstrap.components.padding_control * 1)
-                },
-                'padding_large_horizontal': function() {
-                    return Math.floor($scope.bootstrap.components.padding_control * 1.6)
-                },
-                'padding_small_vertical': function() {
-                    return Math.floor($scope.bootstrap.components.padding_control * 0.5)
-                },
-                'padding_small_horizontal': function() {
-                    return Math.floor($scope.bootstrap.components.padding_control * 1)
-                },
-                'padding_xs_vertical': function() {
-                    return Math.floor($scope.bootstrap.components.padding_control * 0.1)
-                },
-                'padding_xs_horizontal': function() {
-                    return Math.floor($scope.bootstrap.components.padding_control * 0.5)
-                }
-            });
-
-            $scope.bootstrap.tables = {};
-            $scope.bootstrap.buttons = {};
-            $scope.bootstrap.forms = {};
-            $scope.bootstrap.dropdowns = {};
-            $scope.bootstrap.zindex_master_list = {};
-            $scope.bootstrap.media_queries = {};
-            $scope.bootstrap.grid_system = {};
-            $scope.bootstrap.container_sizes = {};
-
-            // Navbar
-            $scope.bootstrap.navbar = {
-                height: 50,
-                color_control: '@gray-light',
-                bg_control: '#222',
-                margin_bottom: $scope.bootstrap.typography.line_height_computed()
-            };
-
-            $scope.bootstrap.navs = {};
-            $scope.bootstrap.pagination = {};
-            $scope.bootstrap.pager = {};
-            $scope.bootstrap.jumbotron = {};
-            $scope.bootstrap.form_states_and_alerts = {};
-            $scope.bootstrap.tooltips = {};
-            $scope.bootstrap.popovers = {};
-            $scope.bootstrap.labels = {};
-            $scope.bootstrap.modals = {};
-            $scope.bootstrap.alerts = {};
-            $scope.bootstrap.progress_bars = {};
-            $scope.bootstrap.list_groups = {};
-            $scope.bootstrap.panels = {};
-            $scope.bootstrap.thumbnails = {};
-            $scope.bootstrap.wells = {};
-            $scope.bootstrap.badges = {};
-            $scope.bootstrap.breadcrumbs = {};
-            $scope.bootstrap.carousel = {};
-            $scope.bootstrap.close = {};
-            $scope.bootstrap.type = {};
-            $scope.bootstrap.miscellaneous = {};
+                $scope.last_LESS_edit = Date.now();
+                $scope.timerRecompileLESS();
+            }, true);
 
 
             /*
-             Init Bootstyle
+             Init Controls
              */
-            $scope.bootstyle = {
-                variables: {
-                    download_format: function() {
-                        var download_format = '';
-
-                        for (var i in $scope.bootstyle.variables.methods) {
-                            if ($scope.bootstyle.variables.methods.hasOwnProperty(i)) {
-                                download_format += i + ': ' + $scope.bootstyle.variables.methods[i]() + ';\n';
-                            }
+            $scope.ctrls = {
+                body_web_safe_font_family: {
+                    control: $scope.fonts.web_safe.sans_serif.helvetica_neue.display_name,
+                    style: $scope.fonts.web_safe.sans_serif.helvetica_neue.style,
+                    preview: null,
+                    calc: function() {
+                        if (!$scope.ctrls.use_google_fonts.control) {
+                            $scope.vars['@font-family-base'] = $scope.ctrls.body_web_safe_font_family.preview || $scope.ctrls.body_web_safe_font_family.style
                         }
-
-                        return download_format;
-                    },
-                    updated_object: function() {
-                        var updated_variables = {};
-
-                        for (var i in $scope.bootstyle.variables.methods) {
-                            if ($scope.bootstyle.variables.methods.hasOwnProperty(i)) {
-                                updated_variables[i] = $scope.bootstyle.variables.methods[i]();
-                            }
-                        }
-
-                        return updated_variables;
-                    },
-                    methods: {
-                        // Components
-                        '@body-bg': function() {
-                            return $scope.bootstrap.scaffolding.body_bg;
-                        },
-                        '@border-radius-base': function() {
-                            return $scope.bootstrap.components.border_radius_base + 'px';
-                        },
-                        '@border-radius-large': function() {
-                            return Math.floor($scope.bootstrap.components.border_radius_base * 1.5) + 'px';
-                        },
-                        '@border-radius-small': function() {
-                            return Math.floor($scope.bootstrap.components.border_radius_base * 0.5) + 'px';
-                        },
-                        '@padding-base-vertical': function() {
-                            return $scope.bootstrap.components.padding_base_vertical() + 'px';
-                        },
-                        '@padding-base-horizontal': function() {
-                            return $scope.bootstrap.components.padding_base_horizontal() + 'px';
-                        },
-                        '@padding-large-vertical': function() {
-                            return $scope.bootstrap.components.padding_large_vertical() + 'px';
-                        },
-                        '@padding-large-horizontal': function() {
-                            return $scope.bootstrap.components.padding_large_horizontal() + 'px';
-                        },
-                        '@padding-small-vertical': function() {
-                            return $scope.bootstrap.components.padding_small_vertical() + 'px';
-                        },
-                        '@padding-small-horizontal': function() {
-                            return $scope.bootstrap.components.padding_small_horizontal() + 'px';
-                        },
-                        '@padding-xs-vertical': function() {
-                            return $scope.bootstrap.components.padding_xs_vertical() + 'px';
-                        },
-                        '@padding-xs-horizontal': function() {
-                            return $scope.bootstrap.components.padding_xs_horizontal() + 'px';
-                        },
-
-                        // Colors
-                        '@brand-primary': function() {
-                            return $scope.bootstrap.colors.brand.primary;
-                        },
-                        '@brand-success': function() {
-                            return $scope.bootstrap.colors.brand.success;
-                        },
-                        '@brand-info': function() {
-                            return $scope.bootstrap.colors.brand.info;
-                        },
-                        '@brand-warning': function() {
-                            return $scope.bootstrap.colors.brand.warning;
-                        },
-                        '@brand-danger': function() {
-                            return $scope.bootstrap.colors.brand.danger;
-                        },
-
-                        // Typography
-                        '@font-size-base': function() {
-                            return $scope.bootstrap.typography.font_size_base + 'px';
-                        },
-                        '@font-family-base': function() {
-                            return $scope.bootstrap.typography.font_family_base.preview || $scope.bootstrap.typography.font_family_base.style;
-                        },
-                        '@headings-font-family': function() {
-                            return $scope.bootstrap.typography.headings_font_family.preview || $scope.bootstrap.typography.headings_font_family.style;
-                        },
-                        '@line-height-base': function() {
-                            return $scope.bootstrap.typography.line_height_base;
-                        },
-
-                        // Navbar
-                        '@navbar-height': function() {
-                            return $scope.bootstrap.navbar.height + 'px';
-                        },
-                        '@navbar-margin-bottom': function() {
-                            return $scope.bootstrap.navbar.margin_bottom + 'px';
-                        },
-                        '@navbar-inverse-bg': function() {
-                            return $scope.bootstrap.navbar.bg_control;
-                        },
-                        '@navbar-inverse-color': function() {
-                            var color;
-
-                            if ($scope.bootstyle.settings.navbar.has_auto_font_color) {
-                                color = $scope.bootstyle.utils.auto_overlaying_color($scope.bootstrap.navbar.bg_control);
-                            } else {
-                                color = $scope.bootstrap.navbar.color_control;
-                            }
-
-                            return color;
-                        },
-                        '@navbar-inverse-link-color': function() {
-                            var color;
-
-                            if ($scope.bootstyle.settings.navbar.has_auto_font_color) {
-                                color = $scope.bootstyle.utils.auto_overlaying_color($scope.bootstrap.navbar.bg_control);
-                            } else {
-                                color = $scope.bootstrap.navbar.color_control;
-                            }
-
-                            return color;
-                        },
                     }
                 },
-                settings: {
-                    sheets: {
-                        bootstrap_theme: false,
-                        button_style: 'default',
-                    },
-                    grid_container_class: 'container',
-                    show_toolbar: true,
-                    navbar: {
-                        has_auto_font_color: true,
-                    },
-                    RECOMPILE_LESS_DELAY: 300,
-                    auto_font_color: {
-                        contrast: 0.9,
-                        breakpoint: 60
+                body_google_font_family: {
+                    control: $scope.fonts.google.sans_serif.droid_sans.display_name,
+                    style: $scope.fonts.google.sans_serif.droid_sans.style,
+                    preview: null,
+                    calc: function() {
+                        if ($scope.ctrls.use_google_fonts.control) {
+                            console.log('google body');
+                            $scope.vars['@font-family-base'] = $scope.ctrls.body_google_font_family.preview || $scope.ctrls.body_google_font_family.style
+                        }
                     }
                 },
-                utils: {
-                    auto_overlaying_color: function(color, contrast) {
-                        var contrast = contrast || $scope.bootstyle.settings.auto_font_color.contrast;
+                body_bg: {
+                    control: '#ffffff',
+                    calc: function() {
+                        $scope.vars['@body-bg'] = $scope.ctrls.body_bg.control;
+                    }
+                },
+                bootstrap_theme: {
+                    control: false
+                },
+                border_radius: {
+                    control: 4,
+                    calc: function() {
+                        var value = $scope.ctrls.border_radius.control;
+                        $scope.vars['@border-radius-base'] = Math.floor(value * 1) + 'px';
+                        $scope.vars['@border-radius-large'] = Math.floor(value * 1.5) + 'px';
+                        $scope.vars['@border-radius-small'] = Math.floor(value * 0.5) + 'px';
+                    }
+                },
+                brand_primary: {
+                    control: '#428bca',
+                    calc: function() {
+                        $scope.vars['@brand-primary'] = $scope.ctrls.brand_primary.control;
+                    }
+                },
+                brand_success: {
+                    control: '#5cb85c',
+                    calc: function() {
+                        $scope.vars['@brand-success'] = $scope.ctrls.brand_success.control;
+                    }
+                },
+                brand_info: {
+                    control: '#5bc0de',
+                    calc: function() {
+                        $scope.vars['@brand-info'] = $scope.ctrls.brand_info.control;
+                    }
+                },
+                brand_warning: {
+                    control: '#f0ad4e',
+                    calc: function() {
+                        $scope.vars['@brand-warning'] = $scope.ctrls.brand_warning.control;
+                    }
+                },
+                brand_danger: {
+                    control: '#d9534f',
+                    calc: function() {
+                        $scope.vars['@brand-danger'] = $scope.ctrls.brand_danger.control;
+                    }
+                },
+                button_font_weight: {
+                    control: 'normal',
+                    calc: function() {
+                        $scope.vars['@btn-font-weight'] = $scope.ctrls.button_font_weight.control;
+                    }
+                },
+                button_style: {
+                    control: 'default'
+                },
+                buttons_uppercase: {
+                    control: false
+                },
+                code_web_safe_font_family: {
+                    control: $scope.fonts.web_safe.monospace.menlo.display_name,
+                    style: $scope.fonts.web_safe.monospace.menlo.style,
+                    preview: null,
+                    calc: function() {
+                        if (!$scope.ctrls.use_google_fonts.control) {
+                            $scope.vars['@font-family-monospace'] = $scope.ctrls.code_web_safe_font_family.preview || $scope.ctrls.code_web_safe_font_family.style;
+                        }
+                    }
+                },
+                code_google_font_family: {
+                    control: $scope.fonts.google.monospace.droid_sans_mono.display_name,
+                    style: $scope.fonts.google.monospace.droid_sans_mono.style,
+                    preview: null,
+                    calc: function() {
+                        if ($scope.ctrls.use_google_fonts.control) {
+                            console.log('google code');
 
-                        var under = new Color(color);
-                        var over = new Color(color);
+                            $scope.vars['@font-family-monospace'] = $scope.ctrls.code_google_font_family.preview || $scope.ctrls.code_google_font_family.style;
+                        }
+                    }
+                },
+                container_class: {
+                    control: 'container'
+                },
+                font_size: {
+                    control: 14,
+                    calc: function() {
+                        $scope.vars['@font-size-base'] = $scope.ctrls.font_size.control + 'px';
+                    }
+                },
+                font_contrast: {
+                    control: FONT_CONTRAST
+                },
+                headings_font_size: {
+                    control: 14,
+                    calc: function() {
+                        $scope.vars['@font-size-h1'] = Math.floor($scope.ctrls.headings_font_size.control * 2.6) + 'px';
+                        $scope.vars['@font-size-h2'] = Math.floor($scope.ctrls.headings_font_size.control * 2.15) + 'px';
+                        $scope.vars['@font-size-h3'] = Math.floor($scope.ctrls.headings_font_size.control * 1.7) + 'px';
+                        $scope.vars['@font-size-h4'] = Math.floor($scope.ctrls.headings_font_size.control * 1.25) + 'px';
+                        $scope.vars['@font-size-h5'] = Math.floor($scope.ctrls.headings_font_size.control) + 'px';
+                        $scope.vars['@font-size-h6'] = Math.floor($scope.ctrls.headings_font_size.control * FONT_CONTRAST) + 'px';
+                    }
+                },
+                headings_font_weight: {
+                    control: 500,
+                    calc: function() {
+                        $scope.vars['@headings-font-weight'] = $scope.ctrls.headings_font_weight.control;
+                    }
+                },
+                headings_is_auto_color: {
+                    control: true
+                },
+                headings_font_color: {
+                    control: 'inherit',
+                    calc: function() {
+                        var color;
 
-                        /*
-                         Bootstyle brightness is value and the lack of saturation.
-                         100v +   0s = 100  ( colorpicker top left     )
-                         100v + 100s =  50  ( colorpicker top right    )
-                         50v +  50s =  50  ( colorpicker center       )
-                         0v +   0s =   0  ( colorpicker bottom left  )
-                         0v + 100s =   0  ( colorpicker bottom right )
-                         */
-
-                        var bootstyle_brightness = Math.floor(under.value() - (((under.value() / 100) * under.saturationv()) / 2));
-                        var value, saturation;
-
-                        if (bootstyle_brightness >= $scope.bootstyle.settings.auto_font_color.breakpoint) {
-                            // light underlay, dark overlay
-                            value = Math.floor((bootstyle_brightness / 2) * (1 - contrast) + (bootstyle_brightness / 5));
-                            saturation = Math.floor((under.saturation()) * (1 - contrast));
+                        if ($scope.ctrls.headings_is_auto_color.control) {
+                            color = auto_overlay_color($scope.ctrls.body_bg.control, $scope.ctrls.headings_font_contrast.control);
                         } else {
-                            // light underlay, dark overlay
-                            value = Math.floor(((bootstyle_brightness / 5) * contrast) + (100 - bootstyle_brightness / 5));
-                            saturation = Math.floor((under.saturation() / 2) * (1 - contrast));
+                            color = $scope.ctrls.headings_font_color.control;
                         }
 
-                        // sat must be set first for proper effect
-                        over.saturation(saturation);
-                        over.value(value);
+                        $scope.vars['@headings-color'] = color;
+                    }
+                },
+                headings_font_contrast: {
+                    control: FONT_CONTRAST
+                },
+                headings_line_height: {
+                    control: 1.1,
+                    calc: function() {
+                        $scope.vars['@headings-line-height'] = $scope.ctrls.headings_line_height.control;
+                    }
+                },
+                headings_web_safe_font_family: {
+                    control: $scope.fonts.web_safe.sans_serif.helvetica_neue.display_name,
+                    style: $scope.fonts.web_safe.sans_serif.helvetica_neue.style,
+                    preview: null,
+                    calc: function() {
+                        if (!$scope.ctrls.use_google_fonts.control) {
+                            $scope.vars['@headings-font-family'] = $scope.ctrls.headings_web_safe_font_family.preview || $scope.ctrls.headings_web_safe_font_family.style;
+                        }
+                    }
+                },
+                headings_google_font_family: {
+                    control: $scope.fonts.google.sans_serif.droid_sans.display_name,
+                    style: $scope.fonts.google.sans_serif.droid_sans.style,
+                    preview: null,
+                    calc: function() {
+                        if ($scope.ctrls.use_google_fonts.control) {
+                            console.log('google headings');
+                            $scope.vars['@headings-font-family'] = $scope.ctrls.headings_google_font_family.preview || $scope.ctrls.headings_google_font_family.style;
+                        }
+                    }
+                },
+                line_height: {
+                    control: 1.43,
+                    calc: function() {
+                        $scope.vars['@line-height-base'] = $scope.ctrls.line_height.control;
+                    }
+                },
+                navbar_height: {
+                    control: 50,
+                    calc: function() {
+                        $scope.vars['@navbar-height'] = $scope.ctrls.navbar_height.control + 'px';
+                    }
+                },
+                navbar_margin_bottom: {
+                    control: 20,
+                    calc: function() {
+                        $scope.vars['@navbar-margin-bottom'] = $scope.ctrls.navbar_margin_bottom.control + 'px';
+                    }
+                },
+                navbar_bg: {
+                    control: '#222',
+                    calc: function() {
+                        $scope.vars['@navbar-inverse-bg'] = $scope.ctrls.navbar_bg.control;
+                    }
+                },
+                navbar_font_color: {
+                    control: '@gray-light',
+                    calc: function() {
+                        var color;
 
-                        return over.hexString();
-                    },
+                        if ($scope.ctrls.navbar_is_auto_color.control) {
+                            color = auto_overlay_color($scope.ctrls.navbar_bg.control, $scope.ctrls.font_contrast.control);
+                        } else {
+                            color = $scope.ctrls.navbar_font_color.control;
+                        }
+
+                        $scope.vars['@navbar-inverse-color'] = color;
+                        $scope.vars['@navbar-inverse-link-color'] = color;
+                        console.log(color);
+                    }
+                },
+                navbar_is_auto_color: {
+                    control: true
+                },
+                padding: {
+                    control: 10,
+                    calc: function() {
+                        var value = $scope.ctrls.padding.control;
+                        $scope.vars['@padding-base-vertical'] = Math.floor(value * 0.6) + 'px';
+                        $scope.vars['@padding-base-horizontal'] = Math.floor(value * 1.2) + 'px';
+                        $scope.vars['@padding-large-vertical'] = Math.floor(value * 1) + 'px';
+                        $scope.vars['@padding-large-horizontal'] = Math.floor(value * 1.6) + 'px';
+                        $scope.vars['@padding-small-vertical'] = Math.floor(value * 0.5) + 'px';
+                        $scope.vars['@padding-small-horizontal'] = Math.floor(value * 1) + 'px';
+                        $scope.vars['@padding-xs-vertical'] = Math.floor(value * 0.1) + 'px';
+                        $scope.vars['@padding-xs-horizontal'] = Math.floor(value * 0.5) + 'px';
+                    }
+                },
+                use_google_fonts: {
+                    control: false
                 },
             };
+            angular.extend($scope.ctrls, {
+                run_calcs: function() {
+                    for (var i in $scope.ctrls) {
+                        if ($scope.ctrls.hasOwnProperty(i)) {
+                            if ($scope.ctrls[i].hasOwnProperty('calc')) {
+                                $scope.ctrls[i].calc();
+                            }
+                        }
+                    }
+                },
+                set_defaults: function() {
+                    for (var i in $scope.ctrls) {
+                        if ($scope.ctrls.hasOwnProperty(i)) {
+                            $scope.ctrls[i]['default'] = $scope.ctrls[i].control;
+                        }
+                    }
+                }
+            });
+            // allows us to reset any individual control
+            $scope.ctrls.set_defaults();
+
+
+            /*
+             Init all the LESS variables
+             */
+            $scope.vars = {};
+            $scope.ctrls.run_calcs();
+
+
+            /*
+             Init settings which don't require a LESS recompile here
+             */
+            $scope.settings = {
+                show_toolbar: true,
+                RECOMPILE_LESS_DELAY: 100
+            };
+
+
+            /*
+             Init stylesheets
+             */
+            $scope.stylesheets = {
+                base: [
+                    { name: 'Bootstrap Theme', path: 'less/bootstrap/theme.less' }
+                ],
+                button_styles: [
+                    { name: 'Stripe', path: 'less/buttons_stripe.less' }
+                ]
+            };
+
 
             read_file('partials/_preview_bootstyle.html', function(file_contents) {
                 $scope.preview.set_html(file_contents);
-                $scope.bootstyle.initialized = true;
+                $scope.initialized = true;
             });
         };
 
+        ////////////////////////////  END INIT  ////////////////////////////
 
         /*
          Code Editor
@@ -392,9 +670,36 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
          */
         $scope.toolbar = {
             toggle: function() {
-                $scope.bootstyle.settings.show_toolbar = !$scope.bootstyle.settings.show_toolbar;
+                $scope.settings.show_toolbar = !$scope.settings.show_toolbar;
+            }
+        };
+        
+        $scope.swap_body_heading_typography = function() {
+            var body_control,
+                body_style,
+                headings_control,
+                headings_style;
 
-                $scope.preview.update_column_class()
+            if ($scope.ctrls.use_google_fonts.control) {
+                body_control = $scope.ctrls.body_google_font_family.control;
+                body_style = $scope.ctrls.body_google_font_family.style;
+                headings_control = $scope.ctrls.headings_google_font_family.control;
+                headings_style = $scope.ctrls.headings_google_font_family.style;
+
+                $scope.ctrls.body_google_font_family.control = headings_control;
+                $scope.ctrls.body_google_font_family.style = headings_style;
+                $scope.ctrls.headings_google_font_family.control = body_control;
+                $scope.ctrls.headings_google_font_family.style = body_style;
+            } else {
+                body_control = $scope.ctrls.body_web_safe_font_family.control;
+                body_style = $scope.ctrls.body_web_safe_font_family.style;
+                headings_control = $scope.ctrls.headings_web_safe_font_family.control;
+                headings_style = $scope.ctrls.headings_web_safe_font_family.style;
+                
+                $scope.ctrls.body_web_safe_font_family.control = headings_control;
+                $scope.ctrls.body_web_safe_font_family.style = headings_style;
+                $scope.ctrls.headings_web_safe_font_family.control = body_control;
+                $scope.ctrls.headings_web_safe_font_family.style = body_style;
             }
         };
 
@@ -442,15 +747,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
          Preview
          */
         $scope.preview = {
-            column_class: 'col-md-9 col-xs-8',
             html: null,
-            update_column_class: function() {
-                if ($scope.bootstyle.settings.show_toolbar) {
-                    $scope.preview.column_class = 'col-md-9 col-xs-8';
-                } else {
-                    $scope.preview.column_class = 'col-xs-12';
-                }
-            },
             set_html: function(html) {
                 $scope.preview.html = html;
             }
@@ -461,12 +758,24 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
          Nav Methods
          */
         $scope.reset = function() {
-            $scope.init_bootstyle()
+            for (var c in $scope.ctrls) {
+                if ($scope.ctrls.hasOwnProperty(c)) {
+                    if ($scope.ctrls[c].hasOwnProperty('control') && $scope.ctrls[c].hasOwnProperty('default')) {
+                        $scope.ctrls[c].control = $scope.ctrls[c].default;
+                    }
+                }
+            }
         };
 
         $scope.download = function() {
-            var blob = new Blob([$scope.bootstyle.variables.download_format()], {type: "text/plain;charset=utf-8"});
-            saveAs(blob, "bootstyle.less");
+            read_file('partials/_download_bootstyle.html', function(contents) {
+                var compiled_template = $compile(contents)($scope)[0];
+
+                $timeout(function() {
+                    var blob = new Blob([compiled_template.textContent], {type: "text/plain;charset=utf-8"});
+                    saveAs(blob, "bootstyle.less");
+                })
+            });
         };
 
 
@@ -475,8 +784,10 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
          */
 
         // Watch for changes
-        // TODO: Only watch values that necessitate a recompile
-        $scope.$watch('[bootstrap, bootstyle]', function(newValue, oldValue) {
+        $scope.$watch('[ctrls]', function(newValue, oldValue) {
+
+            $scope.ctrls.run_calcs();
+
             $scope.last_LESS_edit = Date.now();
             $scope.timerRecompileLESS();
         }, true);
@@ -485,7 +796,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
         // Call recompileLESS after a certain amount of inactivity
         $scope.timerRecompileLESS = function() {
             window.timerRecompileLESS = window.timerRecompileLESS || setInterval(function() {
-                if (Date.now() - $scope.last_LESS_edit >= $scope.bootstyle.settings.RECOMPILE_LESS_DELAY) {
+                if (Date.now() - $scope.last_LESS_edit >= $scope.settings.RECOMPILE_LESS_DELAY) {
                     window.clearInterval(window.timerRecompileLESS);
                     window.timerRecompileLESS = null;
                     $scope.recompileLESS();
@@ -515,7 +826,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
             }
             // END COPY
 
-            less.refresh(true, $scope.bootstyle.variables.updated_object());
+            less.refresh(true, $scope.vars);
         };
 
     }]);
