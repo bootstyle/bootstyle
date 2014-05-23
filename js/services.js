@@ -45,19 +45,11 @@ angular.module('bootstyleApp.services', []).
         return {
             set_hue: function(hue) {
                 s.from_hue(hue);
-
-                var bg = s.colors()[0];
-                $('#hue-box').css('background-color', '#' + bg);
-
-                $('#hex').val(bg);
-                $('#hex-box').css('background-color', '#' + bg);
             },
 
             set_hex: function(hex) {
                 hex = hex.replace('#', '');
-
                 s.from_hex(hex);
-
             },
 
             set_scheme: function(newScheme) {
@@ -99,4 +91,40 @@ angular.module('bootstyleApp.services', []).
                 return s.colors();
             }
         };
+    }).
+
+    /**
+     Compares two objects with identical keys and returns value differences or null if no differences.
+     => { changed_key: [obj1Val, obj2Val], ... }
+     => null
+     */
+    factory('object_delta', function() {
+        return function(obj1, obj2) {
+            var obj1_len = Object.keys(obj1).length,
+                obj2_len = Object.keys(obj2).length,
+                delta = {};
+
+            if (obj1_len !== obj2_len) {
+                throw "Objects must have the same number of keys.  Received " + obj1_len + " and " + obj2_len + ".";
+            }
+
+            for (var k in obj1) {
+                if (obj1.hasOwnProperty(k)) {
+                    if (obj1[k] !== obj2[k]) {
+                        delta[k] = {
+                            object_1_value: obj1[k],
+                            object_2_value: obj2[k]
+                        };
+                    }
+                }
+            }
+
+            if (Object.keys(delta).length) {
+                return delta;
+            } else {
+                return null;
+            }
+
+        }
+
     });

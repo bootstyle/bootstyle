@@ -6,8 +6,8 @@
 
 angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module']).
     controller('BootstyleCtrl',
-        ['$scope', '$compile', '$timeout', 'read_file', 'auto_overlay_color', 'FONT_CONTRAST', 'scheme',
-        function($scope, $compile, $timeout, read_file, auto_overlay_color, FONT_CONTRAST, scheme) {
+        ['$scope', '$compile', '$timeout', 'read_file', 'auto_overlay_color', 'FONT_CONTRAST', 'scheme', 'object_delta',
+        function($scope, $compile, $timeout, read_file, auto_overlay_color, FONT_CONTRAST, scheme, object_delta) {
 
         $scope.initialized = false;
 
@@ -312,22 +312,43 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
              Color Scheme
              */
             $scope.scheme = {
-                colors: null,
+                colors: [],
                 base_color: '#428bca', // @brand-primary
                 scheme: 'triade',
                 variation: 'default',
+                distance: 0.5,
                 generate_colors: function() {
-                    $scope.scheme.colors = scheme.colors()
+                    $scope.scheme.colors = [];
+                    var colors = scheme.colors();
+
+                    for (var c in colors) {
+                        if (colors.hasOwnProperty(c)) {
+                            $scope.scheme.colors[c] = {
+                                id: c,
+                                hex: '#' + colors[c]
+                            };
+                        }
+                    }
                 }
             };
 
             $scope.$watch('scheme', function(newValue, oldValue) {
-                console.log('scheme changed');
                 scheme.set_hex($scope.scheme.base_color);
                 scheme.set_scheme($scope.scheme.scheme);
                 scheme.set_variation($scope.scheme.variation);
+                scheme.set_distance($scope.scheme.distance);
+                
+                var changes = object_delta(oldValue, newValue);
+
+                if (changes) {
+                    for (var c in changes) {
+                        if (changes.hasOwnProperty(c)) {
+                            //console.log(c);
+                        }
+                    }
+                }
+
                 $scope.scheme.generate_colors();
-                console.log(scheme.colors());
 
                 $scope.last_LESS_edit = Date.now();
                 $scope.timerRecompileLESS();
@@ -452,9 +473,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     style: $scope.fonts.web_safe.sans_serif.helvetica_neue.style,
                     preview: null,
                     calc: function() {
-                        if (!$scope.ctrls.use_google_fonts.control) {
-                            $scope.vars['@headings-font-family'] = $scope.ctrls.headings_web_safe_font_family.preview || $scope.ctrls.headings_web_safe_font_family.style;
-                        }
+                        $scope.vars['@headings-font-family'] = $scope.ctrls.headings_web_safe_font_family.preview || $scope.ctrls.headings_web_safe_font_family.style;
                     }
                 },
                 headings_google_font_family: {
@@ -462,9 +481,11 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     style: $scope.fonts.google.sans_serif.droid_sans.style,
                     preview: null,
                     calc: function() {
-                        if ($scope.ctrls.use_google_fonts.control) {
-                            $scope.vars['@headings-font-family'] = $scope.ctrls.headings_google_font_family.preview || $scope.ctrls.headings_google_font_family.style;
-                        }
+                        console.log('@headings-font-family');
+                        console.log($scope.vars['@headings-font-family']);
+                        console.log('PREVIEW:' + $scope.ctrls.headings_google_font_family.preview);
+                        console.log('STYLE   ' + $scope.ctrls.headings_google_font_family.style);
+                        $scope.vars['@headings-font-family'] = $scope.ctrls.headings_google_font_family.preview || $scope.ctrls.headings_google_font_family.style;
                     }
                 },
                 font_size: {
@@ -490,9 +511,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     style: $scope.fonts.web_safe.sans_serif.helvetica_neue.style,
                     preview: null,
                     calc: function() {
-                        if (!$scope.ctrls.use_google_fonts.control) {
-                            $scope.vars['@font-family-base'] = $scope.ctrls.body_web_safe_font_family.preview || $scope.ctrls.body_web_safe_font_family.style
-                        }
+                        $scope.vars['@font-family-base'] = $scope.ctrls.body_web_safe_font_family.preview || $scope.ctrls.body_web_safe_font_family.style
                     }
                 },
                 code_web_safe_font_family: {
@@ -500,9 +519,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     style: $scope.fonts.web_safe.monospace.menlo.style,
                     preview: null,
                     calc: function() {
-                        if (!$scope.ctrls.use_google_fonts) {
-                            $scope.vars['@font-family-monospace'] = $scope.ctrls.code_web_safe_font_family.preview || $scope.ctrls.code_web_safe_font_family.style;
-                        }
+                        $scope.vars['@font-family-monospace'] = $scope.ctrls.code_web_safe_font_family.preview || $scope.ctrls.code_web_safe_font_family.style;
                     }
                 },
                 body_google_font_family: {
@@ -510,9 +527,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     style: $scope.fonts.google.sans_serif.droid_sans.style,
                     preview: null,
                     calc: function() {
-                        if ($scope.ctrls.use_google_fonts.control) {
-                            $scope.vars['@font-family-base'] = $scope.ctrls.body_google_font_family.preview || $scope.ctrls.body_google_font_family.style
-                        }
+                        $scope.vars['@font-family-base'] = $scope.ctrls.body_google_font_family.preview || $scope.ctrls.body_google_font_family.style
                     }
                 },
                 code_google_font_family: {
@@ -520,9 +535,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     style: $scope.fonts.google.monospace.droid_sans_mono.style,
                     preview: null,
                     calc: function() {
-                        if ($scope.ctrls.use_google_fonts) {
-                            $scope.vars['@font-family-monospace'] = $scope.ctrls.code_google_font_family.preview || $scope.ctrls.code_google_font_family.style;
-                        }
+                        $scope.vars['@font-family-monospace'] = $scope.ctrls.code_google_font_family.preview || $scope.ctrls.code_google_font_family.style;
                     }
                 },
                 button_font_weight: {
@@ -772,7 +785,29 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
 
         // Watch for changes
         $scope.$watch('[ctrls]', function(newValue, oldValue) {
-            $scope.ctrls.run_calcs();
+
+            var oldObject = oldValue['0'],
+                newObject = newValue['0'];
+            
+            var delta = {};
+
+            for (var p in oldObject) {
+                if (oldObject.hasOwnProperty(p) && oldObject[p].hasOwnProperty('control') && oldObject[p].hasOwnProperty('calc') && typeof  oldObject[p].calc === 'function') {
+                    var old_value = oldObject[p].control,
+                        new_value = newObject[p].control;
+
+                    if (old_value !== new_value) {
+                        delta = {
+                            property: p,
+                            old_value: old_value,
+                            new_value: new_value
+                        };
+
+                        console.log('## CALC: ctrls.' + p);
+                        $scope.ctrls[p].calc();
+                    }
+                }
+            }
 
             $scope.last_LESS_edit = Date.now();
             $scope.timerRecompileLESS();
