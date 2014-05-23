@@ -6,8 +6,8 @@
 
 angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module']).
     controller('BootstyleCtrl',
-        ['$scope', '$compile', '$timeout', 'read_file', 'auto_overlay_color', 'FONT_CONTRAST', 'scheme', 'object_delta',
-        function($scope, $compile, $timeout, read_file, auto_overlay_color, FONT_CONTRAST, scheme, object_delta) {
+        ['$scope', '$compile', '$timeout', 'read_file', 'auto_overlay_color', 'FONT_CONTRAST', 'scheme',
+        function($scope, $compile, $timeout, read_file, auto_overlay_color, FONT_CONTRAST, scheme) {
 
         $scope.initialized = false;
 
@@ -338,16 +338,6 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                 scheme.set_variation($scope.scheme.variation);
                 scheme.set_distance($scope.scheme.distance);
                 
-                var changes = object_delta(oldValue, newValue);
-
-                if (changes) {
-                    for (var c in changes) {
-                        if (changes.hasOwnProperty(c)) {
-                            //console.log(c);
-                        }
-                    }
-                }
-
                 $scope.scheme.generate_colors();
 
                 $scope.last_LESS_edit = Date.now();
