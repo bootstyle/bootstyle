@@ -359,71 +359,120 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
              Init Controls
              */
             $scope.ctrls = {
+                body_web_safe_font_family: {
+                    control: $scope.fonts.web_safe.sans_serif.helvetica_neue.display_name,
+                    style: $scope.fonts.web_safe.sans_serif.helvetica_neue.style,
+                    preview: null,
+                    calc: function() {
+                        if (!$scope.ctrls.use_google_fonts.control) {
+                            $scope.vars['@font-family-base'] = $scope.ctrls.body_web_safe_font_family.preview || $scope.ctrls.body_web_safe_font_family.style
+                        }
+                    }
+                },
+                body_google_font_family: {
+                    control: $scope.fonts.google.sans_serif.droid_sans.display_name,
+                    style: $scope.fonts.google.sans_serif.droid_sans.style,
+                    preview: null,
+                    calc: function() {
+                        if ($scope.ctrls.use_google_fonts.control) {
+                            console.log('google body');
+                            $scope.vars['@font-family-base'] = $scope.ctrls.body_google_font_family.preview || $scope.ctrls.body_google_font_family.style
+                        }
+                    }
+                },
+                body_bg: {
+                    control: '#ffffff',
+                    calc: function() {
+                        $scope.vars['@body-bg'] = $scope.ctrls.body_bg.control;
+                    }
+                },
+                bootstrap_theme: {
+                    control: false
+                },
                 border_radius: {
                     control: 4,
                     calc: function() {
                         var value = $scope.ctrls.border_radius.control;
-                        $scope.vars['@border-radius-base']  = Math.floor(value * 1)   + 'px';
+                        $scope.vars['@border-radius-base'] = Math.floor(value * 1) + 'px';
                         $scope.vars['@border-radius-large'] = Math.floor(value * 1.5) + 'px';
                         $scope.vars['@border-radius-small'] = Math.floor(value * 0.5) + 'px';
                     }
                 },
-                padding: {
-                    control: 10,
+                brand_primary: {
+                    control: '#428bca',
                     calc: function() {
-                        var value = $scope.ctrls.padding.control;
-                        $scope.vars['@padding-base-vertical']    = Math.floor(value * 0.6) + 'px';
-                        $scope.vars['@padding-base-horizontal']  = Math.floor(value * 1.2) + 'px';
-                        $scope.vars['@padding-large-vertical']   = Math.floor(value * 1)   + 'px';
-                        $scope.vars['@padding-large-horizontal'] = Math.floor(value * 1.6) + 'px';
-                        $scope.vars['@padding-small-vertical']   = Math.floor(value * 0.5) + 'px';
-                        $scope.vars['@padding-small-horizontal'] = Math.floor(value * 1)   + 'px';
-                        $scope.vars['@padding-xs-vertical']      = Math.floor(value * 0.1) + 'px';
-                        $scope.vars['@padding-xs-horizontal']    = Math.floor(value * 0.5) + 'px';
+                        $scope.vars['@brand-primary'] = $scope.ctrls.brand_primary.control;
+                    }
+                },
+                brand_success: {
+                    control: '#5cb85c',
+                    calc: function() {
+                        $scope.vars['@brand-success'] = $scope.ctrls.brand_success.control;
+                    }
+                },
+                brand_info: {
+                    control: '#5bc0de',
+                    calc: function() {
+                        $scope.vars['@brand-info'] = $scope.ctrls.brand_info.control;
+                    }
+                },
+                brand_warning: {
+                    control: '#f0ad4e',
+                    calc: function() {
+                        $scope.vars['@brand-warning'] = $scope.ctrls.brand_warning.control;
+                    }
+                },
+                brand_danger: {
+                    control: '#d9534f',
+                    calc: function() {
+                        $scope.vars['@brand-danger'] = $scope.ctrls.brand_danger.control;
+                    }
+                },
+                button_font_weight: {
+                    control: 'normal',
+                    calc: function() {
+                        $scope.vars['@btn-font-weight'] = $scope.ctrls.button_font_weight.control;
+                    }
+                },
+                button_style: {
+                    control: 'default'
+                },
+                buttons_uppercase: {
+                    control: false
+                },
+                code_web_safe_font_family: {
+                    control: $scope.fonts.web_safe.monospace.menlo.display_name,
+                    style: $scope.fonts.web_safe.monospace.menlo.style,
+                    preview: null,
+                    calc: function() {
+                        if (!$scope.ctrls.use_google_fonts.control) {
+                            $scope.vars['@font-family-monospace'] = $scope.ctrls.code_web_safe_font_family.preview || $scope.ctrls.code_web_safe_font_family.style;
+                        }
+                    }
+                },
+                code_google_font_family: {
+                    control: $scope.fonts.google.monospace.droid_sans_mono.display_name,
+                    style: $scope.fonts.google.monospace.droid_sans_mono.style,
+                    preview: null,
+                    calc: function() {
+                        if ($scope.ctrls.use_google_fonts.control) {
+                            console.log('google code');
+
+                            $scope.vars['@font-family-monospace'] = $scope.ctrls.code_google_font_family.preview || $scope.ctrls.code_google_font_family.style;
+                        }
                     }
                 },
                 container_class: {
                     control: 'container'
                 },
-                bootstrap_theme: {
-                    control: false
-                },
-                navbar_height: {
-                    control: 50,
+                font_size: {
+                    control: 14,
                     calc: function() {
-                        $scope.vars['@navbar-height'] = $scope.ctrls.navbar_height.control + 'px';
+                        $scope.vars['@font-size-base'] = $scope.ctrls.font_size.control + 'px';
                     }
                 },
-                navbar_margin_bottom: {
-                    control: 20,
-                    calc: function() {
-                        $scope.vars['@navbar-margin-bottom'] = $scope.ctrls.navbar_margin_bottom.control + 'px';
-                    }
-                },
-                navbar_bg: {
-                    control: '#222',
-                    calc: function() {
-                        var value = $scope.ctrls.navbar_bg.control;
-                        $scope.vars['@navbar-inverse-bg'] = value;
-                    }
-                },
-                navbar_font_color: {
-                    control: '@gray-light',
-                    calc: function() {
-                        var color;
-
-                        if ($scope.ctrls.navbar_is_auto_color.control) {
-                            color = auto_overlay_color($scope.ctrls.navbar_bg.control, $scope.ctrls.font_contrast.control);
-                        } else {
-                            color = $scope.ctrls.navbar_font_color.control;
-                        }
-
-                        $scope.vars['@navbar-inverse-color'] = color;
-                        $scope.vars['@navbar-inverse-link-color'] = color;
-                    }
-                },
-                navbar_is_auto_color: {
-                    control: true
+                font_contrast: {
+                    control: FONT_CONTRAST
                 },
                 headings_font_size: {
                     control: 14,
@@ -473,7 +522,9 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     style: $scope.fonts.web_safe.sans_serif.helvetica_neue.style,
                     preview: null,
                     calc: function() {
-                        $scope.vars['@headings-font-family'] = $scope.ctrls.headings_web_safe_font_family.preview || $scope.ctrls.headings_web_safe_font_family.style;
+                        if (!$scope.ctrls.use_google_fonts.control) {
+                            $scope.vars['@headings-font-family'] = $scope.ctrls.headings_web_safe_font_family.preview || $scope.ctrls.headings_web_safe_font_family.style;
+                        }
                     }
                 },
                 headings_google_font_family: {
@@ -481,21 +532,11 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     style: $scope.fonts.google.sans_serif.droid_sans.style,
                     preview: null,
                     calc: function() {
-                        console.log('@headings-font-family');
-                        console.log($scope.vars['@headings-font-family']);
-                        console.log('PREVIEW:' + $scope.ctrls.headings_google_font_family.preview);
-                        console.log('STYLE   ' + $scope.ctrls.headings_google_font_family.style);
-                        $scope.vars['@headings-font-family'] = $scope.ctrls.headings_google_font_family.preview || $scope.ctrls.headings_google_font_family.style;
+                        if ($scope.ctrls.use_google_fonts.control) {
+                            console.log('google headings');
+                            $scope.vars['@headings-font-family'] = $scope.ctrls.headings_google_font_family.preview || $scope.ctrls.headings_google_font_family.style;
+                        }
                     }
-                },
-                font_size: {
-                    control: 14,
-                    calc: function() {
-                        $scope.vars['@font-size-base'] = $scope.ctrls.font_size.control + 'px';
-                    }
-                },
-                font_contrast: {
-                    control: FONT_CONTRAST
                 },
                 line_height: {
                     control: 1.43,
@@ -503,88 +544,59 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                         $scope.vars['@line-height-base'] = $scope.ctrls.line_height.control;
                     }
                 },
+                navbar_height: {
+                    control: 50,
+                    calc: function() {
+                        $scope.vars['@navbar-height'] = $scope.ctrls.navbar_height.control + 'px';
+                    }
+                },
+                navbar_margin_bottom: {
+                    control: 20,
+                    calc: function() {
+                        $scope.vars['@navbar-margin-bottom'] = $scope.ctrls.navbar_margin_bottom.control + 'px';
+                    }
+                },
+                navbar_bg: {
+                    control: '#222',
+                    calc: function() {
+                        $scope.vars['@navbar-inverse-bg'] = $scope.ctrls.navbar_bg.control;
+                    }
+                },
+                navbar_font_color: {
+                    control: '@gray-light',
+                    calc: function() {
+                        var color;
+
+                        if ($scope.ctrls.navbar_is_auto_color.control) {
+                            color = auto_overlay_color($scope.ctrls.navbar_bg.control, $scope.ctrls.font_contrast.control);
+                        } else {
+                            color = $scope.ctrls.navbar_font_color.control;
+                        }
+
+                        $scope.vars['@navbar-inverse-color'] = color;
+                        $scope.vars['@navbar-inverse-link-color'] = color;
+                        console.log(color);
+                    }
+                },
+                navbar_is_auto_color: {
+                    control: true
+                },
+                padding: {
+                    control: 10,
+                    calc: function() {
+                        var value = $scope.ctrls.padding.control;
+                        $scope.vars['@padding-base-vertical'] = Math.floor(value * 0.6) + 'px';
+                        $scope.vars['@padding-base-horizontal'] = Math.floor(value * 1.2) + 'px';
+                        $scope.vars['@padding-large-vertical'] = Math.floor(value * 1) + 'px';
+                        $scope.vars['@padding-large-horizontal'] = Math.floor(value * 1.6) + 'px';
+                        $scope.vars['@padding-small-vertical'] = Math.floor(value * 0.5) + 'px';
+                        $scope.vars['@padding-small-horizontal'] = Math.floor(value * 1) + 'px';
+                        $scope.vars['@padding-xs-vertical'] = Math.floor(value * 0.1) + 'px';
+                        $scope.vars['@padding-xs-horizontal'] = Math.floor(value * 0.5) + 'px';
+                    }
+                },
                 use_google_fonts: {
                     control: false
-                },
-                body_web_safe_font_family: {
-                    control: $scope.fonts.web_safe.sans_serif.helvetica_neue.display_name,
-                    style: $scope.fonts.web_safe.sans_serif.helvetica_neue.style,
-                    preview: null,
-                    calc: function() {
-                        $scope.vars['@font-family-base'] = $scope.ctrls.body_web_safe_font_family.preview || $scope.ctrls.body_web_safe_font_family.style
-                    }
-                },
-                code_web_safe_font_family: {
-                    control: $scope.fonts.web_safe.monospace.menlo.display_name,
-                    style: $scope.fonts.web_safe.monospace.menlo.style,
-                    preview: null,
-                    calc: function() {
-                        $scope.vars['@font-family-monospace'] = $scope.ctrls.code_web_safe_font_family.preview || $scope.ctrls.code_web_safe_font_family.style;
-                    }
-                },
-                body_google_font_family: {
-                    control: $scope.fonts.google.sans_serif.droid_sans.display_name,
-                    style: $scope.fonts.google.sans_serif.droid_sans.style,
-                    preview: null,
-                    calc: function() {
-                        $scope.vars['@font-family-base'] = $scope.ctrls.body_google_font_family.preview || $scope.ctrls.body_google_font_family.style
-                    }
-                },
-                code_google_font_family: {
-                    control: $scope.fonts.google.monospace.droid_sans_mono.display_name,
-                    style: $scope.fonts.google.monospace.droid_sans_mono.style,
-                    preview: null,
-                    calc: function() {
-                        $scope.vars['@font-family-monospace'] = $scope.ctrls.code_google_font_family.preview || $scope.ctrls.code_google_font_family.style;
-                    }
-                },
-                button_font_weight: {
-                    control: 'normal',
-                    calc: function() {
-                        $scope.vars['@btn-font-weight'] =   $scope.ctrls.button_font_weight.control;
-                    }
-                },
-                button_style: {
-                    control: 'default'
-                },
-                buttons_uppercase: {
-                    control: false
-                },
-                body_bg: {
-                    control: '#ffffff',
-                    calc: function() {
-                        $scope.vars['@body-bg'] = $scope.ctrls.body_bg.control;
-                    }
-                },
-                brand_primary: {
-                    control: '#428bca',
-                    calc: function() {
-                        $scope.vars['@brand-primary'] = $scope.ctrls.brand_primary.control;
-                    }
-                },
-                brand_success: {
-                    control: '#5cb85c',
-                    calc: function() {
-                        $scope.vars['@brand-success'] = $scope.ctrls.brand_success.control;
-                    }
-                },
-                brand_info: {
-                    control: '#5bc0de',
-                    calc: function() {
-                        $scope.vars['@brand-info'] = $scope.ctrls.brand_info.control;
-                    }
-                },
-                brand_warning: {
-                    control: '#f0ad4e',
-                    calc: function() {
-                        $scope.vars['@brand-warning'] = $scope.ctrls.brand_warning.control;
-                    }
-                },
-                brand_danger: {
-                    control: '#d9534f',
-                    calc: function() {
-                        $scope.vars['@brand-danger'] = $scope.ctrls.brand_danger.control;
-                    }
                 },
             };
             angular.extend($scope.ctrls, {
@@ -633,9 +645,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     { name: 'Bootstrap Theme', path: 'less/bootstrap/theme.less' }
                 ],
                 button_styles: [
-                    { name: 'Stripe', path: 'less/buttons_stripe.less' },
-                    { name: 'GeckoBoard', path: 'less/buttons_geckoboard.less' },
-                    { name: 'ZoomShift', path: 'less/buttons_zoomshift.less' },
+                    { name: 'Stripe', path: 'less/buttons_stripe.less' }
                 ]
             };
 
@@ -786,28 +796,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
         // Watch for changes
         $scope.$watch('[ctrls]', function(newValue, oldValue) {
 
-            var oldObject = oldValue['0'],
-                newObject = newValue['0'];
-            
-            var delta = {};
-
-            for (var p in oldObject) {
-                if (oldObject.hasOwnProperty(p) && oldObject[p].hasOwnProperty('control') && oldObject[p].hasOwnProperty('calc') && typeof  oldObject[p].calc === 'function') {
-                    var old_value = oldObject[p].control,
-                        new_value = newObject[p].control;
-
-                    if (old_value !== new_value) {
-                        delta = {
-                            property: p,
-                            old_value: old_value,
-                            new_value: new_value
-                        };
-
-                        console.log('## CALC: ctrls.' + p);
-                        $scope.ctrls[p].calc();
-                    }
-                }
-            }
+            $scope.ctrls.run_calcs();
 
             $scope.last_LESS_edit = Date.now();
             $scope.timerRecompileLESS();
