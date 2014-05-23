@@ -97,9 +97,314 @@
     </div>
 
     <div class="panel panel-default">
+        <div class="panel-heading" data-toggle="collapse" data-parent="#toolbar" data-target="#toolbar_headings">
+            <h1 class="panel-title">
+                Headings
+            </h1>
+        </div>
+        <div class="panel-collapse collapse" id="toolbar_headings">
+
+
+            <ul class="list-group fonts">
+                <li class="list-group-item">
+                    <label>Font</label>
+                    <div class="control-group">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                                {{ ctrls.headings_web_safe_font_family.control }}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li role="presentation" class="dropdown-header" style="font-family: serif !important;">Serif</li>
+                                <li class="font_option"
+                                    ng-repeat="f in fonts.web_safe.serif"
+                                    ng-mouseenter="ctrls.headings_web_safe_font_family.preview = f.style"
+                                    ng-mouseleave="ctrls.headings_web_safe_font_family.preview = null"
+                                    ng-click="ctrls.headings_web_safe_font_family.style = f.style; ctrls.headings_web_safe_font_family.control = f.display_name"
+                                    ng-class="{'active': ctrls.headings_web_safe_font_family.style === f.style}"
+                                    style="font-family: {{ f.style }} !important">
+                                    <a href="">{{ f.display_name }}</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li role="presentation" class="dropdown-header" style="font-family: sans-serif !important;">Sans-Serif</li>
+                                <li class="font_option"
+                                    ng-repeat="f in fonts.web_safe.sans_serif"
+                                    ng-mouseenter="ctrls.headings_web_safe_font_family.preview = f.style"
+                                    ng-mouseleave="ctrls.headings_web_safe_font_family.preview = null"
+                                    ng-click="ctrls.headings_web_safe_font_family.style = f.style; ctrls.headings_web_safe_font_family.control = f.display_name"
+                                    ng-class="{'active': ctrls.headings_web_safe_font_family.style === f.style}"
+                                    style="font-family: {{ f.style }} !important">
+                                    <a href="">{{ f.display_name }}</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li role="presentation" class="dropdown-header" style="font-family: monospace !important;">Monospace</li>
+                                <li class="font_option"
+                                    ng-repeat="f in fonts.web_safe.monospace"
+                                    ng-mouseenter="ctrls.headings_web_safe_font_family.preview = f.style"
+                                    ng-mouseleave="ctrls.headings_web_safe_font_family.preview = null"
+                                    ng-click="ctrls.headings_web_safe_font_family.style = f.style; ctrls.headings_web_safe_font_family.control = f.display_name"
+                                    ng-class="{'active': ctrls.headings_web_safe_font_family.style === f.style}"
+                                    style="font-family: {{ f.style }} !important">
+                                    <a href="">{{ f.display_name }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">{{ ctrls.headings_font_size.control }}px</span>
+                    <label>Size
+                        <input type="range" min="10" max="21" ng-model="ctrls.headings_font_size.control"/>
+                    </label>
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">{{ ctrls.headings_font_weight.control }}</span>
+                    <label>Weight
+                        <input type="range" ng-model="ctrls.headings_font_weight.control" min="100" max="900" step="100"/>
+                    </label>
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">{{ ctrls.headings_font_contrast.control }}</span>
+                    <label>Contrast
+                        <input type="range" ng-model="ctrls.headings_font_contrast.control" min="0" max="1" step="0.01"/>
+                    </label>
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">{{ ctrls.headings_line_height.control }}</span>
+                    <label>Line Height
+                        <input type="range" ng-model="ctrls.headings_line_height.control" min="1" max="2" step="0.01"/>
+                    </label>
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">{{ vars['@headings-color'] }}</span>
+                    <label>Color</label>
+
+                    <div class="control-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="ctrls.headings_is_auto_color.control">
+                                Auto
+                            </label>
+                        </div>
+                    </div>
+                    <div class="input-group" ng-hide="ctrls.headings_is_auto_color.control">
+                        <span class="input-group-addon" colorpicker ng-model="ctrls.headings_font_color.control" style="background-color: {{ vars['@headings-color'] }}"></span>
+                        <input class="form-control" type="text" colorpicker ng-model="ctrls.headings_font_color.control"/>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading" data-toggle="collapse" data-parent="#toolbar" data-target="#toolbar_buttons">
+            <h1 class="panel-title">
+                Buttons
+            </h1>
+        </div>
+        <div class="panel-collapse collapse" id="toolbar_buttons">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <span class="badge">{{ ctrls.button_font_weight.control }}</span>
+                    <label> Font Weight
+                        <input type="range" ng-model="ctrls.button_font_weight.control" min="100" max="900" step="100"/>
+                    </label>
+                </li>
+                <li class="list-group-item">
+                    <label>Styles</label>
+
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="button_styles" value="default" ng-model="ctrls.button_style.control">
+                            Default
+                        </label>
+                    </div>
+                    <div class="radio" ng-repeat="s in stylesheets.button_styles">
+                        <label>
+                            <input type="radio" name="button_styles" ng-value="s.name" ng-model="ctrls.button_style.control">
+                            {{ s.name }}
+                        </label>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="control-group">
+                        <div class="checkbox">
+                            <label> Uppercase
+                                <input type="checkbox" ng-model="ctrls.buttons_uppercase.control">
+                            </label>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading" data-toggle="collapse" data-parent="#toolbar" data-target="#toolbar_colors">
+            <h1 class="panel-title">
+                Colors
+            </h1>
+        </div>
+        <div class="panel-collapse collapse" id="toolbar_colors">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <span class="badge">{{ bootstyle.variables.methods['@body-bg']() }}</span>
+                    <label>Body</label>
+
+                    <div class="input-group">
+                        <span class="input-group-addon" colorpicker ng-model="ctrls.body_bg.control" style="background-color: {{ ctrls.body_bg.control }}"></span>
+                        <input type="text" class="form-control" colorpicker ng-model="ctrls.body_bg.control"/>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="control-group">
+                        <label>Primary</label>
+
+                        <div class="input-group">
+                            <span class="input-group-addon" colorpicker ng-model="ctrls.brand_primary.control" style="background-color: {{ ctrls.brand_primary.control }}"></span>
+                            <input class="form-control" type="text" colorpicker ng-model="ctrls.brand_primary.control"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label>Success</label>
+
+                        <div class="input-group">
+                            <span class="input-group-addon" colorpicker ng-model="ctrls.brand_success.control" style="background-color: {{ ctrls.brand_success.control }}"></span>
+                            <input class="form-control" type="text" colorpicker ng-model="ctrls.brand_success.control"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label>Info</label>
+
+                        <div class="input-group">
+                            <span class="input-group-addon" colorpicker ng-model="ctrls.brand_info.control" style="background-color: {{ ctrls.brand_info.control }}"></span>
+                            <input class="form-control" type="text" colorpicker ng-model="ctrls.brand_info.control"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label>Warning</label>
+
+                        <div class="input-group">
+                            <span class="input-group-addon" colorpicker ng-model="ctrls.brand_warning.control" style="background-color: {{ ctrls.brand_warning.control }}"></span>
+                            <input class="form-control" type="text" colorpicker ng-model="ctrls.brand_warning.control"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label>Danger</label>
+
+                        <div class="input-group">
+                            <span class="input-group-addon" colorpicker ng-model="ctrls.brand_danger.control" style="background-color: {{ ctrls.brand_danger.control }}"></span>
+                            <input class="form-control" type="text" colorpicker ng-model="ctrls.brand_danger.control"/>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading" data-toggle="collapse" data-parent="#toolbar" data-target="#toolbar_color_scheme">
+            <h1 class="panel-title">
+                <span class="text-muted">Color Scheme</span>
+                <span class="label label-warning">Soon!</span>
+            </h1>
+        </div>
+        <div class="panel-collapse collapse" id="toolbar_color_scheme">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="swatches">
+                        <div ng-repeat="c in scheme.colors" class="swatch" ng-style="{ 'background-color': '{{ c.hex }}', 'width': '{{ 100 / scheme.colors.length }}%' }"></div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <label>Base Color</label>
+
+                    <div class="input-group">
+                        <span class="input-group-addon" colorpicker ng-model="scheme.base_color" style="background-color: {{ scheme.base_color }}"></span>
+                        <input class="form-control" type="text" colorpicker ng-model="scheme.base_color"/>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <label>Scheme</label>
+
+                    <div class="dropdown">
+                        <div class="btn btn-default" data-toggle="dropdown">
+                            {{ scheme.scheme }}
+                            <span class="caret"></span>
+                        </div>
+
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <li ng-click="scheme.scheme = 'mono'"
+                                ng-class="{ active: scheme.scheme === 'mono' }">
+                                <a href="">Monochromatic</a>
+                            </li>
+                            <li ng-click="scheme.scheme = 'contrast'"
+                                ng-class="{ active: scheme.scheme === 'contrast' }">
+                                <a href="">Complimentary</a>
+                            </li>
+                            <li ng-click="scheme.scheme = 'triade'"
+                                ng-class="{ active: scheme.scheme === 'triade' }">
+                                <a href="">Triad</a>
+                            </li>
+                            <li ng-click="scheme.scheme = 'analogic'"
+                                ng-class="{ active: scheme.scheme === 'analogic' }">
+                                <a href="">Analogous</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <label>Variation</label>
+
+                    <div class="dropdown">
+                        <div class="btn btn-default" data-toggle="dropdown">
+                            {{ scheme.variation }}
+                            <span class="caret"></span>
+                        </div>
+
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <li ng-click="scheme.variation = 'default'"
+                                ng-class="{ active: scheme.variation === 'default' }">
+                                <a href="">Default</a>
+                            </li>
+                            <li ng-click="scheme.variation = 'pastel'"
+                                ng-class="{ active: scheme.variation === 'pastel' }">
+                                <a href="">Pastel</a>
+                            </li>
+                            <li ng-click="scheme.variation = 'soft'"
+                                ng-class="{ active: scheme.variation === 'soft' }">
+                                <a href="">Soft</a>
+                            </li>
+                            <li ng-click="scheme.variation = 'light'"
+                                ng-class="{ active: scheme.variation === 'light' }">
+                                <a href="">Light</a>
+                            </li>
+                            <li ng-click="scheme.variation = 'hard'"
+                                ng-class="{ active: scheme.variation === 'hard' }">
+                                <a href="">Hard</a>
+                            </li>
+                            <li ng-click="scheme.variation = 'pale'"
+                                ng-class="{ active: scheme.variation === 'pale' }">
+                                <a href="">Pale</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">{{ scheme.distance }}</span>
+                    <label> Distance
+                        <input type="range" ng-model="scheme.distance" min="0" max="1" step="0.01"/>
+                    </label>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
         <div class="panel-heading" data-toggle="collapse" data-parent="#toolbar" data-target="#toolbar_typography">
             <h1 class="panel-title">
-                Typography
+                <span class="text-muted">Typography</span>
+                <span class="label label-warning">Soon!</span>
             </h1>
         </div>
         <div class="panel-collapse collapse" id="toolbar_typography">
@@ -417,261 +722,5 @@
         </div>
     </div>
 
-    <div class="panel panel-default">
-        <div class="panel-heading" data-toggle="collapse" data-parent="#toolbar" data-target="#toolbar_headings">
-            <h1 class="panel-title">
-                Headings
-            </h1>
-        </div>
-        <div class="panel-collapse collapse" id="toolbar_headings">
-            <ul class="list-group fonts">
-                <li class="list-group-item">
-                    <span class="badge">{{ ctrls.headings_font_size.control }}px</span>
-                    <label>Size
-                        <input type="range" min="10" max="21" ng-model="ctrls.headings_font_size.control"/>
-                    </label>
-                </li>
-                <li class="list-group-item">
-                    <span class="badge">{{ ctrls.headings_font_weight.control }}</span>
-                    <label>Weight
-                        <input type="range" ng-model="ctrls.headings_font_weight.control" min="100" max="900" step="100"/>
-                    </label>
-                </li>
-                <li class="list-group-item">
-                    <span class="badge">{{ ctrls.headings_font_contrast.control }}</span>
-                    <label>Contrast
-                        <input type="range" ng-model="ctrls.headings_font_contrast.control" min="0" max="1" step="0.01"/>
-                    </label>
-                </li>
-                <li class="list-group-item">
-                    <span class="badge">{{ ctrls.headings_line_height.control }}</span>
-                    <label>Line Height
-                        <input type="range" ng-model="ctrls.headings_line_height.control" min="1" max="2" step="0.01"/>
-                    </label>
-                </li>
-                <li class="list-group-item">
-                    <span class="badge">{{ vars['@headings-color'] }}</span>
-                    <label>Color</label>
-
-                    <div class="control-group">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" ng-model="ctrls.headings_is_auto_color.control">
-                                Auto
-                            </label>
-                        </div>
-                    </div>
-                    <div class="input-group" ng-hide="ctrls.headings_is_auto_color.control">
-                        <span class="input-group-addon" colorpicker ng-model="ctrls.headings_font_color.control" style="background-color: {{ vars['@headings-color'] }}"></span>
-                        <input class="form-control" type="text" colorpicker ng-model="ctrls.headings_font_color.control"/>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="panel panel-default">
-        <div class="panel-heading" data-toggle="collapse" data-parent="#toolbar" data-target="#toolbar_buttons">
-            <h1 class="panel-title">
-                Buttons
-            </h1>
-        </div>
-        <div class="panel-collapse collapse" id="toolbar_buttons">
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <span class="badge">{{ ctrls.button_font_weight.control }}</span>
-                    <label> Font Weight
-                        <input type="range" ng-model="ctrls.button_font_weight.control" min="100" max="900" step="100"/>
-                    </label>
-                </li>
-                <li class="list-group-item">
-                    <label>Styles</label>
-
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="button_styles" value="default" ng-model="ctrls.button_style.control">
-                            Default
-                        </label>
-                    </div>
-                    <div class="radio" ng-repeat="s in stylesheets.button_styles">
-                        <label>
-                            <input type="radio" name="button_styles" ng-value="s.name" ng-model="ctrls.button_style.control">
-                            {{ s.name }}
-                        </label>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <div class="control-group">
-                        <div class="checkbox">
-                            <label> Uppercase
-                                <input type="checkbox" ng-model="ctrls.buttons_uppercase.control">
-                            </label>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="panel panel-default">
-        <div class="panel-heading" data-toggle="collapse" data-parent="#toolbar" data-target="#toolbar_colors">
-            <h1 class="panel-title">
-                Colors
-            </h1>
-        </div>
-        <div class="panel-collapse collapse" id="toolbar_colors">
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <span class="badge">{{ bootstyle.variables.methods['@body-bg']() }}</span>
-                    <label>Body</label>
-
-                    <div class="input-group">
-                        <span class="input-group-addon" colorpicker ng-model="ctrls.body_bg.control" style="background-color: {{ ctrls.body_bg.control }}"></span>
-                        <input type="text" class="form-control" colorpicker ng-model="ctrls.body_bg.control"/>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <div class="control-group">
-                        <label>Primary</label>
-
-                        <div class="input-group">
-                            <span class="input-group-addon" colorpicker ng-model="ctrls.brand_primary.control" style="background-color: {{ ctrls.brand_primary.control }}"></span>
-                            <input class="form-control" type="text" colorpicker ng-model="ctrls.brand_primary.control"/>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label>Success</label>
-
-                        <div class="input-group">
-                            <span class="input-group-addon" colorpicker ng-model="ctrls.brand_success.control" style="background-color: {{ ctrls.brand_success.control }}"></span>
-                            <input class="form-control" type="text" colorpicker ng-model="ctrls.brand_success.control"/>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label>Info</label>
-
-                        <div class="input-group">
-                            <span class="input-group-addon" colorpicker ng-model="ctrls.brand_info.control" style="background-color: {{ ctrls.brand_info.control }}"></span>
-                            <input class="form-control" type="text" colorpicker ng-model="ctrls.brand_info.control"/>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label>Warning</label>
-
-                        <div class="input-group">
-                            <span class="input-group-addon" colorpicker ng-model="ctrls.brand_warning.control" style="background-color: {{ ctrls.brand_warning.control }}"></span>
-                            <input class="form-control" type="text" colorpicker ng-model="ctrls.brand_warning.control"/>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label>Danger</label>
-
-                        <div class="input-group">
-                            <span class="input-group-addon" colorpicker ng-model="ctrls.brand_danger.control" style="background-color: {{ ctrls.brand_danger.control }}"></span>
-                            <input class="form-control" type="text" colorpicker ng-model="ctrls.brand_danger.control"/>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="panel panel-default">
-        <div class="panel-heading" data-toggle="collapse" data-parent="#toolbar" data-target="#toolbar_color_scheme">
-            <h1 class="panel-title">
-                <span class="text-muted">Color Scheme</span>
-                <span class="label label-warning">Soon!</span>
-            </h1>
-        </div>
-        <div class="panel-collapse collapse" id="toolbar_color_scheme">
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <div class="swatches">
-                        <div ng-repeat="c in scheme.colors" class="swatch" ng-style="{ 'background-color': '{{ c.hex }}', 'width': '{{ 100 / scheme.colors.length }}%' }"></div>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <label>Base Color</label>
-
-                    <div class="input-group">
-                        <span class="input-group-addon" colorpicker ng-model="scheme.base_color" style="background-color: {{ scheme.base_color }}"></span>
-                        <input class="form-control" type="text" colorpicker ng-model="scheme.base_color"/>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <label>Scheme</label>
-
-                    <div class="dropdown">
-                        <div class="btn btn-default" data-toggle="dropdown">
-                            {{ scheme.scheme }}
-                            <span class="caret"></span>
-                        </div>
-
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                            <li ng-click="scheme.scheme = 'mono'"
-                                ng-class="{ active: scheme.scheme === 'mono' }">
-                                <a href="">Monochromatic</a>
-                            </li>
-                            <li ng-click="scheme.scheme = 'contrast'"
-                                ng-class="{ active: scheme.scheme === 'contrast' }">
-                                <a href="">Complimentary</a>
-                            </li>
-                            <li ng-click="scheme.scheme = 'triade'"
-                                ng-class="{ active: scheme.scheme === 'triade' }">
-                                <a href="">Triad</a>
-                            </li>
-                            <li ng-click="scheme.scheme = 'analogic'"
-                                ng-class="{ active: scheme.scheme === 'analogic' }">
-                                <a href="">Analogous</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <label>Variation</label>
-
-                    <div class="dropdown">
-                        <div class="btn btn-default" data-toggle="dropdown">
-                            {{ scheme.variation }}
-                            <span class="caret"></span>
-                        </div>
-
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                            <li ng-click="scheme.variation = 'default'"
-                                ng-class="{ active: scheme.variation === 'default' }">
-                                <a href="">Default</a>
-                            </li>
-                            <li ng-click="scheme.variation = 'pastel'"
-                                ng-class="{ active: scheme.variation === 'pastel' }">
-                                <a href="">Pastel</a>
-                            </li>
-                            <li ng-click="scheme.variation = 'soft'"
-                                ng-class="{ active: scheme.variation === 'soft' }">
-                                <a href="">Soft</a>
-                            </li>
-                            <li ng-click="scheme.variation = 'light'"
-                                ng-class="{ active: scheme.variation === 'light' }">
-                                <a href="">Light</a>
-                            </li>
-                            <li ng-click="scheme.variation = 'hard'"
-                                ng-class="{ active: scheme.variation === 'hard' }">
-                                <a href="">Hard</a>
-                            </li>
-                            <li ng-click="scheme.variation = 'pale'"
-                                ng-class="{ active: scheme.variation === 'pale' }">
-                                <a href="">Pale</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <span class="badge">{{ scheme.distance }}</span>
-                    <label> Distance
-                        <input type="range" ng-model="scheme.distance" min="0" max="1" step="0.01"/>
-                    </label>
-                </li>
-            </ul>
-        </div>
-    </div>
 
 </aside>
