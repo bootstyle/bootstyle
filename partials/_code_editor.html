@@ -1,21 +1,16 @@
 <div class="alert alert-info alert-dismissable">
     <button type="button" class="close" data-dismiss="alert"> &times;</button>
-    <p><i class="glyphicon glyphicon-info-sign"></i> <strong>Exclude Containers</strong></p>
-    <p><b>Do not</b> include <code>class="container"</code> or you will bork the layout.</p>
-    <p>Fluid containers, <code>class="container-fluid"</code> are OK.</p>
+    <h4><i class="glyphicon glyphicon-info-sign"></i> <strong>Exclude Containers</strong></h4>
     <p>
-        <pre>
-&lt;div class="{{ ctrls.container_class.control }}"&gt;
-  &lt;div class="row"&gt;
-    &lt;div class="{{ preview.column_class }}"&gt;
-      ...HTML...
-    &lt;/div&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-        </pre>
+        <b>NO: </b> <code>class="container"</code> or you will bork the layout.<br/>
+        <br/>
+        <b>YES:</b> <code>class="container-fluid"</code> work just fine.
     </p>
-    <button type="button" class="btn btn-info" data-dismiss="alert"><i class="glyphicon glyphicon-ok"></i> Got It!
-    </button>
+    <br/>
+    <p>
+        <button type="button" class="btn btn-info" data-dismiss="alert"><i class="glyphicon glyphicon-ok"></i> Got It!
+        </button>
+    </p>
 </div>
 
 <div id="code_editor" class="CodeMirror-scroll" ng-if="initialized" ng-init="init_code_editor()"></div>

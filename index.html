@@ -45,15 +45,13 @@
     </head>
 
     <body ng-controller="BootstyleCtrl">
-        <!-- Dynamic LESS -->
-        <link ng-if="ctrls.bootstrap_theme.control" rel="stylesheet/less" href="less/bootstrap/theme.less"/>
-        <link ng-if="ctrls.buttons_uppercase.control" rel="stylesheet/less" href="less/buttons_uppercase.less"/>
-        <link ng-repeat="s in stylesheets.button_styles" ng-if="ctrls.button_style.control === s.name" rel="stylesheet/less" ng-href="{{ s.path }}"/>
-
         <!--[if lt IE 7]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please
             <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
+
+        <!-- Dynamic LESS -->
+        <ng-include src=" 'partials/_dynamic_less.html' "></ng-include>
 
         <div id="app" ng-init="init_bootstyle()" ng-class="{ show_toolbar: settings.show_toolbar }">
 
