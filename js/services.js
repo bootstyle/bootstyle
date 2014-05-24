@@ -5,7 +5,7 @@
  */
 
 angular.module('bootstyleApp.services', []).
-    value('version', 'v0.1').
+    value('version', 'v0.1 alpha').
 
     constant('FONT_CONTRAST', 0.8).
 
