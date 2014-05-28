@@ -365,7 +365,6 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     preview: null,
                     calc: function() {
                         if ($scope.ctrls.use_google_fonts.control) {
-                            console.log('google body');
                             $scope.vars['@font-family-base'] = $scope.ctrls.body_google_font_family.preview || $scope.ctrls.body_google_font_family.style
                         }
                     }
@@ -446,8 +445,6 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     preview: null,
                     calc: function() {
                         if ($scope.ctrls.use_google_fonts.control) {
-                            console.log('google code');
-
                             $scope.vars['@font-family-monospace'] = $scope.ctrls.code_google_font_family.preview || $scope.ctrls.code_google_font_family.style;
                         }
                     }
@@ -523,9 +520,60 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     preview: null,
                     calc: function() {
                         if ($scope.ctrls.use_google_fonts.control) {
-                            console.log('google headings');
                             $scope.vars['@headings-font-family'] = $scope.ctrls.headings_google_font_family.preview || $scope.ctrls.headings_google_font_family.style;
                         }
+                    }
+                },
+                jumbotron_bg: {
+                    control: '@gray-lighter',
+                    calc: function() {
+                        $scope.vars['@jumbotron-bg'] = $scope.ctrls.jumbotron_bg.control;
+                    }
+                },
+                jumbotron_color: {
+                    control: 'inherit',
+                    calc: function() {
+                        var color;
+
+                        if ($scope.ctrls.jumbotron_is_auto_color.control) {
+                            color = auto_overlay_color($scope.vars['@jumbotron-bg'], $scope.ctrls.jumbotron_contrast.control);
+                        } else {
+                            color = $scope.ctrls.jumbotron_color.control;
+                        }
+
+                        $scope.vars['@jumbotron-color'] = color;
+                    }
+                },
+                jumbotron_contrast: {
+                    control: FONT_CONTRAST
+                },
+                jumbotron_font_size: {
+                    control: 21,
+                    calc: function() {
+                        $scope.vars['@jumbotron-font-size'] = $scope.ctrls.jumbotron_font_size.control + 'px';
+                    }
+                },
+                jumbotron_heading_color: {
+                    control: 'inherit',
+                    calc: function() {
+                        var color;
+
+                        if ($scope.ctrls.jumbotron_is_auto_color.control) {
+                            color = auto_overlay_color($scope.vars['@jumbotron-bg'], $scope.ctrls.jumbotron_contrast.control);
+                        } else {
+                            color = $scope.ctrls.jumbotron_heading_color.control;
+                        }
+
+                        $scope.vars['@jumbotron-heading-color'] = color;
+                    }
+                },
+                jumbotron_is_auto_color: {
+                    control: true
+                },
+                jumbotron_padding: {
+                    control: 30,
+                    calc: function() {
+                        $scope.vars['@jumbotron-padding'] = $scope.ctrls.jumbotron_padding.control + 'px';
                     }
                 },
                 line_height: {
@@ -565,7 +613,6 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
 
                         $scope.vars['@navbar-inverse-color'] = color;
                         $scope.vars['@navbar-inverse-link-color'] = color;
-                        console.log(color);
                     }
                 },
                 navbar_is_auto_color: {

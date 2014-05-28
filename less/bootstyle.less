@@ -32,6 +32,9 @@
     &.show_toolbar {
         .toolbar_container {
             margin-left: 0;
+            .toolbar {
+                opacity: 1;
+            }
 
             .toolbar_btn {
                 margin-left: @grid-gutter-width * 0.5;
@@ -44,8 +47,8 @@
     }
 
     .toolbar_container {
-        margin-left: -@bootstyle_toolbar_width * 2;
-        .transition(margin-left 0.1s ease-out);
+        margin-left: -@bootstyle_toolbar_width;
+        .transition(margin-left 0.2s ease-out);
 
         .toolbar_btn {
             position: fixed;
@@ -59,7 +62,7 @@
             cursor: pointer;
             // below modal backdrop
             z-index: 1030;
-            .transition(margin-left 0.1s ease-out);
+            .transition(margin-left 0.2s ease-out);
 
             .menu_icon {
 
@@ -75,6 +78,8 @@
             width: @bootstyle_toolbar_width;
             // below toolbar
             z-index: 1020;
+            opacity: 0;
+            .transition(opacity 0.2s ease-out);
 
             .panel {
                 // let dropdowns that overflow be shown
@@ -99,8 +104,6 @@
     }
 
     .content_container {
-        .transition(margin-left 0.1s ease-out);
-
         .preview_tabs {
             margin-bottom: @line-height-computed;
         }

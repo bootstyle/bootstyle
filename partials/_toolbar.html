@@ -52,7 +52,7 @@
                 Navbar
             </h1>
         </div>
-        <div class="panel-collapse collapse in" id="toolbar_navbar">
+        <div class="panel-collapse collapse" id="toolbar_navbar">
             <ul class="list-group">
                 <li class="list-group-item">
                     <span class="badge">{{ ctrls.navbar_height.control }}px</span>
@@ -90,6 +90,73 @@
                     <div class="input-group" ng-hide="ctrls.navbar_is_auto_color.control">
                         <span class="input-group-addon" colorpicker ng-model="ctrls.navbar_font_color.control" style="background-color: {{ vars['@navbar-inverse-color'] }}"></span>
                         <input class="form-control" type="text" colorpicker ng-model="ctrls.navbar_font_color.control"/>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading" data-toggle="collapse" data-parent="#toolbar" data-target="#toolbar_jumbotron">
+            <h1 class="panel-title">
+                Jumbotron
+            </h1>
+        </div>
+        <div class="panel-collapse collapse in" id="toolbar_jumbotron">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <span class="badge">{{ ctrls.jumbotron_padding.control }}px</span>
+                    <label> Padding
+                        <input type="range" ng-model="ctrls.jumbotron_padding.control" min="0" max="200"/>
+                    </label>
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">{{ ctrls.jumbotron_font_size.control }}px</span>
+                    <label> Font Size
+                        <input type="range" ng-model="ctrls.jumbotron_font_size.control" min="8" max="72"/>
+                    </label>
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">{{ ctrls.jumbotron_bg.control }}</span>
+                    <label>Background</label>
+
+                    <div class="input-group">
+                        <span class="input-group-addon" colorpicker ng-model="ctrls.jumbotron_bg.control" style="background-color: {{ ctrls.jumbotron_bg.control }}"></span>
+                        <input class="form-control" type="text" colorpicker ng-model="ctrls.jumbotron_bg.control"/>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="control-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="ctrls.jumbotron_is_auto_color.control">
+                                Auto Font Colors
+                            </label>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item" ng-show="ctrls.jumbotron_is_auto_color.control">
+                    <span class="badge">{{ ctrls.jumbotron_contrast.control }}</span>
+                    <label> Contrast
+                        <input type="range" ng-model="ctrls.jumbotron_contrast.control" min="0" max="1" step="0.01"/>
+                    </label>
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">{{ vars['@jumbotron-heading-color'] }}</span>
+                    <label>Heading Color</label>
+
+                    <div class="input-group" ng-hide="ctrls.jumbotron_is_auto_color.control">
+                        <span class="input-group-addon" colorpicker ng-model="ctrls.jumbotron_heading_color.control" style="background-color: {{ vars['@jumbotron-heading-color'] }}"></span>
+                        <input class="form-control" type="text" colorpicker ng-model="ctrls.jumbotron_heading_color.control"/>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">{{ vars['@jumbotron-color'] }}</span>
+                    <label>Font Color</label>
+
+                    <div class="input-group" ng-hide="ctrls.jumbotron_is_auto_color.control">
+                        <span class="input-group-addon" colorpicker ng-model="ctrls.jumbotron_color.control" style="background-color: {{ vars['@jumbotron-color'] }}"></span>
+                        <input class="form-control" type="text" colorpicker ng-model="ctrls.jumbotron_color.control"/>
                     </div>
                 </li>
             </ul>

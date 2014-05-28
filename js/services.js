@@ -28,8 +28,10 @@ angular.module('bootstyleApp.services', []).
                 over = new Color(color);
 
             if (under.dark()) {
+                console.log(under.hexString() + ' is dark, mixing white');
                 over.mix(Color('#fff'), contrast);
             } else {
+                console.log(under.hexString() + ' is light, mixing black');
                 over.mix(Color('#000'), contrast);
             }
 
