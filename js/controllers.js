@@ -716,8 +716,9 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
          Toolbar
          */
         $scope.toolbar = {
+            is_active: true,
             toggle: function() {
-                $scope.settings.show_toolbar = !$scope.settings.show_toolbar;
+                $scope.toolbar.is_active = !$scope.toolbar.is_active;
             }
         };
         

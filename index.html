@@ -53,7 +53,7 @@
         <!-- Dynamic LESS -->
         <ng-include src=" 'partials/_dynamic_less.html' "></ng-include>
 
-        <div id="app" ng-init="init_bootstyle()" ng-class="{ show_toolbar: settings.show_toolbar }">
+        <div id="app" ng-init="init_bootstyle()" ng-class="{ show_toolbar: toolbar.is_active }">
 
             <ng-include src=" 'partials/_navbar.html' "></ng-include>
             <div ng-class="ctrls.container_class.control">
@@ -66,7 +66,7 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <main>
-                                <ul class="nav nav-tabs preview_tabs">
+                                <ul class="nav nav-tabs preview_tabs" ng-show="toolbar.is_active">
                                     <li ng-repeat="tab in tabs.list" ng-click="tabs.set_current(tab.key)" ng-class="tab.class">
                                         <a href=""><i ng-class="tab.icon_class"></i> {{ tab.label }}</a>
                                     </li>
