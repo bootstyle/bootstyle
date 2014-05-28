@@ -525,7 +525,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     }
                 },
                 jumbotron_bg: {
-                    control: '@gray-lighter',
+                    control: '#eee',
                     calc: function() {
                         $scope.vars['@jumbotron-bg'] = $scope.ctrls.jumbotron_bg.control;
                     }
