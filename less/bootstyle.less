@@ -111,16 +111,19 @@
 
 }
 
-.swatches {
-    overflow: hidden;
+.swatch_container {
+    text-align: center;
 
-    .swatch {
-        float: left;
-        height: 40px;
+    .swatches {
+        display: inline-block;
+        width: 30px;
         box-shadow: inset 0 -4px rgba(0, 0, 0, 0.2);
+
+        .swatch {
+            height: 30px;
+        }
     }
 }
-
 #code_editor {
     overflow: hidden;
     border-radius: @border-radius-base;

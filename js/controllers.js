@@ -320,14 +320,16 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                 generate_colors: function() {
                     $scope.scheme.colors = [];
                     var colors = scheme.colors();
+                    var strip_size = 4;
 
-                    for (var c in colors) {
-                        if (colors.hasOwnProperty(c)) {
-                            $scope.scheme.colors[c] = {
-                                id: c,
-                                hex: '#' + colors[c]
-                            };
+                    for (var i=0; i<colors.length/strip_size; i++) {
+                        var strip = [];
+                        
+                        for (var j=0; j<strip_size; j++) {
+                            strip.push('#' + colors[((i * 4) + j)])
                         }
+
+                        $scope.scheme.colors.push(strip);
                     }
                 }
             };
