@@ -30,7 +30,16 @@
 
 
     /**
-     * LIBRARY CONSTRUCTOR
+     * PUBLIC LIBRARY CODE
+     */
+
+    CupOf.list_cups = function() {
+        return cup_of.cups;
+    };
+
+
+    /**
+     * OBJECT CONSTRUCTOR
      */
 
     function CupOf(contents) {
@@ -63,16 +72,9 @@
     };
 
 
-    CupOf.list_cups = function() {
-        return cup_of.cups;
-    };
-
-
     /**
-     * PUBLIC OBJECT INSTANCE CODE
+     * PUBLIC INSTANTIATED OBJECT EXTENSION
      */
-
-    CupOf.prototype.contents = "They're in an object inaccessible to you!  Try pouring them out?";
 
     CupOf.prototype.pour = function() {
         return 'Pouring a big fat tasty cup of ' + cup_of.contents;
