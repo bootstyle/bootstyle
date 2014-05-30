@@ -314,7 +314,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
             $scope.scheme = {
                 colors: [],
                 base_color: '#428bca', // @brand-primary
-                scheme: 'triade',
+                scheme: 'mono',
                 variation: 'default',
                 distance: 0.5,
                 generate_colors: function() {

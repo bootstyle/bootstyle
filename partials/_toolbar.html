@@ -424,6 +424,12 @@
                         </ul>
                     </div>
                 </li>
+                <li class="list-group-item" ng-hide="scheme.scheme === 'mono' || scheme.scheme === 'contrast'">
+                    <span class="badge">{{ scheme.distance }}</span>
+                    <label> Distance
+                        <input type="range" ng-model="scheme.distance" min="0" max="1" step="0.01"/>
+                    </label>
+                </li>
                 <li class="list-group-item">
                     <label>Variation</label>
 
@@ -460,12 +466,6 @@
                             </li>
                         </ul>
                     </div>
-                </li>
-                <li class="list-group-item">
-                    <span class="badge">{{ scheme.distance }}</span>
-                    <label> Distance
-                        <input type="range" ng-model="scheme.distance" min="0" max="1" step="0.01"/>
-                    </label>
                 </li>
             </ul>
         </div>
