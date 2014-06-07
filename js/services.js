@@ -93,6 +93,6 @@ angular.module('bootstyleApp.services', []).
         };
     }).
 
-    factory('tiny_color', function() {
+    factory('tinycolor', function() {
         return tinycolor;
     });
