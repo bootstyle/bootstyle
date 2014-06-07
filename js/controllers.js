@@ -6,8 +6,8 @@
 
 angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module']).
     controller('BootstyleCtrl',
-        ['$scope', '$compile', '$timeout', 'read_file', 'auto_overlay_color', 'FONT_CONTRAST', 'scheme',
-        function($scope, $compile, $timeout, read_file, auto_overlay_color, FONT_CONTRAST, scheme) {
+        ['$scope', '$compile', '$timeout', 'read_file', 'auto_overlay_color', 'FONT_CONTRAST', 'scheme', 'tinycolor',
+        function($scope, $compile, $timeout, read_file, auto_overlay_color, FONT_CONTRAST, scheme, tinycolor) {
 
         $scope.initialized = false;
 
@@ -324,7 +324,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
 
                     for (var i=0; i<colors.length/strip_size; i++) {
                         var strip = [];
-                        
+
                         for (var j=0; j<strip_size; j++) {
                             strip.push('#' + colors[((i * 4) + j)])
                         }
@@ -339,7 +339,25 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                 scheme.set_scheme($scope.scheme.scheme);
                 scheme.set_variation($scope.scheme.variation);
                 scheme.set_distance($scope.scheme.distance);
-                
+
+                $scope.scheme.generate_colors();
+
+                $scope.last_LESS_edit = Date.now();
+                $scope.timerRecompileLESS();
+            }, true);
+
+            /*
+             TinyColor
+             */
+            $scope.tinycolor = {
+                base_color: '#428bca', // @brand-primary
+            };
+            $scope.$watch('scheme', function(newValue, oldValue) {
+                scheme.set_hex($scope.scheme.base_color);
+                scheme.set_scheme($scope.scheme.scheme);
+                scheme.set_variation($scope.scheme.variation);
+                scheme.set_distance($scope.scheme.distance);
+
                 $scope.scheme.generate_colors();
 
                 $scope.last_LESS_edit = Date.now();

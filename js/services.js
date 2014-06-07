@@ -21,7 +21,7 @@ angular.module('bootstyleApp.services', []).
 
     factory('auto_overlay_color', ['FONT_CONTRAST', function(FONT_CONTRAST) {
 
-        var auto_color = function(color, contrast) {
+        return function(color, contrast) {
             contrast = contrast || FONT_CONTRAST;
 
             var under = new Color(color),
@@ -37,8 +37,6 @@ angular.module('bootstyleApp.services', []).
 
             return over.hexString();
         };
-
-        return auto_color;
     }]).
 
     factory('scheme', function() {
@@ -93,4 +91,8 @@ angular.module('bootstyleApp.services', []).
                 return s.colors();
             }
         };
+    }).
+
+    factory('tiny_color', function() {
+        return tinycolor;
     });
