@@ -37,60 +37,6 @@ angular.module('bootstyleApp.services', []).
         };
     }]).
 
-    factory('scheme', function() {
-        var s = new ColorScheme;
-
-        return {
-            set_hue: function(hue) {
-                s.from_hue(hue);
-            },
-
-            set_hex: function(hex) {
-                hex = hex.replace('#', '');
-                s.from_hex(hex);
-            },
-
-            set_scheme: function(newScheme) {
-                if (newScheme == 'analogic') {
-                    $('#add-complement').show();
-                }
-                else {
-                    $('#add-complement').hide();
-                }
-                s.scheme(newScheme);
-            },
-
-            add_complement: function() {
-                if ($('#add-complement').hasClass('active')) {
-                    s.add_complement(false);
-                }
-                else {
-                    s.add_complement(true);
-                }
-            },
-
-            set_distance: function(distance) {
-                s.distance(distance);
-            },
-
-            set_variation: function(variation) {
-                s.variation(variation);
-            },
-
-            set_webSafe: function(websafe) {
-                s.web_safe(websafe);
-            },
-
-            random_hue: function() {
-                var h = Math.round(Math.random() * 360);
-                s.from_hue(h);
-            },
-            colors: function() {
-                return s.colors();
-            }
-        };
-    }).
-
-    factory('tinycolor', function() {
+    factory('color_scheme', function() {
         return tinycolor;
     });

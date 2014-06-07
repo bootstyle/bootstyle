@@ -6,8 +6,8 @@
 
 angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module']).
     controller('BootstyleCtrl',
-        ['$scope', '$compile', '$timeout', 'read_file', 'auto_overlay_color', 'FONT_CONTRAST', 'scheme', 'tinycolor',
-        function($scope, $compile, $timeout, read_file, auto_overlay_color, FONT_CONTRAST, scheme, tinycolor) {
+        ['$scope', '$compile', '$timeout', 'read_file', 'auto_overlay_color', 'FONT_CONTRAST', 'color_scheme',
+        function($scope, $compile, $timeout, read_file, auto_overlay_color, FONT_CONTRAST, color_scheme) {
 
         $scope.initialized = false;
 
@@ -309,56 +309,29 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
 
 
             /*
-             Color Scheme
+             TinyColor
              */
-            $scope.scheme = {
-                colors: [],
+            $scope.color_scheme = {
                 base_color: '#428bca', // @brand-primary
-                scheme: 'mono',
-                variation: 'default',
-                distance: 0.5,
+                schemes: [
+                    'analogous',
+                    'monochromatic',
+                    'splitcomplement',
+                    'triad',
+                    'tetrad',
+                ],
+                scheme: 'triad',
+                colors: [],
                 generate_colors: function() {
-                    $scope.scheme.colors = [];
-                    var colors = scheme.colors();
-                    var strip_size = 4;
+                    var colors = tinycolor.triad($scope.color_scheme.base_color);
 
-                    for (var i=0; i<colors.length/strip_size; i++) {
-                        var strip = [];
-
-                        for (var j=0; j<strip_size; j++) {
-                            strip.push('#' + colors[((i * 4) + j)])
-                        }
-
-                        $scope.scheme.colors.push(strip);
+                    for (var c in colors) {
+                        $scope.color_scheme.colors[c] = colors[c].toHexString();
                     }
                 }
             };
-
-            $scope.$watch('scheme', function(newValue, oldValue) {
-                scheme.set_hex($scope.scheme.base_color);
-                scheme.set_scheme($scope.scheme.scheme);
-                scheme.set_variation($scope.scheme.variation);
-                scheme.set_distance($scope.scheme.distance);
-
-                $scope.scheme.generate_colors();
-
-                $scope.last_LESS_edit = Date.now();
-                $scope.timerRecompileLESS();
-            }, true);
-
-            /*
-             TinyColor
-             */
-            $scope.tinycolor = {
-                base_color: '#428bca', // @brand-primary
-            };
-            $scope.$watch('scheme', function(newValue, oldValue) {
-                scheme.set_hex($scope.scheme.base_color);
-                scheme.set_scheme($scope.scheme.scheme);
-                scheme.set_variation($scope.scheme.variation);
-                scheme.set_distance($scope.scheme.distance);
-
-                $scope.scheme.generate_colors();
+            $scope.$watch('[color_scheme.base_color, color_scheme.scheme]', function(newValue, oldValue) {
+                $scope.color_scheme.generate_colors();
 
                 $scope.last_LESS_edit = Date.now();
                 $scope.timerRecompileLESS();
