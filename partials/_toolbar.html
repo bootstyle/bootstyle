@@ -1,5 +1,58 @@
 <aside class="toolbar panel-group" id="toolbar">
     <div class="panel panel-default">
+        <div class="panel-heading" data-toggle="collapse" data-parent="#toolbar" data-target="#toolbar_color_scheme">
+            <h1 class="panel-title">
+                <span class="text-muted">Color Scheme</span>
+                <span class="label label-warning">Soon!</span>
+            </h1>
+        </div>
+        <div class="panel-collapse collapse in" id="toolbar_color_scheme">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="swatch_container">
+                        <div class="swatch" ng-repeat="c in color_scheme.colors track by $index" style="
+                        width: {{ 100/(color_scheme.colors.length) }}%;
+                        background-color: {{ color_scheme.colors[$index] }}"></div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <label>Base Color</label>
+
+                    <div class="input-group">
+                        <span class="input-group-addon" colorpicker ng-model="color_scheme.base_color" style="background-color: {{ color_scheme.base_color }}"></span>
+                        <input class="form-control" type="text" colorpicker ng-model="color_scheme.base_color"/>
+                    </div>
+
+                </li>
+                <li class="list-group-item">
+                    <label>Scheme</label>
+
+                    <div class="dropdown">
+                        <div class="btn btn-default" data-toggle="dropdown">
+                            {{ color_scheme.scheme }}
+                            <span class="caret"></span>
+                        </div>
+
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <li ng-repeat="scheme in color_scheme.schemes" ng-click="color_scheme.scheme = scheme"
+                                ng-class="{ active: color_scheme.scheme === scheme }">
+                                <a href="">{{ scheme }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <spectrum-colorpicker
+                            ng-model="color_scheme.base_color"
+                            options="{{ spectrum_config }}"
+                            palette="{{ color_scheme.colors }}"
+                            ></spectrum-colorpicker>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
         <div class="panel-heading" data-toggle="collapse" data-parent="#toolbar" data-target="#toolbar_base">
             <h1 class="panel-title">
                 Base
@@ -361,50 +414,6 @@
                             <span class="input-group-addon" colorpicker ng-model="ctrls.brand_danger.control" style="background-color: {{ ctrls.brand_danger.control }}"></span>
                             <input class="form-control" type="text" colorpicker ng-model="ctrls.brand_danger.control"/>
                         </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="panel panel-default">
-        <div class="panel-heading" data-toggle="collapse" data-parent="#toolbar" data-target="#toolbar_color_scheme">
-            <h1 class="panel-title">
-                <span class="text-muted">Color Scheme</span>
-                <span class="label label-warning">Soon!</span>
-            </h1>
-        </div>
-        <div class="panel-collapse collapse in" id="toolbar_color_scheme">
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <div class="swatch_container">
-                        <div class="swatch" ng-repeat="color in color_scheme.colors" ng-style="{ 'background-color': '{{ color }}'}"></div>
-                    </div>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <label>Base Color</label>
-
-                    <div class="input-group">
-                        <span class="input-group-addon" colorpicker ng-model="color_scheme.base_color" style="background-color: {{ color_scheme.base_color }}"></span>
-                        <input class="form-control" type="text" colorpicker ng-model="color_scheme.base_color"/>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <label>Scheme</label>
-
-                    <div class="dropdown">
-                        <div class="btn btn-default" data-toggle="dropdown">
-                            {{ color_scheme.scheme }}
-                            <span class="caret"></span>
-                        </div>
-
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                            <li ng-repeat="scheme in color_scheme.schemes" ng-click="color_scheme.scheme = scheme"
-                                ng-class="{ active: color_scheme.scheme === scheme }">
-                                <a href="">{{ scheme }}</a>
-                            </li>
-                        </ul>
                     </div>
                 </li>
             </ul>

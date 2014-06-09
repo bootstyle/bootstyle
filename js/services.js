@@ -37,6 +37,22 @@ angular.module('bootstyleApp.services', []).
         };
     }]).
 
-    factory('color_scheme', function() {
-        return tinycolor;
+    factory('scheme', function() {
+        return {
+            'triad': function(base) {
+                return tinycolor.triad(base);
+            },
+            'analogous': function(base) {
+                return tinycolor.analogous(base);
+            },
+            'monochromatic': function(base) {
+                return tinycolor.monochromatic(base);
+            },
+            'splitcomplement': function(base) {
+                return tinycolor.splitcomplement(base);
+            },
+            'tetrad': function(base) {
+                return tinycolor.tetrad(base);
+            }
+        };
     });

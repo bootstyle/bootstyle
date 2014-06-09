@@ -6,8 +6,8 @@
 
 angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module']).
     controller('BootstyleCtrl',
-        ['$scope', '$compile', '$timeout', 'read_file', 'auto_overlay_color', 'FONT_CONTRAST', 'color_scheme',
-        function($scope, $compile, $timeout, read_file, auto_overlay_color, FONT_CONTRAST, color_scheme) {
+        ['$scope', '$compile', '$timeout', 'read_file', 'auto_overlay_color', 'FONT_CONTRAST', 'scheme',
+        function($scope, $compile, $timeout, read_file, auto_overlay_color, FONT_CONTRAST, scheme) {
 
         $scope.initialized = false;
 
@@ -323,10 +323,13 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                 scheme: 'triad',
                 colors: [],
                 generate_colors: function() {
-                    var colors = tinycolor.triad($scope.color_scheme.base_color);
+                    $scope.color_scheme.colors = [];
+
+                    var colors = tinycolor[$scope.color_scheme.scheme]($scope.color_scheme.base_color);
 
                     for (var c in colors) {
-                        $scope.color_scheme.colors[c] = colors[c].toHexString();
+                        console.log(c + ": " + colors[c].toHexString());
+                        $scope.color_scheme.colors.push(colors[c].toHexString());
                     }
                 }
             };
@@ -336,6 +339,22 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                 $scope.last_LESS_edit = Date.now();
                 $scope.timerRecompileLESS();
             }, true);
+
+            /*
+             Spectrum
+             */
+            $scope.spectrum_config = {
+                clickoutFiresChange: true,
+                containerClassName: 'sp_bootstyle',
+                replacerClassName: 'sp_bootstyle',
+                palette: [],
+                preferredFormat: "hex",
+                showButtons: false,
+                showInitial: true,
+                showInput: true,
+                showPalette: true,
+                showSelectionPalette: true
+            };
 
 
             /*
@@ -375,8 +394,8 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     control: 4,
                     calc: function() {
                         var value = $scope.ctrls.border_radius.control;
-                        $scope.vars['@border-radius-base'] = Math.floor(value * 1) + 'px';
                         $scope.vars['@border-radius-large'] = Math.floor(value * 1.5) + 'px';
+                        $scope.vars['@border-radius-base'] = Math.floor(value * 1) + 'px';
                         $scope.vars['@border-radius-small'] = Math.floor(value * 0.5) + 'px';
                     }
                 },
