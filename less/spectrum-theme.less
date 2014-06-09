@@ -2,35 +2,39 @@
 .sp_bootstyle {
     &.sp-container {
         background-color: #333;
-        border: solid 1px #555;
+        border: solid 1px #111;
+        border-radius: 3px;
     }
 
     /* Replacer (the little preview div that shows up instead of the <input>) */
     &.sp-replacer {
-        border: solid 1px #fff;
+        width: 100%;
         background: #333;
         color: #eee;
         vertical-align: middle;
+        .form-control;
         &:hover,
         &.sp-active {
-            border-color: #F0C49B;
             color: #fff;
         }
 
         &.sp-disabled {
-            border-color: silver;
             color: silver;
         }
     }
     .sp-preview {
-        border: solid 1px #999;
+        width: 100%;
     }
 
     .sp-cancel {
         color: #f99f9f !important;
     }
 
-    button, input, .sp-color, .sp-hue {
+    .sp-color, .sp-hue, .sp-clear, .sp-initial {
+        box-shadow: 0 1px 2px #222;
+        border: none;
+        border-bottom: 1px solid #444;
+        border-right: 1px solid #444;
     }
 
     /* Input */
@@ -54,11 +58,15 @@
 
 
     .sp-picker-container {
+        border: none;
     }
 
     /* Palettes */
     .sp-palette-container {
-
+        background: #222;
+        border: none;
+        border-right: 1px solid #444;
+        box-shadow: inset 0 -4px 4px #000;
     }
 
     .sp-palette {
@@ -90,6 +98,7 @@
     }
 
     .sp-dd {
+        display: none;
     }
 
     .sp-preview {
