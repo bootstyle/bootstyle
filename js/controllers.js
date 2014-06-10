@@ -328,7 +328,6 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     var colors = tinycolor[$scope.color_scheme.scheme]($scope.color_scheme.base_color);
 
                     for (var c in colors) {
-                        console.log(c + ": " + colors[c].toHexString());
                         $scope.color_scheme.colors.push(colors[c].toHexString());
                     }
                 }
@@ -347,7 +346,17 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                 clickoutFiresChange: true,
                 containerClassName: 'sp_bootstyle',
                 replacerClassName: 'sp_bootstyle',
-                palette: [],
+                palette: function() {
+                    $scope.color_scheme.colors = [];
+
+                    var colors = tinycolor[$scope.color_scheme.scheme]($scope.color_scheme.base_color);
+                    var palette = [];
+                    for (var c in colors) {
+                        palette.push(colors[c].toHexString());
+                    }
+                    console.log(palette);
+                    return palette;
+                },
                 preferredFormat: "hex",
                 showButtons: false,
                 showInitial: true,
