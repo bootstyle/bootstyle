@@ -9,39 +9,32 @@
         <div class="panel-collapse collapse in" id="toolbar_color_scheme">
             <ul class="list-group">
                 <li class="list-group-item">
-                    <div class="swatch_container">
-                        <div class="swatch" ng-repeat="c in color_scheme.colors track by $index" style="
-                        width: {{ 100/(color_scheme.colors.length) }}%;
-                        background-color: {{ color_scheme.colors[$index] }}"></div>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <label>Base Color</label>
-
-                    <div class="input-group">
-                        <span class="input-group-addon" colorpicker ng-model="color_scheme.base_color" style="background-color: {{ color_scheme.base_color }}"></span>
-                        <input class="form-control" type="text" colorpicker ng-model="color_scheme.base_color"/>
-                    </div>
-
-                </li>
-                <li class="list-group-item">
                     <label>Scheme</label>
 
-                    <div class="dropdown">
-                        <div class="btn btn-default" data-toggle="dropdown">
-                            {{ color_scheme.scheme }}
-                            <span class="caret"></span>
+                    <div class="dropdown color_scheme_dropdown">
+                        <div class="dropdown_btn" data-toggle="dropdown">
+                            <div class="swatch" ng-repeat="color in color_scheme.active_scheme.colors() track by $index" style="
+                                width: {{ 100/(color_scheme.active_scheme.colors().length) }}%;
+                                background-color: {{ color_scheme.active_scheme.colors()[$index] }};
+                                "></div>
+                            <div class="active_scheme_name">{{ color_scheme.active_scheme.name }}</div>
                         </div>
 
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                            <li ng-repeat="scheme in color_scheme.schemes" ng-click="color_scheme.scheme = scheme"
-                                ng-class="{ active: color_scheme.scheme === scheme }">
-                                <a href="">{{ scheme }}</a>
+                            <li ng-repeat="scheme in color_scheme.schemes" ng-click="color_scheme.set_active_scheme(scheme)">
+                                <div class="swatch_container">
+                                    <div class="scheme_name">{{ scheme.name }}</div>
+                                    <div class="swatch" ng-repeat="color in scheme.colors() track by $index" style="
+                                                                                width: {{ 100/(scheme.colors().length) }}%;
+                                                                                background-color: {{ scheme.colors()[$index] }}">
+                                    </div>
+                                </div>
                             </li>
                         </ul>
                     </div>
                 </li>
                 <li class="list-group-item">
+                    <label>Base Color</label>
                     <spectrum-colorpicker
                             ng-model="color_scheme.base_color"
                             options="{{ spectrum_config }}"

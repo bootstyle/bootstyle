@@ -20,6 +20,7 @@
  */
 .colorpicker.dropdown {
     position: fixed;
+    color: red;
 }
 
 /*
@@ -112,16 +113,53 @@
 
 }
 
-.swatch_container {
-    text-align: center;
+.color_scheme_dropdown {
+    .dropdown_btn {
+        overflow: hidden;
+        cursor: pointer;
+    }
+    .active_scheme_name {
+        font-size: 10px;
+        color: #999;
+        text-transform: uppercase;
+    }
+    .dropdown-menu {
+        background: #444;
+        padding: 2px;
+    }
 
     .swatch {
-        display: inline-block;
-        max-width: 40px;
-        height: 40px;
-        box-shadow: inset 0 -4px rgba(0, 0, 0, 0.2);
+        float: left;
+        height: 30px;
+    }
+
+    li {
+        cursor: pointer;
+    }
+
+    .swatch_container {
+        position: relative;
+        overflow: hidden;
+
+        &:hover {
+            .scheme_name {
+                color: #AAA;
+                text-shadow: 0 1px #222;
+            }
+        }
+
+        .scheme_name {
+            color: transparent;
+            text-transform: uppercase;
+            font-size: 8px;
+            font-weight: 500;
+            text-indent: 4px;
+            line-height: 1;
+            padding: 2px 0 1px 0;
+        }
     }
 }
+
 #code_editor {
     overflow: hidden;
     border-radius: @border-radius-base;

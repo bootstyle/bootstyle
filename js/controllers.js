@@ -313,31 +313,69 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
              */
             $scope.color_scheme = {
                 base_color: '#428bca', // @brand-primary
-                schemes: [
-                    'analogous',
-                    'monochromatic',
-                    'splitcomplement',
-                    'triad',
-                    'tetrad',
-                ],
-                scheme: 'triad',
-                colors: [],
-                generate_colors: function() {
-                    $scope.color_scheme.colors = [];
-
-                    var colors = tinycolor[$scope.color_scheme.scheme]($scope.color_scheme.base_color);
+                schemes: {
+                    analogous: {
+                        key: 'analogous',
+                        name: 'Analogous',
+                        colors: function() {
+                            return $scope.color_scheme.generate_colors('analogous');
+                        }
+                    },
+                    monochromatic: {
+                        key: 'monochromatic',
+                        name: 'Monochromatic',
+                        colors: function() {
+                            return $scope.color_scheme.generate_colors('monochromatic');
+                        }
+                    },
+                    split_complement: {
+                        key:'splitcomplement',
+                        name:'Split Complement',
+                        colors: function() {
+                            return $scope.color_scheme.generate_colors('splitcomplement');
+                        }
+                    },
+                    triad: {
+                        key:'triad',
+                        name:'Triad',
+                        colors: function() {
+                            return $scope.color_scheme.generate_colors('triad');
+                        }
+                    },
+                    tetrad: {
+                        key:'tetrad',
+                        name:'Tetrad',
+                        colors: function() {
+                            return $scope.color_scheme.generate_colors('tetrad');
+                        }
+                    }
+                },
+                set_active_scheme: function(scheme) {
+                    angular.extend($scope.color_scheme.active_scheme, {
+                        name: scheme.name,
+                        key: scheme.key,
+                        colors: scheme.colors,
+                    });
+                },
+                generate_colors: function(scheme) {
+                    var colors = tinycolor[scheme]($scope.color_scheme.base_color);
+                    var hex_colors = [];
 
                     for (var c in colors) {
-                        $scope.color_scheme.colors.push(colors[c].toHexString());
+                        hex_colors.push(colors[c].toHexString());
                     }
-                }
-            };
-            $scope.$watch('[color_scheme.base_color, color_scheme.scheme]', function(newValue, oldValue) {
-                $scope.color_scheme.generate_colors();
 
-                $scope.last_LESS_edit = Date.now();
-                $scope.timerRecompileLESS();
-            }, true);
+                    return hex_colors;
+                },
+            };
+            angular.extend($scope.color_scheme, {
+                active_scheme: {
+                    key: 'triad',
+                    name: 'Triad',
+                    colors: $scope.color_scheme.schemes.triad.colors
+                }
+            });
+
 
             /*
              Spectrum
