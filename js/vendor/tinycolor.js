@@ -1,6 +1,6 @@
-// TinyColor v0.10.0
+// TinyColor v0.11.1
 // https://github.com/bgrins/TinyColor
-// 2013-08-10, Brian Grinstead, MIT License
+// 2014-06-13, Brian Grinstead, MIT License
 
 (function() {
 
@@ -521,24 +521,33 @@ tinycolor.spin = function(color, amount) {
     hsl.h = hue < 0 ? 360 + hue : hue;
     return tinycolor(hsl);
 };
-// Thanks to LESS and SASS for inspiration and help with mix()
-// http://lesscss.org
-// http://sass-lang.com
 tinycolor.mix = function(color1, color2, amount) {
-    amount = amount || 50;
+    amount = (amount === 0) ? 0 : (amount || 50);
+
+    var rgb1 = tinycolor(color1).toRgb();
+    var rgb2 = tinycolor(color2).toRgb();
 
     var p = amount / 100;
     var w = p * 2 - 1;
-    var a = tinycolor(color1).getAlpha() - tinycolor(color2).getAlpha();
+    var a = rgb2.a - rgb1.a;
 
-    var w1 = (((w * a == -1) ? w : (w + a) / (1 + w * a)) + 1) / 2.0;
+    var w1;
+
+    if (w * a == -1) {
+        w1 = w;
+    } else {
+        w1 = (w + a) / (1 + w * a);
+    }
+
+    w1 = (w1 + 1) / 2;
+
     var w2 = 1 - w1;
 
     var rgba = {
-        r: color1.rgb().r * w1 + color2.rgb().r * w2,
-        g: color1.rgb().g * w1 + color2.rgb().g * w2,
-        b: color1.rgb().b * w1 + color2.rgb().b * w2,
-        a: color1.getAlpha() * p + color2.getAlpha() * (1 - p)
+        r: rgb2.r * w1 + rgb1.r * w2,
+        g: rgb2.g * w1 + rgb1.g * w2,
+        b: rgb2.b * w1 + rgb1.b * w2,
+        a: rgb2.a * p  + rgb1.a * (1 - p)
     };
 
     return tinycolor(rgba);
