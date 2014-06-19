@@ -11,5 +11,6 @@ angular.module('bootstyleApp', [
     'ngSanitize',
 
     // Vendor Modules
-    'colorpicker.module'
+    'colorpicker.module',
+    'angularSpectrumColorpicker'
 ]);

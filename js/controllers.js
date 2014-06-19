@@ -309,40 +309,99 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
 
 
             /*
-             Color Scheme
+             TinyColor
              */
-            $scope.scheme = {
-                colors: [],
+            $scope.color_scheme = {
                 base_color: '#428bca', // @brand-primary
-                scheme: 'triade',
-                variation: 'default',
-                distance: 0.5,
-                generate_colors: function() {
-                    $scope.scheme.colors = [];
-                    var colors = scheme.colors();
-
-                    for (var c in colors) {
-                        if (colors.hasOwnProperty(c)) {
-                            $scope.scheme.colors[c] = {
-                                id: c,
-                                hex: '#' + colors[c]
-                            };
+                schemes: {
+                    analogous: {
+                        key: 'analogous',
+                        name: 'Analogous',
+                        colors: function() {
+                            return $scope.color_scheme.generate_colors('analogous');
+                        }
+                    },
+                    monochromatic: {
+                        key: 'monochromatic',
+                        name: 'Monochromatic',
+                        colors: function() {
+                            return $scope.color_scheme.generate_colors('monochromatic');
+                        }
+                    },
+                    split_complement: {
+                        key:'splitcomplement',
+                        name:'Split Complement',
+                        colors: function() {
+                            return $scope.color_scheme.generate_colors('splitcomplement');
+                        }
+                    },
+                    triad: {
+                        key:'triad',
+                        name:'Triad',
+                        colors: function() {
+                            return $scope.color_scheme.generate_colors('triad');
+                        }
+                    },
+                    tetrad: {
+                        key:'tetrad',
+                        name:'Tetrad',
+                        colors: function() {
+                            return $scope.color_scheme.generate_colors('tetrad');
                         }
                     }
-                }
+                },
+                set_active_scheme: function(scheme) {
+                    angular.extend($scope.color_scheme.active_scheme, {
+                        name: scheme.name,
+                        key: scheme.key,
+                        colors: scheme.colors,
+                    });
+                },
+                generate_colors: function(scheme) {
+                    var colors = tinycolor[scheme]($scope.color_scheme.base_color);
+                    var hex_colors = [];
+
+                    for (var c in colors) {
+                        hex_colors.push(colors[c].toHexString());
+                    }
+
+                    return hex_colors;
+                },
             };
+            angular.extend($scope.color_scheme, {
+                active_scheme: {
+                    key: 'triad',
+                    name: 'Triad',
+                    colors: $scope.color_scheme.schemes.triad.colors
+                }
+            });
 
-            $scope.$watch('scheme', function(newValue, oldValue) {
-                scheme.set_hex($scope.scheme.base_color);
-                scheme.set_scheme($scope.scheme.scheme);
-                scheme.set_variation($scope.scheme.variation);
-                scheme.set_distance($scope.scheme.distance);
-                
-                $scope.scheme.generate_colors();
 
-                $scope.last_LESS_edit = Date.now();
-                $scope.timerRecompileLESS();
-            }, true);
+            /*
+             Spectrum
+             */
+            $scope.spectrum_config = {
+                clickoutFiresChange: true,
+                containerClassName: 'sp_bootstyle',
+                replacerClassName: 'sp_bootstyle',
+                palette: function() {
+                    $scope.color_scheme.colors = [];
+
+                    var colors = tinycolor[$scope.color_scheme.scheme]($scope.color_scheme.base_color);
+                    var palette = [];
+                    for (var c in colors) {
+                        palette.push(colors[c].toHexString());
+                    }
+                    console.log(palette);
+                    return palette;
+                },
+                preferredFormat: "hex",
+                showButtons: false,
+                showInitial: true,
+                showInput: true,
+                showPalette: true,
+                showSelectionPalette: true
+            };
 
 
             /*
@@ -382,8 +441,8 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     control: 4,
                     calc: function() {
                         var value = $scope.ctrls.border_radius.control;
-                        $scope.vars['@border-radius-base'] = Math.floor(value * 1) + 'px';
                         $scope.vars['@border-radius-large'] = Math.floor(value * 1.5) + 'px';
+                        $scope.vars['@border-radius-base'] = Math.floor(value * 1) + 'px';
                         $scope.vars['@border-radius-small'] = Math.floor(value * 0.5) + 'px';
                     }
                 },

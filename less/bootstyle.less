@@ -1,4 +1,5 @@
 @import "bootstrap/bootstrap";
+@import "spectrum-theme";
 
 /*
  LESS Error Message
@@ -19,6 +20,7 @@
  */
 .colorpicker.dropdown {
     position: fixed;
+    color: red;
 }
 
 /*
@@ -111,13 +113,48 @@
 
 }
 
-.swatches {
-    overflow: hidden;
+.color_scheme_dropdown {
+    .dropdown_btn {
+        overflow: hidden;
+        cursor: pointer;
+    }
+    .active_scheme_name {
+        font-size: 10px;
+        color: #999;
+        text-transform: uppercase;
+    }
+    .dropdown-menu {
+        padding: 0px;
+    }
 
     .swatch {
         float: left;
-        height: 40px;
-        box-shadow: inset 0 -4px rgba(0, 0, 0, 0.2);
+        height: 30px;
+    }
+
+    li {
+        cursor: pointer;
+    }
+
+    .swatch_container {
+        position: relative;
+        overflow: hidden;
+
+        &:hover {
+            .scheme_name {
+                color: #999;
+            }
+        }
+
+        .scheme_name {
+            color: transparent;
+            text-transform: uppercase;
+            font-size: 8px;
+            font-weight: 500;
+            text-indent: 4px;
+            line-height: 1;
+            padding: 2px 0 1px 0;
+        }
     }
 }
 

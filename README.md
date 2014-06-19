@@ -26,3 +26,15 @@ Your changes are rendered live in the app, so you can exactly what your theme lo
 ## Download
 
 Download your `bootstyle.less` and add it to your head.  That's it, you've customized Bootstrap.
+
+# Hacking
+
+## Setup
+
+**Requirements**: `npm install .`
+
+## Tests
+
+Bootstyle uses [protractor.js](https://github.com/angular/protractor) for functional testing.
+
+**Run Tests**: `npm test` 

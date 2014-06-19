@@ -377,93 +377,37 @@
         <div class="panel-collapse collapse" id="toolbar_color_scheme">
             <ul class="list-group">
                 <li class="list-group-item">
-                    <div class="swatches">
-                        <div ng-repeat="c in scheme.colors" class="swatch" ng-style="{ 'background-color': '{{ c.hex }}', 'width': '{{ 100 / scheme.colors.length }}%' }"></div>
+                    <label>Scheme</label>
+
+                    <div class="dropdown color_scheme_dropdown">
+                        <div class="dropdown_btn" data-toggle="dropdown">
+                            <div class="swatch" ng-repeat="color in color_scheme.active_scheme.colors() track by $index" style="
+                                width: {{ 100/(color_scheme.active_scheme.colors().length) }}%;
+                                background-color: {{ color_scheme.active_scheme.colors()[$index] }};
+                                "></div>
+                            <div class="active_scheme_name">{{ color_scheme.active_scheme.name }}</div>
+                        </div>
+
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <li ng-repeat="scheme in color_scheme.schemes" ng-click="color_scheme.set_active_scheme(scheme)">
+                                <div class="swatch_container">
+                                    <div class="scheme_name">{{ scheme.name }}</div>
+                                    <div class="swatch" ng-repeat="color in scheme.colors() track by $index" style="
+                                                                                width: {{ 100/(scheme.colors().length) }}%;
+                                                                                background-color: {{ scheme.colors()[$index] }}">
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </li>
                 <li class="list-group-item">
                     <label>Base Color</label>
-
-                    <div class="input-group">
-                        <span class="input-group-addon" colorpicker ng-model="scheme.base_color" style="background-color: {{ scheme.base_color }}"></span>
-                        <input class="form-control" type="text" colorpicker ng-model="scheme.base_color"/>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <label>Scheme</label>
-
-                    <div class="dropdown">
-                        <div class="btn btn-default" data-toggle="dropdown">
-                            {{ scheme.scheme }}
-                            <span class="caret"></span>
-                        </div>
-
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                            <li ng-click="scheme.scheme = 'mono'"
-                                ng-class="{ active: scheme.scheme === 'mono' }">
-                                <a href="">Monochromatic</a>
-                            </li>
-                            <li ng-click="scheme.scheme = 'contrast'"
-                                ng-class="{ active: scheme.scheme === 'contrast' }">
-                                <a href="">Complimentary</a>
-                            </li>
-                            <li ng-click="scheme.scheme = 'triade'"
-                                ng-class="{ active: scheme.scheme === 'triade' }">
-                                <a href="">Triad</a>
-                            </li>
-                            <li ng-click="scheme.scheme = 'tetrade'"
-                                ng-class="{ active: scheme.scheme === 'tetrade' }">
-                                <a href="">Tetrad</a>
-                            </li>
-                            <li ng-click="scheme.scheme = 'analogic'"
-                                ng-class="{ active: scheme.scheme === 'analogic' }">
-                                <a href="">Analogous</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <label>Variation</label>
-
-                    <div class="dropdown">
-                        <div class="btn btn-default" data-toggle="dropdown">
-                            {{ scheme.variation }}
-                            <span class="caret"></span>
-                        </div>
-
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                            <li ng-click="scheme.variation = 'default'"
-                                ng-class="{ active: scheme.variation === 'default' }">
-                                <a href="">Default</a>
-                            </li>
-                            <li ng-click="scheme.variation = 'pastel'"
-                                ng-class="{ active: scheme.variation === 'pastel' }">
-                                <a href="">Pastel</a>
-                            </li>
-                            <li ng-click="scheme.variation = 'soft'"
-                                ng-class="{ active: scheme.variation === 'soft' }">
-                                <a href="">Soft</a>
-                            </li>
-                            <li ng-click="scheme.variation = 'light'"
-                                ng-class="{ active: scheme.variation === 'light' }">
-                                <a href="">Light</a>
-                            </li>
-                            <li ng-click="scheme.variation = 'hard'"
-                                ng-class="{ active: scheme.variation === 'hard' }">
-                                <a href="">Hard</a>
-                            </li>
-                            <li ng-click="scheme.variation = 'pale'"
-                                ng-class="{ active: scheme.variation === 'pale' }">
-                                <a href="">Pale</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <span class="badge">{{ scheme.distance }}</span>
-                    <label> Distance
-                        <input type="range" ng-model="scheme.distance" min="0" max="1" step="0.01"/>
-                    </label>
+                    <spectrum-colorpicker
+                            ng-model="color_scheme.base_color"
+                            options="{{ spectrum_config }}"
+                            palette="{{ color_scheme.colors }}"
+                            ></spectrum-colorpicker>
                 </li>
             </ul>
         </div>

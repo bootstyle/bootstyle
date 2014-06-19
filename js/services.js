@@ -21,76 +21,38 @@ angular.module('bootstyleApp.services', []).
 
     factory('auto_overlay_color', ['FONT_CONTRAST', function(FONT_CONTRAST) {
 
-        var auto_color = function(color, contrast) {
+        return function(color, contrast) {
             contrast = contrast || FONT_CONTRAST;
 
             var under = new Color(color),
                 over = new Color(color);
 
             if (under.dark()) {
-                console.log(under.hexString() + ' is dark, mixing white');
                 over.mix(Color('#fff'), contrast);
             } else {
-                console.log(under.hexString() + ' is light, mixing black');
                 over.mix(Color('#000'), contrast);
             }
 
             return over.hexString();
         };
-
-        return auto_color;
     }]).
 
     factory('scheme', function() {
-        var s = new ColorScheme;
-
         return {
-            set_hue: function(hue) {
-                s.from_hue(hue);
+            'triad': function(base) {
+                return tinycolor.triad(base);
             },
-
-            set_hex: function(hex) {
-                hex = hex.replace('#', '');
-                s.from_hex(hex);
+            'analogous': function(base) {
+                return tinycolor.analogous(base);
             },
-
-            set_scheme: function(newScheme) {
-                if (newScheme == 'analogic') {
-                    $('#add-complement').show();
-                }
-                else {
-                    $('#add-complement').hide();
-                }
-                s.scheme(newScheme);
+            'monochromatic': function(base) {
+                return tinycolor.monochromatic(base);
             },
-
-            add_complement: function() {
-                if ($('#add-complement').hasClass('active')) {
-                    s.add_complement(false);
-                }
-                else {
-                    s.add_complement(true);
-                }
+            'splitcomplement': function(base) {
+                return tinycolor.splitcomplement(base);
             },
-
-            set_distance: function(distance) {
-                s.distance(distance);
-            },
-
-            set_variation: function(variation) {
-                s.variation(variation);
-            },
-
-            set_webSafe: function(websafe) {
-                s.web_safe(websafe);
-            },
-
-            random_hue: function() {
-                var h = Math.round(Math.random() * 360);
-                s.from_hue(h);
-            },
-            colors: function() {
-                return s.colors();
+            'tetrad': function(base) {
+                return tinycolor.tetrad(base);
             }
         };
     });
