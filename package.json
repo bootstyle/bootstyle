@@ -12,6 +12,7 @@
     "engines": {
         "node": "0.10.x"
     },
+    "main": "server.js",
     "scripts": {
         "postinstall": "$(npm bin)/webdriver-manager update",
         "test": "$(npm bin)/protractor test/protractor.conf.js"
