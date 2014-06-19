@@ -1,37 +1,22 @@
-@import "bootstrap/bootstrap";
-@import "spectrum-theme";
-
-/*
- LESS Error Message
- */
-.less-error-message {
-    position: absolute;
-    z-index: 9999;
-    width: 100%;
+body {
+    overflow: hidden;
 }
-
-/*
- Bootstrap Overrides
- */
-@icon-font-path: 'fonts/';
-
-/*
- Colorpicker overrides
- */
-.colorpicker.dropdown {
-    position: fixed;
-    color: red;
-}
-
-/*
- Bootstyle styles
- */
 
 #app {
-    @bootstyle_toolbar_width: 230px;
+    position: absolute;
+    overflow-y: scroll;
     padding-top: @navbar-height + @navbar-margin-bottom;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: @body-bg;
+    box-shadow: -3px 0 3px #333;
+    .transition_transforms();
 
     &.show_toolbar {
+        .translate(300px, 0);
+
         .toolbar_container {
             margin-left: 0;
             .toolbar {
@@ -43,13 +28,10 @@
                 padding-right: 0;
             }
         }
-        .content_container {
-            margin-left: @bootstyle_toolbar_width + @grid-gutter-width * 0.5;
-        }
     }
 
     .toolbar_container {
-        margin-left: -@bootstyle_toolbar_width;
+        margin-left: -@bs_toolbar_width;
         .transition(margin-left 0.2s ease-out);
 
         .toolbar_btn {
@@ -77,7 +59,7 @@
         .toolbar {
             position: fixed;
             padding-top: unit(@font-size-base * 2, px);
-            width: @bootstyle_toolbar_width;
+            width: @bs_toolbar_width;
             // below toolbar
             z-index: 1020;
             opacity: 0;
@@ -111,57 +93,4 @@
         }
     }
 
-}
-
-.color_scheme_dropdown {
-    .dropdown_btn {
-        overflow: hidden;
-        cursor: pointer;
-    }
-    .active_scheme_name {
-        font-size: 10px;
-        color: #999;
-        text-transform: uppercase;
-    }
-    .dropdown-menu {
-        padding: 0px;
-    }
-
-    .swatch {
-        float: left;
-        height: 30px;
-    }
-
-    li {
-        cursor: pointer;
-    }
-
-    .swatch_container {
-        position: relative;
-        overflow: hidden;
-
-        &:hover {
-            .scheme_name {
-                color: #999;
-            }
-        }
-
-        .scheme_name {
-            color: transparent;
-            text-transform: uppercase;
-            font-size: 8px;
-            font-weight: 500;
-            text-indent: 4px;
-            line-height: 1;
-            padding: 2px 0 1px 0;
-        }
-    }
-}
-
-#code_editor {
-    overflow: hidden;
-    border-radius: @border-radius-base;
-    padding-bottom: 0;
-    margin-right: 0;
-    margin-bottom: @line-height-computed;
 }

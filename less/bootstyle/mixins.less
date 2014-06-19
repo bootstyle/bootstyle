@@ -1,0 +1,19 @@
+.transition_transforms() {
+    -webkit-transition: -webkit-transform 0.2s ease-out;
+    -moz-transition: -moz-transform 0.2s ease-out;
+    -ms-transition: -ms-transform 0.2s ease-out;
+    -o-transition: -o-transform 0.2s ease-out;
+    transition: transform 0.2s ease-out;
+}
+
+.bs_btn_variant(@bg_color) {
+    background: @bg_color;
+
+    &:hover, &:focus {
+        background: lighten(@bg_color, 5%);
+    }
+
+    &:active {
+        background: darken(@bg_color, 5%);
+    }
+}

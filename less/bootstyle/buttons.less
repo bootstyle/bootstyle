@@ -1,0 +1,28 @@
+.bs_btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 12px;
+    text-align: center;
+    text-transform: uppercase;
+    border-radius: 3px;
+    cursor: pointer;
+    .user-select(none);
+    &:active {
+        position: relative;
+        top: 1px;
+    }
+
+    &.bs_btn_block {
+        display: block;
+    }
+
+    &.bs_btn_outline {
+        box-shadow:
+            0 0 0 1px #DDD,
+            inset 0 0 0 1px #DDD;
+    }
+
+    &.bs_btn_red {
+        .bs_btn_variant(#BE3327);
+    }
+}

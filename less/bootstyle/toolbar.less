@@ -1,0 +1,60 @@
+#bs_toolbar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: @bs_toolbar_width;
+    color: #FFF;
+    background: @bs_toolbar_bg;
+    font-family: Montserrat, sans-serif;
+
+    .bs_brand {
+        font-size: 18px;
+        padding: @bs_toolbar_padding @bs_toolbar_padding 0 @bs_toolbar_padding;
+        text-shadow: 0 2px darken(@bs_toolbar_bg, 10%);
+
+        .bs_name {
+            letter-spacing: -1px;
+            font-weight: 900;
+        }
+        .bs_version {
+            color: lighten(@bs_toolbar_bg, 30%);
+            font-size: 75%;
+            text-shadow: none;
+        }
+    }
+
+    .bs_sections {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        cursor: pointer;
+
+        .bs_section {
+            padding: (@bs_toolbar_padding * 0.5) (@bs_toolbar_padding * 2);
+            background: transparent;
+            .transition(background 0.1s ease-in-out);
+            &:hover {
+                background: darken(@bs_toolbar_bg, 5%);
+            }
+        }
+    }
+
+    .bs_btns {
+        position: absolute;
+        bottom: @bs_toolbar_padding;
+        left: @bs_toolbar_padding;
+        right: @bs_toolbar_padding;
+        height: auto;
+
+        .bs_btn {
+            margin-top: @bs_toolbar_padding;
+        }
+    }
+
+    hr {
+        margin: @bs_toolbar_padding;
+        border-top: 1px solid #333;
+        border-bottom: 1px solid #555;
+    }
+}

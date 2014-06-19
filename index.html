@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="css/codemirror/ambiance.css">
 
         <!-- LESS -->
-        <link rel="stylesheet/less" href="less/bootstyle.less">
+        <link rel="stylesheet/less" href="less/bootstyle/bootstyle.less">
 
         <!-- Vendor JavaScript -->
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
@@ -55,6 +55,40 @@
 
         <!-- Dynamic LESS -->
         <ng-include src=" 'partials/_dynamic_less.html' "></ng-include>
+
+        <div id="bs_toolbar">
+            <div class="bs_brand">
+                <i class="bs_icon glyphicon glyphicon-fire"></i>
+                <span class="bs_name">Bootstyle</span>
+                <span class="bs_version" bootstyle-version></span>
+            </div>
+            <hr/>
+            <ul class="bs_sections">
+                <li class="bs_section">Base</li>
+                <li class="bs_section">Navbar</li>
+                <li class="bs_section">Jumbotron</li>
+                <li class="bs_section">Headings</li>
+                <li class="bs_section">Buttons</li>
+                <li class="bs_section">Colors</li>
+                <li class="bs_section">Color Scheme</li>
+                <li class="bs_section">Typograpy</li>
+            </ul>
+
+            <div class="bs_btns">
+                <div class="bs_btn bs_btn_block bs_btn_outline">
+                    <i class="glyphicon glyphicon-pencil"></i>
+                    Edit HTML
+                </div>
+                <div class="bs_btn bs_btn_block bs_btn_outline">
+                    <i class="glyphicon glyphicon-eye-open"></i>
+                    Preview
+                </div>
+                <div class="bs_btn bs_btn_block bs_btn_red">
+                    <i class="glyphicon glyphicon-download"></i>
+                    Download
+                </div>
+            </div>
+        </div>
 
         <div id="app" ng-init="init_bootstyle()" ng-class="{ show_toolbar: toolbar.is_active }">
 
