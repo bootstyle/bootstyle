@@ -4,5 +4,5 @@ exports.config = {
         './e2e/**/*.spec.js'
     ],
 
-    baseUrl: 'http://localhost:49001'
+    baseUrl: 'http://localhost:5000'
 };
