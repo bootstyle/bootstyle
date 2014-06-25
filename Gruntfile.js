@@ -14,20 +14,24 @@ module.exports = function(grunt) {
                         hostname: '*',
                         keepalive: true,
                         debug: true,
-                        livereload: true,
+//                        livereload: true,
                         open: false,
                         useAvailablePort: false,
-                        onCreateServer: function(server, connect, options) {
-                            console.log('Connect server created:');
-                            console.log(server);
-                        },
+                        onCreateServer: function(server, connect, options) {},
                         middleware: function(connect, options, middlewares) {
 
-                            middlewares.push(function(req, res, next) {
-                                if (req.url !== '/') return next();
-
-                                res.end('Middleware working on "/"' + options.port);
+                            // Must be the first middle-ware in the array, per the docs
+                            middlewares.push(function(connect) {
+                                require('connect-livereload')({
+                                    port: 35729
+                                });
                             });
+
+//                            middlewares.push(function(req, res, next) {
+//                                if (req.url !== '/') return next();
+//
+//                                res.end('Middleware working on "/"' + options.port);
+//                            });
 
                             return middlewares;
                         }
@@ -58,18 +62,16 @@ module.exports = function(grunt) {
                 }
             },
             watch: {
-                scripts: {
-                    files: ['**/*.js'],
-                    tasks: ['jshint'],
-                    options: {
-                        cwd: '.',
-                        atBegin: false,
-                        spawn: false,
-                        event: ['all'],
-                        reload: true,
-                        livereload: true,
-                        livereloadOnError: true,
-                    },
+                files: ['js/*.js', 'js/vendor/*.js'],
+                tasks: ['jshint'],
+                options: {
+                    cwd: '.',
+                    atBegin: false,
+                    spawn: false,
+                    event: ['all'],
+                    reload: true,
+                    livereload: 35729,
+                    livereloadOnError: true,
                 },
             },
         });
@@ -87,6 +89,12 @@ module.exports = function(grunt) {
         'build',
         'Compiles all of the assets and copies the files to the build directory.',
         [ 'clean', 'copy' ]
+    );
+
+    grunt.registerTask(
+        'serve',
+        'Runs the dev server.',
+        [ 'connect:dev', 'watch' ]
     );
 
     grunt.registerTask(

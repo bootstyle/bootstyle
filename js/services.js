@@ -24,16 +24,18 @@ angular.module('bootstyleApp.services', []).
         return function(color, contrast) {
             contrast = contrast || FONT_CONTRAST;
 
-            var under = new Color(color),
-                over = new Color(color);
+//            var under = new Color(color),
+//                over = new Color(color);
+            var under = tinycolor(color),
+                over;
 
-            if (under.dark()) {
-                over.mix(Color('#fff'), contrast);
+            if (under.isDark()) {
+                over = tinycolor.mix(under, '#fff', contrast);
             } else {
-                over.mix(Color('#000'), contrast);
+                over = tinycolor.mix(under, '#000', contrast);
             }
 
-            return over.hexString();
+            return over.toHex8String();
         };
     }]).
 

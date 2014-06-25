@@ -358,7 +358,7 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
                     });
                 },
                 generate_colors: function(scheme) {
-                    var colors = tinycolor[scheme]($scope.color_scheme.base_color);
+                    var colors = tinycolor($scope.color_scheme.base_color)[scheme]();
                     var hex_colors = [];
 
                     for (var c in colors) {
