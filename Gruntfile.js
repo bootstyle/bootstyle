@@ -128,22 +128,22 @@ module.exports = function(grunt) {
                     destPrefix: 'js/bower',
                 },
                 files: {
-                    "angular": "angular/angular.js",
-                    "angular-bootstrap-colorpicker": "angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js",
-                    "angular-sanitize": "angular-sanitize/angular-sanitize.min.js",
-                    "angular-spectrum-colorpicker": "angular-spectrum-colorpicker/dist/angular-spectrum-colorpicker.min.js",
-                    "bootstrap": "bootstrap/dist/js/bootstrap.min.js",
-                    "codemirror": "codemirror/lib/codemirror.js",
-                    "codemirror-mode-css": "codemirror/mode/css/css.js",
-                    "codemirror-mode-htmlmixed": "codemirror/mode/htmlmixed/htmlmixed.js",
-                    "codemirror-mode-javascript": "codemirror/mode/javascript/javascript.js",
-                    "codemirror-mode-xml": "codemirror/mode/xml/xml.js",
-                    "FileSaver": "FileSaver/FileSaver.js",
-                    "jquery": "jquery/dist/jquery.min.js",
-                    "less": "less.js/dist/less-1.7.3.min.js",
-                    "modernizr": "modernizr/modernizr.js",
-                    "spectrum": "spectrum/spectrum.js",
-                    "tinycolor": "tinycolor/tinycolor.js"
+                    "angular.js": "angular/angular.js",
+                    "angular-bootstrap-colorpicker.js": "angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js",
+                    "angular-sanitize.js": "angular-sanitize/angular-sanitize.min.js",
+                    "angular-spectrum-colorpicker.js": "angular-spectrum-colorpicker/dist/angular-spectrum-colorpicker.min.js",
+                    "bootstrap.js": "bootstrap/dist/js/bootstrap.min.js",
+                    "codemirror/codemirror.js": "codemirror/lib/codemirror.js",
+                    "codemirror/css.js": "codemirror/mode/css/css.js",
+                    "codemirror/htmlmixed.js": "codemirror/mode/htmlmixed/htmlmixed.js",
+                    "codemirror/javascript.js": "codemirror/mode/javascript/javascript.js",
+                    "codemirror/xml.js": "codemirror/mode/xml/xml.js",
+                    "FileSaver.js": "FileSaver/FileSaver.js",
+                    "jquery.js": "jquery/dist/jquery.min.js",
+                    "less.js": "less.js/dist/less-1.7.3.min.js",
+                    "modernizr.js": "modernizr/modernizr.js",
+                    "spectrum.js": "spectrum/spectrum.js",
+                    "tinycolor.js": "tinycolor/tinycolor.js"
                 }
             },
             fonts: {
@@ -151,7 +151,19 @@ module.exports = function(grunt) {
                     destPrefix: 'fonts/bower',
                 },
                 files: {
-                    "fontawesome-webfont": "fontawesome/fonts/*",
+                    "fontawesome": "fontawesome/fonts/*",
+                }
+            },
+            css: {
+                options: {
+                    destPrefix: 'css/bower',
+                },
+                files: {
+                    "angular-bootstrap-colorpicker.css": "angular-bootstrap-colorpicker/css/colorpicker.css",
+                    "codemirror/codemirror.css": "codemirror/lib/codemirror.css",
+                    "codemirror/ambiance.css": "codemirror/theme/ambiance.css",
+                    "font-awesome.css": "fontawesome/css/font-awesome.css",
+                    "spectrum.css": "spectrum/spectrum.css",
                 }
             }
         },

@@ -41,27 +41,5 @@
         "tinycolor": "~0.11.2",
         "webfontloader": "~1.5.5"
     },
-    "devDependencies": {
-
-    },
-    "install": {
-        "path": {
-            "css": "bower_install/css",
-            "js": "bower_install/js",
-            "eot": "bower_install/fonts",
-            "otf": "bower_install/fonts",
-            "svg": "bower_install/fonts",
-            "ttf": "bower_install/fonts",
-            "woff": "bower_install/fonts"
-        },
-        "sources": {
-            "codemirror": [
-                "bower_components/codemirror/lib/codemirror.js",
-                "bower_components/codemirror/mode/css/css.js",
-                "bower_components/codemirror/mode/htmlmixed/htmlmixed.js",
-                "bower_components/codemirror/mode/javascript/javascript.js",
-                "bower_components/codemirror/mode/xml/xml.js"
-            ]
-        }
-    }
+    "devDependencies": {}
 }
