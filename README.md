@@ -31,7 +31,10 @@ Download your `bootstyle.less` and add it to your head.  That's it, you've custo
 
 ## Setup
 
-**Requirements**: `npm install .`
+Bootstyle uses grunt to run tasks. 
+
+1. `npm install -g grunt-cli`
+2. `grunt setup`
 
 ## Tests
 

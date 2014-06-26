@@ -41,6 +41,27 @@ module.exports = function(grunt) {
                 flatten: true,
                 expand: true
             },
+            fancy: {
+                files: [
+                    {
+                        expand: true,
+                        flatten: true,
+                        cwd: 'bower_components',
+                        dest: 'js/fancy',
+                        src: [
+                            '*/*.js',
+                            '*/js/*.js',
+                            '*/dist/*.js',
+                            '*/dist/js/*.js',
+                            '*/lib/*.js',
+                            'codemirror/mode/css/css.js',
+                            'codemirror/mode/htmlmixed/htmlmixed.js',
+                            'codemirror/mode/javascript/javascript.js',
+                            'codemirror/mode/xml/xml.js',
+                        ]
+                    },
+                ]
+            },
         },
         clean: {
             build: {
@@ -84,16 +105,65 @@ module.exports = function(grunt) {
             src: 'main.js',
             dest: 'js/bundle.js'
         },
+        "bower-install-simple": {
+            options: {
+                color: true,
+                production: false,
+                directory: "bower_components"
+            }
+        },
+        bowercopy: {
+            options: {
+                srcPrefix: 'bower_components',
+                runBower: false,
+                report: true,
+                clean: false,
+                ignore: [],
+                copyOptions: {
+
+                }
+            },
+            js: {
+                options: {
+                    destPrefix: 'js/bower',
+                },
+                files: {
+                    "angular": "angular/angular.js",
+                    "angular-bootstrap-colorpicker": "angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js",
+                    "angular-sanitize": "angular-sanitize/angular-sanitize.min.js",
+                    "angular-spectrum-colorpicker": "angular-spectrum-colorpicker/dist/angular-spectrum-colorpicker.min.js",
+                    "bootstrap": "bootstrap/dist/js/bootstrap.min.js",
+                    "codemirror": "codemirror/lib/codemirror.js",
+                    "codemirror-mode-css": "codemirror/mode/css/css.js",
+                    "codemirror-mode-htmlmixed": "codemirror/mode/htmlmixed/htmlmixed.js",
+                    "codemirror-mode-javascript": "codemirror/mode/javascript/javascript.js",
+                    "codemirror-mode-xml": "codemirror/mode/xml/xml.js",
+                    "FileSaver": "FileSaver/FileSaver.js",
+                    "jquery": "jquery/dist/jquery.min.js",
+                    "less": "less.js/dist/less-1.7.3.min.js",
+                    "modernizr": "modernizr/modernizr.js",
+                    "spectrum": "spectrum/spectrum.js",
+                    "tinycolor": "tinycolor/tinycolor.js"
+                }
+            },
+            fonts: {
+                options: {
+                    destPrefix: 'fonts/bower',
+                },
+                files: {
+                    "fontawesome-webfont": "fontawesome/fonts/*",
+                }
+            }
+        },
     });
 
-    // load plugins
-    grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-connect');
-    grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-browserify');
-    grunt.loadNpmTasks('grunt-browserify-bower');
+    // load all grunt tasks
+    // https://github.com/sindresorhus/load-grunt-tasks
+    require('load-grunt-tasks')(grunt, {
+        pattern: 'grunt-*',
+        config: 'package.json',
+        scope: ['devDependencies', 'dependencies']
+    });
 
     // define tasks
     // TODO: copy font awesome fonts to fonts folder
@@ -111,6 +181,31 @@ module.exports = function(grunt) {
 
     grunt.registerTask(
         'default',
-        ['uglify']
+        [ 'uglify' ]
+    );
+
+    // dependencies
+    grunt.registerTask(
+        'bower_install',
+        'Installs bower.json dependencies.',
+        [ 'bower-install-simple' ]
+    );
+
+    grunt.registerTask(
+        'npm_install',
+        'Installs package.json dependencies.',
+        [ 'npm-install' ]
+    );
+
+    grunt.registerTask(
+        'install_dependencies',
+        'Installs bower and npm dependencies.',
+        [ 'npm_install', 'bower_install' ]
+    );
+
+    grunt.registerTask(
+        'setup',
+        'Setup Bootstyle locally.',
+        [ 'npm_install', 'bower_install' ]
     );
 };
