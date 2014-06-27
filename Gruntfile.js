@@ -4,11 +4,9 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         connect: {
-            options: {
-                base: '.',
-            },
             dev: {
                 options: {
+                    base: './build/',
                     port: 35729,
                     protocol: 'http',
                     hostname: '*',
@@ -34,33 +32,57 @@ module.exports = function(grunt) {
             }
         },
         copy: {
-            build: {
-                cwd: 'node_modules',
-                src: [ '*/{lib,bin}/*.js' ],
-                dest: 'build',
-                flatten: true,
-                expand: true
+            root_files: {
+                expand: true,
+                cwd: 'app/',
+                src: ['*'],
+                dest: 'build/',
+                filter: 'isFile'
             },
+            less: {
+                expand: true,
+                cwd: 'app/less/',
+                src: ['**'],
+                dest: 'build/less/'
+            },
+            css: {
+                expand: true,
+                cwd: 'app/css/',
+                src: ['**'],
+                dest: 'build/css/'
+            },
+            partials: {
+                expand: true,
+                cwd: 'app/partials/',
+                src: ['**'],
+                dest: 'build/partials/'
+            },
+            fonts: {
+                expand: true,
+                cwd: 'app/fonts/',
+                src: ['**'],
+                dest: 'build/fonts/'
+            }
         },
         clean: {
-            build: {
-                src: [ 'build' ]
-            },
+            src: [ 'build' ]
         },
         uglify: {
-            bootstyle: {
+            build: {
                 options: {
-                    banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+                    banner: '/*! <%= pkg.name %> <%= pkg.version %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
+                    compress: {
+                        drop_console: true
+                    },
+                    mangle: true
                 },
-                build: {
-                    src: [ 'js/bootstyle/*.js' ],
-                    dest: 'js/<%= pkg.name %>.min.js'
-                }
+                src: [ 'build/js/app.js' ],
+                dest: 'build/js/app.js'
             }
         },
         watch: {
-            files: ['js/*.js', 'js/vendor/*.js'],
-            tasks: ['jshint'],
+            files: [ '' ],
+            tasks: [ '' ],
             options: {
                 cwd: '.',
                 atBegin: false,
@@ -68,28 +90,17 @@ module.exports = function(grunt) {
                 event: ['all'],
                 reload: true,
                 livereload: 35729,
-                livereloadOnError: true,
-            },
-        },
-        browserifyBower: {
-            options: {
-                // Task-specific options go here.
-            },
-            your_target: {
-                // Target-specific file lists and/or options go here.
-            },
+                livereloadOnError: true
+            }
         },
         browserify: {
-            bundleOptions: {
-                debug: true
-            },
-            dist: {
-                options: {
-                    transform: [ "browserify-shim" ],
+            build: {
+                bundleOptions: {
+                    debug: true
                 },
                 files: {
-                    'dist/js/app.js': [ 'app.js' ]
-                },
+                    'build/js/app.js': [ 'app/js/app.js' ]
+                }
             }
         },
         "bower-install-simple": {
@@ -106,12 +117,11 @@ module.exports = function(grunt) {
                 report: true,
                 clean: false,
                 ignore: [],
-                copyOptions: {
-                }
+                copyOptions: {}
             },
             fonts: {
                 options: {
-                    destPrefix: 'dist/fonts',
+                    destPrefix: 'app/fonts',
                 },
                 files: {
                     "FontAwesome.otf": "fontawesome/fonts/FontAwesome.otf",
@@ -127,7 +137,7 @@ module.exports = function(grunt) {
             },
             css: {
                 options: {
-                    destPrefix: 'dist/css',
+                    destPrefix: 'app/css',
                 },
                 files: {
                     "codemirror.css": "codemirror/lib/codemirror.css",
@@ -136,6 +146,36 @@ module.exports = function(grunt) {
                     "spectrum.css": "spectrum/spectrum.css",
                 }
             },
+            less: {
+                options: {
+                    srcPrefix: 'bower_components/bootstrap/less/'
+                },
+                src: "**",
+                dest: 'app/less/bootstrap/'
+            },
+            js: {
+                options: {
+                    destPrefix: 'app/js/bower/',
+                },
+                files: {
+                    "angular/angular.js": "angular/angular.js",
+                    "angular-sanitize/angular-sanitize.js": "angular-sanitize/angular-sanitize.js",
+                    "angular-spectrum-colorpicker/angular-spectrum-colorpicker.js": "angular-spectrum-colorpicker/dist/angular-spectrum-colorpicker.js",
+                    "bootstrap/bootstrap.js": "bootstrap/dist/js/bootstrap.js",
+                    "codemirror/codemirror.js": "codemirror/lib/codemirror.js",
+                    "codemirror-mode-css/codemirror-mode-css.js": "codemirror/mode/css/css.js",
+                    "codemirror-mode-htmlmixed/codemirror-mode-htmlmixed.js": "codemirror/mode/htmlmixed/htmlmixed.js",
+                    "codemirror-mode-javascript/codemirror-mode-javascript.js": "codemirror/mode/javascript/javascript.js",
+                    "codemirror-mode-xml/codemirror-mode-xml.js": "codemirror/mode/xml/xml.js",
+                    "FileSaver/FileSaver.js": "FileSaver/FileSaver.js",
+                    "jquery/jquery.js": "jquery/dist/jquery.js",
+                    "less/less.js": "less.js/dist/less-1.7.3.js",
+                    "modernizr/modernizr.js": "modernizr/modernizr.js",
+                    "spectrum/spectrum.js": "spectrum/spectrum.js",
+                    "tinycolor/tinycolor.js": "tinycolor/tinycolor.js",
+
+                }
+            }
         },
     });
 
@@ -150,14 +190,14 @@ module.exports = function(grunt) {
     // define tasks
     grunt.registerTask(
         'build',
-        'Copies and processes all our assets.',
-        [ 'bowercopy', 'browserify:dist' ]
+        'Cleans out the build, copies and browserifies assets into build.',
+        [ 'clean', 'copy', 'browserify:build' ]
     );
 
     grunt.registerTask(
         'serve',
         'Runs the dev server.',
-        [ 'connect:dev', 'watch' ]
+        [ 'connect:dev' ]
     );
 
     // dependencies
@@ -181,7 +221,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask(
         'setup',
-        'Setup Bootstyle locally.',
-        [ 'npm_install', 'bower_install' ]
+        'Setup Bootstyle locally (installs dependencies, and creates a build).',
+        [ 'npm_install', 'bower_install', 'build' ]
     );
 };
