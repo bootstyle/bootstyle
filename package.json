@@ -32,7 +32,7 @@
     },
     "main": "dist/js/app.js",
     "browser": {
-        "angular": "./bower_components/angular/angular.min.js",
+        "angular": "./bower_components/angular/angular.js",
         "angular_sanitize": "./bower_components/angular-sanitize/angular-sanitize.min.js",
         "angular_spectrum_colorpicker": "./bower_components/angular-spectrum-colorpicker/dist/angular-spectrum-colorpicker.min.js",
         "bootstrap": "./bower_components/bootstrap/dist/js/bootstrap.min.js",
@@ -46,7 +46,8 @@
         "less": "./bower_components/less.js/dist/less-1.7.3.min.js",
         "modernizr": "./bower_components/modernizr/modernizr.js",
         "spectrum": "./bower_components/spectrum/spectrum.js",
-        "tinycolor": "./bower_components/tinycolor/tinycolor.js"
+        "tinycolor": "./bower_components/tinycolor/tinycolor.js",
+        "tinycolor_v1api": "./js/vendor/tinycolor-v1api.js"
     },
     "browserify-shim": "browserify.shims.js",
     "browserify": {

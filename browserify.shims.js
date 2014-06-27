@@ -1,56 +1,53 @@
 module.exports = {
     "jquery": {
-        "exports": "global:$"
+        "exports": "$"
     },
     "bootstrap": {
-        "exports": "global:bootstrap",
-        "depends": [ "jquery:$" ]
+        "depends": { "./bower_components/jquery/dist/jquery.min.js": "$" }
     },
     "angular": {
-        "exports": "global:angular",
-        "depends": [ "jquery:$" ]
+        "exports": "angular"
     },
     "angular_sanitize": {
-        "exports": "global:angular_sanitize",
-        "depends": [ "angular:angular" ]
+        "exports": "angular_sanitize"
     },
     "angular_spectrum_colorpicker": {
-        "exports": "global:angular_spectrum_colorpicker",
-        "depends": [ "angular:angular" ]
+        "exports": "angular_spectrum_colorpicker"
     },
     "codemirror": {
-        "exports": "global:codemirror"
+        "exports": "codemirror"
     },
     "codemirror_mode_css": {
-        "exports": "global:codemirror_mode_css",
-        "depends": [ "codemirror:codemirror" ]
+        "exports": "codemirror_mode_css"
     },
     "codemirror_mode_htmlmixed": {
-        "exports": "global:codemirror_mode_htmlmixed",
-        "depends": [ "codemirror:codemirror" ]
+        "exports": "codemirror_mode_htmlmixed"
     },
     "codemirror_mode_javascript": {
-        "exports": "global:codemirror_mode_javascript",
-        "depends": [ "codemirror:codemirror" ]
+        "exports": "codemirror_mode_javascript"
     },
     "codemirror_mode_xml": {
-        "exports": "global:codemirror_mode_xml",
-        "depends": [ "codemirror:codemirror" ]
+        "exports": "codemirror_mode_xml"
     },
     "FileSaver": {
-        "exports": "global:FileSaver"
+        "exports": "FileSaver"
     },
     "less": {
-        "exports": "global:less"
+        "exports": "less"
     },
     "modernizr": {
-        "exports": "global:modernizr"
+        "exports": "modernizr"
     },
     "spectrum": {
-        "exports": "global:spectrum",
-        "depends": [ "jquery:$" ]
+        "exports": "spectrum"
     },
     "tinycolor": {
-        "exports": "global:tinycolor"
+        "exports": "tinycolor"
+    },
+    "tinycolor_v1api": {
+        "exports": "tinycolor_v1api"
+    },
+    "webfont": {
+        "exports": "global:WebFont"
     }
 }

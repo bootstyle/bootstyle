@@ -1,30 +1,5 @@
 'use strict';
 
-//
-// This is using the pahts from browserify.shims, just for testing the paths
-//require("./bower_components/jquery/dist/jquery.min.js");
-//
-//require("./bower_components/angular/angular.min.js");
-//require("./bower_components/angular-sanitize/angular-sanitize.min.js");
-//require("./bower_components/angular-spectrum-colorpicker/dist/angular-spectrum-colorpicker.min.js");
-//require("./bower_components/bootstrap/dist/js/bootstrap.min.js");
-//
-//require("./bower_components/codemirror/lib/codemirror.js");
-//require("./bower_components/codemirror/mode/css/css.js");
-//require("./bower_components/codemirror/mode/htmlmixed/htmlmixed.js");
-//require("./bower_components/codemirror/mode/javascript/javascript.js");
-//require("./bower_components/codemirror/mode/xml/xml.js");
-//
-//require("./bower_components/FileSaver/FileSaver.js");
-//
-//require("./bower_components/less.js/dist/less-1.7.3.min.js");
-//
-//require("./bower_components/modernizr/modernizr.js");
-//
-//require("./bower_components/spectrum/spectrum.js");
-//require("./bower_components/tinycolor/tinycolor.js");
-
-
 // angular dependencies
 require('angular');
 require('angular_sanitize');
@@ -42,7 +17,8 @@ require('jquery');
 require('less');
 require('modernizr');
 require('spectrum');
-require('tinycolor');
+//require('tinycolor');
+require('tinycolor_v1api');
 
 // bootstyle dependencies
 require('./src/controllers');

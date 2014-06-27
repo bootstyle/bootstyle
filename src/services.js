@@ -42,19 +42,19 @@ angular.module('bootstyleApp.services', []).
     factory('scheme', function() {
         return {
             'triad': function(base) {
-                return tinycolor.triad(base);
+                return base.triad();
             },
             'analogous': function(base) {
-                return tinycolor.analogous(base);
+                return base.analogous();
             },
             'monochromatic': function(base) {
-                return tinycolor.monochromatic(base);
+                return base.monochromatic();
             },
             'splitcomplement': function(base) {
-                return tinycolor.splitcomplement(base);
+                return base.splitcomplement();
             },
             'tetrad': function(base) {
-                return tinycolor.tetrad(base);
+                return base.tetrad();
             }
         };
     });

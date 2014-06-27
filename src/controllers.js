@@ -3,7 +3,7 @@
 /*
  Controllers
  */
-var controllers = angular.module('bootstyleApp.controllers', ['ngSanitize']).
+angular.module('bootstyleApp.controllers', ['ngSanitize']).
     controller('BootstyleCtrl',
         ['$scope', '$compile', '$timeout', 'read_file', 'auto_overlay_color', 'FONT_CONTRAST', 'scheme',
         function($scope, $compile, $timeout, read_file, auto_overlay_color, FONT_CONTRAST, scheme) {
@@ -383,17 +383,6 @@ var controllers = angular.module('bootstyleApp.controllers', ['ngSanitize']).
                 clickoutFiresChange: true,
                 containerClassName: 'sp_bootstyle',
                 replacerClassName: 'sp_bootstyle',
-                palette: function() {
-                    $scope.color_scheme.colors = [];
-
-                    var colors = tinycolor[$scope.color_scheme.scheme]($scope.color_scheme.base_color);
-                    var palette = [];
-                    for (var c in colors) {
-                        palette.push(colors[c].toHexString());
-                    }
-                    console.log(palette);
-                    return palette;
-                },
                 preferredFormat: "hex",
                 showButtons: false,
                 showInitial: true,
@@ -936,5 +925,3 @@ var controllers = angular.module('bootstyleApp.controllers', ['ngSanitize']).
         };
 
     }]);
-
-module.exports.controllers = controllers;
