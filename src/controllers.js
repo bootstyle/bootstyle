@@ -3,8 +3,7 @@
 /*
  Controllers
  */
-
-angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module']).
+var controllers = angular.module('bootstyleApp.controllers', ['ngSanitize']).
     controller('BootstyleCtrl',
         ['$scope', '$compile', '$timeout', 'read_file', 'auto_overlay_color', 'FONT_CONTRAST', 'scheme',
         function($scope, $compile, $timeout, read_file, auto_overlay_color, FONT_CONTRAST, scheme) {
@@ -937,3 +936,5 @@ angular.module('bootstyleApp.controllers', ['ngSanitize', 'colorpicker.module'])
         };
 
     }]);
+
+module.exports.controllers = controllers;

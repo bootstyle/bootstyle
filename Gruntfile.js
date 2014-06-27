@@ -41,27 +41,6 @@ module.exports = function(grunt) {
                 flatten: true,
                 expand: true
             },
-            fancy: {
-                files: [
-                    {
-                        expand: true,
-                        flatten: true,
-                        cwd: 'bower_components',
-                        dest: 'js/fancy',
-                        src: [
-                            '*/*.js',
-                            '*/js/*.js',
-                            '*/dist/*.js',
-                            '*/dist/js/*.js',
-                            '*/lib/*.js',
-                            'codemirror/mode/css/css.js',
-                            'codemirror/mode/htmlmixed/htmlmixed.js',
-                            'codemirror/mode/javascript/javascript.js',
-                            'codemirror/mode/xml/xml.js',
-                        ]
-                    },
-                ]
-            },
         },
         clean: {
             build: {
@@ -69,12 +48,14 @@ module.exports = function(grunt) {
             },
         },
         uglify: {
-            options: {
-                banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
-            },
-            build: {
-                src: [ 'node_modules/*/{lib,bin}/*.js' ],
-                dest: 'build/<%= pkg.name %>.min.js'
+            bootstyle: {
+                options: {
+                    banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+                },
+                build: {
+                    src: [ 'js/bootstyle/*.js' ],
+                    dest: 'js/<%= pkg.name %>.min.js'
+                }
             }
         },
         watch: {
@@ -102,8 +83,14 @@ module.exports = function(grunt) {
             bundleOptions: {
                 debug: true
             },
-            src: 'main.js',
-            dest: 'js/bundle.js'
+            dist: {
+                options: {
+                    transform: [ "browserify-shim" ],
+                },
+                files: {
+                    'dist/js/app.js': [ 'app.js' ]
+                },
+            }
         },
         "bower-install-simple": {
             options: {
@@ -120,52 +107,35 @@ module.exports = function(grunt) {
                 clean: false,
                 ignore: [],
                 copyOptions: {
-
-                }
-            },
-            js: {
-                options: {
-                    destPrefix: 'js/bower',
-                },
-                files: {
-                    "angular.js": "angular/angular.js",
-                    "angular-bootstrap-colorpicker.js": "angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js",
-                    "angular-sanitize.js": "angular-sanitize/angular-sanitize.min.js",
-                    "angular-spectrum-colorpicker.js": "angular-spectrum-colorpicker/dist/angular-spectrum-colorpicker.min.js",
-                    "bootstrap.js": "bootstrap/dist/js/bootstrap.min.js",
-                    "codemirror/codemirror.js": "codemirror/lib/codemirror.js",
-                    "codemirror/css.js": "codemirror/mode/css/css.js",
-                    "codemirror/htmlmixed.js": "codemirror/mode/htmlmixed/htmlmixed.js",
-                    "codemirror/javascript.js": "codemirror/mode/javascript/javascript.js",
-                    "codemirror/xml.js": "codemirror/mode/xml/xml.js",
-                    "FileSaver.js": "FileSaver/FileSaver.js",
-                    "jquery.js": "jquery/dist/jquery.min.js",
-                    "less.js": "less.js/dist/less-1.7.3.min.js",
-                    "modernizr.js": "modernizr/modernizr.js",
-                    "spectrum.js": "spectrum/spectrum.js",
-                    "tinycolor.js": "tinycolor/tinycolor.js"
                 }
             },
             fonts: {
                 options: {
-                    destPrefix: 'fonts/bower',
+                    destPrefix: 'dist/fonts',
                 },
                 files: {
-                    "fontawesome": "fontawesome/fonts/*",
+                    "FontAwesome.otf": "fontawesome/fonts/FontAwesome.otf",
+                    "fontawesome-webfont.eot": "fontawesome/fonts/fontawesome-webfont.eot",
+                    "fontawesome-webfont.svg": "fontawesome/fonts/fontawesome-webfont.svg",
+                    "fontawesome-webfont.ttf": "fontawesome/fonts/fontawesome-webfont.ttf",
+                    "fontawesome-webfont.woff": "fontawesome/fonts/fontawesome-webfont.woff",
+                    "glyphicons-halflings-regular.eot": "bootstrap/dist/fonts/glyphicons-halflings-regular.eot",
+                    "glyphicons-halflings-regular.svg": "bootstrap/dist/fonts/glyphicons-halflings-regular.svg",
+                    "glyphicons-halflings-regular.ttf": "bootstrap/dist/fonts/glyphicons-halflings-regular.ttf",
+                    "glyphicons-halflings-regular.woff": "bootstrap/dist/fonts/glyphicons-halflings-regular.woff",
                 }
             },
             css: {
                 options: {
-                    destPrefix: 'css/bower',
+                    destPrefix: 'dist/css',
                 },
                 files: {
-                    "angular-bootstrap-colorpicker.css": "angular-bootstrap-colorpicker/css/colorpicker.css",
-                    "codemirror/codemirror.css": "codemirror/lib/codemirror.css",
-                    "codemirror/ambiance.css": "codemirror/theme/ambiance.css",
+                    "codemirror.css": "codemirror/lib/codemirror.css",
+                    "codemirror-theme-ambiance.css": "codemirror/theme/ambiance.css",
                     "font-awesome.css": "fontawesome/css/font-awesome.css",
                     "spectrum.css": "spectrum/spectrum.css",
                 }
-            }
+            },
         },
     });
 
@@ -178,22 +148,16 @@ module.exports = function(grunt) {
     });
 
     // define tasks
-    // TODO: copy font awesome fonts to fonts folder
     grunt.registerTask(
         'build',
-        'Compiles all of the assets and copies the files to the build directory.',
-        [ 'clean', 'copy' ]
+        'Copies and processes all our assets.',
+        [ 'bowercopy', 'browserify:dist' ]
     );
 
     grunt.registerTask(
         'serve',
         'Runs the dev server.',
         [ 'connect:dev', 'watch' ]
-    );
-
-    grunt.registerTask(
-        'default',
-        [ 'uglify' ]
     );
 
     // dependencies

@@ -1,45 +1,65 @@
 {
-  "name": "Bootstyle",
-  "description": "Boostrap customizer for developers.",
-  "repository": "greenkahuna/bootstyle",
-  "author": "Levi Thomason <me@levithomason.com> (http://levithomason.com)",
-  "contributors": [],
-  "dependencies": {
-    "color": "^0.6.0"
-  },
-  "devDependencies": {
-    "browserify": "^4.1.11",
-    "browserify-shim": "^3.6.0",
-    "connect-livereload": "^0.4.0",
-    "grunt": "^0.4.5",
-    "grunt-contrib-clean": "^0.5.0",
-    "grunt-contrib-copy": "^0.5.0",
-    "grunt-contrib-uglify": "^0.5.0",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-contrib-connect": "^0.8.0",
-    "grunt-contrib-less": "^0.11.3",
-    "grunt-bowercopy": "^1.1.0",
-    "grunt-bower-install-simple": "^0.9.3",
-    "grunt-browserify": "^2.1.1",
-    "grunt-browserify-bower": "^0.1.4",
-    "grunt-npm-install": "^0.1.0",
-    "load-grunt-tasks": "^0.6.0",
-    "protractor": "^0.24.2",
-    "watchify": "^0.10.2"
-  },
-  "engines": {
-    "node": "0.10.x"
-  },
-  "main": "main.js",
-  "browser": "browserify.aliases.js",
-  "browserify-shim": "browserify.shims.js",
-  "browserify": {
-    "transform": [
-      "browserify-shim"
-    ]
-  },
-  "scripts": {
-    "postinstall": "$(npm bin)/webdriver-manager update",
-    "test": "$(npm bin)/protractor test/protractor.conf.js"
-  }
+    "name": "Bootstyle",
+    "description": "Boostrap customizer for developers.",
+    "repository": "greenkahuna/bootstyle",
+    "author": "Levi Thomason <me@levithomason.com> (http://levithomason.com)",
+    "contributors": [],
+    "dependencies": {
+        "color": "^0.6.0"
+    },
+    "devDependencies": {
+        "browserify": "^4.1.11",
+        "browserify-shim": "^3.6.0",
+        "connect-livereload": "^0.4.0",
+        "grunt": "^0.4.5",
+        "grunt-contrib-clean": "^0.5.0",
+        "grunt-contrib-copy": "^0.5.0",
+        "grunt-contrib-uglify": "^0.5.0",
+        "grunt-contrib-watch": "^0.6.1",
+        "grunt-contrib-connect": "^0.8.0",
+        "grunt-contrib-less": "^0.11.3",
+        "grunt-bowercopy": "^1.1.0",
+        "grunt-bower-install-simple": "^0.9.3",
+        "grunt-browserify": "^2.1.1",
+        "grunt-npm-install": "^0.1.0",
+        "load-grunt-tasks": "^0.6.0",
+        "protractor": "^0.24.2",
+        "watchify": "^0.10.2",
+        "es6ify": "^1.2.0"
+    },
+    "engines": {
+        "node": "0.10.x"
+    },
+    "main": "dist/js/app.js",
+    "browser": {
+        "angular": "./bower_components/angular/angular.min.js",
+        "angular_sanitize": "./bower_components/angular-sanitize/angular-sanitize.min.js",
+        "angular_spectrum_colorpicker": "./bower_components/angular-spectrum-colorpicker/dist/angular-spectrum-colorpicker.min.js",
+        "bootstrap": "./bower_components/bootstrap/dist/js/bootstrap.min.js",
+        "codemirror": "./bower_components/codemirror/lib/codemirror.js",
+        "codemirror_mode_css": "./bower_components/codemirror/mode/css/css.js",
+        "codemirror_mode_htmlmixed": "./bower_components/codemirror/mode/htmlmixed/htmlmixed.js",
+        "codemirror_mode_javascript": "./bower_components/codemirror/mode/javascript/javascript.js",
+        "codemirror_mode_xml": "./bower_components/codemirror/mode/xml/xml.js",
+        "FileSaver": "./bower_components/FileSaver/FileSaver.js",
+        "jquery": "./bower_components/jquery/dist/jquery.min.js",
+        "less": "./bower_components/less.js/dist/less-1.7.3.min.js",
+        "modernizr": "./bower_components/modernizr/modernizr.js",
+        "spectrum": "./bower_components/spectrum/spectrum.js",
+        "tinycolor": "./bower_components/tinycolor/tinycolor.js"
+    },
+    "browserify-shim": {
+        "jquery": "$"
+    },
+    "browserify": {
+        "transform": [
+            "browserify-shim"
+        ]
+    },
+    "scripts": {
+        "install": "napa",
+        "postinstall": "$(npm bin)/webdriver-manager update",
+        "test": "$(npm bin)/protractor test/protractor.conf.js"
+    },
+    "napa": {}
 }
