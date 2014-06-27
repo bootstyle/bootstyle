@@ -1,57 +1,56 @@
 module.exports = {
-    "./bower_components/jquery/dist/jquery.min.js": {
+    "jquery": {
         "exports": "global:$"
     },
-    "./bower_components/bootstrap/dist/js/bootstrap.min.js": {
+    "bootstrap": {
         "exports": "global:bootstrap",
-        "depends": { "./bower_components/jquery/dist/jquery.min.js": "$" }
+        "depends": [ "jquery:$" ]
     },
-    "./bower_components/angular/angular.min.js": {
+    "angular": {
         "exports": "global:angular",
-        "depends": { "./bower_components/jquery/dist/jquery.min.js": "$" }
+        "depends": [ "jquery:$" ]
     },
-    "./bower_components/angular-sanitize/angular-sanitize.min.js": {
+    "angular_sanitize": {
         "exports": "global:angular_sanitize",
-        "depends": { "./bower_components/angular/angular.min.js": "angular" }
+        "depends": [ "angular:angular" ]
     },
-    "./bower_components/angular-spectrum-colorpicker/dist/angular-spectrum-colorpicker.min.js": {
+    "angular_spectrum_colorpicker": {
         "exports": "global:angular_spectrum_colorpicker",
-        "depends": { "./bower_components/angular/angular.min.js": "angular" }
+        "depends": [ "angular:angular" ]
     },
-    "./bower_components/codemirror/lib/codemirror.js": {
+    "codemirror": {
         "exports": "global:codemirror"
     },
-    "./bower_components/codemirror/mode/css/css.js": {
+    "codemirror_mode_css": {
         "exports": "global:codemirror_mode_css",
-        "depends": { "./bower_components/codemirror/lib/codemirror.js": "codemirror" }
+        "depends": [ "codemirror:codemirror" ]
     },
-    "./bower_components/codemirror/mode/htmlmixed/htmlmixed.js": {
+    "codemirror_mode_htmlmixed": {
         "exports": "global:codemirror_mode_htmlmixed",
-        "depends": { "./bower_components/codemirror/lib/codemirror.js": "codemirror" }
+        "depends": [ "codemirror:codemirror" ]
     },
-    "./bower_components/codemirror/mode/javascript/javascript.js": {
+    "codemirror_mode_javascript": {
         "exports": "global:codemirror_mode_javascript",
-        "depends": { "./bower_components/codemirror/lib/codemirror.js": "codemirror" }
+        "depends": [ "codemirror:codemirror" ]
     },
-    "./bower_components/codemirror/mode/xml/xml.js": {
+    "codemirror_mode_xml": {
         "exports": "global:codemirror_mode_xml",
-        "depends": { "./bower_components/codemirror/lib/codemirror.js": "codemirror" }
+        "depends": [ "codemirror:codemirror" ]
     },
-    "./bower_components/FileSaver/FileSaver.js": {
+    "FileSaver": {
         "exports": "global:FileSaver"
     },
-    "./bower_components/less.js/dist/less-1.7.3.min.js": {
+    "less": {
         "exports": "global:less"
     },
-    "./bower_components/modernizr/modernizr.js": {
+    "modernizr": {
         "exports": "global:modernizr"
     },
-    "./bower_components/spectrum/spectrum.js": {
+    "spectrum": {
         "exports": "global:spectrum",
-        "depends": { "./bower_components/jquery/dist/jquery.min.js": "$" }
+        "depends": [ "jquery:$" ]
     },
-    "./bower_components/tinycolor/tinycolor.js": {
+    "tinycolor": {
         "exports": "global:tinycolor"
-    },
-
+    }
 }

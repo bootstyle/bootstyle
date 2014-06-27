@@ -48,9 +48,7 @@
         "spectrum": "./bower_components/spectrum/spectrum.js",
         "tinycolor": "./bower_components/tinycolor/tinycolor.js"
     },
-    "browserify-shim": {
-        "jquery": "$"
-    },
+    "browserify-shim": "browserify.shims.js",
     "browserify": {
         "transform": [
             "browserify-shim"
