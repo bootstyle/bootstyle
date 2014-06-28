@@ -50,12 +50,14 @@
   },
   "browserify-shim": {
     "angular": {
-      "exports": "angular"
+      "exports": "angular",
+      "depends": [
+          "jquery:$"
+      ]
     },
     "angular_spectrum_colorpicker": {
       "depends": [
-        "angular:angular",
-        "spectrum:spectrum"
+        "angular:angular"
       ]
     },
     "angular_sanitize": {
@@ -96,7 +98,6 @@
       "exports": "modernizr"
     },
     "spectrum": {
-      "exports": "spectrum",
       "depends": [
         "jquery:$"
       ]
