@@ -54,7 +54,7 @@
       "bootstrap":                      { "depends": [ "jquery:$" ] },
       "angular":                        { "exports": "angular" },
       "angular_sanitize":               { "exports": "angular_sanitize" },
-      "angular_spectrum_colorpicker":   { "exports": "angular_spectrum_colorpicker",
+      "angular_spectrum_colorpicker":   { "exports": "angular_spectrum_colorpicker" },
       "codemirror":                     { "exports": "codemirror" },
       "codemirror_mode_css":            { "exports": "codemirror_mode_css" },
       "codemirror_mode_htmlmixed":      { "exports": "codemirror_mode_htmlmixed" },
