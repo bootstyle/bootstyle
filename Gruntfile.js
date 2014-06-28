@@ -32,40 +32,26 @@ module.exports = function(grunt) {
             }
         },
         copy: {
-            root_files: {
-                expand: true,
-                cwd: 'app/',
-                src: ['*'],
-                dest: 'build/',
-                filter: 'isFile'
+            build: {
+                files: [
+                    { expand: true, cwd: 'app/',            src: ['*'],     dest: 'build/',         filter: 'isFile' },
+                    { expand: true, cwd: 'app/css/',        src: ['**'],    dest: 'build/css/' },
+                    { expand: true, cwd: 'app/fonts/',      src: ['**'],    dest: 'build/fonts/' },
+                    { expand: true, cwd: 'app/less/',       src: ['**'],    dest: 'build/less/' },
+                    { expand: true, cwd: 'app/partials/',   src: ['**'],    dest: 'build/partials/' },
+                ]
             },
-            less: {
-                expand: true,
-                cwd: 'app/less/',
-                src: ['**'],
-                dest: 'build/less/'
-            },
-            css: {
-                expand: true,
-                cwd: 'app/css/',
-                src: ['**'],
-                dest: 'build/css/'
-            },
-            partials: {
-                expand: true,
-                cwd: 'app/partials/',
-                src: ['**'],
-                dest: 'build/partials/'
-            },
-            fonts: {
-                expand: true,
-                cwd: 'app/fonts/',
-                src: ['**'],
-                dest: 'build/fonts/'
+            app: {
+                files: []
             }
         },
         clean: {
-            src: [ 'build' ]
+            build: {
+                src: [ 'build' ]
+            },
+            app_js_bower: {
+                src: [ 'app/js/bower' ]
+            }
         },
         uglify: {
             build: {
@@ -150,7 +136,7 @@ module.exports = function(grunt) {
                 options: {
                     srcPrefix: 'bower_components/bootstrap/less/'
                 },
-                src: "**",
+                src: "*",
                 dest: 'app/less/bootstrap/'
             },
             js: {
@@ -169,11 +155,9 @@ module.exports = function(grunt) {
                     "codemirror-mode-xml/codemirror-mode-xml.js": "codemirror/mode/xml/xml.js",
                     "FileSaver/FileSaver.js": "FileSaver/FileSaver.js",
                     "jquery/jquery.js": "jquery/dist/jquery.js",
-                    "less/less.js": "less.js/dist/less-1.7.3.js",
                     "modernizr/modernizr.js": "modernizr/modernizr.js",
                     "spectrum/spectrum.js": "spectrum/spectrum.js",
                     "tinycolor/tinycolor.js": "tinycolor/tinycolor.js",
-
                 }
             }
         },
@@ -190,8 +174,8 @@ module.exports = function(grunt) {
     // define tasks
     grunt.registerTask(
         'build',
-        'Cleans out the build, copies and browserifies assets into build.',
-        [ 'clean', 'copy', 'browserify:build' ]
+        'Cleans out the build, updates app bower components, copies and browserifies app assets into build.',
+        [ 'clean:build', 'clean:app_js_bower', 'bowercopy', 'copy:build', 'browserify:build' ]
     );
 
     grunt.registerTask(

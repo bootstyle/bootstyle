@@ -43,37 +43,89 @@
     "codemirror_mode_xml": "./app/js/bower/codemirror-mode-xml/codemirror-mode-xml.js",
     "FileSaver": "./app/js/bower/FileSaver/FileSaver.js",
     "jquery": "./app/js/bower/jquery/jquery.js",
-    "less": "./app/js/bower/less/less.js",
     "modernizr": "./app/js/bower/modernizr/modernizr.js",
     "spectrum": "./app/js/bower/spectrum/spectrum.js",
     "tinycolor": "./app/js/bower/tinycolor/tinycolor.js",
     "tinycolor_v1api": "./app/js/vendor/tinycolor-v1api.js"
   },
   "browserify-shim": {
-      "jquery":                         { "exports": "$" },
-      "bootstrap":                      { "depends": [ "jquery:$" ] },
-      "angular":                        { "exports": "angular" },
-      "angular_sanitize":               { "exports": "angular_sanitize" },
-      "angular_spectrum_colorpicker":   { "exports": "angular_spectrum_colorpicker" },
-      "codemirror":                     { "exports": "codemirror" },
-      "codemirror_mode_css":            { "exports": "codemirror_mode_css" },
-      "codemirror_mode_htmlmixed":      { "exports": "codemirror_mode_htmlmixed" },
-      "codemirror_mode_javascript":     { "exports": "codemirror_mode_javascript" },
-      "codemirror_mode_xml":            { "exports": "codemirror_mode_xml" },
-      "FileSaver":                      { "exports": "FileSaver" },
-      "less":                           { "exports": "less" },
-      "modernizr":                      { "exports": "modernizr" },
-      "spectrum":                       { "exports": "spectrum" },
-      "tinycolor":                      { "exports": "tinycolor" },
-      "tinycolor_v1api":                { "exports": "tinycolor_v1api" },
-      "webfont":                        { "exports": "global:WebFont" }
+    "angular": {
+      "exports": "angular"
+    },
+    "angular_spectrum_colorpicker": {
+      "depends": [
+        "angular:angular",
+        "spectrum:spectrum"
+      ]
+    },
+    "angular_sanitize": {
+      "depends": [
+        "angular:angular"
+      ]
+    },
+    "bootstrap": {
+      "depends": [
+        "jquery:$"
+      ]
+    },
+    "codemirror": {
+      "exports": "codemirror"
+    },
+    "codemirror_mode_css": {
+      "exports": "codemirror_mode_css"
+    },
+    "codemirror_mode_htmlmixed": {
+      "exports": "codemirror_mode_htmlmixed"
+    },
+    "codemirror_mode_javascript": {
+      "exports": "codemirror_mode_javascript"
+    },
+    "codemirror_mode_xml": {
+      "exports": "codemirror_mode_xml"
+    },
+    "FileSaver": {
+      "exports": "FileSaver"
+    },
+    "jquery": {
+      "exports": "$"
+    },
+    "less": {
+      "exports": "global:less"
+    },
+    "modernizr": {
+      "exports": "modernizr"
+    },
+    "spectrum": {
+      "exports": "spectrum",
+      "depends": [
+        "jquery:$"
+      ]
+    },
+    "tinycolor": {
+      "exports": "tinycolor",
+      "depends": [
+        "jquery:$"
+      ]
+    },
+    "tinycolor_v1api": {
+      "exports": "tinycolor_v1api",
+      "depends": [
+        "jquery:$"
+      ]
+    },
+    "webfont": {
+      "exports": "global:WebFont"
+    }
   },
   "browserify": {
-    "transform": [ "browserify-shim" ]
+    "transform": [
+      "browserify-shim"
+    ]
   },
   "scripts": {
     "postinstall": "$(npm bin)/webdriver-manager update",
     "test": "$(npm bin)/protractor test/protractor.conf.js",
-    "setup": "npm install && bower install && grunt build && grunt serve:dev"
+    "setup": "npm install && bower install && grunt build && grunt serve:dev",
+    "browserify_diagnostic": "BROWSERIFYSHIM_DIAGNOSTICS=1 browserify -d -e app/js/app.js -o build/js/app.js"
   }
 }
