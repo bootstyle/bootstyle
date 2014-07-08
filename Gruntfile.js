@@ -146,7 +146,9 @@ module.exports = function(grunt) {
                 files: {
                     "angular/angular.js": "angular/angular.js",
                     "angular-sanitize/angular-sanitize.js": "angular-sanitize/angular-sanitize.js",
+                    "angular-touch/angular-touch.js": "angular-touch/angular-touch.js",
                     "angular-spectrum-colorpicker/angular-spectrum-colorpicker.js": "angular-spectrum-colorpicker/dist/angular-spectrum-colorpicker.js",
+                    "angular-carousel/angular-carousel.js": "angular-carousel/dist/angular-carousel.js",
                     "bootstrap/bootstrap.js": "bootstrap/dist/js/bootstrap.js",
                     "codemirror/codemirror.js": "codemirror/lib/codemirror.js",
                     "codemirror-mode-css/codemirror-mode-css.js": "codemirror/mode/css/css.js",

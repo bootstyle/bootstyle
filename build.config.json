@@ -1,0 +1,6 @@
+{
+    "app_dir": "./app/",
+    "app_bower_dir": "./app/bower/",
+    "build_dir": "./build/",
+    "bower_dir": "./bower_components/"
+}

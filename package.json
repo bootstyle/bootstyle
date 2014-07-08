@@ -25,34 +25,61 @@
     "grunt-npm-install": "^0.1.0",
     "load-grunt-tasks": "^0.6.0",
     "protractor": "^0.24.2",
-    "watchify": "^0.10.2"
+    "watchify": "^0.10.2",
+    "gulp": "^3.8.5",
+    "gulp-flatten": "0.0.2",
+    "gulp-bower-files": "~0.2.5",
+    "gulp-load-plugins": "~0.5.3",
+    "gulp-filter": "~0.5.0",
+    "gulp-rimraf": "~0.1.0",
+    "vinyl-source-stream": "~0.1.1",
+    "run-sequence": "~0.3.6",
+    "merge-stream": "~0.1.2",
+    "gulp-minify-css": "~0.3.6",
+    "gulp-concat": "~2.2.0",
+    "gulp-uglify": "~0.3.1",
+    "gulp-util": "~2.2.19",
+    "del": "~0.1.1"
   },
   "engines": {
     "node": "0.10.x"
   },
   "main": "dist/js/app.js",
   "browser": {
-    "angular": "./app/js/bower/angular/angular.js",
-    "angular_sanitize": "./app/js/bower/angular-sanitize/angular-sanitize.js",
-    "angular_spectrum_colorpicker": "./app/js/bower/angular-spectrum-colorpicker/angular-spectrum-colorpicker.js",
-    "bootstrap": "./app/js/bower/bootstrap/bootstrap.js",
-    "codemirror": "./app/js/bower/codemirror/codemirror.js",
-    "codemirror_mode_css": "./app/js/bower/codemirror-mode-css/codemirror-mode-css.js",
-    "codemirror_mode_htmlmixed": "./app/js/bower/codemirror-mode-htmlmixed/codemirror-mode-htmlmixed.js",
-    "codemirror_mode_javascript": "./app/js/bower/codemirror-mode-javascript/codemirror-mode-javascript.js",
-    "codemirror_mode_xml": "./app/js/bower/codemirror-mode-xml/codemirror-mode-xml.js",
-    "FileSaver": "./app/js/bower/FileSaver/FileSaver.js",
-    "jquery": "./app/js/bower/jquery/jquery.js",
-    "modernizr": "./app/js/bower/modernizr/modernizr.js",
-    "spectrum": "./app/js/bower/spectrum/spectrum.js",
-    "tinycolor": "./app/js/bower/tinycolor/tinycolor.js",
+    "angular": "./app/js/bower/angular.js",
+    "angular_sanitize": "./app/js/bower/angular-sanitize.js",
+    "angular_touch": "./app/js/bower/angular-touch.js",
+    "angular_carousel": "./app/js/bower/angular-carousel.js",
+    "angular_spectrum_colorpicker": "./app/js/bower/angular-spectrum-colorpicker.js",
+    "bootstrap": "./app/js/bower/bootstrap.js",
+    "codemirror": "./app/js/bower/codemirror.js",
+    "codemirror_mode_css": "./app/js/bower/css.js",
+    "codemirror_mode_htmlmixed": "./app/js/bower/htmlmixed.js",
+    "codemirror_mode_javascript": "./app/js/bower/javascript.js",
+    "codemirror_mode_xml": "./app/js/bower/xml.js",
+    "FileSaver": "./app/js/bower/FileSaver.js",
+    "jquery": "./app/js/bower/jquery.js",
+    "modernizr": "./app/js/bower/modernizr.js",
+    "spectrum": "./app/js/bower/spectrum.js",
+    "tinycolor": "./app/js/bower/tinycolor.js",
     "tinycolor_v1api": "./app/js/vendor/tinycolor-v1api.js"
   },
   "browserify-shim": {
     "angular": {
       "exports": "angular",
       "depends": [
-          "jquery:$"
+        "jquery:$"
+      ]
+    },
+    "angular_carousel": {
+      "depends": [
+        "angular:angular",
+        "angular_touch:angular_touch"
+      ]
+    },
+    "angular_sanitize": {
+      "depends": [
+        "angular:angular"
       ]
     },
     "angular_spectrum_colorpicker": {
@@ -60,7 +87,7 @@
         "angular:angular"
       ]
     },
-    "angular_sanitize": {
+    "angular_touch": {
       "depends": [
         "angular:angular"
       ]

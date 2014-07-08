@@ -18,4 +18,18 @@ angular.module('bootstyleApp.directives', []).
             },
             templateUrl: '../../partials/_toolbar_toggle.html'
         };
+    }).
+    directive('bsToolbar', function() {
+        return {
+            restrict: 'E',
+            scope: {},
+            templateURL: '../../partials/_bs_toolbar.html',
+            link: function(scope, elem, attrs) {
+
+            },
+            controller: function($scope) {
+
+            }
+
+        }
     });
