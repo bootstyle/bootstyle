@@ -81,9 +81,7 @@
         var jsFilter = gulpFilter('**/*.js');
         var bootstrapLessFilter = gulpFilter('bootstrap/**/*.less');
 
-        return gulpBowerFiles()
-            .pipe(watch())
-            .pipe(plumber())
+        gulpBowerFiles()
             .pipe(cssFilter)
             .pipe(flatten())
             .pipe(gulp.dest(paths.app + 'css/bower'))
