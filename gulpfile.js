@@ -182,7 +182,8 @@
     gulp.task('connect-prod', function() {
         return gulp.src('app')
             .pipe(webserver({
-                port: 80
+                port: 80,
+                fallback: 'index.html'
             }));
     });
 
