@@ -32,6 +32,7 @@
         partials: 'partials/**/*.html',
     };
 
+
     /**
      Clean
      */
@@ -114,7 +115,7 @@
                 'build-partials',
                 'build-root'
             ]
-        )
+        );
     });
 
     gulp.task('build-css', ['clean-build-css'], function() {
@@ -185,6 +186,7 @@
             }));
     });
 
+
     /**
      Open
      */
@@ -192,6 +194,7 @@
         gulp.src(pkg.main)
             .pipe(open("", { url: 'http://localhost:8000' }));
     });
+
 
     /**
      Default
