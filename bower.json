@@ -26,7 +26,7 @@
     "angular": "~1.2.18",
     "angular-sanitize": "~1.2.18",
     "angular-spectrum-colorpicker": "~1.0.13",
-    "bootstrap": "~3.1.1",
+    "bootstrap": "~3.2.0",
     "codemirror": "~4.2.0",
     "FileSaver": "*",
     "fontawesome": "~4.1.0",

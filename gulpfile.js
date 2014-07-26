@@ -78,7 +78,7 @@
         var cssFilter = gulpFilter('**/*.css');
         var fontFilter = gulpFilter([ '**/*.otf', '**/*.eot', '**/*.svg', '**/*.ttf', '**/*.woff' ]);
         var jsFilter = gulpFilter('**/*.js');
-        var bootstrapLessFilter = gulpFilter('bootstrap/**/*.less');
+        var lessFilter = gulpFilter('**/*.less');
 
         gulpBowerFiles()
             .pipe(cssFilter)
@@ -96,7 +96,7 @@
             .pipe(gulp.dest(path.app + 'js/bower'))
             .pipe(jsFilter.restore())
 
-            .pipe(bootstrapLessFilter)
+            .pipe(lessFilter)
             .pipe(flatten())
             .pipe(gulp.dest(path.app + 'less/bower/bootstrap'));
     });
