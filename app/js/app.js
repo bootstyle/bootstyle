@@ -21,12 +21,28 @@ require('spectrum');
 require('tinycolor_v1api');
 
 // bootstyle dependencies
-require('./controllers');
-require('./directives');
-require('./filters');
-require('./services');
+require('./controllers/module');
+require('./controllers/main');
 
-angular.module('bootstyleApp', [
+require('./directives/module');
+require('./directives/range_control');
+require('./directives/toggle_toolbar');
+require('./directives/toolbar');
+require('./directives/version');
+
+require('./filters/module');
+require('./filters/capitalize');
+require('./filters/trustAsHTML');
+
+require('./services/module');
+require('./services/auto_overlay_color');
+require('./services/constants');
+require('./services/read_file');
+require('./services/scheme');
+require('./services/settings');
+require('./services/version');
+
+module.exports = angular.module('bootstyleApp', [
     // Bootstyle Modules
     'bootstyleApp.controllers',
     'bootstyleApp.directives',

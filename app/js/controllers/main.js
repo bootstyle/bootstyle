@@ -1,9 +1,6 @@
 'use strict';
 
-/*
- Controllers
- */
-angular.module('bootstyleApp.controllers', ['ngSanitize']).
+require('./module').
     controller('BootstyleCtrl',
         ['$scope', '$compile', '$timeout', 'read_file', 'auto_overlay_color', 'FONT_CONTRAST', 'scheme',
         function($scope, $compile, $timeout, read_file, auto_overlay_color, FONT_CONTRAST, scheme) {

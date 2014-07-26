@@ -25,11 +25,11 @@
         app: './app/',
         bower: './bower_components/',
         build: './build/',
-        css: 'css/**/*.css',
+        css: 'css/**/*.*',
         fonts: 'fonts/**/*.*',
-        js: 'js/**/*.js',
-        less: 'less/**/*.less',
-        partials: 'partials/**/*.html',
+        js: 'js/**/*.*',
+        less: 'less/**/*.*',
+        partials: 'partials/**/*.*'
     };
 
 
@@ -133,9 +133,7 @@
         var gulpBrowserify = bundleStream.pipe(source('app.js'));
 
         return gulpBrowserify
-            .pipe(watch())
-            .pipe(plumber())
-            .pipe(streamify(uglify({ mangle: true })))
+            //.pipe(streamify(uglify({ mangle: true })))
             .pipe(gulp.dest(path.build + 'js'));
     });
 
@@ -174,8 +172,8 @@
     gulp.task('connect-dev', function() {
         return gulp.src('build')
             .pipe(webserver({
-                livereload: true,
-                fallback: 'index.html'
+                root: ['.'],
+                livereload: true
             }));
     });
 
@@ -204,8 +202,15 @@
         runSequence(
             'build',
             'connect-dev',
-            'open'
+            'watch'
         )
+    });
+
+    /**
+     Watch
+     */
+    gulp.task('watch', function() {
+        gulp.watch([ './app/js/**/*.*', './gulpfile.js' ], ['build-js']);
     });
 
 }());
