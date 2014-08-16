@@ -26,6 +26,7 @@ require('./controllers/main');
 
 require('./directives/module');
 require('./directives/range_control');
+require('./directives/radio_control');
 require('./directives/toggle_toolbar');
 require('./directives/toolbar');
 require('./directives/version');

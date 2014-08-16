@@ -28,7 +28,7 @@
         css: 'css/**/*.*',
         fonts: 'fonts/**/*.*',
         js: 'js/**/*.*',
-        less: 'less/**/*.*',
+        less: 'less/**/*.less',
         partials: 'partials/**/*.*'
     };
 
