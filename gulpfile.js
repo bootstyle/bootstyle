@@ -26,6 +26,7 @@
         app_bower: './app/bower/',
         bower_components: './bower_components/',
         build: './build/',
+        build_bower: './build/bower/',
         css: 'css/**/*.*',
         fonts: 'fonts/**/*.*',
         js: 'js/**/*.*',
@@ -97,7 +98,7 @@
 
         // bootstrap less
         gulp.src(path.bower_components + 'bootstrap/less/**/*.*')
-            .pipe(gulp.dest(path.app_bower + 'less'));
+            .pipe(gulp.dest(path.app_bower + 'less/bootstrap'));
     });
 
 
@@ -118,12 +119,17 @@
     });
 
     gulp.task('build-css', ['clean-build-css'], function() {
-        return gulp.src(path.app + path.css)
+        gulp.src([path.app + path.css])
             .pipe(watch())
             .pipe(plumber())
             .pipe(minifyCSS({ keepSpecialComments: 0 }))
-            //.pipe(concat(pkg.name.toLowerCase() + '.min.css'))
             .pipe(gulp.dest(path.build + 'css'));
+
+        gulp.src([path.app_bower + path.css])
+            .pipe(watch())
+            .pipe(plumber())
+            .pipe(minifyCSS({ keepSpecialComments: 0 }))
+            .pipe(gulp.dest(path.build_bower + 'css'));
     });
 
     gulp.task('build-js', ['clean-build-js'], function() {
@@ -137,28 +143,43 @@
     });
 
     gulp.task('build-fonts', ['clean-build-fonts'], function() {
-        return gulp.src(path.app + path.fonts)
+        gulp.src(path.app + path.fonts)
             .pipe(watch())
             .pipe(plumber())
             .pipe(gulp.dest(path.build + 'fonts'));
+
+        gulp.src(path.app_bower + path.fonts)
+            .pipe(watch())
+            .pipe(plumber())
+            .pipe(gulp.dest(path.build_bower + 'fonts'));
     });
 
     gulp.task('build-less', ['clean-build-less'], function() {
-        return gulp.src(path.app + path.less)
+        gulp.src(path.app + path.less)
             .pipe(watch())
             .pipe(plumber())
             .pipe(gulp.dest(path.build + 'less'));
+
+        gulp.src(path.app_bower + path.less)
+            .pipe(watch())
+            .pipe(plumber())
+            .pipe(gulp.dest(path.build_bower + 'less'));
     });
 
     gulp.task('build-partials', ['clean-build-partials'], function() {
-        return gulp.src(path.app + path.partials)
+        gulp.src(path.app + path.partials)
             .pipe(watch())
             .pipe(plumber())
             .pipe(gulp.dest(path.build + 'partials'));
+
+        gulp.src(path.app_bower + path.partials)
+            .pipe(watch())
+            .pipe(plumber())
+            .pipe(gulp.dest(path.build_bower + 'partials'));
     });
 
     gulp.task('build-root', ['clean-build-root'], function() {
-        return gulp.src(path.app + '*.*')
+        gulp.src(path.app + '*.*')
             .pipe(watch())
             .pipe(plumber())
             .pipe(gulp.dest(path.build));
