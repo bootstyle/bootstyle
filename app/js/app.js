@@ -15,7 +15,6 @@ require('codemirror_mode_xml');
 require('FileSaver');
 require('jquery');
 require('less');
-require('modernizr');
 require('spectrum');
 //require('tinycolor');
 require('tinycolor_v1api');

@@ -58,11 +58,6 @@
         "./less/**/*.*"
       ]
     },
-    "modernizr": {
-      "main": [
-        "./modernizr.js"
-      ]
-    },
     "FileSaver": {
       "main": [
         "./FileSaver.js"

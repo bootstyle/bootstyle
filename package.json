@@ -49,7 +49,6 @@
     "codemirror_mode_xml": "./app/bower/js/xml.js",
     "FileSaver": "./app/bower/js/FileSaver.js",
     "jquery": "./app/bower/js/jquery.js",
-    "modernizr": "./app/bower/js/modernizr.js",
     "spectrum": "./app/bower/js/spectrum.js",
     "tinycolor": "./app/bower/js/tinycolor.js",
     "tinycolor_v1api": "./app/js/vendor/tinycolor-v1api.js"
@@ -110,9 +109,6 @@
     },
     "less": {
       "exports": "global:less"
-    },
-    "modernizr": {
-      "exports": "modernizr"
     },
     "spectrum": {
       "depends": [
