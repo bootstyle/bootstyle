@@ -7,7 +7,7 @@
     var runSequence = require('run-sequence');
 
     var gulp = require('gulp');
-    var gulpBowerFiles = require('gulp-bower-files');
+    var mainBowerFiles = require('main-bower-files');
     var concat = require('gulp-concat');
     var gulpFilter = require('gulp-filter');
     var flatten = require('gulp-flatten');
@@ -23,7 +23,8 @@
     var pkg = require('./package.json');
     var path = {
         app: './app/',
-        bower: './bower_components/',
+        app_bower: './app/bower/',
+        bower_components: './bower_components/',
         build: './build/',
         css: 'css/**/*.*',
         fonts: 'fonts/**/*.*',
@@ -75,30 +76,28 @@
      Copy Bower Components
      */
     gulp.task('copy-bower', ['clean-app-bower'], function() {
-        var cssFilter = gulpFilter('**/*.css');
-        var fontFilter = gulpFilter([ '**/*.otf', '**/*.eot', '**/*.svg', '**/*.ttf', '**/*.woff' ]);
-        var jsFilter = gulpFilter('**/*.js');
-        var lessFilter = gulpFilter('**/*.less');
+        var js_reg = new RegExp('\.js$');
+        var css_reg = new RegExp('\.css$');
+        var font_reg = new RegExp('\.otf$|\.eot$|\.svg$|\.ttf$|\.woff$');
 
-        gulpBowerFiles()
-            .pipe(cssFilter)
+        // css
+        gulp.src(mainBowerFiles({filter: css_reg }), { base: path.bower_components })
             .pipe(flatten())
-            .pipe(gulp.dest(path.app + 'css/bower'))
-            .pipe(cssFilter.restore())
+            .pipe(gulp.dest(path.app_bower + 'css'));
 
-            .pipe(fontFilter)
+        // js
+        gulp.src(mainBowerFiles({filter: js_reg }), { base: path.bower_components })
             .pipe(flatten())
-            .pipe(gulp.dest(path.app + 'fonts/bower'))
-            .pipe(fontFilter.restore())
+            .pipe(gulp.dest(path.app_bower + 'js'));
 
-            .pipe(jsFilter)
+        // font
+        gulp.src(mainBowerFiles({filter: font_reg }), { base: path.bower_components })
             .pipe(flatten())
-            .pipe(gulp.dest(path.app + 'js/bower'))
-            .pipe(jsFilter.restore())
+            .pipe(gulp.dest(path.app_bower + 'fonts'));
 
-            .pipe(lessFilter)
-            .pipe(flatten())
-            .pipe(gulp.dest(path.app + 'less/bower/bootstrap'));
+        // bootstrap less
+        gulp.src(path.bower_components + 'bootstrap/less/**/*.*')
+            .pipe(gulp.dest(path.app_bower + 'less'));
     });
 
 

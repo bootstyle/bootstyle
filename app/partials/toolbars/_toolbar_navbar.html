@@ -1,0 +1,42 @@
+<div id="bs_toolbar_navbar">
+    <div class="bs_toolbar_title">Navbar</div>
+
+    <div class="bs_control">
+        <span class="bs_badge">{{ ctrls.navbar_height.control }}px</span>
+        <label> Height
+            <input type="range" ng-model="ctrls.navbar_height.control" min="20" max="100"/>
+        </label>
+    </div>
+    <div class="bs_control">
+        <span class="bs_badge">{{ ctrls.navbar_margin_bottom.control }}px</span>
+        <label> Margin Bottom
+            <input type="range" ng-model="ctrls.navbar_margin_bottom.control" min="0" max="100"/>
+        </label>
+    </div>
+    <div class="bs_control">
+        <span class="bs_badge">{{ ctrls.navbar_bg.control }}</span>
+        <label>Background</label>
+
+        <div class="input-group">
+            <span class="input-group-addon" colorpicker ng-model="ctrls.navbar_bg.control" style="background-color: {{ ctrls.navbar_bg.control }}"></span>
+            <input class="form-control" type="text" colorpicker ng-model="ctrls.navbar_bg.control"/>
+        </div>
+    </div>
+    <div class="bs_control">
+        <span class="bs_badge">{{ vars['@navbar-inverse-color'] }}</span>
+        <label>Font Color</label>
+
+        <div class="control-group">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="ctrls.navbar_is_auto_color.control">
+                    Auto
+                </label>
+            </div>
+        </div>
+        <div class="input-group" ng-hide="ctrls.navbar_is_auto_color.control">
+            <span class="input-group-addon" colorpicker ng-model="ctrls.navbar_font_color.control" style="background-color: {{ vars['@navbar-inverse-color'] }}"></span>
+            <input class="form-control" type="text" colorpicker ng-model="ctrls.navbar_font_color.control"/>
+        </div>
+    </div>
+</div>

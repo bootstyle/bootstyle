@@ -1,4 +1,9 @@
 <div id="bs_toolbar">
+    <ng-include src=" '/partials/toolbars/_toolbar_navbar.html' "></ng-include>
+    <ng-include src=" '/partials/toolbars/_toolbar_base.html' "></ng-include>
+
+    <hr/>
+
     <div class="bs_brand">
         <i class="bs_icon glyphicon glyphicon-fire"></i>
         <span class="bs_name">Bootstyle</span>
@@ -16,13 +21,11 @@
         <li class="bs_section">Typography</li>
     </ul>
 
-    <bs-range-control bs-title="Border Radius" bs-min="1" bs-max="20" bs-default="4"></bs-range-control>
-    <bs-range-control bs-title="Padding" bs-min="0" bs-max="20" bs-default="10"></bs-range-control>
-    <bs-radio-control bs-title="Testing" bs-items="ABC"></bs-radio-control>
+    <hr/>
 
     <div class="bs_btns">
         <div class="bs_btn bs_btn_block bs_btn_outline">
-            <i class="glyphicon glyphicon-pencil"></i>
+            <i class="fa fa-pencil"></i>
             Edit HTML
         </div>
         <div class="bs_btn bs_btn_block bs_btn_outline">

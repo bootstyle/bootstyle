@@ -8,7 +8,8 @@ require('./module').
                 bs_title: '@bsTitle',
                 bs_min: '@bsMin',
                 bs_max: '@bsMax',
-                bs_default: '@bsDefault'
+                bs_default: '@bsDefault',
+                bs_model: '=bsModel'
             },
             replace: true,
             templateUrl: '/partials/directives/_range_control.html',
