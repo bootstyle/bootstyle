@@ -1,0 +1,35 @@
+<div id="bs_toolbar_buttons">
+    <div class="bs_toolbar_title">Buttons</div>
+
+    <div class="bs_control">
+        <span class="bs_badge">{{ ctrls.button_font_weight.control }}</span>
+        <label> Font Weight
+            <input type="range" ng-model="ctrls.button_font_weight.control" min="100" max="900" step="100"/>
+        </label>
+    </div>
+
+    <div class="bs_control">
+        <label>Styles</label>
+
+        <div class="radio">
+            <label>
+                <input type="radio" name="button_styles" value="default" ng-model="ctrls.button_style.control">
+                Default
+            </label>
+        </div>
+        <div class="radio" ng-repeat="s in stylesheets.button_styles">
+            <label>
+                <input type="radio" name="button_styles" ng-value="s.name" ng-model="ctrls.button_style.control">
+                {{ s.name }}
+            </label>
+        </div>
+    </div>
+
+    <div class="bs_control">
+        <label>
+            <input type="checkbox" ng-model="ctrls.buttons_uppercase.control">
+            Uppercase
+        </label>
+    </div>
+
+</div>

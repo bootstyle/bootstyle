@@ -1,0 +1,35 @@
+<div id="bs_toolbar_color_scheme">
+    <div class="bs_toolbar_title">Color Scheme</div>
+
+    <div class="bs_control">
+        <label>Scheme</label>
+
+        <div class="dropdown color_scheme_dropdown">
+            <div class="dropdown_btn" data-toggle="dropdown">
+                <div class="swatch" ng-repeat="color in color_scheme.active_scheme.colors() track by $index" style="
+                                width: {{ 100/(color_scheme.active_scheme.colors().length) }}%;
+                                background-color: {{ color_scheme.active_scheme.colors()[$index] }};
+                                "></div>
+                <div class="active_scheme_name">{{ color_scheme.active_scheme.name }}</div>
+            </div>
+
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <li ng-repeat="scheme in color_scheme.schemes" ng-click="color_scheme.set_active_scheme(scheme)">
+                    <div class="swatch_container">
+                        <div class="scheme_name">{{ scheme.name }}</div>
+                        <div class="swatch" ng-repeat="color in scheme.colors() track by $index" style="
+                                                                                width: {{ 100/(scheme.colors().length) }}%;
+                                                                                background-color: {{ scheme.colors()[$index] }}">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="bs_control">
+        <label>Base Color</label>
+
+        <spectrum-colorpicker ng-model="color_scheme.base_color" options="{{ spectrum_config }}"></spectrum-colorpicker>
+    </div>
+</div>

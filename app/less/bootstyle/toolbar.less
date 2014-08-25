@@ -40,49 +40,62 @@
         }
     }
 
-    .bs_control {
-        position: relative;
-        padding: @bs_toolbar_control_padding;
-        background: darken(@bs_toolbar_bg, 3%);
-        border-top: 1px solid darken(@bs_toolbar_bg, 15%);
-        border-bottom: 1px solid darken(@bs_toolbar_bg, 15%);
-        box-shadow: 0 1px lighten(@bs_toolbar_bg, 10%);
-        &:hover {
-            .bs_badge {
-                display: block;
+    .bs_toolbars {
+
+        .bs_toolbar_title {
+            color: darken(@bs_toolbar_bg, 10);
+            text-shadow: 0 1px 0 lighten(@bs_toolbar_bg, 10);
+            padding: @bs_toolbar_padding;
+            font-size: 18px;
+        }
+
+        .bs_control {
+            position: relative;
+            padding: @bs_toolbar_control_padding;
+            background: darken(@bs_toolbar_bg, 3%);
+            border-top: 1px solid darken(@bs_toolbar_bg, 15%);
+            border-bottom: 1px solid darken(@bs_toolbar_bg, 15%);
+            box-shadow: 0 1px lighten(@bs_toolbar_bg, 10%);
+            &:hover {
+                .bs_badge {
+                    display: block;
+                }
             }
-        }
 
-        & + .bs_control {
-            margin-top: 1px;
-            border-top-color: transparent;
-        }
+            & + .bs_control {
+                margin-top: 1px;
+                border-top-color: transparent;
+            }
 
-        label {
-            display: block;
-            .user-select(none);
-        }
-        input[type="range"] {
-            width: 70%;
-            cursor: pointer;
-            margin-top: 5px;
-        }
+            label {
+                display: block;
+                .user-select(none);
+            }
+            input[type="range"] {
+                width: 70%;
+                cursor: pointer;
+                margin-top: 5px;
+            }
+            input[type="text"] {
+                color: black;
+            }
 
-        .bs_badge {
-            position: absolute;
-            display: none;
-            top: @bs_toolbar_control_padding;
-            right: @bs_toolbar_control_padding;
-            left: auto;
-            line-height: 1.7;
-            text-align: center;
-            font-size: 87.5%;
-            color: lighten(@bs_toolbar_bg, 35%);
-        }
+            .bs_badge {
+                position: absolute;
+                display: none;
+                top: @bs_toolbar_control_padding;
+                right: @bs_toolbar_control_padding;
+                left: auto;
+                line-height: 1.7;
+                text-align: center;
+                font-size: 87.5%;
+                color: lighten(@bs_toolbar_bg, 35%);
+            }
 
-        .bs_label {
-            display: block;
-            margin-bottom: 5px;
+            .bs_label {
+                display: block;
+                margin-bottom: 5px;
+            }
         }
     }
 

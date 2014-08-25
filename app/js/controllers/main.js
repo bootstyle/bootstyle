@@ -5,17 +5,7 @@ require('./module').
         ['$scope', '$compile', '$timeout', 'read_file', 'auto_overlay_color', 'FONT_CONTRAST', 'scheme',
         function($scope, $compile, $timeout, read_file, auto_overlay_color, FONT_CONTRAST, scheme) {
 
-        // TODO: delete, this is for testing
-
-            $scope.radios = [
-                {
-                    label: 'Foo Label',
-                    value: 'Foo Value'
-                },
-            ];
-
-        ////////////////////////////////////
-            $scope.initialized = false;
+        $scope.initialized = false;
 
         $scope.init_bootstyle = function() {
 

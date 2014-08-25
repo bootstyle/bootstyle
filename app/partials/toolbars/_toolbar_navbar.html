@@ -26,17 +26,14 @@
         <span class="bs_badge">{{ vars['@navbar-inverse-color'] }}</span>
         <label>Font Color</label>
 
-        <div class="control-group">
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" ng-model="ctrls.navbar_is_auto_color.control">
-                    Auto
-                </label>
-            </div>
-        </div>
-        <div class="input-group" ng-hide="ctrls.navbar_is_auto_color.control">
-            <span class="input-group-addon" colorpicker ng-model="ctrls.navbar_font_color.control" style="background-color: {{ vars['@navbar-inverse-color'] }}"></span>
-            <input class="form-control" type="text" colorpicker ng-model="ctrls.navbar_font_color.control"/>
+        <label>
+            <input type="checkbox" ng-model="ctrls.navbar_is_auto_color.control">
+            Auto
+        </label>
+
+        <div ng-hide="ctrls.navbar_is_auto_color.control">
+            <span colorpicker ng-model="ctrls.navbar_font_color.control" style="background-color: {{ vars['@navbar-inverse-color'] }}"></span>
+            <input type="text" colorpicker ng-model="ctrls.navbar_font_color.control"/>
         </div>
     </div>
 </div>

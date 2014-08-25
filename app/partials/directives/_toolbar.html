@@ -7,23 +7,29 @@
 
     <hr/>
 
-    <ng-include src=" '/partials/toolbars/_toolbar_navbar.html' "></ng-include>
-    <ng-include src=" '/partials/toolbars/_toolbar_base.html' "></ng-include>
-
-    <hr/>
-
     <ul class="bs_sections">
-        <li class="bs_section">Base</li>
-        <li class="bs_section">Navbar</li>
-        <li class="bs_section">Jumbotron</li>
-        <li class="bs_section">Headings</li>
-        <li class="bs_section">Buttons</li>
-        <li class="bs_section">Colors</li>
-        <li class="bs_section">Color Scheme</li>
-        <li class="bs_section">Typography</li>
+        <li class="bs_section" ng-click="bs_toolbar = 'base'">Base</li>
+        <li class="bs_section" ng-click="bs_toolbar = 'navbar'">Navbar</li>
+        <li class="bs_section" ng-click="bs_toolbar = 'jumbotron'">Jumbotron</li>
+        <li class="bs_section" ng-click="bs_toolbar = 'headings'">Headings</li>
+        <li class="bs_section" ng-click="bs_toolbar = 'buttons'">Buttons</li>
+        <li class="bs_section" ng-click="bs_toolbar = 'colors'">Colors</li>
+        <li class="bs_section" ng-click="bs_toolbar = 'color_scheme'">Color Scheme (WIP)</li>
+        <li class="bs_section" ng-click="bs_toolbar = 'typography'">Typography (WIP)</li>
     </ul>
 
     <hr/>
+
+    <div class="bs_toolbars">
+        <ng-include ng-show="bs_toolbar == 'navbar'" src=" '/partials/toolbars/_toolbar_navbar.html' "></ng-include>
+        <ng-include ng-show="bs_toolbar == 'base'" src=" '/partials/toolbars/_toolbar_base.html' "></ng-include>
+        <ng-include ng-show="bs_toolbar == 'jumbotron'" src=" '/partials/toolbars/_toolbar_jumbotron.html' "></ng-include>
+        <ng-include ng-show="bs_toolbar == 'headings'" src=" '/partials/toolbars/_toolbar_headings.html' "></ng-include>
+        <ng-include ng-show="bs_toolbar == 'buttons'" src=" '/partials/toolbars/_toolbar_buttons.html' "></ng-include>
+        <ng-include ng-show="bs_toolbar == 'colors'" src=" '/partials/toolbars/_toolbar_colors.html' "></ng-include>
+        <ng-include ng-show="bs_toolbar == 'color_scheme'" src=" '/partials/toolbars/_toolbar_color_scheme.html' "></ng-include>
+        <ng-include ng-show="bs_toolbar == 'typography'" src=" '/partials/toolbars/_toolbar_typography.html' "></ng-include>
+    </div>
 
     <div class="bs_btns">
         <div class="bs_btn bs_btn_block bs_btn_outline">
