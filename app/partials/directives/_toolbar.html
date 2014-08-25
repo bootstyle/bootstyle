@@ -7,28 +7,15 @@
 
     <hr/>
 
-    <select ng-model="bs_toolbar">
-        <option value="base">Base</option>
-        <option value="navbar">Navbar</option>
-        <option value="jumbotron">Jumbotron</option>
-        <option value="headings">Headings</option>
-        <option value="buttons">Buttons</option>
-        <option value="colors">Colors</option>
-        <option value="color_scheme">Color Scheme (WIP)</option>
-        <option value="typography">Typography (WIP)</option>
-    </select>
-
-    <hr/>
-
     <div class="bs_toolbars">
-        <ng-include ng-show="bs_toolbar == 'navbar'" src=" '/partials/toolbars/_toolbar_navbar.html' "></ng-include>
-        <ng-include ng-show="bs_toolbar == 'base'" src=" '/partials/toolbars/_toolbar_base.html' "></ng-include>
-        <ng-include ng-show="bs_toolbar == 'jumbotron'" src=" '/partials/toolbars/_toolbar_jumbotron.html' "></ng-include>
-        <ng-include ng-show="bs_toolbar == 'headings'" src=" '/partials/toolbars/_toolbar_headings.html' "></ng-include>
-        <ng-include ng-show="bs_toolbar == 'buttons'" src=" '/partials/toolbars/_toolbar_buttons.html' "></ng-include>
-        <ng-include ng-show="bs_toolbar == 'colors'" src=" '/partials/toolbars/_toolbar_colors.html' "></ng-include>
-        <ng-include ng-show="bs_toolbar == 'color_scheme'" src=" '/partials/toolbars/_toolbar_color_scheme.html' "></ng-include>
-        <ng-include ng-show="bs_toolbar == 'typography'" src=" '/partials/toolbars/_toolbar_typography.html' "></ng-include>
+        <ng-include src=" '/partials/toolbars/_toolbar_navbar.html' "></ng-include>
+        <ng-include src=" '/partials/toolbars/_toolbar_base.html' "></ng-include>
+        <ng-include src=" '/partials/toolbars/_toolbar_jumbotron.html' "></ng-include>
+        <ng-include src=" '/partials/toolbars/_toolbar_headings.html' "></ng-include>
+        <ng-include src=" '/partials/toolbars/_toolbar_buttons.html' "></ng-include>
+        <ng-include src=" '/partials/toolbars/_toolbar_colors.html' "></ng-include>
+        <ng-include src=" '/partials/toolbars/_toolbar_color_scheme.html' "></ng-include>
+        <ng-include src=" '/partials/toolbars/_toolbar_typography.html' "></ng-include>
     </div>
 
     <div class="bs_btns">

@@ -9,8 +9,6 @@ require('./module').
 
         $scope.init_bootstyle = function() {
 
-            $scope.bs_toolbar = 'base';
-
             $scope.fonts = {
                 google: {
                     serif: {
