@@ -7,16 +7,16 @@
 
     <hr/>
 
-    <ul class="bs_sections">
-        <li class="bs_section" ng-click="bs_toolbar = 'base'">Base</li>
-        <li class="bs_section" ng-click="bs_toolbar = 'navbar'">Navbar</li>
-        <li class="bs_section" ng-click="bs_toolbar = 'jumbotron'">Jumbotron</li>
-        <li class="bs_section" ng-click="bs_toolbar = 'headings'">Headings</li>
-        <li class="bs_section" ng-click="bs_toolbar = 'buttons'">Buttons</li>
-        <li class="bs_section" ng-click="bs_toolbar = 'colors'">Colors</li>
-        <li class="bs_section" ng-click="bs_toolbar = 'color_scheme'">Color Scheme (WIP)</li>
-        <li class="bs_section" ng-click="bs_toolbar = 'typography'">Typography (WIP)</li>
-    </ul>
+    <select ng-model="bs_toolbar">
+        <option value="base">Base</option>
+        <option value="navbar">Navbar</option>
+        <option value="jumbotron">Jumbotron</option>
+        <option value="headings">Headings</option>
+        <option value="buttons">Buttons</option>
+        <option value="colors">Colors</option>
+        <option value="color_scheme">Color Scheme (WIP)</option>
+        <option value="typography">Typography (WIP)</option>
+    </select>
 
     <hr/>
 
