@@ -3,32 +3,30 @@
     <div class="bs_toolbar_title">Base</div>
     <div class="bs_control">
         <span class="bs_badge">{{ ctrls.border_radius.control }}px</span>
-        <label> Border Radius
-            <input type="range" ng-model="ctrls.border_radius.control" min="0" max="30"/>
-        </label>
+        <label class="bs_input_label">Border Radius</label>
+        <input type="range" ng-model="ctrls.border_radius.control" min="0" max="30"/>
     </div>
 
     <div class="bs_control bs_range_control">
         <small class="bs_badge">{{ ctrls.padding.control }}px</small>
-        <label> Padding
-            <input type="range" ng-model="ctrls.padding.control" min="1" max="20"/>
-        </label>
+        <label class="bs_input_label">Padding</label>
+        <input type="range" ng-model="ctrls.padding.control" min="1" max="20"/>
     </div>
 
     <div class="bs_control">
-        <label>Container</label>
-        <label>
+        <label class="bs_input_label">Container</label>
+        <label class="bs_input_label">
             <input type="radio" name="container_classes" value="container" ng-model="ctrls.container_class.control">
             Fixed
         </label>
-        <label>
+        <label class="bs_input_label">
             <input type="radio" name="container_classes" value="container-fluid" ng-model="ctrls.container_class.control">
             Fluid
         </label>
     </div>
 
     <div class="bs_control">
-        <label>
+        <label class="bs_input_label">
             <input type="checkbox" ng-model="ctrls.bootstrap_theme.control">
             Bootstrap Theme
         </label>

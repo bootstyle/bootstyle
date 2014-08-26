@@ -26,6 +26,7 @@
 
     .bs_toolbars {
         position: absolute;
+        width: 100%;
         top: 50px;
         bottom: 160px;
         overflow-y: scroll;
@@ -37,6 +38,26 @@
             font-size: 18px;
         }
 
+        .bs_badge {
+            position: absolute;
+            padding: 0;
+            top: @bs_toolbar_control_padding;
+            right: @bs_toolbar_control_padding;
+            line-height: 1.7;
+            text-align: center;
+            font-family: Monospace;
+            font-size: 87.5%;
+            color: lighten(@bs_toolbar_bg, 35%);
+            border: none;
+            opacity: 0.15;
+
+            &.bs_badge_swatch {
+                display: block;
+                height: 20px;
+                width: 40px;
+            }
+        }
+
         .bs_control {
             position: relative;
             padding: @bs_toolbar_control_padding;
@@ -46,43 +67,79 @@
             box-shadow: 0 1px lighten(@bs_toolbar_bg, 10%);
             &:hover {
                 .bs_badge {
-                    display: block;
+                    opacity: 1;
                 }
             }
 
-            & + .bs_control {
+            & + .bs_control,
+            & + .bs_control_group {
                 margin-top: 1px;
                 border-top-color: transparent;
             }
 
-            label {
+            .bs_input_label {
                 display: block;
                 .user-select(none);
             }
+
             input[type="range"] {
                 width: 70%;
                 cursor: pointer;
                 margin-top: 5px;
             }
+
             input[type="text"] {
-                color: black;
+                padding-left: 8px;
+                color: lighten(@bs_toolbar_bg, 10);
+                background: darken(@bs_toolbar_bg, 7);
+                border: none;
+                border-radius: 2px;
+                &:focus {
+                    box-shadow: none;
+                    border: none;
+                    outline: none;
+                    color: lighten(@bs_toolbar_bg, 40);
+                    background: darken(@bs_toolbar_bg, 10);
+                }
             }
 
-            .bs_badge {
-                position: absolute;
-                display: none;
-                top: @bs_toolbar_control_padding;
-                right: @bs_toolbar_control_padding;
-                left: auto;
-                line-height: 1.7;
-                text-align: center;
-                font-size: 87.5%;
-                color: lighten(@bs_toolbar_bg, 35%);
+        }
+
+        .bs_control_group {
+            position: relative;
+            border-top: 1px solid darken(@bs_toolbar_bg, 15%);
+            border-bottom: 1px solid darken(@bs_toolbar_bg, 15%);
+            box-shadow: 0 1px lighten(@bs_toolbar_bg, 10%);
+            background: darken(@bs_toolbar_bg, 3%);
+
+            &:hover {
+                .bs_badge {
+                    opacity: 1;
+                }
             }
 
-            .bs_label {
-                display: block;
-                margin-bottom: 5px;
+            & + .bs_control,
+            & + .bs_control_group {
+                margin-top: 1px;
+                border-top-color: transparent;
+            }
+
+            .bs_control_group_label {
+                margin: 0;
+                padding: @bs_toolbar_padding;
+                padding-bottom: 0;
+            }
+
+            .bs_control {
+                margin-top: 0;
+                border: none;
+                box-shadow: none;
+                background: none;
+
+                .bs_input_label {
+                    font-weight: 400;
+                    color: lighten(@bs_toolbar_bg, 30);
+                }
             }
         }
     }

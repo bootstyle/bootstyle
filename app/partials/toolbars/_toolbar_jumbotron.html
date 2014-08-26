@@ -14,12 +14,10 @@
         </label>
     </div>
     <div class="bs_control">
+        <span class="bs_badge bs_badge_swatch" style="background-color: {{ ctrls.jumbotron_bg.control }}"></span>
         <label>Background</label>
 
-        <div class="input-group">
-            <span class="input-group-addon" colorpicker ng-model="ctrls.jumbotron_bg.control" style="background-color: {{ ctrls.jumbotron_bg.control }}"></span>
-            <input class="form-control" type="text" colorpicker ng-model="ctrls.jumbotron_bg.control"/>
-        </div>
+        <input type="text" colorpicker ng-model="ctrls.jumbotron_bg.control"/>
     </div>
     <div class="bs_control">
         <label>Font Colors</label>
@@ -36,7 +34,7 @@
     <div class="bs_control" ng-show="ctrls.jumbotron_is_auto_color.control">
         <span class="bs_badge">{{ ctrls.jumbotron_contrast.control }}</span>
         <label> Contrast
-            <input type="range" ng-model="ctrls.jumbotron_contrast.control" min="0" max="1" step="0.01"/>
+            <input type="range" ng-model="ctrls.jumbotron_contrast.control" min="0" max="100"/>
         </label>
     </div>
     <div class="bs_control" ng-hide="ctrls.jumbotron_is_auto_color.control">

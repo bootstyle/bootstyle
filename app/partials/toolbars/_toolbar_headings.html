@@ -62,7 +62,7 @@
     <div class="bs_control">
         <span class="bs_badge">{{ ctrls.headings_font_contrast.control }}</span>
         <label>Contrast
-            <input type="range" ng-model="ctrls.headings_font_contrast.control" min="0" max="1" step="0.01"/>
+            <input type="range" ng-model="ctrls.headings_font_contrast.control" min="0" max="100"/>
         </label>
     </div>
     <div class="bs_control">
@@ -72,17 +72,15 @@
         </label>
     </div>
     <div class="bs_control">
-        <span class="bs_badge">{{ vars['@headings-color'] }}</span>
+        <span class="bs_badge bs_badge_swatch" style="background: {{ vars['@headings-color'] }}"></span>
         <label>Color</label>
 
         <label>
             <input type="checkbox" ng-model="ctrls.headings_is_auto_color.control">
             Auto
         </label>
-        <div ng-hide="ctrls.headings_is_auto_color.control">
-            <span colorpicker ng-model="ctrls.headings_font_color.control" style="background-color: {{ vars['@headings-color'] }}"></span>
-            <input type="text" colorpicker ng-model="ctrls.headings_font_color.control"/>
-        </div>
+
+        <input ng-hide="ctrls.headings_is_auto_color.control" type="text" ng-model="ctrls.headings_font_color.control"/>
     </div>
 
 </div>

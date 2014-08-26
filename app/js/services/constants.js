@@ -2,4 +2,4 @@
 
 require('./module').
 
-    constant('FONT_CONTRAST', 0.8);
+    constant('FONT_CONTRAST', 80);

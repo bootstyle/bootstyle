@@ -1,29 +1,38 @@
+/* Replacer (the little preview div that shows up instead of the <input>) */
+.sp-replacer {
+    background: none;
+    &:hover,
+    &.sp-active {
+        color: #fff;
+    }
+
+    &.sp-disabled {
+        color: silver;
+    }
+
+    .sp-preview {
+        margin: 0;
+        width: 100%;
+        border: none;
+
+        .sp-preview-inner {
+
+        }
+    }
+
+    .sp-dd {
+        display: none;
+    }
+}
+
 /* Container */
 .sp_bootstyle {
     &.sp-container {
-        background-color: #333;
-        border: solid 1px #111;
-        border-radius: 3px;
-    }
-
-    /* Replacer (the little preview div that shows up instead of the <input>) */
-    &.sp-replacer {
-        width: 100%;
+        background: #222;
         border: none;
-        padding: 0;
-        &:hover,
-        &.sp-active {
-            color: #fff;
-        }
-
-        &.sp-disabled {
-            color: silver;
-        }
-    }
-    .sp-preview {
-        width: 100%;
-        border: none;
-        height: 30px;
+        border-radius: 2px;
+        left: 98px !important;
+        box-shadow: 0 2px 3px rgba(0,0,0,0.3);
     }
 
     .sp-cancel {
@@ -31,10 +40,10 @@
     }
 
     .sp-color, .sp-hue, .sp-clear, .sp-initial {
-        box-shadow: 0 1px 2px #222;
-        border: none;
-        border-bottom: 1px solid #444;
-        border-right: 1px solid #444;
+        box-shadow: 0 1px 3px #111;
+        border: 1px solid #000;
+        border-bottom-color: #333;
+        border-right-color: #333;
     }
 
     /* Input */

@@ -297,11 +297,12 @@ require('./module').
                     }
                 }
             }
-            WebFont.load({
-                google: {
-                    families: google_fonts
-                }
-            });
+            // TODO: lazy load
+//            WebFont.load({
+//                google: {
+//                    families: google_fonts
+//                }
+//            });
 
 
             /*
@@ -379,12 +380,12 @@ require('./module').
             $scope.spectrum_config = {
                 clickoutFiresChange: true,
                 containerClassName: 'sp_bootstyle',
-                replacerClassName: 'sp_bootstyle',
+                replacerClassName: 'bs_badge bs_badge_swatch',
                 preferredFormat: "hex",
                 showButtons: false,
                 showInitial: true,
-                showInput: true,
-                showPalette: true,
+                showInput: false,
+                showPalette: false,
                 showSelectionPalette: true
             };
 
@@ -502,6 +503,27 @@ require('./module').
                         $scope.vars['@font-size-base'] = $scope.ctrls.font_size.control + 'px';
                     }
                 },
+                grays: {
+                    control: {
+                        darkest: 13.50,
+                        lightest: 93.50
+                    },
+                    calc: function() {
+                        var min = parseInt($scope.ctrls.grays.control.darkest);
+                        var max = parseInt($scope.ctrls.grays.control.lightest);
+                        var range = max - min;
+
+                        var gray_hex = function(lightness) {
+                            return tinycolor('#000').lighten(range * lightness + min).toHexString();
+                        };
+
+                        $scope.vars['@gray-darker']     = gray_hex(0);
+                        $scope.vars['@gray-dark']       = gray_hex(0.08125);
+                        $scope.vars['@gray']            = gray_hex(0.25);
+                        $scope.vars['@gray-light']      = gray_hex(0.415);
+                        $scope.vars['@gray-lighter']    = gray_hex(1);
+                    }
+                },
                 font_contrast: {
                     control: FONT_CONTRAST
                 },
@@ -513,7 +535,7 @@ require('./module').
                         $scope.vars['@font-size-h3'] = Math.floor($scope.ctrls.headings_font_size.control * 1.7) + 'px';
                         $scope.vars['@font-size-h4'] = Math.floor($scope.ctrls.headings_font_size.control * 1.25) + 'px';
                         $scope.vars['@font-size-h5'] = Math.floor($scope.ctrls.headings_font_size.control) + 'px';
-                        $scope.vars['@font-size-h6'] = Math.floor($scope.ctrls.headings_font_size.control * FONT_CONTRAST) + 'px';
+                        $scope.vars['@font-size-h6'] = Math.floor($scope.ctrls.headings_font_size.control * 0.85) + 'px';
                     }
                 },
                 headings_font_weight: {
@@ -569,7 +591,7 @@ require('./module').
                     }
                 },
                 jumbotron_bg: {
-                    control: '#eee',
+                    control: '@gray-lighter',
                     calc: function() {
                         $scope.vars['@jumbotron-bg'] = $scope.ctrls.jumbotron_bg.control;
                     }
@@ -650,14 +672,18 @@ require('./module').
                         var color;
 
                         if ($scope.ctrls.navbar_is_auto_color.control) {
-                            color = auto_overlay_color($scope.ctrls.navbar_bg.control, $scope.ctrls.font_contrast.control);
+                            color = auto_overlay_color($scope.ctrls.navbar_bg.control);
                         } else {
                             color = $scope.ctrls.navbar_font_color.control;
                         }
 
+                        console.log('Color is ' + color);
                         $scope.vars['@navbar-inverse-color'] = color;
                         $scope.vars['@navbar-inverse-link-color'] = color;
                     }
+                },
+                navbar_font_contrast: {
+                    control: FONT_CONTRAST
                 },
                 navbar_is_auto_color: {
                     control: true

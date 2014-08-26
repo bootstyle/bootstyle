@@ -3,37 +3,43 @@
 
     <div class="bs_control">
         <span class="bs_badge">{{ ctrls.navbar_height.control }}px</span>
-        <label> Height
-            <input type="range" ng-model="ctrls.navbar_height.control" min="20" max="100"/>
-        </label>
+        <label class="bs_control_label">Height</label>
+        <input type="range" ng-model="ctrls.navbar_height.control" min="20" max="100"/>
     </div>
     <div class="bs_control">
         <span class="bs_badge">{{ ctrls.navbar_margin_bottom.control }}px</span>
-        <label> Margin Bottom
-            <input type="range" ng-model="ctrls.navbar_margin_bottom.control" min="0" max="100"/>
-        </label>
+        <label> Margin Bottom</label>
+        <input type="range" ng-model="ctrls.navbar_margin_bottom.control" min="0" max="100"/>
     </div>
     <div class="bs_control">
-        <span class="bs_badge">{{ ctrls.navbar_bg.control }}</span>
+        <span class="bs_badge bs_badge_swatch" style="background-color: {{ ctrls.navbar_bg.control }}"></span>
         <label>Background</label>
 
-        <div class="input-group">
-            <span class="input-group-addon" colorpicker ng-model="ctrls.navbar_bg.control" style="background-color: {{ ctrls.navbar_bg.control }}"></span>
-            <input class="form-control" type="text" colorpicker ng-model="ctrls.navbar_bg.control"/>
-        </div>
+        <input type="text" ng-model="ctrls.navbar_bg.control"/>
+        <spectrum-colorpicker ng-model="ctrls.navbar_bg.control" options="{{ spectrum_config }}"></spectrum-colorpicker>
+
     </div>
-    <div class="bs_control">
-        <span class="bs_badge">{{ vars['@navbar-inverse-color'] }}</span>
-        <label>Font Color</label>
+    <div class="bs_control_group">
+        <span class="bs_badge" ng-show="ctrls.navbar_is_auto_color.control">{{ vars['@navbar-inverse-color'] }}</span>
+        <label class="bs_control_group_label">Font Color</label>
 
-        <label>
-            <input type="checkbox" ng-model="ctrls.navbar_is_auto_color.control">
-            Auto
-        </label>
+        <div class="bs_control">
+            <label class="bs_input_label">
+                <input type="checkbox" ng-model="ctrls.navbar_is_auto_color.control">
+                Auto
+            </label>
+        </div>
 
-        <div ng-hide="ctrls.navbar_is_auto_color.control">
-            <span colorpicker ng-model="ctrls.navbar_font_color.control" style="background-color: {{ vars['@navbar-inverse-color'] }}"></span>
-            <input type="text" colorpicker ng-model="ctrls.navbar_font_color.control"/>
+        <div class="bs_control" ng-show="ctrls.navbar_is_auto_color.control">
+            <span class="bs_badge">{{ ctrls.navbar_font_contrast.control }}</span>
+            <label class="bs_input_label">Contrast</label>
+            <input type="range" ng-model="ctrls.navbar_font_contrast.control" min="0" max="100"/>
+        </div>
+
+        <div class="bs_control" ng-hide="ctrls.navbar_is_auto_color.control">
+            <label class="bs_input_label">Color</label>
+            <input type="text" ng-model="ctrls.navbar_font_color.control"/>
+            <spectrum-colorpicker ng-model="ctrls.navbar_font_color.control" options="{{ spectrum_config }}"></spectrum-colorpicker>
         </div>
     </div>
 </div>
