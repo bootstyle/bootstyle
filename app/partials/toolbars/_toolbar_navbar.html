@@ -3,17 +3,17 @@
 
     <div class="bs_control">
         <span class="bs_badge">{{ ctrls.navbar_height.control }}px</span>
-        <label class="bs_control_label">Height</label>
+        <label class="bs_input_label">Height</label>
         <input type="range" ng-model="ctrls.navbar_height.control" min="20" max="100"/>
     </div>
     <div class="bs_control">
         <span class="bs_badge">{{ ctrls.navbar_margin_bottom.control }}px</span>
-        <label> Margin Bottom</label>
+        <label class="bs_input_label">Margin Bottom</label>
         <input type="range" ng-model="ctrls.navbar_margin_bottom.control" min="0" max="100"/>
     </div>
     <div class="bs_control">
         <span class="bs_badge bs_badge_swatch" style="background-color: {{ ctrls.navbar_bg.control }}"></span>
-        <label>Background</label>
+        <label class="bs_input_label">Background</label>
 
         <input type="text" ng-model="ctrls.navbar_bg.control"/>
         <spectrum-colorpicker ng-model="ctrls.navbar_bg.control" options="{{ spectrum_config }}"></spectrum-colorpicker>

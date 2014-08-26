@@ -10,8 +10,10 @@
 
     .bs_brand {
         font-size: 18px;
-        padding: @bs_toolbar_padding @bs_toolbar_padding 0 @bs_toolbar_padding;
+        padding: @bs_toolbar_padding;
         text-shadow: 0 2px darken(@bs_toolbar_bg, 10%);
+        background: lighten(@bs_toolbar_bg, 5);
+        box-shadow: 0 1px 4px darken(@bs_toolbar_bg, 10);
 
         .bs_name {
             letter-spacing: -1px;
@@ -32,10 +34,11 @@
         overflow-y: scroll;
 
         .bs_toolbar_title {
-            color: darken(@bs_toolbar_bg, 10);
-            text-shadow: 0 1px 0 lighten(@bs_toolbar_bg, 10);
             padding: @bs_toolbar_padding;
+            font-weight: 900;
             font-size: 18px;
+            color: lighten(@bs_toolbar_bg, 30);
+            text-transform: uppercase;
         }
 
         .bs_badge {
@@ -61,10 +64,7 @@
         .bs_control {
             position: relative;
             padding: @bs_toolbar_control_padding;
-            background: darken(@bs_toolbar_bg, 3%);
-            border-top: 1px solid darken(@bs_toolbar_bg, 15%);
-            border-bottom: 1px solid darken(@bs_toolbar_bg, 15%);
-            box-shadow: 0 1px lighten(@bs_toolbar_bg, 10%);
+            border-bottom: 2px solid darken(@bs_toolbar_bg, 3%);
             &:hover {
                 .bs_badge {
                     opacity: 1;
@@ -80,12 +80,16 @@
             .bs_input_label {
                 display: block;
                 .user-select(none);
+                font-weight: 400;
+                font-size: 13px;
+                color: lighten(@bs_toolbar_bg, 30);
             }
 
             input[type="range"] {
                 width: 70%;
                 cursor: pointer;
                 margin-top: 5px;
+                opacity: 0.75;
             }
 
             input[type="text"] {
@@ -107,11 +111,7 @@
 
         .bs_control_group {
             position: relative;
-            border-top: 1px solid darken(@bs_toolbar_bg, 15%);
-            border-bottom: 1px solid darken(@bs_toolbar_bg, 15%);
-            box-shadow: 0 1px lighten(@bs_toolbar_bg, 10%);
-            background: darken(@bs_toolbar_bg, 3%);
-
+            border-bottom: 2px solid darken(@bs_toolbar_bg, 3%);
             &:hover {
                 .bs_badge {
                     opacity: 1;
@@ -128,6 +128,8 @@
                 margin: 0;
                 padding: @bs_toolbar_padding;
                 padding-bottom: 0;
+                font-weight: 400;
+                font-size: 13px;
             }
 
             .bs_control {
@@ -135,24 +137,24 @@
                 border: none;
                 box-shadow: none;
                 background: none;
-
-                .bs_input_label {
-                    font-weight: 400;
-                    color: lighten(@bs_toolbar_bg, 30);
-                }
             }
         }
     }
 
     .bs_btns {
         position: absolute;
-        bottom: @bs_toolbar_padding;
-        left: @bs_toolbar_padding;
-        right: @bs_toolbar_padding;
+        padding: @bs_toolbar_padding;
+        bottom: 0;
+        left: 0;
+        right: 0;
         height: auto;
+        background: lighten(@bs_toolbar_bg, 5);
+        box-shadow: 0 -1px 4px darken(@bs_toolbar_bg, 10);
 
         .bs_btn {
-            margin-top: @bs_toolbar_padding;
+            & + .bs_btn {
+                margin-top: @bs_toolbar_padding;
+            }
         }
     }
 

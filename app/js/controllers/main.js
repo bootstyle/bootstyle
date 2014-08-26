@@ -6,6 +6,7 @@ require('./module').
         function($scope, $compile, $timeout, read_file, auto_overlay_color, FONT_CONTRAST, scheme) {
 
         $scope.initialized = false;
+        $scope.is_compiling_less = false;
 
         $scope.init_bootstyle = function() {
 
@@ -677,7 +678,6 @@ require('./module').
                             color = $scope.ctrls.navbar_font_color.control;
                         }
 
-                        console.log('Color is ' + color);
                         $scope.vars['@navbar-inverse-color'] = color;
                         $scope.vars['@navbar-inverse-link-color'] = color;
                     }
@@ -740,7 +740,7 @@ require('./module').
              */
             $scope.settings = {
                 show_toolbar: true,
-                RECOMPILE_LESS_DELAY: 100
+                RECOMPILE_LESS_DELAY: 120
             };
 
 
@@ -903,9 +903,7 @@ require('./module').
 
         // Watch for changes
         $scope.$watch('[ctrls]', function(newValue, oldValue) {
-
             $scope.ctrls.run_calcs();
-
             $scope.last_LESS_edit = Date.now();
             $scope.timerRecompileLESS();
         }, true);
@@ -920,7 +918,7 @@ require('./module').
                     $scope.recompileLESS();
                 }
 
-            }, 20);
+            }, 5);
         };
 
         // Gather stylesheets and recompile LESS
