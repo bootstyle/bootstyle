@@ -1,4 +1,4 @@
-<div id="bs_toolbar_color_scheme">
+<div class="bs_toolbar" id="bs_toolbar_color_scheme">
     <div class="bs_toolbar_title">Color Scheme</div>
 
     <div class="bs_control">
@@ -28,8 +28,8 @@
     </div>
 
     <div class="bs_control">
-        <label>Base Color</label>
-
+        <label class="bs_input_label">Base Color</label>
+        <input type="text" ng-model="color_scheme.base_color"/>
         <spectrum-colorpicker ng-model="color_scheme.base_color" options="{{ spectrum_config }}"></spectrum-colorpicker>
     </div>
 </div>

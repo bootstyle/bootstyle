@@ -2,8 +2,8 @@
 
 require('./module').
     controller('BootstyleCtrl',
-        ['$scope', '$compile', '$timeout', 'read_file', 'auto_overlay_color', 'FONT_CONTRAST', 'scheme',
-        function($scope, $compile, $timeout, read_file, auto_overlay_color, FONT_CONTRAST, scheme) {
+        ['$scope', '$compile', '$timeout', 'read_file', 'auto_overlay_color', 'FONT_CONTRAST', 'RECOMPILE_LESS_DELAY', 'scheme',
+        function($scope, $compile, $timeout, read_file, auto_overlay_color, FONT_CONTRAST, RECOMPILE_LESS_DELAY, scheme) {
 
         $scope.initialized = false;
         $scope.is_compiling_less = false;
@@ -383,6 +383,7 @@ require('./module').
                 containerClassName: 'sp_bootstyle',
                 replacerClassName: 'bs_badge bs_badge_swatch',
                 preferredFormat: "hex",
+                showAlpha: true,
                 showButtons: false,
                 showInitial: true,
                 showInput: false,
@@ -495,9 +496,6 @@ require('./module').
                         }
                     }
                 },
-                container_class: {
-                    control: 'container'
-                },
                 font_size: {
                     control: 14,
                     calc: function() {
@@ -525,9 +523,6 @@ require('./module').
                         $scope.vars['@gray-lighter']    = gray_hex(1);
                     }
                 },
-                font_contrast: {
-                    control: FONT_CONTRAST
-                },
                 headings_font_size: {
                     control: 14,
                     calc: function() {
@@ -545,25 +540,11 @@ require('./module').
                         $scope.vars['@headings-font-weight'] = $scope.ctrls.headings_font_weight.control;
                     }
                 },
-                headings_is_auto_color: {
-                    control: true
-                },
                 headings_font_color: {
                     control: 'inherit',
                     calc: function() {
-                        var color;
-
-                        if ($scope.ctrls.headings_is_auto_color.control) {
-                            color = auto_overlay_color($scope.ctrls.body_bg.control, $scope.ctrls.headings_font_contrast.control);
-                        } else {
-                            color = $scope.ctrls.headings_font_color.control;
-                        }
-
-                        $scope.vars['@headings-color'] = color;
+                        $scope.vars['@headings-color'] = $scope.ctrls.headings_font_color.control;
                     }
-                },
-                headings_font_contrast: {
-                    control: FONT_CONTRAST
                 },
                 headings_line_height: {
                     control: 1.1,
@@ -603,16 +584,13 @@ require('./module').
                         var color;
 
                         if ($scope.ctrls.jumbotron_is_auto_color.control) {
-                            color = auto_overlay_color($scope.vars['@jumbotron-bg'], $scope.ctrls.jumbotron_contrast.control);
+                            color = auto_overlay_color($scope.vars['@jumbotron-bg']);
                         } else {
                             color = $scope.ctrls.jumbotron_color.control;
                         }
 
                         $scope.vars['@jumbotron-color'] = color;
                     }
-                },
-                jumbotron_contrast: {
-                    control: FONT_CONTRAST
                 },
                 jumbotron_font_size: {
                     control: 21,
@@ -626,7 +604,7 @@ require('./module').
                         var color;
 
                         if ($scope.ctrls.jumbotron_is_auto_color.control) {
-                            color = auto_overlay_color($scope.vars['@jumbotron-bg'], $scope.ctrls.jumbotron_contrast.control);
+                            color = auto_overlay_color($scope.vars['@jumbotron-bg']);
                         } else {
                             color = $scope.ctrls.jumbotron_heading_color.control;
                         }
@@ -681,9 +659,6 @@ require('./module').
                         $scope.vars['@navbar-inverse-color'] = color;
                         $scope.vars['@navbar-inverse-link-color'] = color;
                     }
-                },
-                navbar_font_contrast: {
-                    control: FONT_CONTRAST
                 },
                 navbar_is_auto_color: {
                     control: true
@@ -740,7 +715,7 @@ require('./module').
              */
             $scope.settings = {
                 show_toolbar: true,
-                RECOMPILE_LESS_DELAY: 120
+                html_mode: false
             };
 
 
@@ -791,7 +766,7 @@ require('./module').
                 $scope.toolbar.is_active = !$scope.toolbar.is_active;
             }
         };
-        
+
         $scope.swap_body_heading_typography = function() {
             var body_control,
                 body_style,
@@ -820,45 +795,6 @@ require('./module').
                 $scope.ctrls.headings_web_safe_font_family.style = body_style;
             }
         };
-
-
-        /*
-         Tabs
-         */
-        $scope.tabs = {
-            set_current: function(tab) {
-                $scope.tabs.current = tab;
-                $scope.tabs.set_active_class();
-            },
-            set_active_class: function() {
-                for (var i in $scope.tabs.list) {
-                    for (var key in $scope.tabs.list[i]) {
-                        if ($scope.tabs.list[i].hasOwnProperty(key) && $scope.tabs.list[i].key === $scope.tabs.current) {
-                            $scope.tabs.list[i].class = 'active';
-                        } else {
-                            $scope.tabs.list[i].class = '';
-                        }
-                    }
-                }
-            },
-            list: [
-                {
-                    label: 'Preview',
-                    icon_class: 'glyphicon glyphicon-eye-open',
-                    key: 'preview',
-                    class: 'active'
-                },
-                {
-                    label: 'Edit HTML',
-                    icon_class: 'glyphicon glyphicon-pencil',
-                    key: 'edit_html',
-                    class: ''
-                }
-            ]
-        };
-        angular.extend($scope.tabs, {
-            current: $scope.tabs.list[0].key
-        });
 
 
         /*
@@ -912,7 +848,7 @@ require('./module').
         // Call recompileLESS after a certain amount of inactivity
         $scope.timerRecompileLESS = function() {
             window.timerRecompileLESS = window.timerRecompileLESS || setInterval(function() {
-                if (Date.now() - $scope.last_LESS_edit >= $scope.settings.RECOMPILE_LESS_DELAY) {
+                if (Date.now() - $scope.last_LESS_edit >= RECOMPILE_LESS_DELAY) {
                     window.clearInterval(window.timerRecompileLESS);
                     window.timerRecompileLESS = null;
                     $scope.recompileLESS();

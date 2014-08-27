@@ -1,0 +1,25 @@
+.toolbar_btn {
+    position: fixed;
+    padding: 4px 8px;
+    top: 6px;
+    left: 0;
+    font-size: 28px;
+    line-height: 1;
+    color: #EEE;
+    cursor: pointer;
+    // below modal backdrop & above navbar
+    z-index: 1001;
+    background: rgba(0,0,0,0.3);
+    .bs_transition(color, background;);
+    .bs_transition_transforms();
+    .bs_translate(10px, 0);
+}
+
+body.show_toolbar {
+    .toolbar_btn {
+        .bs_translate(@bs_toolbar_width - 50px, 0);
+        color: @bs_toolbar_label_color_secondary;
+        text-shadow: none;
+        background: rgba(0, 0, 0, 0);
+    }
+}

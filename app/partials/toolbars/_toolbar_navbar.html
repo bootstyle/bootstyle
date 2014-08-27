@@ -1,4 +1,4 @@
-<div id="bs_toolbar_navbar">
+<div class="bs_toolbar" id="bs_toolbar_navbar">
     <div class="bs_toolbar_title">Navbar</div>
 
     <div class="bs_control">
@@ -17,8 +17,8 @@
 
         <input type="text" ng-model="ctrls.navbar_bg.control"/>
         <spectrum-colorpicker ng-model="ctrls.navbar_bg.control" options="{{ spectrum_config }}"></spectrum-colorpicker>
-
     </div>
+
     <div class="bs_control_group">
         <span class="bs_badge" ng-show="ctrls.navbar_is_auto_color.control">{{ vars['@navbar-inverse-color'] }}</span>
         <label class="bs_control_group_label">Font Color</label>
@@ -30,14 +30,7 @@
             </label>
         </div>
 
-        <div class="bs_control" ng-show="ctrls.navbar_is_auto_color.control">
-            <span class="bs_badge">{{ ctrls.navbar_font_contrast.control }}</span>
-            <label class="bs_input_label">Contrast</label>
-            <input type="range" ng-model="ctrls.navbar_font_contrast.control" min="0" max="100"/>
-        </div>
-
         <div class="bs_control" ng-hide="ctrls.navbar_is_auto_color.control">
-            <label class="bs_input_label">Color</label>
             <input type="text" ng-model="ctrls.navbar_font_color.control"/>
             <spectrum-colorpicker ng-model="ctrls.navbar_font_color.control" options="{{ spectrum_config }}"></spectrum-colorpicker>
         </div>

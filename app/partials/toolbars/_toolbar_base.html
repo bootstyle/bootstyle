@@ -1,4 +1,4 @@
-<div id="bs_toolbar_base">
+<div class="bs_toolbar" id="bs_toolbar_base">
 
     <div class="bs_toolbar_title">Base</div>
     <div class="bs_control">
@@ -11,18 +11,6 @@
         <small class="bs_badge">{{ ctrls.padding.control }}px</small>
         <label class="bs_input_label">Padding</label>
         <input type="range" ng-model="ctrls.padding.control" min="1" max="20"/>
-    </div>
-
-    <div class="bs_control">
-        <label class="bs_input_label">Container</label>
-        <label class="bs_input_label">
-            <input type="radio" name="container_classes" value="container" ng-model="ctrls.container_class.control">
-            Fixed
-        </label>
-        <label class="bs_input_label">
-            <input type="radio" name="container_classes" value="container-fluid" ng-model="ctrls.container_class.control">
-            Fluid
-        </label>
     </div>
 
     <div class="bs_control">
