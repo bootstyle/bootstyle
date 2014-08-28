@@ -6,7 +6,9 @@
   "author": "Levi Thomason <me@levithomason.com> (http://levithomason.com)",
   "contributors": [],
   "dependencies": {
-    "color": "^0.6.0"
+    "color": "^0.6.0",
+    "logfmt": "~1.1.2",
+    "express": "~4.8.6"
   },
   "devDependencies": {
     "browserify": "^4.1.11",
@@ -32,7 +34,8 @@
     "main-bower-files": "~2.0.0"
   },
   "engines": {
-    "node": "0.10.x"
+    "node": "0.10.x",
+    "npm": "1.3.x"
   },
   "main": "./app/js/app.js",
   "browser": {
