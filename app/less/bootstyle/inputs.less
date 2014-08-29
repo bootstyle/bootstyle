@@ -1,0 +1,21 @@
+input[type="range"] {
+    width: 200px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+input[type="text"] {
+    padding: @bs_input_padding;
+    width: 200px;
+    color: @bs_input_color;
+    background: @bs_input_bg;
+    border: none;
+    border-radius: 2px;
+    &:focus {
+        box-shadow: none;
+        border: none;
+        outline: none;
+        color: @bs_input_color_focused;
+        background: @bs_input_bg_focused;
+    }
+}

@@ -1,0 +1,33 @@
+<div id="bs_toolbar">
+    <div class="bs_brand">
+        <i class="bs_icon fa fa-tint"></i>
+        <span class="bs_name">Bootstyle</span>
+        <span class="bs_version" bootstyle-version></span>
+    </div>
+
+    <div class="bs_toolbars">
+        <ng-include src=" '/partials/toolbars/_toolbar_base.html' "></ng-include>
+        <ng-include src=" '/partials/toolbars/_toolbar_navbar.html' "></ng-include>
+        <ng-include src=" '/partials/toolbars/_toolbar_jumbotron.html' "></ng-include>
+        <ng-include src=" '/partials/toolbars/_toolbar_buttons.html' "></ng-include>
+        <ng-include src=" '/partials/toolbars/_toolbar_colors.html' "></ng-include>
+        <ng-include src=" '/partials/toolbars/_toolbar_headings.html' "></ng-include>
+        <ng-include src=" '/partials/toolbars/_toolbar_typography.html' "></ng-include>
+        <ng-include src=" '/partials/toolbars/_toolbar_color_scheme.html' "></ng-include>
+    </div>
+
+    <div class="bs_btns">
+        <div class="bs_btn bs_btn_block bs_btn_outline" ng-if="!settings.html_mode" ng-click="settings.html_mode = true">
+            <i class="fa fa-pencil"></i>
+            Edit HTML
+        </div>
+        <div class="bs_btn bs_btn_block bs_btn_outline" ng-if="settings.html_mode" ng-click="settings.html_mode = false">
+            <i class="fa fa-eye"></i>
+            Preview
+        </div>
+        <div class="bs_btn bs_btn_block bs_btn_red">
+            <i class="fa fa-download"></i>
+            Download
+        </div>
+    </div>
+</div>

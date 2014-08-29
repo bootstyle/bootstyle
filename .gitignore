@@ -1,2 +1,7 @@
 .project
 .idea/*
+bower_components/*
+node_modules/*
+build/*
+app/bower/*
+npm-debug.log

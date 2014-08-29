@@ -1,0 +1,73 @@
+<div class="bs_toolbar" id="bs_toolbar_headings">
+    <div class="bs_toolbar_title">Headings</div>
+
+    <div class="bs_control">
+        <label class="bs_input_label">Font</label>
+
+        <div class="bs_dropdown_trigger">
+            {{ ctrls.headings_web_safe_font_family.control }}
+            <span class="bs_dropdown_caret">
+                <i class="fa fa-caret-down"></i>
+            </span>
+        </div>
+        <ul class="bs_dropdown">
+            <li class="bs_dropdown_header" style="font-family: sans-serif !important;">Sans-Serif</li>
+            <li ng-repeat="f in fonts.web_safe.sans_serif"
+                ng-mouseenter="ctrls.headings_web_safe_font_family.preview = f.style"
+                ng-mouseleave="ctrls.headings_web_safe_font_family.preview = null"
+                ng-click="ctrls.headings_web_safe_font_family.style = f.style; ctrls.headings_web_safe_font_family.control = f.display_name"
+                ng-class="{'active': ctrls.headings_web_safe_font_family.style === f.style}"
+                style="font-family: {{ f.style }} !important">
+                {{ f.display_name }}
+            </li>
+            <li class="bs_dropdown_header" style="font-family: serif !important;">Serif</li>
+            <li ng-repeat="f in fonts.web_safe.serif"
+                ng-mouseenter="ctrls.headings_web_safe_font_family.preview = f.style"
+                ng-mouseleave="ctrls.headings_web_safe_font_family.preview = null"
+                ng-click="ctrls.headings_web_safe_font_family.style = f.style; ctrls.headings_web_safe_font_family.control = f.display_name"
+                ng-class="{'active': ctrls.headings_web_safe_font_family.style === f.style}"
+                style="font-family: {{ f.style }} !important">
+                {{ f.display_name }}
+            </li>
+            <li class="bs_dropdown_header" style="font-family: monospace !important;">Monospace</li>
+            <li ng-repeat="f in fonts.web_safe.monospace"
+                ng-mouseenter="ctrls.headings_web_safe_font_family.preview = f.style"
+                ng-mouseleave="ctrls.headings_web_safe_font_family.preview = null"
+                ng-click="ctrls.headings_web_safe_font_family.style = f.style; ctrls.headings_web_safe_font_family.control = f.display_name"
+                ng-class="{'active': ctrls.headings_web_safe_font_family.style === f.style}"
+                style="font-family: {{ f.style }} !important">
+                {{ f.display_name }}
+            </li>
+        </ul>
+    </div>
+
+    <div class="bs_control">
+        <span class="bs_badge">{{ ctrls.headings_font_size.control }}px</span>
+        <label class="bs_input_label">Size
+            <input type="range" min="10" max="21" ng-model="ctrls.headings_font_size.control"/>
+        </label>
+    </div>
+
+    <div class="bs_control">
+        <span class="bs_badge">{{ ctrls.headings_font_weight.control }}</span>
+        <label class="bs_input_label">Weight
+            <input type="range" ng-model="ctrls.headings_font_weight.control" min="100" max="900" step="100"/>
+        </label>
+    </div>
+
+    <div class="bs_control">
+        <span class="bs_badge">{{ ctrls.headings_line_height.control }}</span>
+        <label class="bs_input_label">Line Height
+            <input type="range" ng-model="ctrls.headings_line_height.control" min="1" max="2" step="0.01"/>
+        </label>
+    </div>
+
+    <div class="bs_control">
+        <span class="bs_badge bs_badge_swatch" style="background: {{ vars['@headings-color'] }}"></span>
+        <label class="bs_input_label">Color</label>
+
+        <input type="text" ng-model="ctrls.headings_font_color.control"/>
+        <spectrum-colorpicker ng-model="ctrls.headings_font_color.control" options="{{ spectrum_config }}"></spectrum-colorpicker>
+    </div>
+
+</div>

@@ -1,0 +1,67 @@
+{
+  "name": "bootstyle",
+  "version": "0.0.1",
+  "homepage": "www.usebootstyle.com",
+  "authors": [
+    "Levi Thomason <me@levithomason.com>"
+  ],
+  "description": "Twitter Boostrap customizer for developers.",
+  "main": "index.html",
+  "keywords": [
+    "Bootstrap",
+    "Bootstrap Customizer",
+    "Bootstrap Theme",
+    "Live Reload",
+    "LESS"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.18",
+    "angular-sanitize": "~1.2.18",
+    "angular-spectrum-colorpicker": "~1.0.13",
+    "bootstrap": "~3.2.0",
+    "codemirror": "~4.2.0",
+    "FileSaver": "*",
+    "fontawesome": "~4.1.0",
+    "jquery": "~2.1.1",
+    "modernizr": "~2.8.2",
+    "spectrum": "~1.4.1",
+    "tinycolor": "~0.11.2"
+  },
+  "devDependencies": {},
+  "overrides": {
+    "codemirror": {
+      "main": [
+        "./lib/codemirror.js",
+        "./lib/codemirror.css",
+        "./mode/css/css.js",
+        "./mode/htmlmixed/htmlmixed.js",
+        "./mode/javascript/javascript.js",
+        "./mode/xml/xml.js",
+        "./theme/ambiance.css"
+      ]
+    },
+    "bootstrap": {
+      "main": [
+        "./dist/js/bootstrap.js",
+        "./dist/fonts/glyphicons-halflings-regular.eot",
+        "./dist/fonts/glyphicons-halflings-regular.svg",
+        "./dist/fonts/glyphicons-halflings-regular.ttf",
+        "./dist/fonts/glyphicons-halflings-regular.woff",
+        "./less/**/*.*"
+      ]
+    },
+    "FileSaver": {
+      "main": [
+        "./FileSaver.js"
+      ]
+    }
+  }
+}

@@ -2,10 +2,6 @@ test:
   override:
     - ls index.html
 
-notify:
-  webhooks:
-    - url: http://will.greenkahuna.com/api/circleci/deployed/
-
 deployment:
   production:
     branch: master

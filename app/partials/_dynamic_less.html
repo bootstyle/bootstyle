@@ -1,0 +1,5 @@
+<div>
+    <link ng-if="ctrls.bootstrap_theme.control" rel="stylesheet/less" href="../bower/less/bootstrap/theme.less"/>
+    <link ng-if="ctrls.buttons_uppercase.control" rel="stylesheet/less" href="less/buttons_uppercase.less"/>
+    <link ng-repeat="s in stylesheets.button_styles" ng-if="ctrls.button_style.control === s.name" rel="stylesheet/less" ng-href="{{ s.path }}"/>
+</div>
