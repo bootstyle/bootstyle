@@ -331,6 +331,8 @@
         );
     });
 
+    gulp.task('heroku:production', ['build']);
+
     var plumberError = function(err) {
         gutil.beep();
         gutil.log(err);
