@@ -30,11 +30,12 @@
     "main-bower-files": "~2.0.0",
     "merge-stream": "~0.1.5",
     "gulp-changed": "~1.0.0",
-    "brfs": "~1.2.0"
+    "brfs": "~1.2.0",
+    "bower": "~1.3.9"
   },
   "engines": {
-    "node": "0.10.x",
-    "npm": "1.3.x"
+    "node": "0.10.24",
+    "npm": "1.3.21"
   },
   "main": "./app/js/app.js",
   "browser": {
@@ -140,7 +141,7 @@
   },
   "scripts": {
     "test": "$(npm bin)/protractor test/protractor.conf.js",
-    "setup": "npm install && bower install && gulp build",
+    "setup": "npm i . && bower i . && gulp build",
     "browserify_diagnostic": "BROWSERIFYSHIM_DIAGNOSTICS=1 browserify -d -e app/js/app.js -o build/js/app.js"
   }
 }
