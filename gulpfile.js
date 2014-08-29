@@ -128,9 +128,8 @@
     gulp.task('build', function(cb) {
         runSequence(
             'clean-build',
+            'build-root',
             [
-                'build-root',
-
                 'build-bower',
 
                 'build-css',
