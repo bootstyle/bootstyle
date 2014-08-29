@@ -141,7 +141,7 @@
   },
   "scripts": {
     "test": "$(npm bin)/protractor test/protractor.conf.js",
-    "setup": "npm i . && bower i . && gulp build",
+    "postinstall": "bower install && gulp build",
     "browserify_diagnostic": "BROWSERIFYSHIM_DIAGNOSTICS=1 browserify -d -e app/js/app.js -o build/js/app.js"
   }
 }

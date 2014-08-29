@@ -128,8 +128,9 @@
     gulp.task('build', function(cb) {
         runSequence(
             'clean-build',
-            'build-root',
             [
+                'build-root',
+
                 'build-bower',
 
                 'build-css',
@@ -144,7 +145,10 @@
 
     gulp.task('build-bower', function(cb) {
         runSequence(
-            'clean-build-bower',
+            [
+                'copy-bower-components',
+                'clean-build-bower'
+            ],
             [
                 'build-bower-css',
                 'build-bower-fonts',
@@ -260,13 +264,7 @@
     ]);
 
     gulp.task('watch-bower-components', function() {
-        return gulp.watch([ path.bower_components ], function(cb) {
-            runSequence(
-                'copy-bower-components',
-                'build-bower',
-                cb
-            );
-        });
+        return gulp.watch([ path.bower_components ], ['build-bower']);
     });
 
     gulp.task('watch-css', function() {
@@ -315,6 +313,14 @@
      Default
      */
     gulp.task('default', function(cb) {
+        runSequence(
+            'copy-bower-components',
+            'build',
+            cb
+        );
+    });
+
+    gulp.task('develop', function(cb) {
         runSequence(
             'copy-bower-components',
             'build',
