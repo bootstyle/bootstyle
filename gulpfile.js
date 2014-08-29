@@ -331,7 +331,19 @@
         );
     });
 
-    gulp.task('heroku:production', ['build']);
+    gulp.task('heroku:production', function(cb) {
+        runSequence(
+            'copy-bower-components',
+            'build-root',
+            'build-bower',
+            'build-css',
+            'build-less',
+            'build-fonts',
+            'build-partials',
+            'build-js',
+            cb
+        );
+    });
 
     var plumberError = function(err) {
         gutil.beep();
