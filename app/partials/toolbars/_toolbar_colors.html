@@ -14,13 +14,13 @@
         <div class="bs_control">
             <label class="bs_input_label">
                 Darkest
-                <input type="range" ng-model="ctrls.grays.control.darkest" min="0" max="100" step="0.01"/>
+                <input type="range" class="bs_range_input" ng-model="ctrls.grays.control.darkest" min="0" max="100" step="0.01"/>
             </label>
         </div>
         <div class="bs_control">
             <label class="bs_input_label">
                 Ligthest
-                <input type="range" ng-model="ctrls.grays.control.lightest" min="0" max="100" step="0.01"/>
+                <input type="range" class="bs_range_input" ng-model="ctrls.grays.control.lightest" min="0" max="100" step="0.01"/>
             </label>
         </div>
     </div>
@@ -29,7 +29,7 @@
         <!--<span class="bs_badge bs_badge_swatch" ng-model="ctrls.body_bg.control" style="background-color: {{ vars['@body-bg'] }}"></span>-->
         <label class="bs_input_label">Body</label>
 
-        <input type="text" ng-model="ctrls.body_bg.control"/>
+        <input type="text" class="bs_text_input" ng-model="ctrls.body_bg.control"/>
         <spectrum-colorpicker ng-model="ctrls.body_bg.control" options="{{ spectrum_config }}"></spectrum-colorpicker>
 
     </div>
@@ -39,31 +39,31 @@
 
         <div class="bs_control">
             <label class="bs_input_label">Primary</label>
-            <input type="text" ng-model="ctrls.brand_primary.control"/>
+            <input type="text" class="bs_text_input" ng-model="ctrls.brand_primary.control"/>
             <spectrum-colorpicker ng-model="ctrls.brand_primary.control" options="{{ spectrum_config }}"></spectrum-colorpicker>
         </div>
 
         <div class="bs_control">
             <label class="bs_input_label">Success</label>
-            <input type="text" ng-model="ctrls.brand_success.control"/>
+            <input type="text" class="bs_text_input" ng-model="ctrls.brand_success.control"/>
             <spectrum-colorpicker ng-model="ctrls.brand_success.control" options="{{ spectrum_config }}"></spectrum-colorpicker>
         </div>
 
         <div class="bs_control">
             <label class="bs_input_label">Info</label>
-            <input type="text" ng-model="ctrls.brand_info.control"/>
+            <input type="text" class="bs_text_input" ng-model="ctrls.brand_info.control"/>
             <spectrum-colorpicker ng-model="ctrls.brand_info.control" options="{{ spectrum_config }}"></spectrum-colorpicker>
         </div>
 
         <div class="bs_control">
             <label class="bs_input_label">Warning</label>
-            <input type="text" ng-model="ctrls.brand_warning.control"/>
+            <input type="text" class="bs_text_input" ng-model="ctrls.brand_warning.control"/>
             <spectrum-colorpicker ng-model="ctrls.brand_warning.control" options="{{ spectrum_config }}"></spectrum-colorpicker>
         </div>
 
         <div class="bs_control">
             <label class="bs_input_label">Danger</label>
-            <input type="text" ng-model="ctrls.brand_danger.control"/>
+            <input type="text" class="bs_text_input" ng-model="ctrls.brand_danger.control"/>
             <spectrum-colorpicker ng-model="ctrls.brand_danger.control" options="{{ spectrum_config }}"></spectrum-colorpicker>
         </div>
     </div>

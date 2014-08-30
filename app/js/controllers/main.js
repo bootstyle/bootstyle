@@ -2,8 +2,8 @@
 
 require('./module').
     controller('BootstyleCtrl',
-        ['$scope', '$compile', '$timeout', 'read_file', 'auto_overlay_color', 'FONT_CONTRAST', 'RECOMPILE_LESS_DELAY', 'scheme',
-        function($scope, $compile, $timeout, read_file, auto_overlay_color, FONT_CONTRAST, RECOMPILE_LESS_DELAY, scheme) {
+        ['$scope', '$compile', '$timeout', 'read_file', 'FONT_CONTRAST', 'RECOMPILE_LESS_DELAY',
+        function($scope, $compile, $timeout, read_file, FONT_CONTRAST, RECOMPILE_LESS_DELAY) {
 
         $scope.initialized = false;
         $scope.is_compiling_less = false;
@@ -11,300 +11,69 @@ require('./module').
         $scope.init_bootstyle = function() {
 
             $scope.fonts = {
-                google: {
-                    serif: {
-                        droid_serif: {
-                            display_name: 'Droid Serif',
-                            style: '"Droid Serif", serif'
-                        },
-                        lora: {
-                            display_name: 'Lora',
-                            style: 'Lora, serif'
-                        },
-                        bitter: {
-                            display_name: 'Bitter',
-                            style: 'Bitter, serif'
-                        },
-                        merriweather: {
-                            display_name: 'Merriweather',
-                            style: 'Merriweather, serif'
-                        },
-                        arvo: {
-                            display_name: 'Arvo',
-                            style: 'Arvo, serif'
-                        },
-                        pt_serif: {
-                            display_name: 'PT Serif',
-                            style: '"PT Serif", serif'
-                        },
-                        roboto_slab: {
-                            display_name: 'Roboto Slab',
-                            style: '"Roboto Slab", serif'
-                        },
-                        Rokkitt: {
-                            display_name: 'Rokkitt',
-                            style: 'Rokkitt, serif'
-                        },
-                        playfair_display: {
-                            display_name: 'Playfair Display',
-                            style: '"Playfair Display", serif'
-                        },
-                        libre_baskerville: {
-                            display_name: 'Libre Baskerville',
-                            style: 'Libre Baskerville, serif'
-                        }
+                serif: {
+                    georgia: {
+                        display_name: 'Georgia',
+                        style: 'Georgia, "Times New Roman", Times, serif'
                     },
-                    sans_serif: {
-                        open_sans: {
-                            display_name: 'Open Sans',
-                            style: 'Open Sans, sans-serif'
-                        },
-                        roboto: {
-                            display_name: 'Roboto',
-                            style: 'Roboto, sans-serif'
-                        },
-                        oswald: {
-                            display_name: 'Oswald',
-                            style: 'Oswald, sans-serif'
-                        },
-                        lato: {
-                            display_name: 'Lato',
-                            style: 'Lato, sans-serif'
-                        },
-                        roboto_condensed: {
-                            display_name: 'Roboto Condensed',
-                            style: '"Roboto Condensed", sans-serif'
-                        },
-                        droid_sans: {
-                            display_name: 'Droid Sans',
-                            style: '"Droid Sans", sans-serif'
-                        },
-                        open_sans_condensed: {
-                            display_name: 'Open Sans Condensed',
-                            style: '"Open Sans Condensed", sans-serif'
-                        },
-                        pt_sans: {
-                            display_name: 'PT Sans',
-                            style: '"PT Sans", sans-serif'
-                        },
-                        source_sans_pro: {
-                            display_name: 'Source Sans Pro',
-                            style: '"Source Sans Pro", sans-serif'
-                        },
-                        ubuntu: {
-                            display_name: 'Ubuntu',
-                            style: 'Ubuntu, sans-serif'
-                        },
-                        raleway: {
-                            display_name: 'Raleway',
-                            style: 'Raleway, sans-serif'
-                        },
-                        montserrat: {
-                            display_name: 'Montserrat',
-                            style: 'Montserrat, sans-serif'
-                        },
-                        pt_sans_narrow: {
-                            display_name: 'PT Sans Narrow',
-                            style: 'Arvo, sans-serif'
-                        },
-                        oxygen: {
-                            display_name: 'Oxygen',
-                            style: 'Oxygen, sans-serif'
-                        }
+                    palatino_linetype: {
+                        display_name: 'Palatino Linetype',
+                        style: '"Palatino Linotype", "Book Antiqua", Palatino, serif'
                     },
-                    display: {
-                        lobster: {
-                            display_name: 'Lobster',
-                            style: 'Lobster, sans-serif'
-                        },
-                        audiowide: {
-                            display_name: 'Audiowide',
-                            style: 'Audiowide, sans-serif'
-                        },
-                        poiret_one: {
-                            display_name: 'Poiret One',
-                            style: '"Poiret One", sans-serif'
-                        },
-                        changa_one: {
-                            display_name: 'Changa One',
-                            style: 'Changa One, sans-serif'
-                        },
-                        special_elite: {
-                            display_name: 'Special Elite',
-                            style: '"Special Elite", sans-serif'
-                        },
-                        chewy: {
-                            display_name: 'Chewy',
-                            style: 'Chewy, sans-serif'
-                        },
-                        squada_one: {
-                            display_name: 'Squada One',
-                            style: '"Squada One", sans-serif'
-                        },
-                        playball: {
-                            display_name: 'Playball',
-                            style: 'Playball, sans-serif'
-                        },
-                        patua_one: {
-                            display_name: 'Patua One',
-                            style: '"Patua One", sans-serif'
-                        },
-                        griffy: {
-                            display_name: 'Griffy',
-                            style: 'Griffy, sans-serif'
-                        }
-                    },
-                    handwriting: {
-                        indie_flower: {
-                            display_name: 'Indie Flower',
-                            style: '"Indie Flower", sans-serif'
-                        },
-                        shadows_into_light: {
-                            display_name: 'Shadows Into Light',
-                            style: '"Shadows Into Light", sans-serif'
-                        },
-                        crafty_girls: {
-                            display_name: 'Crafty Girls',
-                            style: '"Crafty Girls", sans-serif'
-                        },
-                        pacifico: {
-                            display_name: 'Pacifico',
-                            style: 'Pacifico, sans-serif'
-                        },
-                        coming_soon: {
-                            display_name: 'Coming Soon',
-                            style: '"Coming Soon", sans-serif'
-                        }
-                    },
-                    monospace: {
-                        inconsolata: {
-                            display_name: 'Inconsolata',
-                            style: 'Inconsolata, monospace'
-                        },
-                        droid_sans_mono: {
-                            display_name: 'Droid Sans Mono',
-                            style: '"Droid Sans Mono", monospace'
-                        },
-                        ubuntu_mono: {
-                            display_name: 'Ubuntu Mono',
-                            style: '"Ubuntu Mono", monospace'
-                        },
-                        source_code_pro: {
-                            display_name: 'Source Code Pro',
-                            style: '"Source Code Pro", monospace'
-                        },
-                        cousine: {
-                            display_name: 'Cousine',
-                            style: 'Cousine, monospace'
-                        },
-                        anonymous_pro: {
-                            display_name: 'Anonymous Pro',
-                            style: '"Anonymous Pro", monospace'
-                        },
-                        vt323: {
-                            display_name: 'VT323',
-                            style: '"VT323", monospace'
-                        },
-                        nova_mono: {
-                            display_name: 'Nova Mono',
-                            style: '"Nova Mono", monospace'
-                        },
-                        pt_mono: {
-                            display_name: 'PT Mono',
-                            style: '"PT Mono", monospace'
-                        },
-                        cutive_mono: {
-                            display_name: 'Cutive Mono',
-                            style: '"Cutive Mono", monospace'
-                        }
+                    times_new_roman: {
+                        display_name: 'Times New Roman',
+                        style: '"Times New Roman", Times, serif'
                     }
                 },
-                web_safe: {
-                    serif: {
-                        georgia: {
-                            display_name: 'Georgia',
-                            style: 'Georgia, "Times New Roman", Times, serif'
-                        },
-                        palatino_linetype: {
-                            display_name: 'Palatino Linetype',
-                            style: '"Palatino Linotype", "Book Antiqua", Palatino, serif'
-                        },
-                        times_new_roman: {
-                            display_name: 'Times New Roman',
-                            style: '"Times New Roman", Times, serif'
-                        }
+                sans_serif: {
+                    arial: {
+                        display_name: 'Arial',
+                        style: 'Arial, Helvetica, sans-serif'
                     },
-                    sans_serif: {
-                        arial: {
-                            display_name: 'Arial',
-                            style: 'Arial, Helvetica, sans-serif'
-                        },
-                        arial_black: {
-                            display_name: 'Arial Black',
-                            style: '"Arial Black", Gadget, sans-serif'
-                        },
-                        helvetica_neue: {
-                            display_name: 'Helvetica Neue',
-                            style: '"Helvetica Neue", Helvetica, Arial, sans-serif'
-                        },
-                        impact: {
-                            display_name: 'Impact',
-                            style: 'Impact, Charcoal, sans-serif'
-                        },
-                        lucida_sans_unicode: {
-                            display_name: 'Lucida Sans Unicode',
-                            style: '"Lucida Sans Unicode", "Lucida Grande", sans-serif'
-                        },
-                        tahoma: {
-                            display_name: 'Tahoma',
-                            style: 'Tahoma, Geneva, sans-serif'
-                        },
-                        trebuchet_ms: {
-                            display_name: 'Trebuchet MS',
-                            style: '"Trebuchet MS", Helvetica, sans-serif'
-                        },
-                        verdana: {
-                            display_name: 'Verdana',
-                            style: 'Verdana, Geneva, sans-serif'
-                        }
+                    arial_black: {
+                        display_name: 'Arial Black',
+                        style: '"Arial Black", Gadget, sans-serif'
                     },
-                    monospace: {
-                        courier_new: {
-                            display_name: 'Courier New',
-                            style: '"Courier New", Courier, monospace'
-                        },
-                        lucida_console: {
-                            display_name: 'Lucida Console',
-                            style: '"Lucida Console", Monaco, monospace'
-                        },
-                        menlo: {
-                            display_name: 'Menlo',
-                            style: 'Menlo, Monaco, Consolas, "Courier New", monospace;'
-                        }
+                    helvetica_neue: {
+                        display_name: 'Helvetica Neue',
+                        style: '"Helvetica Neue", Helvetica, Arial, sans-serif'
+                    },
+                    impact: {
+                        display_name: 'Impact',
+                        style: 'Impact, Charcoal, sans-serif'
+                    },
+                    lucida_sans_unicode: {
+                        display_name: 'Lucida Sans Unicode',
+                        style: '"Lucida Sans Unicode", "Lucida Grande", sans-serif'
+                    },
+                    tahoma: {
+                        display_name: 'Tahoma',
+                        style: 'Tahoma, Geneva, sans-serif'
+                    },
+                    trebuchet_ms: {
+                        display_name: 'Trebuchet MS',
+                        style: '"Trebuchet MS", Helvetica, sans-serif'
+                    },
+                    verdana: {
+                        display_name: 'Verdana',
+                        style: 'Verdana, Geneva, sans-serif'
+                    }
+                },
+                monospace: {
+                    courier_new: {
+                        display_name: 'Courier New',
+                        style: '"Courier New", Courier, monospace'
+                    },
+                    lucida_console: {
+                        display_name: 'Lucida Console',
+                        style: '"Lucida Console", Monaco, monospace'
+                    },
+                    menlo: {
+                        display_name: 'Menlo',
+                        style: 'Menlo, Monaco, Consolas, "Courier New", monospace;'
                     }
                 }
             };
-
-            /*
-             Init Google Fonts
-             */
-            var google_fonts = [];
-            for (var gfam in $scope.fonts.google) {
-                if ($scope.fonts.google.hasOwnProperty(gfam)) {
-                    for (var gfont in $scope.fonts.google[gfam]) {
-                        if ($scope.fonts.google[gfam].hasOwnProperty(gfont)) {
-                            google_fonts.push($scope.fonts.google[gfam][gfont].display_name)
-                        }
-                    }
-                }
-            }
-            // TODO: lazy load
-//            WebFont.load({
-//                google: {
-//                    families: google_fonts
-//                }
-//            });
-
 
             /*
              TinyColor
@@ -327,22 +96,22 @@ require('./module').
                         }
                     },
                     split_complement: {
-                        key:'splitcomplement',
-                        name:'Split Complement',
+                        key: 'splitcomplement',
+                        name: 'Split Complement',
                         colors: function() {
                             return $scope.color_scheme.generate_colors('splitcomplement');
                         }
                     },
                     triad: {
-                        key:'triad',
-                        name:'Triad',
+                        key: 'triad',
+                        name: 'Triad',
                         colors: function() {
                             return $scope.color_scheme.generate_colors('triad');
                         }
                     },
                     tetrad: {
-                        key:'tetrad',
-                        name:'Tetrad',
+                        key: 'tetrad',
+                        name: 'Tetrad',
                         colors: function() {
                             return $scope.color_scheme.generate_colors('tetrad');
                         }
@@ -396,23 +165,13 @@ require('./module').
              Init Controls
              */
             $scope.ctrls = {
-                body_web_safe_font_family: {
-                    control: $scope.fonts.web_safe.sans_serif.helvetica_neue.display_name,
-                    style: $scope.fonts.web_safe.sans_serif.helvetica_neue.style,
+                body_font_family: {
+                    control: $scope.fonts.sans_serif.helvetica_neue.display_name,
+                    style: $scope.fonts.sans_serif.helvetica_neue.style,
                     preview: null,
                     calc: function() {
-                        if (!$scope.ctrls.use_google_fonts.control) {
-                            $scope.vars['@font-family-base'] = $scope.ctrls.body_web_safe_font_family.preview || $scope.ctrls.body_web_safe_font_family.style
-                        }
-                    }
-                },
-                body_google_font_family: {
-                    control: $scope.fonts.google.sans_serif.droid_sans.display_name,
-                    style: $scope.fonts.google.sans_serif.droid_sans.style,
-                    preview: null,
-                    calc: function() {
-                        if ($scope.ctrls.use_google_fonts.control) {
-                            $scope.vars['@font-family-base'] = $scope.ctrls.body_google_font_family.preview || $scope.ctrls.body_google_font_family.style
+                        if (!$scope.ctrls.uses.control) {
+                            $scope.vars['@font-family-base'] = $scope.ctrls.body_font_family.preview || $scope.ctrls.body_font_family.style
                         }
                     }
                 },
@@ -476,23 +235,13 @@ require('./module').
                 buttons_uppercase: {
                     control: false
                 },
-                code_web_safe_font_family: {
-                    control: $scope.fonts.web_safe.monospace.menlo.display_name,
-                    style: $scope.fonts.web_safe.monospace.menlo.style,
+                code_font_family: {
+                    control: $scope.fonts.monospace.menlo.display_name,
+                    style: $scope.fonts.monospace.menlo.style,
                     preview: null,
                     calc: function() {
-                        if (!$scope.ctrls.use_google_fonts.control) {
-                            $scope.vars['@font-family-monospace'] = $scope.ctrls.code_web_safe_font_family.preview || $scope.ctrls.code_web_safe_font_family.style;
-                        }
-                    }
-                },
-                code_google_font_family: {
-                    control: $scope.fonts.google.monospace.droid_sans_mono.display_name,
-                    style: $scope.fonts.google.monospace.droid_sans_mono.style,
-                    preview: null,
-                    calc: function() {
-                        if ($scope.ctrls.use_google_fonts.control) {
-                            $scope.vars['@font-family-monospace'] = $scope.ctrls.code_google_font_family.preview || $scope.ctrls.code_google_font_family.style;
+                        if (!$scope.ctrls.uses.control) {
+                            $scope.vars['@font-family-monospace'] = $scope.ctrls.code_font_family.preview || $scope.ctrls.code_font_family.style;
                         }
                     }
                 },
@@ -516,11 +265,11 @@ require('./module').
                             return tinycolor('#000').lighten(range * lightness + min).toHexString();
                         };
 
-                        $scope.vars['@gray-darker']     = gray_hex(0);
-                        $scope.vars['@gray-dark']       = gray_hex(0.08125);
-                        $scope.vars['@gray']            = gray_hex(0.25);
-                        $scope.vars['@gray-light']      = gray_hex(0.415);
-                        $scope.vars['@gray-lighter']    = gray_hex(1);
+                        $scope.vars['@gray-darker'] = gray_hex(0);
+                        $scope.vars['@gray-dark'] = gray_hex(0.08125);
+                        $scope.vars['@gray'] = gray_hex(0.25);
+                        $scope.vars['@gray-light'] = gray_hex(0.415);
+                        $scope.vars['@gray-lighter'] = gray_hex(1);
                     }
                 },
                 headings_font_size: {
@@ -552,23 +301,13 @@ require('./module').
                         $scope.vars['@headings-line-height'] = $scope.ctrls.headings_line_height.control;
                     }
                 },
-                headings_web_safe_font_family: {
-                    control: $scope.fonts.web_safe.sans_serif.helvetica_neue.display_name,
-                    style: $scope.fonts.web_safe.sans_serif.helvetica_neue.style,
+                headings_font_family: {
+                    control: $scope.fonts.sans_serif.helvetica_neue.display_name,
+                    style: $scope.fonts.sans_serif.helvetica_neue.style,
                     preview: null,
                     calc: function() {
-                        if (!$scope.ctrls.use_google_fonts.control) {
-                            $scope.vars['@headings-font-family'] = $scope.ctrls.headings_web_safe_font_family.preview || $scope.ctrls.headings_web_safe_font_family.style;
-                        }
-                    }
-                },
-                headings_google_font_family: {
-                    control: $scope.fonts.google.sans_serif.droid_sans.display_name,
-                    style: $scope.fonts.google.sans_serif.droid_sans.style,
-                    preview: null,
-                    calc: function() {
-                        if ($scope.ctrls.use_google_fonts.control) {
-                            $scope.vars['@headings-font-family'] = $scope.ctrls.headings_google_font_family.preview || $scope.ctrls.headings_google_font_family.style;
+                        if (!$scope.ctrls.uses.control) {
+                            $scope.vars['@headings-font-family'] = $scope.ctrls.headings_font_family.preview || $scope.ctrls.headings_font_family.style;
                         }
                     }
                 },
@@ -581,15 +320,7 @@ require('./module').
                 jumbotron_color: {
                     control: 'inherit',
                     calc: function() {
-                        var color;
-
-                        if ($scope.ctrls.jumbotron_is_auto_color.control) {
-                            color = auto_overlay_color($scope.vars['@jumbotron-bg']);
-                        } else {
-                            color = $scope.ctrls.jumbotron_color.control;
-                        }
-
-                        $scope.vars['@jumbotron-color'] = color;
+                        $scope.vars['@jumbotron-color'] = $scope.ctrls.jumbotron_color.control;
                     }
                 },
                 jumbotron_font_size: {
@@ -601,19 +332,8 @@ require('./module').
                 jumbotron_heading_color: {
                     control: 'inherit',
                     calc: function() {
-                        var color;
-
-                        if ($scope.ctrls.jumbotron_is_auto_color.control) {
-                            color = auto_overlay_color($scope.vars['@jumbotron-bg']);
-                        } else {
-                            color = $scope.ctrls.jumbotron_heading_color.control;
-                        }
-
-                        $scope.vars['@jumbotron-heading-color'] = color;
+                        $scope.vars['@jumbotron-heading-color'] = $scope.ctrls.jumbotron_heading_color.control;
                     }
-                },
-                jumbotron_is_auto_color: {
-                    control: true
                 },
                 jumbotron_padding: {
                     control: 30,
@@ -648,20 +368,10 @@ require('./module').
                 navbar_font_color: {
                     control: '@gray-light',
                     calc: function() {
-                        var color;
-
-                        if ($scope.ctrls.navbar_is_auto_color.control) {
-                            color = auto_overlay_color($scope.ctrls.navbar_bg.control);
-                        } else {
-                            color = $scope.ctrls.navbar_font_color.control;
-                        }
-
+                        var color = $scope.ctrls.navbar_font_color.control;
                         $scope.vars['@navbar-inverse-color'] = color;
                         $scope.vars['@navbar-inverse-link-color'] = color;
                     }
-                },
-                navbar_is_auto_color: {
-                    control: true
                 },
                 padding: {
                     control: 10,
@@ -677,7 +387,7 @@ require('./module').
                         $scope.vars['@padding-xs-horizontal'] = Math.floor(value * 0.5) + 'px';
                     }
                 },
-                use_google_fonts: {
+                uses: {
                     control: false
                 },
             };
@@ -773,27 +483,15 @@ require('./module').
                 headings_control,
                 headings_style;
 
-            if ($scope.ctrls.use_google_fonts.control) {
-                body_control = $scope.ctrls.body_google_font_family.control;
-                body_style = $scope.ctrls.body_google_font_family.style;
-                headings_control = $scope.ctrls.headings_google_font_family.control;
-                headings_style = $scope.ctrls.headings_google_font_family.style;
+            body_control = $scope.ctrls.body_font_family.control;
+            body_style = $scope.ctrls.body_font_family.style;
+            headings_control = $scope.ctrls.headings_font_family.control;
+            headings_style = $scope.ctrls.headings_font_family.style;
 
-                $scope.ctrls.body_google_font_family.control = headings_control;
-                $scope.ctrls.body_google_font_family.style = headings_style;
-                $scope.ctrls.headings_google_font_family.control = body_control;
-                $scope.ctrls.headings_google_font_family.style = body_style;
-            } else {
-                body_control = $scope.ctrls.body_web_safe_font_family.control;
-                body_style = $scope.ctrls.body_web_safe_font_family.style;
-                headings_control = $scope.ctrls.headings_web_safe_font_family.control;
-                headings_style = $scope.ctrls.headings_web_safe_font_family.style;
-                
-                $scope.ctrls.body_web_safe_font_family.control = headings_control;
-                $scope.ctrls.body_web_safe_font_family.style = headings_style;
-                $scope.ctrls.headings_web_safe_font_family.control = body_control;
-                $scope.ctrls.headings_web_safe_font_family.style = body_style;
-            }
+            $scope.ctrls.body_font_family.control = headings_control;
+            $scope.ctrls.body_font_family.style = headings_style;
+            $scope.ctrls.headings_font_family.control = body_control;
+            $scope.ctrls.headings_font_family.style = body_style;
         };
 
 

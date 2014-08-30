@@ -41,8 +41,6 @@
   "browser": {
     "angular": "./app/bower/js/angular.js",
     "angular_sanitize": "./app/bower/js/angular-sanitize.js",
-    "angular_touch": "./app/bower/js/angular-touch.js",
-    "angular_carousel": "./app/bower/js/angular-carousel.js",
     "angular_spectrum_colorpicker": "./app/bower/js/angular-spectrum-colorpicker.js",
     "bootstrap": "./app/bower/js/bootstrap.js",
     "codemirror": "./app/bower/js/codemirror.js",
@@ -63,23 +61,12 @@
         "jquery:$"
       ]
     },
-    "angular_carousel": {
-      "depends": [
-        "angular:angular",
-        "angular_touch:angular_touch"
-      ]
-    },
     "angular_sanitize": {
       "depends": [
         "angular:angular"
       ]
     },
     "angular_spectrum_colorpicker": {
-      "depends": [
-        "angular:angular"
-      ]
-    },
-    "angular_touch": {
       "depends": [
         "angular:angular"
       ]
@@ -129,9 +116,6 @@
       "depends": [
         "jquery:$"
       ]
-    },
-    "webfont": {
-      "exports": "global:WebFont"
     }
   },
   "browserify": {

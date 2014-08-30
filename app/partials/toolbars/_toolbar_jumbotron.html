@@ -4,14 +4,14 @@
     <div class="bs_control">
         <span class="bs_badge">{{ ctrls.jumbotron_padding.control }}px</span>
         <label class="bs_input_label"> Padding
-            <input type="range" ng-model="ctrls.jumbotron_padding.control" min="0" max="200"/>
+            <input type="range" class="bs_range_input" ng-model="ctrls.jumbotron_padding.control" min="0" max="200"/>
         </label>
     </div>
 
     <div class="bs_control">
         <span class="bs_badge">{{ ctrls.jumbotron_font_size.control }}px</span>
         <label class="bs_input_label"> Font Size
-            <input type="range" ng-model="ctrls.jumbotron_font_size.control" min="8" max="72"/>
+            <input type="range" class="bs_range_input" ng-model="ctrls.jumbotron_font_size.control" min="8" max="72"/>
         </label>
     </div>
 
@@ -19,34 +19,25 @@
         <span class="bs_badge bs_badge_swatch" style="background-color: {{ ctrls.jumbotron_bg.control }}"></span>
         <label class="bs_input_label">Background</label>
 
-        <input type="text" ng-model="ctrls.jumbotron_bg.control"/>
+        <input type="text" class="bs_text_input" ng-model="ctrls.jumbotron_bg.control"/>
         <spectrum-colorpicker ng-model="ctrls.jumbotron_bg.control" options="{{ spectrum_config }}"></spectrum-colorpicker>
     </div>
 
     <div class="bs_control_group">
-        <span class="bs_badge" ng-show="ctrls.jumbotron_is_auto_color.control">{{ vars['@jumbotron-heading-color'] }}</span>
         <label class="bs_control_group_label">Font Colors</label>
 
         <div class="bs_control">
-            <label class="bs_input_label">
-                <input type="checkbox" ng-model="ctrls.jumbotron_is_auto_color.control">
-                Auto
-            </label>
-        </div>
-
-        <div class="bs_control" ng-hide="ctrls.jumbotron_is_auto_color.control">
             <label class="bs_input_label">Heading Color</label>
 
-            <input type="text" ng-model="ctrls.jumbotron_heading_color.control"/>
+            <input type="text" class="bs_text_input" ng-model="ctrls.jumbotron_heading_color.control"/>
             <spectrum-colorpicker ng-model="ctrls.jumbotron_heading_color.control" options="{{ spectrum_config }}"></spectrum-colorpicker>
         </div>
 
-        <div class="bs_control" ng-hide="ctrls.jumbotron_is_auto_color.control">
+        <div class="bs_control">
             <label class="bs_input_label">Font Color</label>
 
-            <input type="text" ng-model="ctrls.jumbotron_color.control"/>
+            <input type="text" class="bs_text_input" ng-model="ctrls.jumbotron_color.control"/>
             <spectrum-colorpicker ng-model="ctrls.jumbotron_color.control" options="{{ spectrum_config }}"></spectrum-colorpicker>
         </div>
     </div>
-
 </div>

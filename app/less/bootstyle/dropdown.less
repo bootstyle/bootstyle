@@ -38,10 +38,20 @@
             cursor: pointer;
             &:hover {
                 color: @bs_input_color_focused;
+
+                .bs_icon_preview {
+                    visibility: visible;
+                }
             }
             &.active {
                 color: @bs_input_color_focused;
                 background: @bs_input_bg_focused;
+                .bs_icon_selected {
+                    display: inline-block;
+                }
+                .bs_icon_preview {
+                    display: none;
+                }
             }
 
             &.bs_dropdown_header {
@@ -52,6 +62,13 @@
                 &:hover {
                     background: @bs_input_bg;
                 }
+            }
+
+            .bs_icon_preview {
+                visibility: hidden;
+            }
+            .bs_icon_selected {
+                display: none;
             }
         }
 
