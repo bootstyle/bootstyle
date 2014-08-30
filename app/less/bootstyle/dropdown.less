@@ -7,17 +7,10 @@
     color: @bs_input_color;
     cursor: pointer;
     background: @bs_input_bg;
-    &:hover {
-        & + .bs_dropdown {
-            .bs_transition(visibility;);
-            .bs_transition_duration(1s);
-            visibility: visible;
-        }
-    }
+    .user-select(none);
 
     & + .bs_dropdown {
         position: absolute;
-        visibility: hidden;
         margin: 0;
         padding: 0;
         width: 200px;
@@ -27,11 +20,7 @@
         box-shadow: 0 1px 10px darken(@bs_toolbar_bg, 5);
         border-radius: @bs_border_radius;
         z-index: @zindex-dropdown;
-        .bs_transition_duration(0s);
-
-        &:hover {
-            visibility: visible;
-        }
+        .user-select(none);
 
         li {
             padding: @bs_input_padding;
@@ -66,6 +55,7 @@
 
             .bs_icon_preview {
                 visibility: hidden;
+                opacity: 0.5;
             }
             .bs_icon_selected {
                 display: none;

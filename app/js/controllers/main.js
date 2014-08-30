@@ -170,9 +170,7 @@ require('./module').
                     style: $scope.fonts.sans_serif.helvetica_neue.style,
                     preview: null,
                     calc: function() {
-                        if (!$scope.ctrls.uses.control) {
-                            $scope.vars['@font-family-base'] = $scope.ctrls.body_font_family.preview || $scope.ctrls.body_font_family.style
-                        }
+                        $scope.vars['@font-family-base'] = $scope.ctrls.body_font_family.preview || $scope.ctrls.body_font_family.style
                     }
                 },
                 body_bg: {
@@ -240,9 +238,7 @@ require('./module').
                     style: $scope.fonts.monospace.menlo.style,
                     preview: null,
                     calc: function() {
-                        if (!$scope.ctrls.uses.control) {
-                            $scope.vars['@font-family-monospace'] = $scope.ctrls.code_font_family.preview || $scope.ctrls.code_font_family.style;
-                        }
+                        $scope.vars['@font-family-monospace'] = $scope.ctrls.code_font_family.preview || $scope.ctrls.code_font_family.style;
                     }
                 },
                 font_size: {
@@ -306,9 +302,7 @@ require('./module').
                     style: $scope.fonts.sans_serif.helvetica_neue.style,
                     preview: null,
                     calc: function() {
-                        if (!$scope.ctrls.uses.control) {
-                            $scope.vars['@headings-font-family'] = $scope.ctrls.headings_font_family.preview || $scope.ctrls.headings_font_family.style;
-                        }
+                        $scope.vars['@headings-font-family'] = $scope.ctrls.headings_font_family.preview || $scope.ctrls.headings_font_family.style;
                     }
                 },
                 jumbotron_bg: {
@@ -386,10 +380,7 @@ require('./module').
                         $scope.vars['@padding-xs-vertical'] = Math.floor(value * 0.1) + 'px';
                         $scope.vars['@padding-xs-horizontal'] = Math.floor(value * 0.5) + 'px';
                     }
-                },
-                uses: {
-                    control: false
-                },
+                }
             };
             angular.extend($scope.ctrls, {
                 run_calcs: function() {
