@@ -275,10 +275,6 @@
     });
 
     gulp.task('watch-js', function() {
-        return gulp.watch([ path.app + path.js ], ['build-js']);
-    });
-
-    gulp.task('watch-js', function() {
         var bundler = watchify(browserify('./app/js/app.js', watchify.args));
 
         bundler.on('update', rebundle);
