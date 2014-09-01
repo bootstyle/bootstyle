@@ -2,6 +2,7 @@
 
 // angular dependencies
 require('angular');
+require('angular_route');
 require('angular_sanitize');
 require('angular_spectrum_colorpicker');
 
@@ -21,7 +22,8 @@ require('tinycolor_v1api');
 
 // bootstyle dependencies
 require('./controllers/module');
-require('./controllers/main');
+require('./controllers/app_controller');
+require('./controllers/home_controller');
 
 require('./directives/module');
 require('./directives/dropdowns');
@@ -41,16 +43,40 @@ require('./services/scheme');
 require('./services/settings');
 require('./services/version');
 
-module.exports = angular.module('bootstyleApp', [
+var bootstyleApp = angular.module('bootstyleApp', [
+    // Angular Modules
+    'ngSanitize',
+    'ngRoute',
+
     // Bootstyle Modules
     'bootstyleApp.controllers',
     'bootstyleApp.directives',
     'bootstyleApp.filters',
     'bootstyleApp.services',
 
-    // Angular Modules
-    'ngSanitize',
-
     // Vendor Modules
     'angularSpectrumColorpicker'
 ]);
+
+bootstyleApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+    $routeProvider.
+        when('/', {
+            controller: 'HomeController',
+            templateUrl: 'partials/_home.html'
+        }).
+
+        when('/app', {
+            controller: 'AppController',
+            templateUrl: 'partials/_app.html'
+        }).
+
+        otherwise({
+            redirectTo: '/'
+        });
+
+    // use the HTML5 History API
+    $locationProvider.html5Mode(true);
+
+}]);
+
+module.exports = bootstyleApp;

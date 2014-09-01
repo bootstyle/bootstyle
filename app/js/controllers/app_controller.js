@@ -1,7 +1,7 @@
 'use strict';
 
 require('./module').
-    controller('BootstyleCtrl',
+    controller('AppController',
         ['$scope', '$compile', '$timeout', 'read_file', 'FONT_CONTRAST', 'RECOMPILE_LESS_DELAY',
         function($scope, $compile, $timeout, read_file, FONT_CONTRAST, RECOMPILE_LESS_DELAY) {
 

@@ -31,6 +31,7 @@
         build_bower: './build/bower/',
         css: 'css/**/*.*',
         fonts: 'fonts/**/*.*',
+        img: 'img/**/*.*',
         js: 'js/**/*.*',
         less: 'less/**/*.less',
         partials: 'partials/**/*.*'
@@ -134,6 +135,7 @@
 
                 'build-css',
                 'build-fonts',
+                'build-img',
                 'build-js',
                 'build-less',
                 'build-partials'
@@ -209,6 +211,12 @@
             .pipe(gulp.dest(path.build + 'fonts'));
     });
 
+    gulp.task('build-img', function() {
+        return gulp.src(path.app + path.img)
+            .pipe(changed(path.build + 'img'))
+            .pipe(gulp.dest(path.build + 'img'));
+    });
+
     gulp.task('build-less', function() {
         return gulp.src(path.app + path.less)
             .pipe(changed(path.build + 'less'))
@@ -256,7 +264,7 @@
         'watch-bower-components',
         'watch-css',
         'watch-fonts',
-        'watch-js',
+        'watchify-js',
         'watch-less',
         'watch-partials',
         'watch-root'
@@ -274,7 +282,7 @@
         return gulp.watch([ path.app + path.fonts ], ['build-fonts']);
     });
 
-    gulp.task('watch-js', function() {
+    gulp.task('watchify-js', function() {
         var bundler = watchify(browserify('./app/js/app.js', watchify.args));
 
         bundler.on('update', rebundle);
@@ -327,10 +335,5 @@
     });
 
     gulp.task('heroku:production', ['build']);
-
-    var plumberError = function(err) {
-        gutil.beep();
-        gutil.log(err);
-    };
 
 }());

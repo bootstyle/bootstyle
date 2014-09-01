@@ -1,14 +1,17 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" ng-app="bootstyleApp"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" ng-app="bootstyleApp"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" ng-app="bootstyleApp"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" ng-app="bootstyleApp"> <!--<![endif]-->
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" ng-app="bootstyleApp"> <![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" ng-app="bootstyleApp"> <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" ng-app="bootstyleApp"> <![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" ng-app="bootstyleApp"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Bootstyle</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- HTML5 Mode Base -->
+    <base href="/">
 
     <!-- CSS -->
     <link rel="stylesheet" href="bower/css/spectrum.css">
@@ -25,24 +28,13 @@
     <script src="js/app.js"></script>
 </head>
 
-<body ng-controller="BootstyleCtrl" ng-init="init_bootstyle()" ng-class="{ show_toolbar: toolbar.is_active }">
+<body>
     <!--[if lt IE 7]>
     <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please
         <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <!-- Dynamic LESS -->
-    <ng-include src=" 'partials/_dynamic_less.html' "></ng-include>
-    <bs-toolbar></bs-toolbar>
-    <ng-include src=" 'partials/_toolbar_toggle.html' "></ng-include>
-
-    <div class="bs_main">
-        <ng-include src=" 'partials/_preview.html' " ng-hide="settings.html_mode"></ng-include>
-        <ng-include src=" 'partials/_code_editor.html' " ng-show="settings.html_mode"></ng-include>
-    </div>
-
-    <ng-include src=" 'partials/_download_modal.html' "></ng-include>
-    <ng-include src=" 'partials/_reset_modal.html' "></ng-include>
+    <div ng-view></div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>

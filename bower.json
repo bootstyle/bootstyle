@@ -33,7 +33,8 @@
     "modernizr": "~2.8.2",
     "spectrum": "~1.4.1",
     "tinycolor": "~0.11.2",
-    "angular": "~1.2.23"
+    "angular": "~1.2.23",
+    "angular-route": "~1.2.23"
   },
   "devDependencies": {},
   "overrides": {

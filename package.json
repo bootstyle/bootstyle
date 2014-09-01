@@ -41,6 +41,7 @@
   "browser": {
     "angular": "./app/bower/js/angular.js",
     "angular_sanitize": "./app/bower/js/angular-sanitize.js",
+    "angular_route": "./app/bower/js/angular-route.js",
     "angular_spectrum_colorpicker": "./app/bower/js/angular-spectrum-colorpicker.js",
     "bootstrap": "./app/bower/js/bootstrap.js",
     "codemirror": "./app/bower/js/codemirror.js",
@@ -64,6 +65,11 @@
     "angular_sanitize": {
       "depends": [
         "angular:angular"
+      ]
+    },
+      "angular_route": {
+        "depends": [
+          "angular:angular"
       ]
     },
     "angular_spectrum_colorpicker": {
