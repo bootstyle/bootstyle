@@ -4,6 +4,7 @@
   "description": "Boostrap customizer for developers.",
   "repository": "levithomason/bootstyle",
   "author": "Levi Thomason <me@levithomason.com> (http://levithomason.com)",
+  "private": true,
   "contributors": [],
   "dependencies": {
     "logfmt": "~1.1.2",
@@ -60,16 +61,6 @@
       "exports": "angular",
       "depends": [
         "jquery:$"
-      ]
-    },
-    "angular_sanitize": {
-      "depends": [
-        "angular:angular"
-      ]
-    },
-      "angular_route": {
-        "depends": [
-          "angular:angular"
       ]
     },
     "angular_spectrum_colorpicker": {

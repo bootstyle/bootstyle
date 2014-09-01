@@ -8,7 +8,7 @@ require('./module').
         $scope.initialized = false;
         $scope.is_compiling_less = false;
 
-        $scope.init_bootstyle = function() {
+        $scope.init = function() {
 
             $scope.fonts = {
                 serif: {

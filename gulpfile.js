@@ -243,7 +243,8 @@
         gulp.src(path.build)
             .pipe(webserver({
                 root: ['.'],
-                livereload: true
+                livereload: true,
+                fallback: 'index.html'
             }));
     });
 
