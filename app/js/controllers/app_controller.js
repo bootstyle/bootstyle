@@ -512,7 +512,7 @@ require('./module').
         };
 
         $scope.download = function() {
-            read_file('partials/_download_bootstyle.html', function(contents) {
+            read_file('partials/app/_download_bootstyle.html', function(contents) {
                 var compiled_template = $compile(contents)($scope)[0];
 
                 $timeout(function() {
