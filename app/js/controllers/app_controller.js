@@ -241,10 +241,10 @@ require('./module').
                         $scope.vars['@font-family-monospace'] = $scope.ctrls.code_font_family.preview || $scope.ctrls.code_font_family.style;
                     }
                 },
-                font_size: {
+                font_size_base: {
                     control: 14,
                     calc: function() {
-                        $scope.vars['@font-size-base'] = $scope.ctrls.font_size.control + 'px';
+                        $scope.vars['@font-size-base'] = $scope.ctrls.font_size_base.control + 'px';
                     }
                 },
                 grays: {
