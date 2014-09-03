@@ -1,0 +1,204 @@
+#bs_toolbar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: @bs_toolbar_container_width;
+    color: #FFF;
+    background: @bs_toolbar_container_bg;
+    font-family: Raleway, Helvetica Neue, Helvetica, Arial, sans-serif;
+    line-height: 1.423;
+    font-size: 14px;
+    .bs_user_select(none);
+    .bs_transition_transforms();
+    .bs_translate(-@bs_toolbar_container_width, 0);
+
+    .bs_brand {
+        font-size: 128.57%;
+        padding: @bs_toolbar_horizontal_padding;
+        text-shadow: 0 2px darken(@bs_toolbar_container_bg, 10%);
+        background: @bs_toolbar_header_footer_color;
+
+        .bs_name {
+            letter-spacing: -1px;
+            font-weight: 900;
+        }
+        .bs_version {
+            color: lighten(@bs_toolbar_container_bg, 30%);
+            font-size: 75%;
+            text-shadow: none;
+        }
+    }
+
+    .bs_toolbars {
+        position: absolute;
+        width: 100%;
+        top: 65px;
+        bottom: 134px;
+        overflow-y: scroll;
+
+        .bs_toolbar {
+            background: @bs_toolbar_bg;
+            &.bs_toolbar_collapsed {
+                .bs_toolbar_title {
+                    .bs_icon_close {
+                        display: none;
+                    }
+
+                    .bs_icon_open {
+                        display: inline-block;
+                    }
+                }
+
+                .bs_control_group {
+                    display: none;
+                }
+
+                .bs_control {
+                    display: none;
+                }
+            }
+
+            &:not(.bs_toolbar_collapsed) {
+                margin-bottom: 20px;
+                .bs_toolbar_title {
+                    .bs_icon_close {
+                        display: inline-block;
+                    }
+
+                    .bs_icon_open {
+                        display: none;
+                    }
+                }
+            }
+
+            .bs_toolbar_title {
+                padding: @bs_toolbar_title_padding @bs_toolbar_horizontal_padding;
+                font-weight: 100;
+                letter-spacing: 2px;
+                font-size: 150%;
+                color: @bs_toolbar_title_color;
+                text-transform: uppercase;
+                cursor: pointer;
+                &:hover {
+                    background: darken(@bs_toolbar_bg, 1);
+                    color: lighten(@bs_toolbar_title_color, 10);
+                }
+
+                .bs_icon_open,
+                .bs_icon_close {
+                    float: right;
+                }
+            }
+
+            .bs_badge {
+                position: absolute;
+                padding: 0;
+                top: @bs_toolbar_control_padding;
+                right: @bs_toolbar_control_padding;
+                line-height: 1.7;
+                text-align: center;
+                font-family: Monospace;
+                font-size: 87.5%;
+                color: lighten(@bs_toolbar_container_bg, 35%);
+                border: none;
+                opacity: 0.2;
+
+                &.bs_badge_swatch {
+                    display: block;
+                    height: 20px;
+                    width: 40px;
+                }
+            }
+
+            .bs_control {
+                position: relative;
+                padding: @bs_toolbar_control_padding @bs_toolbar_horizontal_padding;
+                border-bottom: 0px solid darken(@bs_toolbar_container_bg, 3%);
+                &:hover {
+                    .bs_badge {
+                        opacity: 1;
+                    }
+                }
+
+                & + .bs_control,
+                & + .bs_control_group {
+                    margin-top: 1px;
+                    border-top-color: transparent;
+                }
+
+                .bs_input_label {
+                    display: block;
+                    .bs_user_select(none);
+                    font-weight: 400;
+                    font-size: 92.857%;
+                    color: @bs_toolbar_label_color_primary;
+                }
+            }
+
+            .bs_control_group {
+                position: relative;
+                border-bottom: 0px solid darken(@bs_toolbar_container_bg, 3%);
+                &:hover {
+                    .bs_badge {
+                        opacity: 1;
+                    }
+                }
+
+                & + .bs_control,
+                & + .bs_control_group {
+                    margin-top: 1px;
+                    border-top-color: transparent;
+                }
+
+                .bs_control_group_label {
+                    margin: 0;
+                    padding: @bs_toolbar_control_padding @bs_toolbar_horizontal_padding;
+                    padding-bottom: 0;
+                    font-weight: 400;
+                    font-size: 92.857%;
+                    color: @bs_toolbar_label_color_primary;
+                }
+
+                .bs_control {
+                    margin-top: 0;
+                    border: none;
+                    box-shadow: none;
+                    background: none;
+
+                    .bs_input_label {
+                        color: @bs_toolbar_label_color_secondary;
+                    }
+                }
+            }
+        }
+    }
+
+    .bs_btns {
+        position: absolute;
+        padding: @bs_toolbar_horizontal_padding;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: auto;
+        background: @bs_toolbar_header_footer_color;
+
+        .bs_btn {
+            & + .bs_btn {
+                margin-top: @bs_toolbar_horizontal_padding;
+            }
+        }
+    }
+
+    hr {
+        margin: @bs_toolbar_horizontal_padding;
+        border-top: 1px solid #333;
+        border-bottom: 1px solid #555;
+    }
+}
+
+.show_toolbar {
+    #bs_toolbar {
+        .bs_translate(0, 0);
+    }
+}

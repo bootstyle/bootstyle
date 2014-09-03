@@ -433,7 +433,7 @@ require('./module').
             };
 
 
-            read_file('partials/_preview_bootstyle.html', function(file_contents) {
+            read_file('partials/app/_preview_bootstyle.html', function(file_contents) {
                 $scope.preview.set_html(file_contents);
                 $scope.initialized = true;
             });
@@ -465,6 +465,7 @@ require('./module').
             is_active: true,
             toggle: function() {
                 $scope.toolbar.is_active = !$scope.toolbar.is_active;
+                $scope.settings.html_mode = false;
             }
         };
 

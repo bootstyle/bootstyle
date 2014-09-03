@@ -10,18 +10,18 @@ require('./module').
                 var hoverTimeDelay = 200;
 
                 elem.on('click', function() {
-                    menu.show();
+                    elem.addClass('active');
                 });
 
                 elem.on('mouseenter', function() {
                     hoverTimer = setTimeout(function() {
-                        menu.show();
+                        elem.addClass('active');
                     }, hoverTimeDelay);
                 });
 
                 elem.on('mouseleave', function() {
                     clearTimeout(hoverTimer);
-                    menu.hide();
+                    elem.removeClass('active');
                 });
             }
         };
@@ -30,12 +30,13 @@ require('./module').
         return {
             restrict: 'C',
             link: function(scope, elem, attrs) {
-                elem.hide();
+                var dropdown_trigger = elem.prev('.bs_dropdown_trigger');
+
                 elem.on('click mouseleave', function() {
-                    elem.hide();
+                    dropdown_trigger.removeClass('active');
                 });
                 elem.on('mouseenter', function() {
-                    elem.show();
+                    dropdown_trigger.addClass('active');
                 });
             }
         };

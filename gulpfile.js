@@ -12,6 +12,7 @@
     var flatten = require('gulp-flatten');
     var gulp = require('gulp');
     var gutil = require("gulp-util");
+    var less = require('gulp-less');
     var mainBowerFiles = require('main-bower-files');
     var merge = require('merge-stream');
     var minifyCSS = require('gulp-minify-css');
@@ -41,7 +42,7 @@
     /**
      Clean
      */
-        // app
+    // app
     gulp.task('clean-app-bower', function(cb) {
         del([path.app + '**/bower/**'], cb);
     });
@@ -55,7 +56,7 @@
         del([path.build + '**/bower/**'], cb);
     });
 
-    gulp.task('clean-build-css', function(cb) {
+    gulp.task('clean-build-landing-page-css', function(cb) {
         del([path.build + '**/css/**'], cb);
     });
 
@@ -133,7 +134,8 @@
             [
                 'build-root',
 
-                'build-css',
+                'build-landing-page-css',
+                'build-app-css',
                 'build-fonts',
                 'build-img',
                 'build-js',
@@ -189,11 +191,20 @@
     });
 
     // our assets
-    gulp.task('build-css', function() {
-        return gulp.src([path.app + path.css])
+    gulp.task('build-landing-page-css', function() {
+        return gulp.src([path.app + 'css/landing_page/landing_page.less'])
             .pipe(changed(path.build + 'css'))
+            .pipe(less())
             .pipe(minifyCSS({ keepSpecialComments: 0 }))
-            .pipe(gulp.dest(path.build + 'css'));
+            .pipe(gulp.dest(path.build + 'css/landing_page/'));
+    });
+
+    gulp.task('build-app-css', function() {
+        return gulp.src([path.app + 'css/app/app.less'])
+            .pipe(changed(path.build + 'css'))
+            .pipe(less())
+            .pipe(minifyCSS({ keepSpecialComments: 0 }))
+            .pipe(gulp.dest(path.build + 'css/app/'));
     });
 
     gulp.task('build-js', function() {
@@ -263,7 +274,9 @@
      */
     gulp.task('watch', [
         'watch-bower-components',
-        'watch-css',
+        'watch-shared-css',
+        'watch-landing-page-css',
+        'watch-app-css',
         'watch-fonts',
         'watchify-js',
         'watch-less',
@@ -275,8 +288,16 @@
         return gulp.watch([ path.bower_components ], ['build-bower']);
     });
 
-    gulp.task('watch-css', function() {
-        return gulp.watch([ path.app + path.css ], ['build-css']);
+    gulp.task('watch-shared-css', function() {
+        return gulp.watch([ path.app + 'css/shared/**/*.*' ], ['build-landing-page-css', 'build-app-css']);
+    });
+
+    gulp.task('watch-landing-page-css', function() {
+        return gulp.watch([ path.app + 'css/landing_page/**/*.*' ], ['build-landing-page-css']);
+    });
+
+    gulp.task('watch-app-css', function() {
+        return gulp.watch([ path.app + 'css/app/**/*.*' ], ['build-app-css']);
     });
 
     gulp.task('watch-fonts', function() {
@@ -312,6 +333,7 @@
     gulp.task('watch-root', function() {
         return gulp.watch([ path.app + '*.*'], ['build-root']);
     });
+
 
     /**
      Default

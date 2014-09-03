@@ -1,0 +1,30 @@
+<div class="bs_toolbar" id="bs_toolbar_base">
+
+    <div class="bs_toolbar_title">
+        Base
+        <span class="bs_icon_open">
+            <i class="fa fa-angle-down"></i>
+        </span>
+        <span class="bs_icon_close">
+            <i class="fa fa-angle-up"></i>
+        </span>
+    </div>
+    <div class="bs_control">
+        <span class="bs_badge">{{ ctrls.border_radius.control }}px</span>
+        <label class="bs_input_label">Border Radius</label>
+        <input type="range" class="bs_range_input" ng-model="ctrls.border_radius.control" min="0" max="30"/>
+    </div>
+
+    <div class="bs_control bs_range_control">
+        <small class="bs_badge">{{ ctrls.padding.control }}px</small>
+        <label class="bs_input_label">Padding</label>
+        <input type="range" class="bs_range_input" ng-model="ctrls.padding.control" min="1" max="20"/>
+    </div>
+
+    <div class="bs_control">
+        <label class="bs_input_label">
+            <input type="checkbox" ng-model="ctrls.bootstrap_theme.control">
+            Bootstrap Theme
+        </label>
+    </div>
+</div>

@@ -27,9 +27,9 @@ require('./controllers/home_controller');
 
 require('./directives/module');
 require('./directives/dropdowns');
-require('./directives/toggle_toolbar');
 require('./directives/toolbar');
 require('./directives/version');
+require('./directives/bs_toolbar_collapse');
 
 require('./filters/module');
 require('./filters/capitalize');
@@ -62,20 +62,20 @@ bootstyleApp.config(['$routeProvider', '$locationProvider', function($routeProvi
     $routeProvider.
         when('/', {
             controller: 'HomeController',
-            templateUrl: 'partials/_home.html'
+            templateUrl: 'partials/landing_page/_landing_page.html'
         }).
 
         when('/app', {
             controller: 'AppController',
-            templateUrl: 'partials/_app.html'
+            templateUrl: 'partials/app/_app.html'
         }).
 
         otherwise({
-            redirectTo: '/'
+            redirectTo: '/app'
         });
 
     // use the HTML5 History API
-    $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(true).hashPrefix('!');
 
 }]);
 

@@ -1,0 +1,36 @@
+<div class="bs_toolbar bs_toolbar_collapsed" id="bs_toolbar_navbar">
+    <div class="bs_toolbar_title">
+        Navbar
+        <span class="bs_icon_open">
+            <i class="fa fa-angle-down"></i>
+        </span>
+        <span class="bs_icon_close">
+            <i class="fa fa-angle-up"></i>
+        </span>
+    </div>
+
+    <div class="bs_control">
+        <span class="bs_badge">{{ ctrls.navbar_height.control }}px</span>
+        <label class="bs_input_label">Height</label>
+        <input type="range" class="bs_range_input" ng-model="ctrls.navbar_height.control" min="20" max="100"/>
+    </div>
+
+    <div class="bs_control">
+        <span class="bs_badge">{{ ctrls.navbar_margin_bottom.control }}px</span>
+        <label class="bs_input_label">Margin Bottom</label>
+        <input type="range" class="bs_range_input" ng-model="ctrls.navbar_margin_bottom.control" min="0" max="100"/>
+    </div>
+
+    <div class="bs_control">
+        <label class="bs_input_label">Background</label>
+        <input type="text" class="bs_text_input" ng-model="ctrls.navbar_bg.control"/>
+        <spectrum-colorpicker ng-model="ctrls.navbar_bg.control" options="{{ spectrum_config }}"></spectrum-colorpicker>
+    </div>
+
+    <div class="bs_control">
+        <label class="bs_input_label">Font Color</label>
+        <input type="text" class="bs_text_input" ng-model="ctrls.navbar_font_color.control"/>
+        <spectrum-colorpicker ng-model="ctrls.navbar_font_color.control" options="{{ spectrum_config }}"></spectrum-colorpicker>
+    </div>
+
+</div>
