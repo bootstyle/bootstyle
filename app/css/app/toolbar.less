@@ -13,27 +13,32 @@
     .bs_transition_transforms();
     .bs_translate(-@bs_toolbar_container_width, 0);
 
-    .bs_brand {
+    .bs_toolbar_header {
         font-size: 128.57%;
-        padding: @bs_toolbar_horizontal_padding;
-        text-shadow: 0 2px darken(@bs_toolbar_container_bg, 10%);
+        padding: 5px @bs_toolbar_horizontal_padding;
         background: @bs_toolbar_header_footer_color;
 
-        .bs_name {
-            letter-spacing: -1px;
-            font-weight: 900;
+        .bs_brand {
+            &:hover {
+                text-decoration: none;
+            }
+            img {
+                height: 25px;
+            }
         }
+
         .bs_version {
+            position: relative;
+            top: 5px;
             color: lighten(@bs_toolbar_container_bg, 30%);
-            font-size: 75%;
-            text-shadow: none;
+            font-size: 10px;
         }
     }
 
     .bs_toolbars {
         position: absolute;
         width: 100%;
-        top: 65px;
+        top: 37px;
         bottom: 134px;
         overflow-y: scroll;
 
