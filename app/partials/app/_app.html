@@ -2,8 +2,10 @@
 <link rel="stylesheet/less" href="less/app.less">
 <div class="#bs_app" ng-init="init()" ng-class="{ show_toolbar: toolbar.is_active }">
 
-    <div ng-if="!initialized">
-        Loading app!
+    <div class="bs_loading_container" ng-if="!initialized">
+        <div class="bs_loading">
+            <img src="img/icon-white.png" alt=""/>
+        </div>
     </div>
 
     <div ng-if="initialized">

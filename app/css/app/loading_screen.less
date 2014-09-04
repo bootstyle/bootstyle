@@ -1,0 +1,59 @@
+.bs_loading_container {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: @bs_color_scheme_1;
+    text-align: center;
+    font-size: 1em;
+    color: #FFF;
+
+    .bs_loading {
+        position: fixed;
+        top: 0;
+        bottom: 40%;
+        left: 0;
+        right: 0;
+        width: 80px;
+        height: 130px;
+        margin: auto;
+        -webkit-animation: bs_pulse_fade 0.5s infinite;
+        animation: bs_pulse_fade 0.5s infinite;
+        -webkit-animation-direction: alternate-reverse linear;
+        animation-direction: alternate-reverse linear;
+        img {
+            width: 100%;
+        }
+    }
+}
+
+.bs_loading_frames() {
+    0% {
+        opacity: 1;
+    }
+    20% {
+        opacity: 0.3;
+    }
+    40% {
+        opacity: 0.8;
+    }
+    60% {
+        opacity: 0.2;
+    }
+    80% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 0.1;
+    }
+}
+
+@keyframes bs_pulse_fade {
+    .bs_loading_frames;
+}
+
+@-webkit-keyframes bs_pulse_fade {
+    .bs_loading_frames;
+}
+
