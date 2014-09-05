@@ -12,6 +12,7 @@
     var flatten = require('gulp-flatten');
     var gulp = require('gulp');
     var gutil = require("gulp-util");
+    var less = require('gulp-less');
     var mainBowerFiles = require('main-bower-files');
     var merge = require('merge-stream');
     var minifyCSS = require('gulp-minify-css');
@@ -31,6 +32,7 @@
         build_bower: './build/bower/',
         css: 'css/**/*.*',
         fonts: 'fonts/**/*.*',
+        img: 'img/**/*.*',
         js: 'js/**/*.*',
         less: 'less/**/*.less',
         partials: 'partials/**/*.*'
@@ -40,7 +42,7 @@
     /**
      Clean
      */
-        // app
+    // app
     gulp.task('clean-app-bower', function(cb) {
         del([path.app + '**/bower/**'], cb);
     });
@@ -54,7 +56,7 @@
         del([path.build + '**/bower/**'], cb);
     });
 
-    gulp.task('clean-build-css', function(cb) {
+    gulp.task('clean-build-landing-page-css', function(cb) {
         del([path.build + '**/css/**'], cb);
     });
 
@@ -128,13 +130,14 @@
     gulp.task('build', function(cb) {
         runSequence(
             'clean-build',
+            'build-bower',
             [
                 'build-root',
 
-                'build-bower',
-
-                'build-css',
+                'build-landing-page-css',
+                'build-app-css',
                 'build-fonts',
+                'build-img',
                 'build-js',
                 'build-less',
                 'build-partials'
@@ -188,11 +191,20 @@
     });
 
     // our assets
-    gulp.task('build-css', function() {
-        return gulp.src([path.app + path.css])
+    gulp.task('build-landing-page-css', function() {
+        return gulp.src([path.app + 'css/landing_page/landing_page.less'])
             .pipe(changed(path.build + 'css'))
+            .pipe(less())
             .pipe(minifyCSS({ keepSpecialComments: 0 }))
-            .pipe(gulp.dest(path.build + 'css'));
+            .pipe(gulp.dest(path.build + 'css/landing_page/'));
+    });
+
+    gulp.task('build-app-css', function() {
+        return gulp.src([path.app + 'css/app/app.less'])
+            .pipe(changed(path.build + 'css'))
+            .pipe(less())
+            .pipe(minifyCSS({ keepSpecialComments: 0 }))
+            .pipe(gulp.dest(path.build + 'css/app/'));
     });
 
     gulp.task('build-js', function() {
@@ -208,6 +220,12 @@
         return gulp.src(path.app + path.fonts)
             .pipe(changed(path.build + 'fonts'))
             .pipe(gulp.dest(path.build + 'fonts'));
+    });
+
+    gulp.task('build-img', function() {
+        return gulp.src(path.app + path.img)
+            .pipe(changed(path.build + 'img'))
+            .pipe(gulp.dest(path.build + 'img'));
     });
 
     gulp.task('build-less', function() {
@@ -236,7 +254,8 @@
         gulp.src(path.build)
             .pipe(webserver({
                 root: ['.'],
-                livereload: true
+                livereload: true,
+                fallback: 'index.html'
             }));
     });
 
@@ -255,9 +274,11 @@
      */
     gulp.task('watch', [
         'watch-bower-components',
-        'watch-css',
+        'watch-shared-css',
+        'watch-landing-page-css',
+        'watch-app-css',
         'watch-fonts',
-        'watch-js',
+        'watchify-js',
         'watch-less',
         'watch-partials',
         'watch-root'
@@ -267,19 +288,23 @@
         return gulp.watch([ path.bower_components ], ['build-bower']);
     });
 
-    gulp.task('watch-css', function() {
-        return gulp.watch([ path.app + path.css ], ['build-css']);
+    gulp.task('watch-shared-css', function() {
+        return gulp.watch([ path.app + 'css/shared/**/*.*' ], ['build-landing-page-css', 'build-app-css']);
+    });
+
+    gulp.task('watch-landing-page-css', function() {
+        return gulp.watch([ path.app + 'css/landing_page/**/*.*' ], ['build-landing-page-css']);
+    });
+
+    gulp.task('watch-app-css', function() {
+        return gulp.watch([ path.app + 'css/app/**/*.*' ], ['build-app-css']);
     });
 
     gulp.task('watch-fonts', function() {
         return gulp.watch([ path.app + path.fonts ], ['build-fonts']);
     });
 
-    gulp.task('watch-js', function() {
-        return gulp.watch([ path.app + path.js ], ['build-js']);
-    });
-
-    gulp.task('watch-js', function() {
+    gulp.task('watchify-js', function() {
         var bundler = watchify(browserify('./app/js/app.js', watchify.args));
 
         bundler.on('update', rebundle);
@@ -309,6 +334,7 @@
         return gulp.watch([ path.app + '*.*'], ['build-root']);
     });
 
+
     /**
      Default
      */
@@ -331,23 +357,6 @@
         );
     });
 
-    gulp.task('heroku:production', function(cb) {
-        runSequence(
-            'copy-bower-components',
-            'build-root',
-            'build-bower',
-            'build-css',
-            'build-less',
-            'build-fonts',
-            'build-partials',
-            'build-js',
-            cb
-        );
-    });
-
-    var plumberError = function(err) {
-        gutil.beep();
-        gutil.log(err);
-    };
+    gulp.task('heroku:production', ['build']);
 
 }());

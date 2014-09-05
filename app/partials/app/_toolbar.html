@@ -1,0 +1,34 @@
+<div id="bs_toolbar">
+    <div class="bs_toolbar_header">
+        <a href="/" class="bs_brand">
+            <img src="img/logo-white.png" alt=""/>
+            <span class="bs_version" bootstyle-version></span>
+        </a>
+    </div>
+
+    <div class="bs_toolbars">
+        <ng-include src=" '/partials/app/toolbars/_toolbar_base.html' "></ng-include>
+        <ng-include src=" '/partials/app/toolbars/_toolbar_navbar.html' "></ng-include>
+        <ng-include src=" '/partials/app/toolbars/_toolbar_jumbotron.html' "></ng-include>
+        <ng-include src=" '/partials/app/toolbars/_toolbar_buttons.html' "></ng-include>
+        <ng-include src=" '/partials/app/toolbars/_toolbar_colors.html' "></ng-include>
+        <ng-include src=" '/partials/app/toolbars/_toolbar_headings.html' "></ng-include>
+        <ng-include src=" '/partials/app/toolbars/_toolbar_typography.html' "></ng-include>
+        <!--<ng-include src=" '/partials/app/toolbars/_toolbar_color_scheme.html' "></ng-include>-->
+    </div>
+
+    <div class="bs_btns">
+        <div class="bs_btn bs_btn_block bs_btn_outline" ng-if="!settings.html_mode" ng-click="settings.html_mode = true">
+            <i class="fa fa-pencil"></i>
+            Edit HTML
+        </div>
+        <div class="bs_btn bs_btn_block bs_btn_outline" ng-if="settings.html_mode" ng-click="settings.html_mode = false">
+            <i class="fa fa-eye"></i>
+            Preview
+        </div>
+        <div class="bs_btn bs_btn_block bs_btn_primary" ng-click="download()">
+            <i class="fa fa-cloud-download"></i>
+            Download LESS
+        </div>
+    </div>
+</div>

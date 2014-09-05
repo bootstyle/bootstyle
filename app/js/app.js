@@ -2,6 +2,7 @@
 
 // angular dependencies
 require('angular');
+require('angular_route');
 require('angular_sanitize');
 require('angular_spectrum_colorpicker');
 
@@ -21,14 +22,14 @@ require('tinycolor_v1api');
 
 // bootstyle dependencies
 require('./controllers/module');
-require('./controllers/main');
+require('./controllers/app_controller');
+require('./controllers/home_controller');
 
 require('./directives/module');
-require('./directives/range_control');
-require('./directives/radio_control');
-require('./directives/toggle_toolbar');
+require('./directives/dropdowns');
 require('./directives/toolbar');
 require('./directives/version');
+require('./directives/bs_toolbar_collapse');
 
 require('./filters/module');
 require('./filters/capitalize');
@@ -42,16 +43,40 @@ require('./services/scheme');
 require('./services/settings');
 require('./services/version');
 
-module.exports = angular.module('bootstyleApp', [
+var bootstyleApp = angular.module('bootstyleApp', [
+    // Angular Modules
+    'ngSanitize',
+    'ngRoute',
+
     // Bootstyle Modules
     'bootstyleApp.controllers',
     'bootstyleApp.directives',
     'bootstyleApp.filters',
     'bootstyleApp.services',
 
-    // Angular Modules
-    'ngSanitize',
-
     // Vendor Modules
     'angularSpectrumColorpicker'
 ]);
+
+bootstyleApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+    $routeProvider.
+        when('/', {
+            controller: 'HomeController',
+            templateUrl: 'partials/landing_page/_landing_page.html'
+        }).
+
+        when('/app', {
+            controller: 'AppController',
+            templateUrl: 'partials/app/_app.html'
+        }).
+
+        otherwise({
+            redirectTo: '/app'
+        });
+
+    // use the HTML5 History API
+    $locationProvider.html5Mode(true).hashPrefix('!');
+
+}]);
+
+module.exports = bootstyleApp;

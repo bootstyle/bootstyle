@@ -1,0 +1,81 @@
+.bs_dropdown_trigger {
+    position: relative;
+    display: inline-block;
+    .bs_box_sizing(border-box);
+    padding: @bs_input_padding;
+    padding-right: 30px;
+    width: 200px;
+    color: @bs_input_color;
+    cursor: pointer;
+    background: @bs_input_bg;
+    .bs_user_select(none);
+    &.active {
+        & + .bs_dropdown {
+            visibility: visible;
+        }
+    }
+
+    & + .bs_dropdown {
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        width: 200px;
+        color: @bs_input_color;
+        list-style: none;
+        background: @bs_input_bg;
+        box-shadow: 0 1px 10px darken(@bs_toolbar_container_bg, 5);
+        border-radius: @bs_border_radius;
+        // match bootstrap dropdown z-index variable
+        z-index: 1000;
+        .bs_user_select(none);
+        visibility: hidden;
+
+        li {
+            padding: @bs_input_padding;
+            cursor: pointer;
+            &:hover {
+                color: @bs_input_color_focused;
+
+                .bs_icon_preview {
+                    visibility: visible;
+                }
+            }
+            &.active {
+                color: @bs_input_color_focused;
+                background: @bs_input_bg_focused;
+                .bs_icon_selected {
+                    display: inline-block;
+                }
+                .bs_icon_preview {
+                    display: none;
+                }
+            }
+
+            &.bs_dropdown_header {
+                color: @bs_input_color_focused;
+                cursor: default;
+                font-weight: 100;
+                border-top: 1px dashed @bs_input_color;
+                &:hover {
+                    background: @bs_input_bg;
+                }
+            }
+
+            .bs_icon_preview {
+                visibility: hidden;
+                opacity: 0.5;
+            }
+            .bs_icon_selected {
+                display: none;
+            }
+        }
+
+    }
+
+    .bs_dropdown_caret {
+        position: absolute;
+        right: 10px;
+        top: 5px;
+    }
+}
+
