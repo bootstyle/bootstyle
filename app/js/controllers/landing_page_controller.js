@@ -1,6 +1,6 @@
 'use strict';
 
-require('./module').controller('HomeController', ['$scope', '$firebase', '$firebaseSimpleLogin', function($scope, $firebase, $firebaseSimpleLogin) {
+require('./module').controller('LandingPageController', ['$scope', '$firebase', '$firebaseSimpleLogin', function($scope, $firebase, $firebaseSimpleLogin) {
 
     $scope.initialized = false;
     var ref;

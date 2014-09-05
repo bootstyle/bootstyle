@@ -26,7 +26,7 @@ require('tinycolor_v1api');
 // bootstyle dependencies
 require('./controllers/module');
 require('./controllers/app_controller');
-require('./controllers/home_controller');
+require('./controllers/landing_page_controller');
 
 require('./directives/module');
 require('./directives/dropdowns');
@@ -65,7 +65,7 @@ var bootstyleApp = angular.module('bootstyleApp', [
 bootstyleApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider.
         when('/', {
-            controller: 'HomeController',
+            controller: 'LandingPageController',
             templateUrl: 'partials/landing_page/_landing_page.html'
         }).
 
