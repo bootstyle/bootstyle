@@ -2,6 +2,7 @@
 
 // angular dependencies
 require('angular');
+require('angularfire');
 require('angular_route');
 require('angular_sanitize');
 require('angular_spectrum_colorpicker');
@@ -14,6 +15,8 @@ require('codemirror_mode_htmlmixed');
 require('codemirror_mode_javascript');
 require('codemirror_mode_xml');
 require('FileSaver');
+require('firebase');
+require('firebase_simple_login');
 require('jquery');
 require('less');
 require('spectrum');
@@ -55,7 +58,8 @@ var bootstyleApp = angular.module('bootstyleApp', [
     'bootstyleApp.services',
 
     // Vendor Modules
-    'angularSpectrumColorpicker'
+    'angularSpectrumColorpicker',
+    'firebase'
 ]);
 
 bootstyleApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {

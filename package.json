@@ -42,6 +42,7 @@
   "main": "./app/js/app.js",
   "browser": {
     "angular": "./app/bower/js/angular.js",
+    "angularfire": "./app/js/vendor/angularfire.min.js",
     "angular_sanitize": "./app/bower/js/angular-sanitize.js",
     "angular_route": "./app/bower/js/angular-route.js",
     "angular_spectrum_colorpicker": "./app/bower/js/angular-spectrum-colorpicker.js",
@@ -52,6 +53,8 @@
     "codemirror_mode_javascript": "./app/bower/js/javascript.js",
     "codemirror_mode_xml": "./app/bower/js/xml.js",
     "FileSaver": "./app/bower/js/FileSaver.js",
+    "firebase": "./app/js/vendor/firebase.js",
+    "firebase_simple_login": "./app/js/vendor/firebase-simple-login.js",
     "jquery": "./app/bower/js/jquery.js",
     "spectrum": "./app/bower/js/spectrum.js",
     "tinycolor": "./app/bower/js/tinycolor.js",
@@ -91,6 +94,12 @@
     },
     "FileSaver": {
       "exports": "FileSaver"
+    },
+    "firebase": {
+      "exports": "firebase"
+    },
+    "firebase_simple_login": {
+      "exports": "firebase_simple_login"
     },
     "jquery": {
       "exports": "$"
