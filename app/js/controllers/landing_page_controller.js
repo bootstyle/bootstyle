@@ -12,16 +12,35 @@ require('./module').controller('LandingPageController', ['$scope', '$firebase', 
         sync = $firebase(ref);
         authClient = $firebaseSimpleLogin(ref);
 
+        $scope.setLoginForm('github');
+
         $scope.initialized = true;
     };
 
-    // log user in using the Github provider for Simple Login
+    $scope.setLoginForm = function(name) {
+        $scope.login_form = name;
+    };
+
     $scope.loginWithGithub = function() {
-        authClient.$login("facebook").then(function(user) {
-            console.log("Logged in as: " + user.uid);
+        authClient.$login("github").then(function(user) {
+            $scope.handleSuccessfulLogin(user);
         }, function(error) {
-            console.error("Login failed: " + error);
+            $scope.handleLoginError(error);
         });
+    };
+
+    $scope.handleSuccessfulLogin = function() {
+        console.log("Logged in as: " + user.uid);
+        console.log(user);
+
+    };
+
+    $scope.handleLoginError = function(error) {
+        console.log(error);
+        var error_message = error.message.match("FirebaseSimpleLogin: (.*)")[1];
+        var error_code = error.code.replace('_', ' ');
+
+        alert(error_code + "\n" + error_message);
     };
 
 }]);

@@ -12,10 +12,8 @@
 @import "bootstrap_variable_overrides";
 
 
-// landing page style
-body {
-    padding-bottom: 20px;
-}
+//
+// Bootstrap Extension
 
 .navbar {
     border-bottom: none;
@@ -53,20 +51,33 @@ body {
         }
     }
 
-    .bs_cta_button {
-        padding-top: 60px;
-        .btn {
-            background: none;
-            border: 2px solid #FFF;
+    .btn {
+        background: none;
+        color: #fff;
+        border: 2px solid #FFF;
+
+        &.btn-link {
+            border-color: transparent;
+            color: mix(@bs_color_scheme_1, #FFF, 30%);
+            &:hover {
+                color: #fff;
+                text-decoration: none;
+            }
         }
     }
 
+
+    .bs_cta {
+        padding-top: 60px;
+    }
 }
 
 .btn {
-    text-transform: uppercase;
     font-weight: 100;
 }
+
+//
+// Bootstyle
 
 .bs_main_points_wrapper {
     padding: 20px 0;
