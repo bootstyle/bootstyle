@@ -13,6 +13,7 @@ require('./module').controller('LandingPageController', ['$scope', '$firebase', 
         authClient = $firebaseSimpleLogin(ref);
 
         $scope.setLoginForm('github');
+        $scope.user = null;
 
         $scope.initialized = true;
     };
@@ -21,7 +22,7 @@ require('./module').controller('LandingPageController', ['$scope', '$firebase', 
         $scope.login_form = name;
     };
 
-    $scope.loginWithGithub = function() {
+    $scope.loginWithGithub = function(user) {
         authClient.$login("github").then(function(user) {
             $scope.handleSuccessfulLogin(user);
         }, function(error) {
@@ -29,7 +30,8 @@ require('./module').controller('LandingPageController', ['$scope', '$firebase', 
         });
     };
 
-    $scope.handleSuccessfulLogin = function() {
+    $scope.handleSuccessfulLogin = function(user) {
+        $scope.user = user;
         console.log("Logged in as: " + user.uid);
         console.log(user);
 

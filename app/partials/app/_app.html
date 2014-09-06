@@ -16,8 +16,9 @@
         <ng-include src=" 'partials/app/_toolbar_toggle.html' "></ng-include>
 
         <div class="bs_content_area">
-            <ng-include src=" 'partials/app/_preview.html' " ng-hide="settings.html_mode"></ng-include>
-            <ng-include src=" 'partials/app/_code_editor.html' " ng-show="settings.html_mode"></ng-include>
+
+            <bs-preview bs-html="{{ preview.html }}" ng-hide="settings.html_mode"></bs-preview>
+            <bs-code-editor bs-model="preview.html" ng-show="settings.html_mode"></bs-code-editor>
         </div>
 
         <ng-include src=" 'partials/app/_download_modal.html' "></ng-include>

@@ -20,10 +20,6 @@
                     <li><a href="mailto:bootstyle@levithomason.com"><i class="fa fa-envelope-o"></i> Contact Us</a></li>
                     <li><a href="/app"><i class="fa fa-rocket"></i> Launch App</a></li>
                 </ul>
-                <div class="navbar-btn btn btn-success" ng-click="loginWithGithub()">
-                    <i class="fa fa-github"></i>
-                    Login
-                </div>
             </div>
             <!--/.navbar-collapse -->
         </div>
@@ -44,7 +40,10 @@
             -->
             <!--<p class="lead">A Bootstrap customizer crafted by developers and designers, with so much love.</p>-->
             <div class="bs_cta">
-                <div class="row">
+                <div ng-if="user.uid">
+                    You're logged in!
+                </div>
+                <div class="row" ng-if="!user">
                     <div class="col-sm-4 col-sm-offset-4">
                         <div ng-show="login_form === 'github'">
                             <div class="btn btn-primary btn-lg" ng-click="loginWithGithub()">

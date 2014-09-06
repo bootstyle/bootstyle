@@ -433,29 +433,13 @@ require('./module').
             };
 
 
-            read_file('partials/app/_preview_bootstyle.html', function(file_contents) {
+            read_file('partials/app/previews/_preview_bootstyle.html', function(file_contents) {
                 $scope.preview.set_html(file_contents);
                 $scope.initialized = true;
             });
         };
 
         ////////////////////////////  END INIT  ////////////////////////////
-
-        /*
-         Code Editor
-         */
-        $scope.init_code_editor = function() {
-            $scope.code_editor = CodeMirror(document.getElementById('code_editor'), {
-                theme: "ambiance",
-                mode: 'htmlmixed',
-                lineNumbers: true,
-                value: $scope.preview.html
-            });
-
-            $scope.code_editor.on('change', function() {
-                $scope.preview.set_html($scope.code_editor.getValue());
-            });
-        };
 
 
         /*

@@ -32,7 +32,10 @@ require('./directives/module');
 require('./directives/dropdowns');
 require('./directives/toolbar');
 require('./directives/version');
+require('./directives/bs_code_editor');
+require('./directives/bs_preview');
 require('./directives/bs_toolbar_collapse');
+require('./directives/prevent_preview_links');
 
 require('./filters/module');
 require('./filters/capitalize');
