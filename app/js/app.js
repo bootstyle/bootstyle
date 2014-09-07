@@ -43,6 +43,7 @@ require('./filters/trustAsHTML');
 
 require('./services/module');
 require('./services/auto_overlay_color');
+require('./services/bsBackend');
 require('./services/constants');
 require('./services/read_file');
 require('./services/scheme');
