@@ -8,7 +8,7 @@ require('./module').
         var refUsers = new Firebase(firebaseUrl + 'users');
 
         var authClient = $firebaseSimpleLogin(refBase);
-        var currentUser = $firebase(refUsers);
+        var usersClient = $firebase(refUsers);
 
         var bsBackend = {
             auth: authClient
@@ -36,7 +36,7 @@ require('./module').
             var email = getPrimaryGitHubUserEmail(user);
             var id = user.uid;
 
-            currentUser.$set(id, {
+            usersClient.$set(id, {
                 uid: id,
                 name: user.displayName,
                 email: email
