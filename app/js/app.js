@@ -70,12 +70,22 @@ bootstyleApp.config(['$routeProvider', '$locationProvider', function($routeProvi
     $routeProvider.
         when('/', {
             controller: 'LandingPageController',
-            templateUrl: 'partials/landing_page/_landing_page.html'
+            templateUrl: 'partials/landing_page/_landing_page.html',
+            resolve: {
+                initialized: function() {
+                    return false;
+                }
+            }
         }).
 
         when('/app', {
             controller: 'AppController',
-            templateUrl: 'partials/app/_app.html'
+            templateUrl: 'partials/app/_app.html',
+            resolve: {
+                initialized: function() {
+                    return false;
+                }
+            }
         }).
 
         otherwise({

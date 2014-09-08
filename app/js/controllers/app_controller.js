@@ -5,9 +5,6 @@ require('./module').
         ['$scope', '$compile', '$timeout', 'read_file', 'FONT_CONTRAST', 'RECOMPILE_LESS_DELAY',
         function($scope, $compile, $timeout, read_file, FONT_CONTRAST, RECOMPILE_LESS_DELAY) {
 
-        $scope.initialized = false;
-        $scope.is_compiling_less = false;
-
         $scope.init = function() {
 
             $scope.fonts = {
@@ -435,7 +432,6 @@ require('./module').
 
             read_file('partials/app/previews/_preview_bootstyle.html', function(file_contents) {
                 $scope.preview.set_html(file_contents);
-                $scope.initialized = true;
             });
         };
 
@@ -527,7 +523,6 @@ require('./module').
                     window.timerRecompileLESS = null;
                     $scope.recompileLESS();
                 }
-
             }, 5);
         };
 
@@ -553,6 +548,12 @@ require('./module').
             // END COPY
 
             less.refresh(true, $scope.vars);
+
+            if (!$scope.initialized) {
+                $timeout(function() {
+                    $scope.initialized = true;
+                });
+            }
         };
 
     }]);

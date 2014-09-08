@@ -5,8 +5,6 @@ require('./module')
     ['$scope', '$location', 'bsBackend', 'SETTINGS',
         function($scope, $location, bsBackend, SETTINGS) {
 
-            $scope.initialized = false;
-
             $scope.init = function() {
                 $scope.setLoginForm('github');
                 $scope.user = null;
