@@ -534,6 +534,11 @@ require('./module').
             $scope.timerRecompileLESS();
         }, true);
 
+        //// socket test
+        $scope.$watch('vars', function(newVal, oldVal) {
+
+        });
+
 
         // Call recompileLESS after a certain amount of inactivity
         $scope.timerRecompileLESS = function() {
