@@ -7,7 +7,6 @@ var server = app.listen(port, function() {
     console.log("Listening on " + port);
 });
 
-
 app.use(logfmt.requestLogger());
 app.use('/', express.static(__dirname + '/build'));
 
