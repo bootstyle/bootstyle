@@ -35,6 +35,7 @@ require('./directives/version');
 require('./directives/bs_code_editor');
 require('./directives/bs_preview');
 require('./directives/bs_toolbar_collapse');
+require('./directives/bs_toggle_class');
 require('./directives/prevent_preview_links');
 
 require('./filters/module');

@@ -1,0 +1,26 @@
+.bs_tabs {
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 50px;
+    bottom: 0;
+    line-height: 50px;
+
+    .bs_tab {
+        float: left;
+        width: 50%;
+        text-align: center;
+        font-size: 2em;
+        cursor: pointer;
+        border: 1px solid @bs_toolbar_header_footer_color;
+        border-top: none;
+        &:not(.active) {
+            background: @bs_toolbar_header_footer_color;
+            box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2);
+        }
+        &:hover {
+
+        }
+    }
+}
