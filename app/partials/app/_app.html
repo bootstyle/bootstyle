@@ -15,7 +15,7 @@
         <bs-toolbar></bs-toolbar>
         <ng-include src=" 'partials/app/_toolbar_toggle.html' "></ng-include>
 
-        <div class="bs_content_area">
+        <div class="bs_content_area" ng-style="{ background: vars['@body-bg'] }">
 
             <bs-preview bs-html="{{ preview.html }}" ng-hide="settings.html_mode"></bs-preview>
             <bs-code-editor bs-model="preview.html" ng-show="settings.html_mode"></bs-code-editor>

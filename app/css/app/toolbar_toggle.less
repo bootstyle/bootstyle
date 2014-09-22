@@ -3,27 +3,27 @@
     padding: 4px 8px;
     top: 0;
     left: 0;
-    font-size: 28px;
+    font-size: 24px;
     line-height: 1;
     color: #EEE;
     cursor: pointer;
     // below modal backdrop & above navbar
     z-index: 1031;
-    background: rgba(0,0,0,0.3);
+    background: rgba(0, 0, 0, 0.3);
     .bs_transition_transforms();
-    .bs_translate(8px, 8px);
+    .bs_translate(3px, 3px);
     &:hover {
-        color: #fff;
-        background: rgba(0,0,0,0.5);
+        color: #FFF;
+        background: rgba(0, 0, 0, 0.5);
     }
 }
 
 .show_toolbar {
     .toolbar_btn {
-        .bs_translate(@bs_toolbar_container_width - 50px, 0px);
+//        .bs_translate(@bs_toolbar_container_width - 45px, 3px);
+        .bs_translate(-15px, 3px);
         color: @bs_toolbar_label_color_secondary;
-        text-shadow: none;
-        background: transparent;
+        background: none;
         &:hover {
             color: @bs_toolbar_title_color;
         }

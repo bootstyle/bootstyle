@@ -1,101 +1,138 @@
-'use strict';
+(function() {
+    'use strict';
 
-// angular dependencies
-require('angular');
-require('angularfire');
-require('angular_route');
-require('angular_sanitize');
-require('angular_spectrum_colorpicker');
+    // angular dependencies
+    require('angular');
+    require('angularfire');
+    require('angular_route');
+    require('angular_sanitize');
+    require('angular_spectrum_colorpicker');
 
-// vendor dependencies
-require('bootstrap');
-require('codemirror');
-require('codemirror_mode_css');
-require('codemirror_mode_htmlmixed');
-require('codemirror_mode_javascript');
-require('codemirror_mode_xml');
-require('FileSaver');
-require('firebase');
-require('firebase_simple_login');
-require('jquery');
-require('less');
-require('spectrum');
-//require('tinycolor');
-require('tinycolor_v1api');
+    // vendor dependencies
+    require('bootstrap');
+    require('codemirror');
+    require('codemirror_mode_css');
+    require('codemirror_mode_htmlmixed');
+    require('codemirror_mode_javascript');
+    require('codemirror_mode_xml');
+    require('FileSaver');
+    require('firebase');
+    require('firebase_simple_login');
+    require('jquery');
+    require('less');
+    require('spectrum');
+    // require('tinycolor');
+    require('tinycolor_v1api');
 
-// bootstyle dependencies
-require('./controllers/module');
-require('./controllers/app_controller');
-require('./controllers/landing_page_controller');
+    // bootstyle dependencies
+    require('./controllers/module');
+    require('./controllers/app_controller');
+    require('./controllers/dashboard_controller');
+    require('./controllers/landing_page_controller');
 
-require('./directives/module');
-require('./directives/dropdowns');
-require('./directives/toolbar');
-require('./directives/version');
-require('./directives/bs_code_editor');
-require('./directives/bs_preview');
-require('./directives/bs_toolbar_collapse');
-require('./directives/bs_toggle_class');
-require('./directives/prevent_preview_links');
+    require('./directives/module');
+    require('./directives/dropdowns');
+    require('./directives/toolbar');
+    require('./directives/version');
+    require('./directives/bs_code_editor');
+    require('./directives/bs_preview');
+    require('./directives/bs_toolbar_collapse');
+    require('./directives/bs_toggle_class');
+    require('./directives/prevent_preview_links');
 
-require('./filters/module');
-require('./filters/capitalize');
-require('./filters/trustAsHTML');
+    require('./filters/module');
+    require('./filters/capitalize');
+    require('./filters/trustAsHTML');
 
-require('./services/module');
-require('./services/auto_overlay_color');
-require('./services/bsBackend');
-require('./services/constants');
-require('./services/read_file');
-require('./services/scheme');
-require('./services/settings');
-require('./services/version');
+    require('./services/module');
+    require('./services/auto_overlay_color');
+    require('./services/bsBackend');
+    require('./services/constants');
+    require('./services/read_file');
+    require('./services/scheme');
+    require('./services/settings');
+    require('./services/version');
 
-var bootstyleApp = angular.module('bootstyleApp', [
-    // Angular Modules
-    'ngSanitize',
-    'ngRoute',
+    // Configure Underscore Plugins
+    _.mixin(_.str.exports());
 
-    // Bootstyle Modules
-    'bootstyleApp.controllers',
-    'bootstyleApp.directives',
-    'bootstyleApp.filters',
-    'bootstyleApp.services',
+    // Configure Angular App
+    var bootstyleApp = angular.module('bootstyleApp', [
+        // Angular Modules
+        'ngSanitize',
+        'ngRoute',
 
-    // Vendor Modules
-    'angularSpectrumColorpicker',
-    'firebase'
-]);
+        // Bootstyle Modules
+        'bootstyleApp.controllers',
+        'bootstyleApp.directives',
+        'bootstyleApp.filters',
+        'bootstyleApp.services',
 
-bootstyleApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-    $routeProvider.
-        when('/', {
-            controller: 'LandingPageController',
-            templateUrl: 'partials/landing_page/_landing_page.html',
-            resolve: {
-                initialized: function() {
-                    return false;
+        // Vendor Modules
+        'angularSpectrumColorpicker',
+        'firebase'
+    ]);
+
+    bootstyleApp.
+        config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+            $routeProvider.
+                when('/', {
+                    controller: 'LandingPageController',
+                    templateUrl: 'partials/landing_page/_landing_page.html',
+                    resolve: {
+                        initialized: function() {
+                            return false;
+                        }
+                    }
+                }).
+
+                when('/app', {
+                    controller: 'AppController',
+                    templateUrl: 'partials/app/_app.html',
+                    resolve: {
+                        initialized: function() {
+                            return false;
+                        }
+                    }
+                }).
+
+                when('/dashboard', {
+                    controller: 'DashboardController',
+                    templateUrl: 'partials/dashboard/_dashboard.html',
+                    resolve: {
+                        initialized: function() {
+                            return false;
+                        }
+                    }
+                }).
+
+                otherwise({
+                    redirectTo: '/app'
+                });
+
+            // use the HTML5 History API
+            $locationProvider.html5Mode(true).hashPrefix('!');
+
+        }]).
+
+        run(function($rootScope, $location, bsBackend, SETTINGS) {
+            var routeRequiresAuth = function(route) {
+                var authRequired = true;
+
+                if (SETTINGS.publicUrls.indexOf(route) !== -1) {
+                    authRequired = false;
                 }
-            }
-        }).
 
-        when('/app', {
-            controller: 'AppController',
-            templateUrl: 'partials/app/_app.html',
-            resolve: {
-                initialized: function() {
-                    return false;
+                return authRequired;
+            };
+
+            $rootScope.$on('$routeChangeStart', function(event, next, current) {
+                if (routeRequiresAuth($location.url()) && !bsBackend.user) {
+                    $location.path(SETTINGS.urls.noAuthRedirect);
                 }
-            }
-        }).
-
-        otherwise({
-            redirectTo: '/app'
+            });
         });
 
-    // use the HTML5 History API
-    $locationProvider.html5Mode(true).hashPrefix('!');
+    module.exports = bootstyleApp;
 
-}]);
-
-module.exports = bootstyleApp;
+}());

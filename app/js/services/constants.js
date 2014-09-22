@@ -1,7 +1,9 @@
-'use strict';
+(function () {
+    'use strict';
 
-require('./module').
+    require('./module').
 
-    constant('FONT_CONTRAST', 80).
+        constant('FONT_CONTRAST', 80).
 
-    constant('RECOMPILE_LESS_DELAY', 120);
+        constant('RECOMPILE_LESS_DELAY', 120);
+}());

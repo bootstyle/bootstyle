@@ -1,3 +1,5 @@
-'use strict';
+(function () {
+    'use strict';
 
-module.exports = angular.module('bootstyleApp.services', []);
+    module.exports = angular.module('bootstyleApp.services', []);
+}());
