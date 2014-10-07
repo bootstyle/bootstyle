@@ -6,6 +6,7 @@
     var runSequence = require('run-sequence');
     var source = require('vinyl-source-stream'); // makes non-gulp pipelines (browserify, etc) gulp compatible: https://github.com/hughsk/vinyl-source-stream
     var watchify = require('watchify');
+    var child_process = require('child_process');
 
     var concat = require('gulp-concat');
     var changed = require("gulp-changed");
@@ -35,7 +36,9 @@
         img: 'img/**/*.*',
         js: 'js/**/*.*',
         less: 'less/**/*.less',
-        partials: 'partials/**/*.*'
+        partials: 'partials/**/*.*',
+        test: './test/',
+        npm_bin: './node_modules/.bin/'
     };
 
 
@@ -334,6 +337,49 @@
         return gulp.watch([ path.app + '*.*'], ['build-root']);
     });
 
+
+    /**
+     Test
+     */
+    gulp.task('test', function(cb) {
+        // Start the webdriver server
+        var testServer = child_process.spawn(path.npm_bin + 'webdriver-manager', ['start'], {
+            cwd: process.cwd
+        });
+
+        testServer.stderr.on('data', function(data) {
+            console.log(data.toString());
+        });
+
+        testServer.stdout.on('data', function(data) {
+//            console.log(data.toString());
+
+            // Capture message that server is ready, then start protractor
+            if (data.toString().match('Started org\.openqa\.jetty\.jetty\.Server@')) {
+                console.log('---------------------------------------------------------------');
+
+                var protractor = child_process.exec(path.npm_bin + 'protractor ' + path.test + 'protractor.conf.js',
+                    function(error, stdout, stderr) {
+                        testServer.kill();
+
+                        console.log('stdout: ' + stdout);
+
+                        console.log('stderr: ' + stderr);
+
+                        if (error !== null) {
+                            console.log('exec error: ' + error);
+                        }
+
+                        protractor.kill();
+                    });
+            }
+        });
+
+        testServer.on('close', function(code, signal) {
+            console.log('Webdriver terminated due to receipt of signal ' + signal);
+        });
+
+    });
 
     /**
      Default
