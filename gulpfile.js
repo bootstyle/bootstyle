@@ -342,43 +342,38 @@
      Test
      */
     gulp.task('test', function(cb) {
-        // Start the webdriver server
-        var testServer = child_process.spawn(path.npm_bin + 'webdriver-manager', ['start'], {
-            cwd: process.cwd
+        var protractor = child_process.spawn(path.npm_bin + 'protractor', [path.test + 'protractor.conf.js'], {
+            cwd: process.cwd,
+            env: process.env,
+            detached:true
         });
 
-        testServer.stderr.on('data', function(data) {
-            console.log(data.toString());
+        protractor.stdout.on('data', function(data) {
+            process.stdout.write(data);
         });
 
-        testServer.stdout.on('data', function(data) {
-//            console.log(data.toString());
+        protractor.stderr.on('data', function(data) {
+            process.stdout.write(data);
+        });
 
-            // Capture message that server is ready, then start protractor
-            if (data.toString().match('Started org\.openqa\.jetty\.jetty\.Server@')) {
-                console.log('---------------------------------------------------------------');
 
-                var protractor = child_process.exec(path.npm_bin + 'protractor ' + path.test + 'protractor.conf.js',
-                    function(error, stdout, stderr) {
-                        testServer.kill();
+        protractor.on('error', function(err) {
+            process.stdout.write(gutil.colors.red('Protractor exited with error signal and code: ' + err.signal + ', ' + err.code));
+            cb();
+        });
 
-                        console.log('stdout: ' + stdout);
-
-                        console.log('stderr: ' + stderr);
-
-                        if (error !== null) {
-                            console.log('exec error: ' + error);
-                        }
-
-                        protractor.kill();
-                    });
+        protractor.on('close', function(code, signal) {
+            if (code) {
+                process.stdout.write('protactor exited with code ' + code);
             }
-        });
 
-        testServer.on('close', function(code, signal) {
-            console.log('Webdriver terminated due to receipt of signal ' + signal);
-        });
+            if (signal) {
+                process.stdout.write('protactor terminated due to signal ' + signal);
+            }
 
+            cb();
+        });
+        
     });
 
     /**

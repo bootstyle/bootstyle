@@ -9,16 +9,11 @@ exports.config = {
         includeStackTrace: true,
         defaultTimeoutInterval: 30000
     },
-    multiCapabilities: [
-        {
-            browserName: 'firefox'
-        },
-        {
-            browserName: 'chrome'
-        }
-    ],
+    capabilities: {
+        'browserName': 'chrome'
+    },
     rootElement: 'body',
-    seleniumAddress: 'http://localhost:4444/wd/hub',
+    seleniumServerJar: '../node_modules/protractor/selenium/selenium-server-standalone-2.42.0.jar',
     suites: {
         toolbar: [
             './e2e/**/toolbar/*.spec.js'
