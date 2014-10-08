@@ -22,7 +22,7 @@
     var streamify = require('gulp-streamify'); // wrap old gulp plugins to use streams: https://github.com/nfroidure/gulp-streamify
     var uglify = require('gulp-uglify');
     var webserver = require('gulp-webserver');
-
+    var yargs = require('yargs');
 
     var pkg = require('./package.json');
     var path = {
@@ -341,39 +341,61 @@
     /**
      Test
      */
-    gulp.task('test', function(cb) {
-        var protractor = child_process.spawn(path.npm_bin + 'protractor', [path.test + 'protractor.conf.js'], {
-            cwd: process.cwd,
-            env: process.env,
-            detached:true
-        });
+    gulp.task('test-e2e', function(cb) {
+        var configPath = path.test + 'protractor.conf.js';
+        var config = require(configPath).config;
+
+        var debug = yargs.argv.debug;
+        var suite = yargs.argv.suite;
+
+        var cmd = path.npm_bin + 'protractor';
+        var args = [configPath];
+        var options = {
+            detached: true
+        };
+
+        // add debug arg if present
+        if (debug) {
+            args.unshift(['debug'])
+        }
+
+        // error if suite arg does't exist in protractor config, otherwuse add the arg
+        if (suite && !config.suites.hasOwnProperty(suite)) {
+            process.stderr.write(gutil.colors.red('\nWhoops, there is no "' + suite + '" suite defined in ' + configPath + '\n\n'));
+            cb();
+            return;
+        } else {
+            args.push([ '--suite', suite ])
+        }
+
+
+        var protractor = child_process.spawn(cmd, args, options);
 
         protractor.stdout.on('data', function(data) {
             process.stdout.write(data);
         });
 
         protractor.stderr.on('data', function(data) {
-            process.stdout.write(data);
+            process.stdout.write('err: ' + data);
         });
 
-
         protractor.on('error', function(err) {
-            process.stdout.write(gutil.colors.red('Protractor exited with error signal and code: ' + err.signal + ', ' + err.code));
+            process.stdout.write(gutil.colors.red('Protractor error signal and code: ' + err.signal + ', ' + err.code));
             cb();
         });
 
         protractor.on('close', function(code, signal) {
             if (code) {
-                process.stdout.write('protactor exited with code ' + code);
+                process.stdout.write(gutil.colors.red('\nprotactor closed with code ' + code + '\n\n'));
             }
 
             if (signal) {
-                process.stdout.write('protactor terminated due to signal ' + signal);
+                process.stdout.write('protactor closed due to signal ' + signal);
             }
 
             cb();
         });
-        
+
     });
 
     /**
