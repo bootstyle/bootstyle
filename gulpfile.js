@@ -19,6 +19,7 @@
     var minifyCSS = require('gulp-minify-css');
     var open = require("gulp-open");
     var plumber = require('gulp-plumber'); // keep streaming on error (used by gulp-watch): https://github.com/floatdrop/gulp-plumber
+    var spawn = require("gulp-spawn");
     var streamify = require('gulp-streamify'); // wrap old gulp plugins to use streams: https://github.com/nfroidure/gulp-streamify
     var uglify = require('gulp-uglify');
     var webserver = require('gulp-webserver');
@@ -38,6 +39,7 @@
         less: 'less/**/*.less',
         partials: 'partials/**/*.*',
         test: './test/',
+        node_modules: './node_modules/',
         npm_bin: './node_modules/.bin/'
     };
 
@@ -341,7 +343,67 @@
     /**
      Test
      */
-    gulp.task('test-e2e', function(cb) {
+    gulp.task('e2e',function(cb) {
+        runSequence(
+            'webdriver-update',
+            'protractor',
+            cb
+        );
+    });
+    
+    gulp.task('webdriver-update', function(cb) {
+        child_process.exec('$(npm bin)/webdriver-manager update --standalone',
+            function(error, stdout, stderr) {
+                if (stdout) console.log(stdout);
+                if (stderr) console.log('stderr: \n' + stderr);
+                if (error) console.log('exec error: \n' + error);
+                cb();
+            });
+    });
+    
+    gulp.task('iprotractor', function(cb) {
+        var cmd = 'node';
+        var args = [
+            path.node_modules + '/protractor/bin/elementexplorer.js',
+            'http://localhost:8000',
+        ];
+        var options = {
+            detached: true
+        };
+
+        function logError(code, signal) {
+            process.stdout.write('\n');
+            if (code) process.stdout.write(gutil.colors.red('protactor closed with code ' + code + '\n'));
+            if (signal) process.stdout.write('protactor closed due to signal ' + signal + '\n');
+        }
+
+        process.stdin.on('data', function(data) {
+            iprotractor.stdin.write(data);
+        });
+
+        // protractor
+        var iprotractor = child_process.spawn(cmd, args, options);
+
+        iprotractor.stdout.on('data', function(data) {
+            process.stdout.write(data);
+        });
+
+        iprotractor.stderr.on('data', function(data) {
+            process.stdout.write(gutil.colors.red('\nerr: ' + data));
+        });
+
+        iprotractor.on('error', function(err) {
+            logError(err.code, err.signal);
+        });
+
+        iprotractor.on('close', function(code, signal) {
+            logError(code, signal);
+            process.stdin.end();
+            cb();
+        });
+    });
+
+    gulp.task('protractor', function(cb) {
         var configPath = path.test + 'protractor.conf.js';
         var config = require(configPath).config;
 
@@ -381,7 +443,6 @@
 
         protractor.on('error', function(err) {
             process.stdout.write(gutil.colors.red('Protractor error signal and code: ' + err.signal + ', ' + err.code));
-            cb();
         });
 
         protractor.on('close', function(code, signal) {

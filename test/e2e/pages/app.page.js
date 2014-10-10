@@ -28,11 +28,19 @@
 
     // helpers
     function setRangeMin(elem) {
-        browser.actions().mouseDown(elem).mouseMove(elem, -100, 0).mouseUp().perform();
+        var width;
+        elem.getSize().then(function(dimensions) {
+            width = dimensions.width;
+            browser.actions().dragAndDrop(elem, {x: -width / 2, y: 0}).perform();
+        });
     }
 
     function setRangeMax(elem) {
-        browser.actions().mouseDown(elem).mouseMove(elem, 100, 0).mouseUp().perform();
+        var width;
+        elem.getSize().then(function(dimensions) {
+            width = dimensions.width;
+            browser.actions().dragAndDrop(elem, {x: width / 2, y: 0}).perform();
+        });
     }
 
     module.exports = AppPage;
