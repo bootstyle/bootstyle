@@ -13,10 +13,6 @@
 
 
 // landing page style
-body {
-    padding-bottom: 20px;
-}
-
 .navbar {
     border-bottom: none;
     .navbar-brand {
@@ -104,12 +100,16 @@ body {
 }
 
 .bs_section {
-    margin: 100px 0;
+    padding: 100px 0;
+    border: 20px solid @bs_color_scheme_1;
+    
+    &:first-child {
+    }
 
     .bs_section_header {
         text-align: center;
         font-size: 4em;
-        margin: 100px 0 40px 0;
+        margin: 40px 0;
     }
 
     &.bs_section_about {
@@ -124,8 +124,8 @@ body {
     &.bs_section_pricing {
 
     }
-}
-
-footer {
-    margin-top: 100px;
+    &.bs_section_footer {
+        background: @bs_color_scheme_1;
+        color: #FFF;
+    }
 }
