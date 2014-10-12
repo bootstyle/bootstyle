@@ -568,7 +568,14 @@ require('./module').
             }
             // END COPY
 
-            less.refresh(true, $scope.vars);
+            less.refresh(true, $scope.vars).then(
+                function() {
+                    console.log('DONE!');
+                },
+                function() {
+                    console.log('FAILED!');
+                }
+            );
         };
 
     }]);

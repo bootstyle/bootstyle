@@ -144,6 +144,8 @@
                 'build-fonts',
                 'build-img',
                 'build-js',
+                // TODO: delete this, just for testing!
+                'build-less-js',
                 'build-less',
                 'build-partials'
             ],
@@ -239,6 +241,12 @@
             .pipe(gulp.dest(path.build + 'less'));
     });
 
+    // TODO: delete this, just for testing!
+    gulp.task('build-less-js', function() {
+        return gulp.src(path.app + './../../less.js/tmp/less.js')
+            .pipe(gulp.dest(path.build + 'js'));
+    });
+
     gulp.task('build-partials', function() {
         return gulp.src(path.app + path.partials)
             .pipe(changed(path.build + 'partials'))
@@ -285,6 +293,7 @@
         'watch-fonts',
         'watchify-js',
         'watch-less',
+        'watch-less-js',
         'watch-partials',
         'watch-root'
     ]);
@@ -329,6 +338,11 @@
 
     gulp.task('watch-less', function() {
         return gulp.watch([ path.app + path.less ], ['build-less']);
+    });
+
+    // TODO: delete this, just for testing!
+    gulp.task('watch-less-js', function() {
+        return gulp.watch([path.app + './../../less.js/tmp/less.js' ], ['build-less-js']);
     });
 
     gulp.task('watch-partials', function() {

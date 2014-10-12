@@ -124,7 +124,7 @@
     ]
   },
   "scripts": {
-    "setup": "npm i gulp -g && npm i . && npm run webdriver_update && gulp develop",
+    "setup": "npm i . && npm run webdriver_update && gulp develop",
     "webdriver_update": "$(npm bin)/webdriver-manager update --standalone",
     "postinstall": "bower install",
     "browserify_diagnostic": "BROWSERIFYSHIM_DIAGNOSTICS=1 browserify -d -e app/js/app.js -o build/js/app.js"
