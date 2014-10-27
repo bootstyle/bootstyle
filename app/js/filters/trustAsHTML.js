@@ -1,8 +1,10 @@
-'use strict';
+(function() {
+    'use strict';
 
-require('./module').
-    filter('trustAsHTML', ['$sce', function($sce) {
-        return function(val) {
-            return $sce.trustAsHtml(val);
-        };
-    }]);
+    angular.module('bootstyleApp.filters')
+        .filter('trustAsHTML', ['$sce', function($sce) {
+            return function(val) {
+                return $sce.trustAsHtml(val);
+            };
+        }]);
+}());

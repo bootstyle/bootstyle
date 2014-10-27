@@ -1,11 +1,14 @@
-'use strict';
+(function() {
+    'use strict';
 
-require('./module').controller('HomeController', ['$scope', function($scope) {
+    angular.module('bootstyleApp.controllers')
+        .controller('HomeController', ['$scope', function($scope) {
 
-    $scope.initialized = false;
+            $scope.initialized = false;
 
-    $scope.init = function() {
-        $scope.initialized = true;
-    };
+            $scope.init = function() {
+                $scope.initialized = true;
+            };
 
-}]);
+        }]);
+}());

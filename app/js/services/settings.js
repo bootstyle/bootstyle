@@ -1,13 +1,16 @@
-'use strict';
+(function() {
+    'use strict';
 
-require('./module').
+    angular.module('bootstyleApp.services')
 
-    factory('SETTINGS', function() {
-        var SETTINGS = {
-            paths: {
-                partials: '/build/partials'
-            }
-        };
+        .factory('SETTINGS', function() {
+            var SETTINGS = {
+                paths: {
+                    partials: '/build/partials'
+                }
+            };
 
-        return SETTINGS;
-    });
+            return SETTINGS;
+        });
+
+}());

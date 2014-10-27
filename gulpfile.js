@@ -1,24 +1,20 @@
 (function() {
     'use strict';
 
-    var browserify = require('browserify');
-    var del = require('del');
-    var runSequence = require('run-sequence');
-    var source = require('vinyl-source-stream'); // makes non-gulp pipelines (browserify, etc) gulp compatible: https://github.com/hughsk/vinyl-source-stream
-    var watchify = require('watchify');
-    var child_process = require('child_process');
 
+    var child_process = require('child_process');
     var concat = require('gulp-concat');
     var changed = require("gulp-changed");
+    var del = require('del');
     var flatten = require('gulp-flatten');
     var gulp = require('gulp');
+    var gulpIf = require('gulp-if');
     var gutil = require("gulp-util");
     var less = require('gulp-less');
     var mainBowerFiles = require('main-bower-files');
-    var merge = require('merge-stream');
     var minifyCSS = require('gulp-minify-css');
     var open = require("gulp-open");
-    var plumber = require('gulp-plumber'); // keep streaming on error (used by gulp-watch): https://github.com/floatdrop/gulp-plumber
+    var runSequence = require('run-sequence');
     var spawn = require("gulp-spawn");
     var streamify = require('gulp-streamify'); // wrap old gulp plugins to use streams: https://github.com/nfroidure/gulp-streamify
     var uglify = require('gulp-uglify');
@@ -47,7 +43,7 @@
     /**
      Clean
      */
-    // app
+        // app
     gulp.task('clean-app-bower', function(cb) {
         del([path.app + '**/bower/**'], cb);
     });
@@ -215,11 +211,40 @@
     });
 
     gulp.task('build-js', function() {
-        var bundleStream = browserify(path.app + 'js/app.js').bundle();
+        var inProduction = process.NODE_ENV === 'production';
 
-        return bundleStream
-            .pipe(source('app.js'))
-            .pipe(streamify(uglify()))
+        return gulp.src([
+                path.app_bower + 'js/*.js',
+//         path.app_bower + 'js/angular-spectrum-colorpicker.js',
+//         path.app_bower + 'js/codemirror.js',
+//         path.app_bower + 'js/css.js',
+//         path.app_bower + 'js/htmlmixed.js',
+//         path.app_bower + 'js/javascript.js',
+//         path.app_bower + 'js/xml.js',
+//         
+                path.app + 'js/controllers/module.js',
+                path.app + 'js/controllers/app_controller.js',
+                path.app + 'js/controllers/home_controller.js',
+                path.app + 'js/directives/module.js',
+                path.app + 'js/directives/dropdowns.js',
+                path.app + 'js/directives/style.js',
+                path.app + 'js/directives/toolbar.js',
+                path.app + 'js/directives/version.js',
+                path.app + 'js/directives/bs_toolbar_collapse.js',
+                path.app + 'js/filters/module.js',
+                path.app + 'js/filters/capitalize.js',
+                path.app + 'js/filters/trustAsHTML.js',
+                path.app + 'js/services/module.js',
+                path.app + 'js/services/auto_overlay_color.js',
+                path.app + 'js/services/constants.js',
+                path.app + 'js/services/read_file.js',
+                path.app + 'js/services/scheme.js',
+                path.app + 'js/services/settings.js',
+                path.app + 'js/services/version.js',
+                path.app + 'js/app.js',
+        ])
+            .pipe(concat('app.min.js'))
+            .pipe(gulpIf(inProduction, streamify(uglify())))
             .pipe(gulp.dest(path.build + 'js'));
     });
 
@@ -243,7 +268,7 @@
 
     // TODO: delete this, just for testing!
     gulp.task('build-less-js', function() {
-        return gulp.src(path.app + './../../less.js/tmp/less.js')
+        return gulp.src(path.app + 'js/less-2.0.0-b2.min.js')
             .pipe(gulp.dest(path.build + 'js'));
     });
 
@@ -291,7 +316,7 @@
         'watch-landing-page-css',
         'watch-app-css',
         'watch-fonts',
-        'watchify-js',
+        'watch-js',
         'watch-less',
         'watch-less-js',
         'watch-partials',
@@ -318,22 +343,8 @@
         return gulp.watch([ path.app + path.fonts ], ['build-fonts']);
     });
 
-    gulp.task('watchify-js', function() {
-        var bundler = watchify(browserify('./app/js/app.js', watchify.args));
-
-        bundler.on('update', rebundle);
-
-        function rebundle() {
-            return bundler.bundle()
-                .on('error', function(err) {
-                    gutil.log(err);
-                    throw err
-                })
-                .pipe(source('app.js'))
-                .pipe(gulp.dest(path.build + 'js'));
-        }
-
-        return rebundle();
+    gulp.task('watch-js', function() {
+        return gulp.watch([ path.app + 'js/**/*.js' ], ['build-js']);
     });
 
     gulp.task('watch-less', function() {
@@ -342,7 +353,7 @@
 
     // TODO: delete this, just for testing!
     gulp.task('watch-less-js', function() {
-        return gulp.watch([path.app + './../../less.js/tmp/less.js' ], ['build-less-js']);
+        return gulp.watch([path.app + 'js/less-2.0.0-b2.min.js.js' ], ['build-less-js']);
     });
 
     gulp.task('watch-partials', function() {
@@ -357,14 +368,14 @@
     /**
      Test
      */
-    gulp.task('e2e',function(cb) {
+    gulp.task('e2e', function(cb) {
         runSequence(
             'webdriver-update',
             'protractor',
             cb
         );
     });
-    
+
     gulp.task('webdriver-update', function(cb) {
         child_process.exec('$(npm bin)/webdriver-manager update --standalone',
             function(error, stdout, stderr) {
@@ -374,11 +385,11 @@
                 cb();
             });
     });
-    
+
     gulp.task('iprotractor', function(cb) {
         var cmd = 'node';
         var args = [
-            path.node_modules + '/protractor/bin/elementexplorer.js',
+                path.node_modules + '/protractor/bin/elementexplorer.js',
             'http://localhost:8000',
         ];
         var options = {
