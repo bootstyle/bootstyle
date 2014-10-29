@@ -370,7 +370,7 @@
     /**
      Test
      */
-    gulp.task('e2e', function(cb) {
+    gulp.task('test', function(cb) {
         runSequence(
             'webdriver-update',
             'protractor',
@@ -378,11 +378,14 @@
         );
     });
 
-    gulp.task('e', function() {
-        gulp.src('./test/e2e/**/*.spec.js')
+    gulp.task('e2e', function() {
+        gulp.src('test/e2e/**/*.spec.js')
             .pipe(protractor({
-                configFile: './test/protractor.conf.js'
-            }));
+                configFile: "test/protractor.conf.js"
+            }))
+            .on('error', function(e) {
+                throw e
+            });
     });
     
     gulp.task('webdriver-update', function(cb) {

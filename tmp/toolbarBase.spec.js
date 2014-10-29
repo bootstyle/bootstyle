@@ -9,6 +9,7 @@ describe('base', function() {
     });
 
     describe('border radius', function() {
+
         it('should set jumbotron border radius to min', function() {
             appPage.setBorderRadiusMin();
             var jumbotronBorderRadius = appPage.jumbotron.getCssValue('border-radius');
@@ -17,10 +18,11 @@ describe('base', function() {
         });
 
         it('should change jumbotron border radius to max', function() {
-//            appPage.setBorderRadiusMax();
             var jumbotronBorderRadius = appPage.jumbotron.getCssValue('border-radius');
 
             expect(jumbotronBorderRadius).toBe('45px');
         });
+
     });
+
 });
