@@ -12,14 +12,15 @@ describe('base', function() {
 
         it('should set jumbotron border radius to min', function() {
             appPage.setBorderRadiusMin();
+            var jumbotronBorderRadius = appPage.jumbotron.getCssValue('border-radius');
 
-            expect(appPage.jumbotron.getCssValue('border-radius')).toBe('0px');
+            expect(jumbotronBorderRadius).toBe('0px');
         });
 
         it('should change jumbotron border radius to max', function() {
-            appPage.setBorderRadiusMax();
+            var jumbotronBorderRadius = appPage.jumbotron.getCssValue('border-radius');
 
-            expect(appPage.jumbotron.getCssValue('border-radius')).toBe('45px');
+            expect(jumbotronBorderRadius).toBe('45px');
         });
 
     });

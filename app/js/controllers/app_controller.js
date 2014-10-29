@@ -3,8 +3,8 @@
 
     angular.module('bootstyleApp.controllers')
         .controller('AppController',
-        ['$scope', '$compile', '$timeout', 'read_file', 'FONT_CONTRAST', 'RECOMPILE_LESS_DELAY',
-            function($scope, $compile, $timeout, read_file, FONT_CONTRAST, RECOMPILE_LESS_DELAY) {
+        ['$scope', '$compile', '$timeout', 'read_file', 'FONT_CONTRAST', 'RECOMPILE_LESS_DELAY', 'LESS',
+            function($scope, $compile, $timeout, read_file, FONT_CONTRAST, RECOMPILE_LESS_DELAY, LESS) {
 
                 $scope.initialized = false;
                 $scope.is_less_compiling = false;
@@ -552,11 +552,17 @@
                 $scope.recompileLESS = function() {
                     $scope.is_less_compiling = true;
 
-                    less.registerStylesheets().then(function() {
-                        return less.modifyVars($scope.vars);
-                    }).then(function() {
-                        $scope.is_less_compiling = false;
-                    });
+                    LESS.registerStyleSheets()
+                        .then(function(data) {
+                            return LESS.modifyVars($scope.vars);
+                        }, function(e) {
+                            throw e;
+                        })
+                        .then(function(data) {
+                            $scope.is_less_compiling = false
+                        }, function(e) {
+                            throw e;
+                        })
                 };
 
             }]);

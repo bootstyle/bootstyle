@@ -4,18 +4,19 @@
 
     var child_process = require('child_process');
     var concat = require('gulp-concat');
-    var changed = require("gulp-changed");
+    var changed = require('gulp-changed');
     var del = require('del');
     var flatten = require('gulp-flatten');
     var gulp = require('gulp');
     var gulpIf = require('gulp-if');
-    var gutil = require("gulp-util");
+    var gutil = require('gulp-util');
     var less = require('gulp-less');
     var mainBowerFiles = require('main-bower-files');
     var minifyCSS = require('gulp-minify-css');
-    var open = require("gulp-open");
+    var open = require('gulp-open');
+    var protractor = require('gulp-protractor');
     var runSequence = require('run-sequence');
-    var spawn = require("gulp-spawn");
+    var spawn = require('gulp-spawn');
     var streamify = require('gulp-streamify'); // wrap old gulp plugins to use streams: https://github.com/nfroidure/gulp-streamify
     var uglify = require('gulp-uglify');
     var webserver = require('gulp-webserver');
@@ -237,6 +238,7 @@
                 path.app + 'js/services/module.js',
                 path.app + 'js/services/auto_overlay_color.js',
                 path.app + 'js/services/constants.js',
+                path.app + 'js/services/less.js',
                 path.app + 'js/services/read_file.js',
                 path.app + 'js/services/scheme.js',
                 path.app + 'js/services/settings.js',
@@ -376,6 +378,13 @@
         );
     });
 
+    gulp.task('e', function() {
+        gulp.src('./test/e2e/**/*.spec.js')
+            .pipe(protractor({
+                configFile: './test/protractor.conf.js'
+            }));
+    });
+    
     gulp.task('webdriver-update', function(cb) {
         child_process.exec('$(npm bin)/webdriver-manager update --standalone',
             function(error, stdout, stderr) {

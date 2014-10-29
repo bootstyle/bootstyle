@@ -14,7 +14,6 @@
 
         // Vendor Modules
         'angularSpectrumColorpicker'
-
     ])
         .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
             $routeProvider.
