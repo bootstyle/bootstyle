@@ -171,7 +171,7 @@
                             style: $scope.fonts.sans_serif.helvetica_neue.style,
                             preview: null,
                             calc: function() {
-                                $scope.vars['@font-family-base'] = $scope.ctrls.body_font_family.preview || $scope.ctrls.body_font_family.style
+                                $scope.vars['@font-family-base'] = $scope.ctrls.body_font_family.preview || $scope.ctrls.body_font_family.style;
                             }
                         },
                         body_bg: {
@@ -446,7 +446,7 @@
                  Code Editor
                  */
                 $scope.init_code_editor = function() {
-                    $scope.code_editor = CodeMirror(document.getElementById('code_editor'), {
+                    $scope.code_editor = new CodeMirror(document.getElementById('code_editor'), {
                         theme: "ambiance",
                         mode: 'htmlmixed',
                         lineNumbers: true,
@@ -519,7 +519,7 @@
                         $timeout(function() {
                             var blob = new Blob([compiled_template.textContent], {type: "text/plain;charset=utf-8"});
                             saveAs(blob, "bootstyle.less");
-                        })
+                        });
                     });
                 };
 
@@ -559,10 +559,10 @@
                             throw e;
                         })
                         .then(function(data) {
-                            $scope.is_less_compiling = false
+                            $scope.is_less_compiling = false;
                         }, function(e) {
                             throw e;
-                        })
+                        });
                 };
 
             }]);

@@ -7,14 +7,16 @@
     var changed = require('gulp-changed');
     var del = require('del');
     var flatten = require('gulp-flatten');
+    var gulpFilter = require('gulp-filter');
     var gulp = require('gulp');
     var gulpIf = require('gulp-if');
     var gutil = require('gulp-util');
+    var jshint = require('gulp-jshint');
     var less = require('gulp-less');
-    var mainBowerFiles = require('main-bower-files');
     var minifyCSS = require('gulp-minify-css');
     var open = require('gulp-open');
     var protractor = require('gulp-protractor');
+    var plumber = require('gulp-plumber');
     var runSequence = require('run-sequence');
     var spawn = require('gulp-spawn');
     var streamify = require('gulp-streamify'); // wrap old gulp plugins to use streams: https://github.com/nfroidure/gulp-streamify
@@ -51,31 +53,35 @@
 
     // build
     gulp.task('clean-build', function(cb) {
-        del([path.build], cb);
+        del([path.build + '**/**'], cb);
     });
 
     gulp.task('clean-build-bower', function(cb) {
-        del([path.build + '**/bower/**'], cb);
+        del([path.build + 'bower/**'], cb);
     });
 
     gulp.task('clean-build-landing-page-css', function(cb) {
-        del([path.build + '**/css/**'], cb);
+        del([path.build + 'css/**'], cb);
     });
 
     gulp.task('clean-build-fonts', function(cb) {
-        del([path.build + '**/fonts/**'], cb);
+        del([path.build + 'fonts/**'], cb);
+    });
+
+    gulp.task('clean-build-img', function(cb) {
+        del([path.build + 'img/**'], cb);
     });
 
     gulp.task('clean-build-js', function(cb) {
-        del([path.build + '**/js/**'], cb);
+        del([path.build + 'js/**'], cb);
     });
 
     gulp.task('clean-build-less', function(cb) {
-        del([path.build + '**/less/**'], cb);
+        del([path.build + 'less/**'], cb);
     });
 
     gulp.task('clean-build-partials', function(cb) {
-        del([path.build + '**/partials/**'], cb);
+        del([path.build + 'partials/**'], cb);
     });
 
     gulp.task('clean-build-root', function(cb) {
@@ -100,23 +106,25 @@
     });
 
     gulp.task('copy-bower-css', function() {
-        var css_reg = new RegExp('\.css$');
-        return gulp.src(mainBowerFiles({filter: css_reg }), { base: path.bower_components })
+        return gulp.src([
+
+        ])
             .pipe(flatten())
             .pipe(gulp.dest(path.app_bower + 'css'));
     });
 
     gulp.task('copy-bower-js', function() {
-        var js_reg = new RegExp('\.js$');
-        return gulp.src(mainBowerFiles({filter: js_reg }), { base: path.bower_components })
+        return gulp.src([
+                path.bower_components + 'angular-spectrum-colorpicker/dist/angular-spectrum-colorpicker.min.js'
+        ])
             .pipe(flatten())
             .pipe(gulp.dest(path.app_bower + 'js'));
     });
 
     gulp.task('copy-bower-fonts', function() {
-        var font_reg = new RegExp('\.otf$|\.eot$|\.svg$|\.ttf$|\.woff$');
-        return gulp.src(mainBowerFiles({filter: font_reg }), { base: path.bower_components })
-            .pipe(flatten())
+        return gulp.src([
+                path.bower_components + 'bootstrap/dist/fonts/*.*'
+        ])
             .pipe(gulp.dest(path.app_bower + 'fonts'));
     });
 
@@ -141,8 +149,6 @@
                 'build-fonts',
                 'build-img',
                 'build-js',
-                // TODO: delete this, just for testing!
-                'build-less-js',
                 'build-less',
                 'build-partials'
             ],
@@ -211,41 +217,24 @@
             .pipe(gulp.dest(path.build + 'css/app/'));
     });
 
-    gulp.task('build-js', function() {
+    gulp.task('build-js', function(cb) {
         var inProduction = process.NODE_ENV === 'production';
-
-        return gulp.src([
-                path.app_bower + 'js/*.js',
-//         path.app_bower + 'js/angular-spectrum-colorpicker.js',
-//         path.app_bower + 'js/codemirror.js',
-//         path.app_bower + 'js/css.js',
-//         path.app_bower + 'js/htmlmixed.js',
-//         path.app_bower + 'js/javascript.js',
-//         path.app_bower + 'js/xml.js',
-//         
-                path.app + 'js/controllers/module.js',
-                path.app + 'js/controllers/app_controller.js',
-                path.app + 'js/controllers/home_controller.js',
-                path.app + 'js/directives/module.js',
-                path.app + 'js/directives/dropdowns.js',
-                path.app + 'js/directives/style.js',
-                path.app + 'js/directives/toolbar.js',
-                path.app + 'js/directives/version.js',
-                path.app + 'js/directives/bs_toolbar_collapse.js',
-                path.app + 'js/filters/module.js',
-                path.app + 'js/filters/capitalize.js',
-                path.app + 'js/filters/trustAsHTML.js',
-                path.app + 'js/services/module.js',
-                path.app + 'js/services/auto_overlay_color.js',
-                path.app + 'js/services/constants.js',
-                path.app + 'js/services/less.js',
-                path.app + 'js/services/read_file.js',
-                path.app + 'js/services/scheme.js',
-                path.app + 'js/services/settings.js',
-                path.app + 'js/services/version.js',
+        var ourJS = [
+                path.app + 'js/**/module.js',
+                path.app + 'js/**/{*.js, !*module.js, !app.js}',
                 path.app + 'js/app.js',
-        ])
-            .pipe(concat('app.min.js'))
+        ];
+
+        var libJS = [
+                path.app_bower + 'js/*.js',
+        ];
+
+        gulp.src(ourJS)
+            .pipe(jshint())
+            .pipe(jshint.reporter('default'));
+
+        return gulp.src(libJS.concat(ourJS))
+            .pipe(concat('app.js'))
             .pipe(gulpIf(inProduction, streamify(uglify())))
             .pipe(gulp.dest(path.build + 'js'));
     });
@@ -268,12 +257,6 @@
             .pipe(gulp.dest(path.build + 'less'));
     });
 
-    // TODO: delete this, just for testing!
-    gulp.task('build-less-js', function() {
-        return gulp.src(path.app + 'js/less-2.0.0-b2.min.js')
-            .pipe(gulp.dest(path.build + 'js'));
-    });
-
     gulp.task('build-partials', function() {
         return gulp.src(path.app + path.partials)
             .pipe(changed(path.build + 'partials'))
@@ -293,7 +276,6 @@
     gulp.task('serve', function() {
         gulp.src(path.build)
             .pipe(webserver({
-                root: ['.'],
                 livereload: true,
                 fallback: 'index.html'
             }));
@@ -318,15 +300,15 @@
         'watch-landing-page-css',
         'watch-app-css',
         'watch-fonts',
+        'watch-img',
         'watch-js',
         'watch-less',
-        'watch-less-js',
         'watch-partials',
         'watch-root'
     ]);
 
     gulp.task('watch-bower-components', function() {
-        return gulp.watch([ path.bower_components ], ['build-bower']);
+        return gulp.watch([ path.bower_components + '**/*.*'], ['build-bower']);
     });
 
     gulp.task('watch-shared-css', function() {
@@ -345,17 +327,16 @@
         return gulp.watch([ path.app + path.fonts ], ['build-fonts']);
     });
 
+    gulp.task('watch-img', function() {
+        return gulp.watch([ path.app + path.img ], ['build-img']);
+    });
+
     gulp.task('watch-js', function() {
         return gulp.watch([ path.app + 'js/**/*.js' ], ['build-js']);
     });
 
     gulp.task('watch-less', function() {
         return gulp.watch([ path.app + path.less ], ['build-less']);
-    });
-
-    // TODO: delete this, just for testing!
-    gulp.task('watch-less-js', function() {
-        return gulp.watch([path.app + 'js/less-2.0.0-b2.min.js.js' ], ['build-less-js']);
     });
 
     gulp.task('watch-partials', function() {
@@ -387,7 +368,7 @@
                 throw e
             });
     });
-    
+
     gulp.task('webdriver-update', function(cb) {
         child_process.exec('$(npm bin)/webdriver-manager update --standalone',
             function(error, stdout, stderr) {
@@ -503,6 +484,8 @@
         runSequence(
             'copy-bower-components',
             'build',
+            'serve',
+            'watch',
             cb
         );
     });

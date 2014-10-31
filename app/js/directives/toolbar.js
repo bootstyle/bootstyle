@@ -7,7 +7,7 @@
                 restrict: 'E',
                 replace: true,
                 scope: false,
-                templateUrl: '/partials/app/_toolbar.html',
+                templateUrl: 'partials/app/_toolbar.html',
                 link: function(scope, elem, attrs) {
 
                 },

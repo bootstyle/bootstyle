@@ -11,7 +11,7 @@
         'bootstyleApp.directives',
         'bootstyleApp.filters',
         'bootstyleApp.services',
-
+        
         // Vendor Modules
         'angularSpectrumColorpicker'
     ])
