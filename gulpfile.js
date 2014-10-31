@@ -10,7 +10,6 @@
     var gulp = require('gulp');
     var gulpIf = require('gulp-if');
     var gutil = require('gulp-util');
-    var gzip = require('gulp-gzip');
     var jshint = require('gulp-jshint');
     var less = require('gulp-less');
     var minifyCSS = require('gulp-minify-css');
@@ -220,7 +219,10 @@
         var inProduction = process.NODE_ENV === 'production';
         var ourJS = [
                 path.app + 'js/**/module.js',
-                path.app + 'js/*/{*.js, !*module.js, !app.js}',
+                path.app + 'js/controllers/*.js',
+                path.app + 'js/directives/*.js',
+                path.app + 'js/filters/*.js',
+                path.app + 'js/services/*.js',
                 path.app + 'js/app.js',
         ];
 
@@ -236,9 +238,7 @@
 
         return gulp.src(libJS.concat(ourJS))
             .pipe(concat('app.js'))
-//            .pipe(gulpIf(inProduction, streamify(uglify())))
-            .pipe(streamify(uglify()))
-            .pipe(gzip())
+            .pipe(gulpIf(inProduction, streamify(uglify())))
             .pipe(gulp.dest(path.build + 'js'));
     });
 
