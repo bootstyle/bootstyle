@@ -7,10 +7,10 @@
     var changed = require('gulp-changed');
     var del = require('del');
     var flatten = require('gulp-flatten');
-    var gulpFilter = require('gulp-filter');
     var gulp = require('gulp');
     var gulpIf = require('gulp-if');
     var gutil = require('gulp-util');
+    var gzip = require('gulp-gzip');
     var jshint = require('gulp-jshint');
     var less = require('gulp-less');
     var minifyCSS = require('gulp-minify-css');
@@ -18,7 +18,6 @@
     var protractor = require('gulp-protractor');
     var plumber = require('gulp-plumber');
     var runSequence = require('run-sequence');
-    var spawn = require('gulp-spawn');
     var streamify = require('gulp-streamify'); // wrap old gulp plugins to use streams: https://github.com/nfroidure/gulp-streamify
     var uglify = require('gulp-uglify');
     var webserver = require('gulp-webserver');
@@ -221,12 +220,14 @@
         var inProduction = process.NODE_ENV === 'production';
         var ourJS = [
                 path.app + 'js/**/module.js',
-                path.app + 'js/**/{*.js, !*module.js, !app.js}',
+                path.app + 'js/*/{*.js, !*module.js, !app.js}',
                 path.app + 'js/app.js',
         ];
 
         var libJS = [
                 path.app_bower + 'js/*.js',
+                path.app + 'js/less.config.js',
+                path.app + 'js/less.min.js',
         ];
 
         gulp.src(ourJS)
@@ -235,7 +236,9 @@
 
         return gulp.src(libJS.concat(ourJS))
             .pipe(concat('app.js'))
-            .pipe(gulpIf(inProduction, streamify(uglify())))
+//            .pipe(gulpIf(inProduction, streamify(uglify())))
+            .pipe(streamify(uglify()))
+            .pipe(gzip())
             .pipe(gulp.dest(path.build + 'js'));
     });
 
@@ -390,16 +393,14 @@
         };
 
         function logError(code, signal) {
-            process.stdout.write('\n');
-            if (code) process.stdout.write(gutil.colors.red('protactor closed with code ' + code + '\n'));
-            if (signal) process.stdout.write('protactor closed due to signal ' + signal + '\n');
+            if (code) process.stdout.write(gutil.colors.red('closed with code ' + code + '\n'));
+            if (signal) process.stdout.write('closed due to signal ' + signal + '\n');
         }
 
         process.stdin.on('data', function(data) {
             iprotractor.stdin.write(data);
         });
 
-        // protractor
         var iprotractor = child_process.spawn(cmd, args, options);
 
         iprotractor.stdout.on('data', function(data) {
@@ -411,12 +412,15 @@
         });
 
         iprotractor.on('error', function(err) {
-            logError(err.code, err.signal);
+            console.log(err);
         });
 
         iprotractor.on('close', function(code, signal) {
-            logError(code, signal);
+            if (code !== 0) {
+                logError(code, signal);
+            }
             process.stdin.end();
+            process.kill();
             cb();
         });
     });

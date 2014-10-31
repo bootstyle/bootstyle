@@ -23,23 +23,26 @@
     };
 
     AppPage.prototype.setBorderRadiusMax = function() {
-        setRangeMax(this.borderRadius);
+        element(by.model('ctrls.border_radius.control'))
+            .then(function(elem) {
+                return elem.getSize();
+            })
+            .then(function(dim) {
+                return browser.actions().dragAndDrop(elem, {x: -dim.width / 2, y: 0}).perform();
+            });
+        //        setRangeMax(this.borderRadius);
     };
 
     // helpers
     function setRangeMin(elem) {
-        var width;
-        elem.getSize().then(function(dimensions) {
-            width = dimensions.width;
-            browser.actions().dragAndDrop(elem, {x: -width / 2, y: 0}).perform();
+        elem.getSize().then(function(dim) {
+            browser.actions().dragAndDrop(elem, {x: -dim.width / 2, y: 0}).perform();
         });
     }
 
     function setRangeMax(elem) {
-        var width;
-        elem.getSize().then(function(dimensions) {
-            width = dimensions.width;
-            browser.actions().dragAndDrop(elem, {x: width / 2, y: 0}).perform();
+        elem.getSize().then(function(dim) {
+            browser.actions().dragAndDrop(elem, {x: dim.width / 2, y: 0}).perform();
         });
     }
 
