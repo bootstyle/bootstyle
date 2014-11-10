@@ -44,18 +44,8 @@
     /**
      Clean
      */
-        // app
-    gulp.task('clean-app-bower', function(cb) {
-        del([path.app + '**/bower/**'], cb);
-    });
-
-    // build
     gulp.task('clean-build', function(cb) {
         del([path.build + '**/**'], cb);
-    });
-
-    gulp.task('clean-build-bower', function(cb) {
-        del([path.build + 'bower/**'], cb);
     });
 
     gulp.task('clean-build-landing-page-css', function(cb) {
@@ -88,57 +78,11 @@
 
 
     /**
-     Copy Bower Components
-     */
-    gulp.task('copy-bower-components', function(cb) {
-        runSequence(
-            'clean-app-bower',
-            [
-                'copy-bower-css',
-                'copy-bower-fonts',
-                'copy-bower-js',
-                'copy-bower-bootstrap-less'
-            ],
-            cb
-        );
-    });
-
-    gulp.task('copy-bower-css', function() {
-        return gulp.src([
-
-        ])
-            .pipe(flatten())
-            .pipe(gulp.dest(path.app_bower + 'css'));
-    });
-
-    gulp.task('copy-bower-js', function() {
-        return gulp.src([
-                path.bower_components + 'angular-spectrum-colorpicker/dist/angular-spectrum-colorpicker.min.js'
-        ])
-            .pipe(flatten())
-            .pipe(gulp.dest(path.app_bower + 'js'));
-    });
-
-    gulp.task('copy-bower-fonts', function() {
-        return gulp.src([
-                path.bower_components + 'bootstrap/dist/fonts/*.*'
-        ])
-            .pipe(gulp.dest(path.app_bower + 'fonts'));
-    });
-
-    gulp.task('copy-bower-bootstrap-less', function() {
-        return gulp.src(path.bower_components + 'bootstrap/less/**/*.*')
-            .pipe(gulp.dest(path.app_bower + 'less/bootstrap'));
-    });
-
-
-    /**
      Build
      */
     gulp.task('build', function(cb) {
         runSequence(
             'clean-build',
-            'build-bower',
             [
                 'build-root',
 
@@ -152,50 +96,6 @@
             ],
             cb
         );
-    });
-
-    gulp.task('build-bower', function(cb) {
-        runSequence(
-            [
-                'copy-bower-components',
-                'clean-build-bower'
-            ],
-            [
-                'build-bower-css',
-                'build-bower-fonts',
-                'build-bower-js',
-                'build-bower-less',
-                'build-bower-partials'
-            ],
-            cb
-        );
-    });
-
-    // bower
-    gulp.task('build-bower-css', function() {
-        return gulp.src([path.app_bower + path.css])
-            .pipe(minifyCSS({ keepSpecialComments: 0 }))
-            .pipe(gulp.dest(path.build_bower + 'css'));
-    });
-
-    gulp.task('build-bower-fonts', function() {
-        return gulp.src(path.app_bower + path.fonts)
-            .pipe(gulp.dest(path.build_bower + 'fonts'));
-    });
-
-    gulp.task('build-bower-js', function() {
-        return gulp.src(path.app_bower + path.js)
-            .pipe(gulp.dest(path.build_bower + 'js'));
-    });
-
-    gulp.task('build-bower-less', function() {
-        return gulp.src(path.app_bower + path.less)
-            .pipe(gulp.dest(path.build_bower + 'less'));
-    });
-
-    gulp.task('build-bower-partials', function() {
-        return gulp.src(path.app_bower + path.partials)
-            .pipe(gulp.dest(path.build_bower + 'partials'));
     });
 
     // our assets
@@ -227,9 +127,9 @@
         ];
 
         var libJS = [
-                path.app_bower + 'js/*.js',
-                path.app + 'js/less.config.js',
-                path.app + 'js/less.min.js',
+            path.bower_components + 'angular-spectrum-colorpicker/dist/angular-spectrum-colorpicker.min.js'
+            path.app + 'js/less.config.js',
+            path.app + 'js/less.min.js',
         ];
 
         gulp.src(ourJS)
@@ -298,7 +198,6 @@
      Watch
      */
     gulp.task('watch', [
-        'watch-bower-components',
         'watch-shared-css',
         'watch-landing-page-css',
         'watch-app-css',
@@ -309,11 +208,7 @@
         'watch-partials',
         'watch-root'
     ]);
-
-    gulp.task('watch-bower-components', function() {
-        return gulp.watch([ path.bower_components + '**/*.*'], ['build-bower']);
-    });
-
+    
     gulp.task('watch-shared-css', function() {
         return gulp.watch([ path.app + 'css/shared/**/*.*' ], ['build-landing-page-css', 'build-app-css']);
     });
@@ -486,7 +381,6 @@
      */
     gulp.task('default', function(cb) {
         runSequence(
-            'copy-bower-components',
             'build',
             'serve',
             'watch',
@@ -496,7 +390,6 @@
 
     gulp.task('develop', function(cb) {
         runSequence(
-            'copy-bower-components',
             'build',
             'watch',
             'serve',
