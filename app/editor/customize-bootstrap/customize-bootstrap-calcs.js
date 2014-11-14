@@ -1,9 +1,9 @@
-(function CalcsFactoryModule() {
+(function CalcsServiceClosure() {
     'use strict';
 
-    function CalcsFactory($q, ControlsFactory, VariablesFactory) {
-        var ctrls = ControlsFactory;
-        var vars = VariablesFactory;
+    function CalcsService($q, ControlsService, VariablesService) {
+        var ctrls = ControlsService;
+        var vars = VariablesService;
         var calcs = {};
 
         calcs.bodyFontFamily = function() {
@@ -183,6 +183,6 @@
         return calcs;
     }
 
-    angular.module('bsApp.services')
-        .factory('CalcsFactory', CalcsFactory);
+    angular.module('bsApp.customizeBootstrap')
+        .factory('CalcsService', CalcsService);
 }());

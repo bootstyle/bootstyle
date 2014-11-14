@@ -1,7 +1,16 @@
-(function() {
+(function EditorModuleClosure() {
     'use strict';
 
-    var dependencies = [
+    function EditorRoutes($routeProvider) {
+        $routeProvider
+            .when('/editor', {
+                controller: 'EditorController',
+                controllerAs: 'editor',
+                templateUrl: 'editor/editor.html'
+            });
+    }
+
+    angular.module('bsApp.editor', [
         // Vendor Modules
         'angularSpectrumColorpicker',
 
@@ -11,36 +20,7 @@
         'bsApp.editor.fonts',
         'bsApp.editor.less',
         'bsApp.editor.preview',
-        'bsApp.editor.toolbar',
-    ];
-
-    function bsAppConfigRoutes($routeProvider, $locationProvider) {
-        $routeProvider
-            .when('/', {
-                controller: 'HomeController',
-                templateUrl: 'partials/landing_page/_landing_page.html'
-            })
-
-            .when('/editor', {
-                controller: 'AppController',
-                templateUrl: 'partials/app/_app.html'
-            })
-
-            .otherwise({
-                redirectTo: '/app'
-            });
-
-        // use the HTML5 History API
-        $locationProvider.html5Mode(true).hashPrefix('!');
-
-    }
-
-    function bsAppRun(BackendFactory) {
-        // init debug mode
-        BackendFactory.init(true);
-    }
-
-    angular.module('bsApp', dependencies)
-        .config(bsAppConfigRoutes)
-        .run(bsAppRun());
+        'bsApp.editor.toolbar'
+    ])
+        .config(EditorRoutes);
 }());

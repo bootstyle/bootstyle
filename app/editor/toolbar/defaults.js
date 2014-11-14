@@ -1,9 +1,9 @@
-(function DefaultsFactoryModule() {
+(function DefaultsServiceClosure() {
     'use strict';
 
-    function DefaultsFactory($q, FontsFactory, ControlsFactory) {
-        var fonts = FontsFactory;
-        var controls = ControlsFactory;
+    function DefaultsService($q, FontsService, ControlsService) {
+        var fonts = FontsService;
+        var controls = ControlsService;
         var defaults = {};
 
         defaults.bodyFontFamily = fonts.sansSerif.helveticaNeue.name;
@@ -39,13 +39,13 @@
         // set the control values
         defaults.apply = function() {
             var deferred = $q.defer();
-            
+
             angular.forEach(defaults, function(value, key) {
                 controls[key] = value;
              });
-            
+
             deferred.resolve();
-            
+
             return deferred.promise;
         };
 
@@ -53,5 +53,5 @@
     }
 
     angular.module('bsApp.services')
-        .factory('DefaultsFactory', DefaultsFactory);
+        .factory('DefaultsService', DefaultsService);
 }());

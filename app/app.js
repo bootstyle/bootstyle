@@ -1,20 +1,7 @@
-(function() {
+(function bsAppModuleClosure() {
     'use strict';
 
-    var dependencies = [
-        // Angular Modules
-        'ngSanitize',
-        'ngRoute',
-
-        // Vendor Modules
-        'kinvey',
-
-        // Bootstyle Modules
-        'bsApp.editor',
-        'bsApp.landing-page'
-    ];
-
-    function bsAppConfigRoutes($routeProvider, $locationProvider) {
+    function bsAppRoutes($routeProvider, $locationProvider) {
         $routeProvider
             .when('/', {
                 controller: 'HomeController',
@@ -35,12 +22,23 @@
 
     }
 
-    function bsAppRun(BackendFactory) {
+    function bsAppRun(BackendService) {
         // init debug mode
-        BackendFactory.init(true);
+        BackendService.init(true);
     }
 
-    angular.module('bsApp', dependencies)
-        .config(bsAppConfigRoutes)
+    angular.module('bsApp', [
+        // Angular Modules
+        'ngSanitize',
+        'ngRoute',
+
+        // Vendor Modules
+        'kinvey',
+
+        // Bootstyle Modules
+        'bsApp.editor',
+        'bsApp.landing-page'
+    ])
+        .config(bsAppRoutes)
         .run(bsAppRun());
 }());

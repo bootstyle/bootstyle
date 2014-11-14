@@ -1,7 +1,7 @@
-(function BackendFactoryModule() {
+(function bsBackendServiceClosure() {
     'use strict';
 
-    function BackendFactory($window, $kinvey) {
+    function bsBackendService($window, $kinvey) {
         var BF = {};
 
         BF.init = function(debug) {
@@ -45,6 +45,6 @@
         return BF;
     }
 
-    angular.module('bsApp.services')
-        .factory('BackendFactory', BackendFactory);
+    angular.module('bsApp.bsBackend')
+        .factory('bsBackendService', bsBackendService);
 }());

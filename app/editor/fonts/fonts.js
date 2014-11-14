@@ -1,7 +1,7 @@
-(function FontsFactoryModule() {
+(function FontsServiceClosure() {
     'use strict';
 
-    function FontsFactory() {
+    function FontsService() {
         var fonts = {};
 
         // serif
@@ -73,6 +73,6 @@
     }
 
     angular.module('bsApp.services')
-        .factory('FontsFactory', FontsFactory);
+        .factory('FontsService', FontsService);
 
 }());

@@ -1,7 +1,7 @@
-(function ControlsFactoryModule() {
+(function ControlsServiceClosure() {
     'use strict';
 
-    function ControlsFactory() {
+    function ControlsService() {
         var ctrls = {};
 
         // initial values are set from the defaults init()
@@ -10,5 +10,5 @@
     }
 
     angular.module('bsApp.services')
-        .factory('ControlsFactory', ControlsFactory);
+        .factory('ControlsService', ControlsService);
 }());

@@ -1,19 +1,19 @@
 (function() {
     'use strict';
 
-    function AppController($scope, $compile, $timeout, BackendFactory, read_file, RECOMPILE_LESS_DELAY, LESS, DefaultsFactory, ControlsFactory, CalcsFactory, VariablesFactory, FontsFactory) {
+    function ToolbarController($scope, $compile, $timeout, BackendService, readFile, RECOMPILE_LESS_DELAY, LESS, DefaultsService, ControlsService, CalcsService, VariablesService, FontsService) {
 
         $scope.initialized = false;
-        $scope.is_less_compiling = false;
+        $scope.isLessCompiling = false;
 
         $scope.init = function() {
-            $scope.ctrls = ControlsFactory;
-            $scope.defaults = DefaultsFactory;
-            $scope.controls = ControlsFactory;
-            $scope.calcs = CalcsFactory;
-            $scope.variables = VariablesFactory;
-            $scope.fonts = FontsFactory;
-            
+            $scope.ctrls = ControlsService;
+            $scope.defaults = DefaultsService;
+            $scope.controls = ControlsService;
+            $scope.calcs = CalcsService;
+            $scope.variables = VariablesService;
+            $scope.fonts = FontsService;
+
             $scope.defaults.apply();
             $scope.calcs.runAll();
 
@@ -21,10 +21,10 @@
             /*
              Spectrum
              */
-            $scope.spectrum_config = {
+            $scope.spectrumConfig = {
                 clickoutFiresChange: true,
-                containerClassName: 'sp_bootstyle',
-                replacerClassName: 'bs_badge bs_badge_swatch',
+                containerClassName: 'spBootstyle',
+                replacerClassName: 'bsBadge bsBadgeSwatch',
                 preferredFormat: "hex",
                 showAlpha: true,
                 showButtons: false,
@@ -38,8 +38,8 @@
              Init settings which don't require a LESS recompile here
              */
             $scope.settings = {
-                show_toolbar: true,
-                html_mode: false
+                showToolbar: true,
+                htmlMode: false
             };
 
 
@@ -50,14 +50,14 @@
                 base: [
                     {name: 'Bootstrap Theme', path: 'less/bootstrap/theme.less'}
                 ],
-                button_styles: [
-                    {name: 'Stripe', path: 'less/buttons_stripe.less'}
+                buttonStyles: [
+                    {name: 'Stripe', path: 'less/buttons-stripe.less'}
                 ]
             };
 
 
-            read_file('partials/app/_preview_bootstyle.html', function(file_contents) {
-                $scope.preview.set_html(file_contents);
+            read_file('partials/app/_preview-bootstyle.html', function(fileContents) {
+                $scope.preview.set_html(fileContents);
                 $scope.initialized = true;
             });
         };
@@ -67,8 +67,8 @@
         /*
          Code Editor
          */
-        $scope.init_code_editor = function() {
-            $scope.code_editor = new CodeMirror(document.getElementById('code_editor'), {
+        $scope.initCodeEditor = function() {
+            $scope.codeEditor = new CodeMirror(document.getElementById('code-editor'), {
                 theme: "ambiance",
                 mode: 'htmlmixed',
                 lineNumbers: true,
@@ -76,7 +76,7 @@
             });
 
             $scope.code_editor.on('change', function() {
-                $scope.preview.set_html($scope.code_editor.getValue());
+                $scope.preview.setHtml($scope.codeEditor.getValue());
             });
         };
 
@@ -85,28 +85,28 @@
          Toolbar
          */
         $scope.toolbar = {
-            is_active: true,
+            isActive: true,
             toggle: function() {
-                $scope.toolbar.is_active = !$scope.toolbar.is_active;
-                $scope.settings.html_mode = false;
+                $scope.toolbar.isActive = !$scope.toolbar.isActive;
+                $scope.settings.htmlMode = false;
             }
         };
 
-        $scope.swap_body_heading_typography = function() {
-            var body_control,
-                body_style,
-                headings_control,
-                headings_style;
+        $scope.swapBodyHeadingTypography = function() {
+            var bodyControl,
+                bodyStyle,
+                headingsControl,
+                headingsStyle;
 
-            body_control = $scope.ctrls.body_font_family.control;
-            body_style = $scope.ctrls.body_font_family.style;
-            headings_control = $scope.ctrls.headings_font_family.control;
-            headings_style = $scope.ctrls.headings_font_family.style;
+            bodyControl = $scope.ctrls.bodyFontFamily.control;
+            bodyStyle = $scope.ctrls.bodyFontFamily.style;
+            headingsControl = $scope.ctrls.headingsFontFamily.control;
+            headingsStyle = $scope.ctrls.headingsFontFamily.style;
 
-            $scope.ctrls.body_font_family.control = headings_control;
-            $scope.ctrls.body_font_family.style = headings_style;
-            $scope.ctrls.headings_font_family.control = body_control;
-            $scope.ctrls.headings_font_family.style = body_style;
+            $scope.ctrls.bodyFontFamily.control = headingsControl;
+            $scope.ctrls.bodyFontFamily.style = headingsStyle;
+            $scope.ctrls.headingsFontFamily.control = bodyControl;
+            $scope.ctrls.headingsFontFamily.style = bodyStyle;
         };
 
 
@@ -115,7 +115,7 @@
          */
         $scope.preview = {
             html: null,
-            set_html: function(html) {
+            setHtml: function(html) {
                 $scope.preview.html = html;
             }
         };
@@ -135,11 +135,11 @@
         };
 
         $scope.download = function() {
-            read_file('partials/app/_download_bootstyle.html', function(contents) {
-                var compiled_template = $compile(contents)($scope)[0];
+            readFile('partials/app/download-bootstyle.html', function(contents) {
+                var compiledTemplate = $compile(contents)($scope)[0];
 
                 $timeout(function() {
-                    var blob = new Blob([compiled_template.textContent], {type: "text/plain;charset=utf-8"});
+                    var blob = new Blob([compiledTemplate.textContent], {type: "text/plain;charset=utf-8"});
                     saveAs(blob, "bootstyle.less");
                 });
             });
@@ -157,7 +157,7 @@
                 controls.push(saveCtrl);
             });
 
-            BackendFactory.save('themes', {
+            BackendService.save('themes', {
                 name: 'test',
                 vars: $scope.vars,
                 controls: controls
@@ -172,7 +172,7 @@
         $scope.load = function() {
             console.log('loading');
 
-            BackendFactory.loadTheme('test')
+            BackendService.loadTheme('test')
                 .then(function(theme) {
                     console.log(theme);
                     $scope.vars = theme.vars;
@@ -188,7 +188,7 @@
 
         $scope.login = function() {
             console.log('logging in');
-            BackendFactory.login()
+            BackendService.login()
                 .then(function(result) {
                     console.log(result);
                 }, function(error) {
@@ -205,10 +205,10 @@
             // call the calc for changed values
             angular.forEach(newCtrls, function(value, key) {
                 if (newCtrls[key] !== oldCtrls[key]) {
-                    CalcsFactory[key].call();
+                    CalcsService[key].call();
                 }
             });
-            $scope.last_LESS_edit = Date.now();
+            $scope.lastLESSEdit = Date.now();
             $scope.timerRecompileLESS();
         }, true);
 
@@ -216,7 +216,7 @@
         // Call recompileLESS after a certain amount of inactivity
         $scope.timerRecompileLESS = function() {
             window.timerRecompileLESS = window.timerRecompileLESS || setInterval(function() {
-                if (Date.now() - $scope.last_LESS_edit >= 120) {
+                if (Date.now() - $scope.lastLESSEdit >= 120) {
                     window.clearInterval(window.timerRecompileLESS);
                     window.timerRecompileLESS = null;
                     $scope.recompileLESS();
@@ -227,7 +227,7 @@
 
         // Gather stylesheets and recompile LESS
         $scope.recompileLESS = function() {
-            $scope.is_less_compiling = true;
+            $scope.isLessCompiling = true;
 
             LESS.registerStyleSheets()
                 .then(function(data) {
@@ -236,7 +236,7 @@
                     throw e;
                 })
                 .then(function(data) {
-                    $scope.is_less_compiling = false;
+                    $scope.isLessCompiling = false;
                 }, function(e) {
                     throw e;
                 });
@@ -244,6 +244,6 @@
 
     }
 
-    angular.module('bsApp.controllers')
-        .controller('AppController', AppController);
+    angular.module('bsApp.toolbar')
+        .controller('ToolbarController', ToolbarController);
 }());
