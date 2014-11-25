@@ -72,7 +72,7 @@
         return fonts;
     }
 
-    angular.module('bsApp.services')
+    angular.module('bsApp.fonts')
         .factory('FontsService', FontsService);
 
 }());

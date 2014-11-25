@@ -1,7 +1,6 @@
 (function() {
     'use strict';
 
-
     var child_process = require('child_process');
     var concat = require('gulp-concat');
     var changed = require('gulp-changed');
@@ -127,7 +126,7 @@
         ];
 
         var libJS = [
-            path.bower_components + 'angular-spectrum-colorpicker/dist/angular-spectrum-colorpicker.min.js'
+            path.bower_components + 'angular-spectrum-colorpicker/dist/angular-spectrum-colorpicker.min.js',
             path.app + 'js/less.config.js',
             path.app + 'js/less.min.js',
         ];
@@ -208,7 +207,7 @@
         'watch-partials',
         'watch-root'
     ]);
-    
+
     gulp.task('watch-shared-css', function() {
         return gulp.watch([ path.app + 'css/shared/**/*.*' ], ['build-landing-page-css', 'build-app-css']);
     });
