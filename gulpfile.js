@@ -12,6 +12,7 @@
     var jshint = require('gulp-jshint');
     var less = require('gulp-less');
     var minifyCSS = require('gulp-minify-css');
+    var ngAnnotate = require('gulp-ng-annotate');
     var open = require('gulp-open');
     var protractor = require('gulp-protractor');
     var plumber = require('gulp-plumber');
@@ -23,17 +24,19 @@
 
     var pkg = require('./package.json');
     var path = {
-        app: './app/',
-        app_bower: './app/bower/',
+        src: './src/',
+        src_bower: './src/bower/',
         bower_components: './bower_components/',
         build: './build/',
         build_bower: './build/bower/',
-        css: 'css/**/*.*',
-        fonts: 'fonts/**/*.*',
-        img: 'img/**/*.*',
-        js: 'js/**/*.*',
-        less: 'less/**/*.less',
-        partials: 'partials/**/*.*',
+
+        // file patterns
+        css: '**/*.css',
+        fonts: '**/*.fonts',
+        img: '**/*.img',
+        js: '**/*.js',
+        less: '**/*.less',
+        html: '**/*.html',
         test: './test/',
         node_modules: './node_modules/',
         npm_bin: './node_modules/.bin/'
@@ -67,8 +70,8 @@
         del([path.build + 'less/**'], cb);
     });
 
-    gulp.task('clean-build-partials', function(cb) {
-        del([path.build + 'partials/**'], cb);
+    gulp.task('clean-build-html', function(cb) {
+        del([path.build + 'html/**'], cb);
     });
 
     gulp.task('clean-build-root', function(cb) {
@@ -83,15 +86,15 @@
         runSequence(
             'clean-build',
             [
-                'build-root',
+//                'build-root',
 
-                'build-landing-page-css',
-                'build-app-css',
-                'build-fonts',
-                'build-img',
+//                'build-landing-page-css',
+//                'build-editor-css',
+//                'build-fonts',
+//                'build-img',
                 'build-js',
-                'build-less',
-                'build-partials'
+//                'build-less',
+                'build-html'
             ],
             cb
         );
@@ -99,36 +102,39 @@
 
     // our assets
     gulp.task('build-landing-page-css', function() {
-        return gulp.src([path.app + 'css/landing_page/landing_page.less'])
+        return gulp.src([path.src + 'css/landing_page/landing_page.less'])
             .pipe(changed(path.build + 'css'))
             .pipe(less())
             .pipe(minifyCSS({ keepSpecialComments: 0 }))
             .pipe(gulp.dest(path.build + 'css/landing_page/'));
     });
 
-    gulp.task('build-app-css', function() {
-        return gulp.src([path.app + 'css/app/app.less'])
+    gulp.task('build-editor-css', function() {
+        return gulp.src([path.src + 'css/app/app.less'])
             .pipe(changed(path.build + 'css'))
             .pipe(less())
             .pipe(minifyCSS({ keepSpecialComments: 0 }))
             .pipe(gulp.dest(path.build + 'css/app/'));
     });
 
-    gulp.task('build-js', function(cb) {
+    gulp.task('build-js', function() {
         var inProduction = process.NODE_ENV === 'production';
         var ourJS = [
-                path.app + 'js/**/module.js',
-                path.app + 'js/controllers/*.js',
-                path.app + 'js/directives/*.js',
-                path.app + 'js/filters/*.js',
-                path.app + 'js/services/*.js',
-                path.app + 'js/app.js',
+                path.src + '**/*-module.js',
+                path.src + '**/*-constant.js',
+                path.src + '**/*-value.js',
+                path.src + '**/*-filter.js',
+                path.src + '**/*-service.js',
+                path.src + '**/*-directive.js',
+                path.src + '**/*-controller.js',
+                path.src + '**/*.js',
+                path.src + 'app.js',
         ];
 
         var libJS = [
             path.bower_components + 'angular-spectrum-colorpicker/dist/angular-spectrum-colorpicker.min.js',
-            path.app + 'js/less.config.js',
-            path.app + 'js/less.min.js',
+            path.src + '**/less.config.js',
+            path.src + '**/less.min.js',
         ];
 
         gulp.src(ourJS)
@@ -136,37 +142,38 @@
             .pipe(jshint.reporter('default'));
 
         return gulp.src(libJS.concat(ourJS))
-            .pipe(concat('app.js'))
+            .pipe(concat('bootstyle.min.js'))
+            .pipe(ngAnnotate())
             .pipe(gulpIf(inProduction, streamify(uglify())))
-            .pipe(gulp.dest(path.build + 'js'));
+            .pipe(gulp.dest(path.build));
     });
 
     gulp.task('build-fonts', function() {
-        return gulp.src(path.app + path.fonts)
+        return gulp.src(path.src + path.fonts)
             .pipe(changed(path.build + 'fonts'))
             .pipe(gulp.dest(path.build + 'fonts'));
     });
 
     gulp.task('build-img', function() {
-        return gulp.src(path.app + path.img)
+        return gulp.src(path.src + path.img)
             .pipe(changed(path.build + 'img'))
             .pipe(gulp.dest(path.build + 'img'));
     });
 
     gulp.task('build-less', function() {
-        return gulp.src(path.app + path.less)
+        return gulp.src(path.src + path.less)
             .pipe(changed(path.build + 'less'))
             .pipe(gulp.dest(path.build + 'less'));
     });
 
-    gulp.task('build-partials', function() {
-        return gulp.src(path.app + path.partials)
-            .pipe(changed(path.build + 'partials'))
-            .pipe(gulp.dest(path.build + 'partials'));
+    gulp.task('build-html', function() {
+        return gulp.src(path.src + path.html)
+            .pipe(changed(path.build))
+            .pipe(gulp.dest(path.build));
     });
 
     gulp.task('build-root', function() {
-        return gulp.src(path.app + '*.*')
+        return gulp.src(path.src + '*.*')
             .pipe(changed((path.build)))
             .pipe(gulp.dest(path.build));
     });
@@ -204,44 +211,44 @@
         'watch-img',
         'watch-js',
         'watch-less',
-        'watch-partials',
+        'watch-html',
         'watch-root'
     ]);
 
     gulp.task('watch-shared-css', function() {
-        return gulp.watch([ path.app + 'css/shared/**/*.*' ], ['build-landing-page-css', 'build-app-css']);
+        return gulp.watch([ path.src + 'css/shared/**/*.*' ], ['build-landing-page-css', 'build-editor-css']);
     });
 
     gulp.task('watch-landing-page-css', function() {
-        return gulp.watch([ path.app + 'css/landing_page/**/*.*' ], ['build-landing-page-css']);
+        return gulp.watch([ path.src + 'css/landing_page/**/*.*' ], ['build-landing-page-css']);
     });
 
     gulp.task('watch-app-css', function() {
-        return gulp.watch([ path.app + 'css/app/**/*.*' ], ['build-app-css']);
+        return gulp.watch([ path.src + 'css/app/**/*.*' ], ['build-editor-css']);
     });
 
     gulp.task('watch-fonts', function() {
-        return gulp.watch([ path.app + path.fonts ], ['build-fonts']);
+        return gulp.watch([ path.src + path.fonts ], ['build-fonts']);
     });
 
     gulp.task('watch-img', function() {
-        return gulp.watch([ path.app + path.img ], ['build-img']);
+        return gulp.watch([ path.src + path.img ], ['build-img']);
     });
 
     gulp.task('watch-js', function() {
-        return gulp.watch([ path.app + 'js/**/*.js' ], ['build-js']);
+        return gulp.watch([ path.src + 'js/**/*.js' ], ['build-js']);
     });
 
     gulp.task('watch-less', function() {
-        return gulp.watch([ path.app + path.less ], ['build-less']);
+        return gulp.watch([ path.src + path.less ], ['build-less']);
     });
 
-    gulp.task('watch-partials', function() {
-        return gulp.watch([ path.app + path.partials ], ['build-partials']);
+    gulp.task('watch-html', function() {
+        return gulp.watch([ path.src + path.html ], ['build-html']);
     });
 
     gulp.task('watch-root', function() {
-        return gulp.watch([ path.app + '*.*'], ['build-root']);
+        return gulp.watch([ path.src + '*.*'], ['build-root']);
     });
 
 
