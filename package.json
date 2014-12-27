@@ -14,6 +14,7 @@
     "gulp-changed": "~1.0.0",
     "gulp-concat": "~2.2.0",
     "gulp-flatten": "0.0.2",
+    "gulp-html-replace": "^1.4.1",
     "gulp-if": "^1.2.5",
     "gulp-jshint": "^1.8.6",
     "gulp-less": "~1.3.5",
@@ -35,7 +36,7 @@
     "node": "0.10.24",
     "npm": "1.3.21"
   },
-  "main": "./app/js/app.js",
+  "main": "./build/bootstyle.min.js",
   "scripts": {
     "setup": "npm i . && npm run webdriver_update && gulp develop",
     "selenium": "$(npm bin)/webdriver-manager start",

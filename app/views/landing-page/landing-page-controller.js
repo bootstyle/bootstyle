@@ -3,7 +3,7 @@
 
     function LandingPageRoutes($routeProvider) {
         $routeProvider
-            .when('/landing-page', {
+            .when('/', {
                 controller: 'LandingPageController',
                 controllerAs: 'landingCtrl',
                 templateUrl: 'views/landing-page/landing-page.html'

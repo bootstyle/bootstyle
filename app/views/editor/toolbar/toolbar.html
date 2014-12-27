@@ -1,0 +1,46 @@
+<div id="bs-toolbar">
+    <div class="bs-toolbar-header">
+        <a href="/" class="bs-brand">
+            <img src="img/logo-white.png" alt=""/>
+            <span class="bs-version" bootstyle-version></span>
+        </a>
+    </div>
+
+    <div class="bs-toolbars">
+        <ng-include src=" '/partials/app/toolbars/toolbar-base.html' "></ng-include>
+        <ng-include src=" '/partials/app/toolbars/toolbar-navbar.html' "></ng-include>
+        <ng-include src=" '/partials/app/toolbars/toolbar-jumbotron.html' "></ng-include>
+        <ng-include src=" '/partials/app/toolbars/toolbar-buttons.html' "></ng-include>
+        <ng-include src=" '/partials/app/toolbars/toolbar-colors.html' "></ng-include>
+        <ng-include src=" '/partials/app/toolbars/toolbar-headings.html' "></ng-include>
+        <ng-include src=" '/partials/app/toolbars/toolbar-typography.html' "></ng-include>
+        <!--<ng-include src=" '/partials/app/toolbars/toolbar-color-scheme.html' "></ng-include>-->
+    </div>
+
+    <div class="bs-btns">
+        <div class="bs-btn bs-btn-block bs-btn-outline" ng-if="!settings.htmlMode" ng-click="settings.htmlMode = true">
+            <i class="fa fa-pencil"></i>
+            Edit HTML
+        </div>
+        <div class="bs-btn bs-btn-block bs-btn-outline" ng-if="settings.htmlMode" ng-click="settings.htmlMode = false">
+            <i class="fa fa-eye"></i>
+            Preview
+        </div>
+        <div class="bs-btn bs-btn-block bs-btn-primary" ng-click="save()">
+            <i class="fa fa-upload"></i>
+            Save
+        </div>
+        <div class="bs-btn bs-btn-block bs-btn-primary" ng-click="save()">
+            <i class="fa fa-download"></i>
+            Load
+        </div>
+        <div class="bs-btn bs-btn-block bs-btn-outline" ng-click="login()">
+            <i class="fa fa-login"></i>
+            Login
+        </div>
+        <div class="bs-btn bs-btn-block bs-btn-primary" ng-click="download()">
+            <i class="fa fa-cloud-download"></i>
+            Download LESS
+        </div>
+    </div>
+</div>
