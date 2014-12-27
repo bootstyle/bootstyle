@@ -1,31 +1,31 @@
-.bs_btn {
+.bs-btn {
     display: inline-block;
     padding: 10px 20px;
     font-size: 12px;
     text-align: center;
     text-transform: uppercase;
-    border-radius: @bs_border_radius;
+    border-radius: @bs-border-radius;
     cursor: pointer;
-    .bs_user_select(none);
+    .bs-user-select(none);
     &:active {
         position: relative;
         top: 1px;
     }
 
-    &.bs_btn_block {
+    &.bs-btn-block {
         display: block;
     }
 
-    &.bs_btn_outline {
+    &.bs-btn-outline {
         box-shadow:
             0 0 0 1px #DDD,
             inset 0 0 0 1px #DDD;
     }
 
-    &.bs_btn_red {
-        .bs_btn_variant(#BE3327);
+    &.bs-btn-red {
+        .bs-btn-variant(#BE3327);
     }
-    &.bs_btn_primary {
-        .bs_btn_variant(@bs_color_scheme_1);
+    &.bs-btn-primary {
+        .bs-btn-variant(@bs-color-scheme-1);
     }
 }

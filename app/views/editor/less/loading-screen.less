@@ -1,15 +1,15 @@
-.bs_loading_container {
+.bs-loading-container {
     position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    background: @bs_color_scheme_1;
+    background: @bs-color-scheme-1;
     text-align: center;
     font-size: 1em;
     color: #FFF;
 
-    .bs_loading {
+    .bs-loading {
         position: fixed;
         top: 0;
         bottom: 40%;
@@ -18,8 +18,8 @@
         width: 80px;
         height: 130px;
         margin: auto;
-        -webkit-animation: bs_pulse_fade 0.5s infinite;
-        animation: bs_pulse_fade 0.5s infinite;
+        -webkit-animation: bs-pulse-fade 0.5s infinite;
+        animation: bs-pulse-fade 0.5s infinite;
         -webkit-animation-direction: alternate-reverse linear;
         animation-direction: alternate-reverse linear;
         img {
@@ -28,7 +28,7 @@
     }
 }
 
-.bs_loading_frames() {
+.bs-loading-frames() {
     0% {
         opacity: 1;
     }
@@ -49,11 +49,11 @@
     }
 }
 
-@keyframes bs_pulse_fade {
-    .bs_loading_frames;
+@keyframes bs-pulse-fade {
+    .bs-loading-frames;
 }
 
-@-webkit-keyframes bs_pulse_fade {
-    .bs_loading_frames;
+@-webkit-keyframes bs-pulse-fade {
+    .bs-loading-frames;
 }
 

@@ -1,78 +1,78 @@
-.bs_dropdown_trigger {
+.bs-dropdown-trigger {
     position: relative;
     display: inline-block;
-    .bs_box_sizing(border-box);
-    padding: @bs_input_padding;
+    .bs-box-sizing(border-box);
+    padding: @bs-input-padding;
     padding-right: 30px;
     width: 200px;
-    color: @bs_input_color;
+    color: @bs-input-color;
     cursor: pointer;
-    background: @bs_input_bg;
-    .bs_user_select(none);
+    background: @bs-input-bg;
+    .bs-user-select(none);
     &.active {
-        & + .bs_dropdown {
+        & + .bs-dropdown {
             visibility: visible;
         }
     }
 
-    & + .bs_dropdown {
+    & + .bs-dropdown {
         position: absolute;
         margin: 0;
         padding: 0;
         width: 200px;
-        color: @bs_input_color;
+        color: @bs-input-color;
         list-style: none;
-        background: @bs_input_bg;
-        box-shadow: 0 1px 10px darken(@bs_toolbar_container_bg, 5);
-        border-radius: @bs_border_radius;
+        background: @bs-input-bg;
+        box-shadow: 0 1px 10px darken(@bs-toolbar-container-bg, 5);
+        border-radius: @bs-border-radius;
         // match bootstrap dropdown z-index variable
         z-index: 1000;
-        .bs_user_select(none);
+        .bs-user-select(none);
         visibility: hidden;
 
         li {
-            padding: @bs_input_padding;
+            padding: @bs-input-padding;
             cursor: pointer;
             &:hover {
-                color: @bs_input_color_focused;
+                color: @bs-input-color-focused;
 
-                .bs_icon_preview {
+                .bs-icon-preview {
                     visibility: visible;
                 }
             }
             &.active {
-                color: @bs_input_color_focused;
-                background: @bs_input_bg_focused;
-                .bs_icon_selected {
+                color: @bs-input-color-focused;
+                background: @bs-input-bg-focused;
+                .bs-icon-selected {
                     display: inline-block;
                 }
-                .bs_icon_preview {
+                .bs-icon-preview {
                     display: none;
                 }
             }
 
-            &.bs_dropdown_header {
-                color: @bs_input_color_focused;
+            &.bs-dropdown-header {
+                color: @bs-input-color-focused;
                 cursor: default;
                 font-weight: 100;
-                border-top: 1px dashed @bs_input_color;
+                border-top: 1px dashed @bs-input-color;
                 &:hover {
-                    background: @bs_input_bg;
+                    background: @bs-input-bg;
                 }
             }
 
-            .bs_icon_preview {
+            .bs-icon-preview {
                 visibility: hidden;
                 opacity: 0.5;
             }
-            .bs_icon_selected {
+            .bs-icon-selected {
                 display: none;
             }
         }
 
     }
 
-    .bs_dropdown_caret {
+    .bs-dropdown-caret {
         position: absolute;
         right: 10px;
         top: 5px;

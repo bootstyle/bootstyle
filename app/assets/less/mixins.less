@@ -1,33 +1,33 @@
 // transitions
-.bs_transition(@properties...) {
+.bs-transition(@properties...) {
     -webkit-transition: @properties;
     -moz-transition: @properties;
     -ms-transition: @properties;
     -o-transition: @properties;
     transition: @properties;
 
-    -webkit-transition-duration: @bs_transition_timing_function;
-    -moz-transition-duration: @bs_transition_timing_function;
-    -ms-transition-duration: @bs_transition_timing_function;
-    -o-transition-duration: @bs_transition_timing_function;
-    transition-duration: @bs_transition_timing_function;
+    -webkit-transition-duration: @bs-transition-timing-function;
+    -moz-transition-duration: @bs-transition-timing-function;
+    -ms-transition-duration: @bs-transition-timing-function;
+    -o-transition-duration: @bs-transition-timing-function;
+    transition-duration: @bs-transition-timing-function;
 
-    -webkit-transition-timing-function: @bs_transition_timing_function;
-    -moz-transition-timing-function: @bs_transition_timing_function;
-    -ms-transition-timing-function: @bs_transition_timing_function;
-    -o-transition-timing-function: @bs_transition_timing_function;
-    transition-timing-function: @bs_transition_timing_function;
+    -webkit-transition-timing-function: @bs-transition-timing-function;
+    -moz-transition-timing-function: @bs-transition-timing-function;
+    -ms-transition-timing-function: @bs-transition-timing-function;
+    -o-transition-timing-function: @bs-transition-timing-function;
+    transition-timing-function: @bs-transition-timing-function;
 }
 
-.bs_transition_transforms() {
-    -webkit-transition: -webkit-transform @bs_transition_duration @bs_transition_timing_function;
-    -moz-transition: -moz-transform @bs_transition_duration @bs_transition_timing_function;
-    -ms-transition: -ms-transform @bs_transition_duration @bs_transition_timing_function;
-    -o-transition: -o-transform @bs_transition_duration @bs_transition_timing_function;
-    transition: transform @bs_transition_duration @bs_transition_timing_function;
+.bs-transition-transforms() {
+    -webkit-transition: -webkit-transform @bs-transition-duration @bs-transition-timing-function;
+    -moz-transition: -moz-transform @bs-transition-duration @bs-transition-timing-function;
+    -ms-transition: -ms-transform @bs-transition-duration @bs-transition-timing-function;
+    -o-transition: -o-transform @bs-transition-duration @bs-transition-timing-function;
+    transition: transform @bs-transition-duration @bs-transition-timing-function;
 }
 
-.bs_transition_duration(@duration) {
+.bs-transition-duration(@duration) {
     -webkit-transition-duration: @duration;
     -moz-transition-duration: @duration;
     -ms-transition-duration: @duration;
@@ -36,7 +36,7 @@
 }
 
 // transforms
-.bs_translate(@x, @y) {
+.bs-translate(@x, @y) {
     -webkit-transform: translate(@x, @y);
     -moz-transform: translate(@x, @y);
     -ms-transform: translate(@x, @y);
@@ -45,27 +45,27 @@
 }
 
 // buttons
-.bs_btn_variant(@bg_color) {
-    background: @bg_color;
+.bs-btn-variant(@bg-color) {
+    background: @bg-color;
 
     &:hover, &:focus {
-        background: lighten(@bg_color, 5%);
+        background: lighten(@bg-color, 5%);
     }
 
     &:active {
-        background: darken(@bg_color, 5%);
+        background: darken(@bg-color, 5%);
     }
 }
 
 // utilities
-.bs_user_select(@user_select) {
-    -webkit-user-select: @user_select;
-    -moz-user-select: @user_select;
-    -ms-user-select: @user_select;
-    user-select: @user_select;
+.bs-user-select(@user-select) {
+    -webkit-user-select: @user-select;
+    -moz-user-select: @user-select;
+    -ms-user-select: @user-select;
+    user-select: @user-select;
 }
 
-.bs_box_sizing(@sizing) {
+.bs-box-sizing(@sizing) {
     -webkit-box-sizing: @sizing;
     -moz-box-sizing: @sizing;
     box-sizing: @sizing;

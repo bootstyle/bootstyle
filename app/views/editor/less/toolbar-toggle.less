@@ -1,4 +1,4 @@
-.toolbar_btn {
+.toolbar-btn {
     position: fixed;
     padding: 4px 8px;
     top: 0;
@@ -10,22 +10,22 @@
     // below modal backdrop & above navbar
     z-index: 1031;
     background: rgba(0,0,0,0.3);
-    .bs_transition_transforms();
-    .bs_translate(8px, 8px);
+    .bs-transition-transforms();
+    .bs-translate(8px, 8px);
     &:hover {
         color: #fff;
         background: rgba(0,0,0,0.5);
     }
 }
 
-.show_toolbar {
-    .toolbar_btn {
-        .bs_translate(@bs_toolbar_container_width - 50px, 0px);
-        color: @bs_toolbar_label_color_secondary;
+.show-toolbar {
+    .toolbar-btn {
+        .bs-translate(@bs-toolbar-container-width - 50px, 0px);
+        color: @bs-toolbar-label-color-secondary;
         text-shadow: none;
         background: transparent;
         &:hover {
-            color: @bs_toolbar_title_color;
+            color: @bs-toolbar-title-color;
         }
     }
 }

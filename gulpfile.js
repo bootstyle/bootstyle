@@ -82,10 +82,11 @@
                 'build-bower',
 //                'build-root',
 
-//                'build-landing-page-css',
-//                'build-editor-css',
+                'build-landing-page-css',
+                //'build-editor-css',
 //                'build-fonts',
 //                'build-img',
+                'build-assets',
                 'build-js',
 //                'build-less',
                 'build-html'
@@ -95,20 +96,26 @@
     });
 
     // our assets
+    gulp.task('build-assets', function() {
+        return gulp.src([path.app + 'assets/**'])
+            .pipe(changed(path.build + 'assets/'))
+            .pipe(gulp.dest(path.build + 'assets/'));
+    });
+
     gulp.task('build-landing-page-css', function() {
-        return gulp.src([path.app + 'css/landing_page/landing_page.less'])
-            .pipe(changed(path.build + 'css'))
+        return gulp.src([path.app + 'views/landing-page/landing-page.less'])
+            .pipe(changed(path.build + 'views/landing-page/'))
             .pipe(less())
             .pipe(minifyCSS({ keepSpecialComments: 0 }))
-            .pipe(gulp.dest(path.build + 'css/landing_page/'));
+            .pipe(gulp.dest(path.build + 'views/landing-page/'));
     });
 
     gulp.task('build-editor-css', function() {
-        return gulp.src([path.app + 'css/app/app.less'])
-            .pipe(changed(path.build + 'css'))
+        return gulp.src([path.app + 'views/editor/less/editor.less'])
+            .pipe(changed(path.build + 'views/editor/less/'))
             .pipe(less())
             .pipe(minifyCSS({ keepSpecialComments: 0 }))
-            .pipe(gulp.dest(path.build + 'css/app/'));
+            .pipe(gulp.dest(path.build + 'views/editor/less/'));
     });
 
     gulp.task('build-js', function() {
@@ -171,11 +178,11 @@
     //        .pipe(gulp.dest(path.build + 'img'));
     //});
     //
-    //gulp.task('build-less', function() {
-    //    return gulp.src(path.app + path.less)
-    //        .pipe(changed(path.build + 'less'))
-    //        .pipe(gulp.dest(path.build + 'less'));
-    //});
+    gulp.task('build-less', function() {
+        return gulp.src(path.app + '**/*.less')
+            .pipe(changed(path.build + 'less'))
+            .pipe(gulp.dest(path.build + 'less'));
+    });
 
     gulp.task('build-html', function() {
         var htmlOpts = {keepUnassigned: true};
@@ -228,7 +235,7 @@
 //        'watch-fonts',
 //        'watch-img',
         'watch-js',
-//        'watch-less',
+        'watch-less',
         'watch-html',
 //        'watch-root'
     ]);
@@ -252,19 +259,19 @@
     //gulp.task('watch-img', function() {
     //    return gulp.watch([path.app + path.img], ['build-img']);
     //});
-    //
-    //gulp.task('watch-js', function() {
-    //    return gulp.watch([path.app + path.js], ['build-js']);
-    //});
-    //
-    //gulp.task('watch-less', function() {
-    //    return gulp.watch([path.app + path.less], ['build-less']);
-    //});
-    //
-    //gulp.task('watch-html', function() {
-    //    return gulp.watch([path.app + path.html], ['build-html']);
-    //});
-    //
+
+    gulp.task('watch-js', function() {
+        return gulp.watch([path.app + '**/*.js'], ['build-js']);
+    });
+
+    gulp.task('watch-less', function() {
+        return gulp.watch([path.app + '**/*.less'], ['build-less']);
+    });
+
+    gulp.task('watch-html', function() {
+        return gulp.watch([path.app + '**/*.html'], ['build-html']);
+    });
+
     //gulp.task('watch-root', function() {
     //    return gulp.watch([path.app + '*.*'], ['build-root']);
     //});

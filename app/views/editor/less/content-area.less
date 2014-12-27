@@ -1,26 +1,26 @@
-.bs_content_area {
+.bs-content-area {
     position: absolute;
     overflow-y: scroll;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    box-shadow: -3px 0 3px darken(@bs_toolbar_container_bg, 10);
-    .bs_transition_transforms();
+    box-shadow: -3px 0 3px darken(@bs-toolbar-container-bg, 10);
+    .bs-transition-transforms();
 }
 
-.show_toolbar {
+.show-toolbar {
 
-    .bs_content_area {
-        .bs_translate(@bs_toolbar_container_width, 0);
+    .bs-content-area {
+        .bs-translate(@bs-toolbar-container-width, 0);
 
-        .toolbar_container {
+        .toolbar-container {
             margin-left: 0;
             .toolbar {
                 opacity: 1;
             }
 
-            .toolbar_btn {
+            .toolbar-btn {
                 padding-right: 0;
             }
         }

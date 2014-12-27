@@ -32,7 +32,8 @@
     "spectrum": "~1.6.0",
     "tinycolor": "~1.1.1",
     "FileSaver": "*",
-    "codemirror": "~4.9.0"
+    "codemirror": "~4.9.0",
+    "fontawesome": "~4.2.0"
   },
   "devDependencies": {},
   "overrides": {
