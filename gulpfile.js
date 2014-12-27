@@ -214,7 +214,7 @@
      */
     gulp.task('open', function() {
         return gulp.src(pkg.main)
-            .pipe(open("", {url: 'http://localhost:8000'}));
+            .pipe(open('', {url: 'http://localhost:8000'}));
     });
 
 
@@ -284,7 +284,7 @@
     gulp.task('e2e', function() {
         gulp.src('test/e2e/**/*.spec.js')
             .pipe(protractor({
-                configFile: "test/protractor.conf.js"
+                configFile: 'test/protractor.conf.js'
             }))
             .on('error', function(e) {
                 throw e
