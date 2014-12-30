@@ -1,0 +1,28 @@
+.bs-content-area {
+    position: absolute;
+    overflow-y: scroll;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-shadow: -3px 0 3px darken(@bs-toolbar-container-bg, 10);
+    .bs-transition-transforms();
+}
+
+.show-toolbar {
+
+    .bs-content-area {
+        .bs-translate(@bs-toolbar-container-width, 0);
+
+        .toolbar-container {
+            margin-left: 0;
+            .toolbar {
+                opacity: 1;
+            }
+
+            .toolbar-btn {
+                padding-right: 0;
+            }
+        }
+    }
+}

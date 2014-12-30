@@ -1,0 +1,31 @@
+.bs-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 12px;
+    text-align: center;
+    text-transform: uppercase;
+    border-radius: @bs-border-radius;
+    cursor: pointer;
+    .bs-user-select(none);
+    &:active {
+        position: relative;
+        top: 1px;
+    }
+
+    &.bs-btn-block {
+        display: block;
+    }
+
+    &.bs-btn-outline {
+        box-shadow:
+            0 0 0 1px #DDD,
+            inset 0 0 0 1px #DDD;
+    }
+
+    &.bs-btn-red {
+        .bs-btn-variant(#BE3327);
+    }
+    &.bs-btn-primary {
+        .bs-btn-variant(@bs-color-scheme-1);
+    }
+}

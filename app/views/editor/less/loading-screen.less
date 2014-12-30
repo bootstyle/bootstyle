@@ -1,0 +1,52 @@
+.bs-loading-container {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: @bs-color-scheme-1;
+    text-align: center;
+    font-size: 1em;
+    color: #FFF;
+
+    .bs-loading {
+        position: fixed;
+        top: 0;
+        bottom: 40%;
+        left: 0;
+        right: 0;
+        width: 80px;
+        height: 130px;
+        margin: auto;
+        animation: bs-pulse-fade 0.5s infinite;
+        animation-direction: alternate-reverse linear;
+        img {
+            width: 100%;
+        }
+    }
+}
+
+.bs-loading-frames() {
+    0% {
+        opacity: 1;
+    }
+    20% {
+        opacity: 0.3;
+    }
+    40% {
+        opacity: 0.8;
+    }
+    60% {
+        opacity: 0.2;
+    }
+    80% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 0.1;
+    }
+}
+
+@keyframes bs-pulse-fade {
+    .bs-loading-frames;
+}

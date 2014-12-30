@@ -1,126 +1,76 @@
 (function() {
     'use strict';
 
-    var browserify = require('browserify');
-    var del = require('del');
-    var runSequence = require('run-sequence');
-    var source = require('vinyl-source-stream'); // makes non-gulp pipelines (browserify, etc) gulp compatible: https://github.com/hughsk/vinyl-source-stream
-    var watchify = require('watchify');
-
+    var autoprefixer = require('gulp-autoprefixer');
+    var child_process = require('child_process');
     var concat = require('gulp-concat');
-    var changed = require("gulp-changed");
+    var changed = require('gulp-changed');
+    var del = require('del');
     var flatten = require('gulp-flatten');
     var gulp = require('gulp');
-    var gutil = require("gulp-util");
+    var gulpIf = require('gulp-if');
+    var gutil = require('gulp-util');
+    var htmlreplace = require('gulp-html-replace');
+    var jshint = require('gulp-jshint');
     var less = require('gulp-less');
-    var mainBowerFiles = require('main-bower-files');
-    var merge = require('merge-stream');
     var minifyCSS = require('gulp-minify-css');
-    var open = require("gulp-open");
-    var plumber = require('gulp-plumber'); // keep streaming on error (used by gulp-watch): https://github.com/floatdrop/gulp-plumber
+    var ngAnnotate = require('gulp-ng-annotate');
+    var open = require('gulp-open');
+    var protractor = require('gulp-protractor');
+    var plumber = require('gulp-plumber');
+    var runSequence = require('run-sequence');
+    var rename = require('gulp-rename');
     var streamify = require('gulp-streamify'); // wrap old gulp plugins to use streams: https://github.com/nfroidure/gulp-streamify
     var uglify = require('gulp-uglify');
     var webserver = require('gulp-webserver');
+    var yargs = require('yargs');
 
-
+    var inProduction = process.NODE_ENV === 'production';
     var pkg = require('./package.json');
+    var bower = require('./bower.json');
     var path = {
         app: './app/',
-        app_bower: './app/bower/',
-        bower_components: './bower_components/',
+        bower: './app/bower/',
         build: './build/',
-        build_bower: './build/bower/',
-        css: 'css/**/*.*',
-        fonts: 'fonts/**/*.*',
-        img: 'img/**/*.*',
-        js: 'js/**/*.*',
-        less: 'less/**/*.less',
-        partials: 'partials/**/*.*'
+        test: './test/',
+        node_modules: './node_modules/',
+        npm_bin: './node_modules/.bin/'
     };
 
 
     /**
      Clean
      */
-    // app
-    gulp.task('clean-app-bower', function(cb) {
-        del([path.app + '**/bower/**'], cb);
-    });
-
-    // build
     gulp.task('clean-build', function(cb) {
-        del([path.build], cb);
-    });
-
-    gulp.task('clean-build-bower', function(cb) {
-        del([path.build + '**/bower/**'], cb);
-    });
-
-    gulp.task('clean-build-landing-page-css', function(cb) {
-        del([path.build + '**/css/**'], cb);
-    });
-
-    gulp.task('clean-build-fonts', function(cb) {
-        del([path.build + '**/fonts/**'], cb);
-    });
-
-    gulp.task('clean-build-js', function(cb) {
-        del([path.build + '**/js/**'], cb);
+        del([path.build + '**/**'], cb);
     });
 
     gulp.task('clean-build-less', function(cb) {
-        del([path.build + '**/less/**'], cb);
+        del([path.build + 'css/**'], cb);
     });
 
-    gulp.task('clean-build-partials', function(cb) {
-        del([path.build + '**/partials/**'], cb);
+    gulp.task('clean-build-fonts', function(cb) {
+        del([path.build + 'fonts/**'], cb);
+    });
+
+    gulp.task('clean-build-img', function(cb) {
+        del([path.build + 'img/**'], cb);
+    });
+
+    gulp.task('clean-build-js', function(cb) {
+        del([path.build + 'js/**'], cb);
+    });
+
+    gulp.task('clean-build-less', function(cb) {
+        del([path.build + 'less/**'], cb);
+    });
+
+    gulp.task('clean-build-html', function(cb) {
+        del([path.build + 'html/**'], cb);
     });
 
     gulp.task('clean-build-root', function(cb) {
         del([path.build + '*.*'], cb);
-    });
-
-
-    /**
-     Copy Bower Components
-     */
-    gulp.task('copy-bower-components', function(cb) {
-        runSequence(
-            'clean-app-bower',
-            [
-                'copy-bower-css',
-                'copy-bower-fonts',
-                'copy-bower-js',
-                'copy-bower-bootstrap-less'
-            ],
-            cb
-        );
-    });
-
-    gulp.task('copy-bower-css', function() {
-        var css_reg = new RegExp('\.css$');
-        return gulp.src(mainBowerFiles({filter: css_reg }), { base: path.bower_components })
-            .pipe(flatten())
-            .pipe(gulp.dest(path.app_bower + 'css'));
-    });
-
-    gulp.task('copy-bower-js', function() {
-        var js_reg = new RegExp('\.js$');
-        return gulp.src(mainBowerFiles({filter: js_reg }), { base: path.bower_components })
-            .pipe(flatten())
-            .pipe(gulp.dest(path.app_bower + 'js'));
-    });
-
-    gulp.task('copy-bower-fonts', function() {
-        var font_reg = new RegExp('\.otf$|\.eot$|\.svg$|\.ttf$|\.woff$');
-        return gulp.src(mainBowerFiles({filter: font_reg }), { base: path.bower_components })
-            .pipe(flatten())
-            .pipe(gulp.dest(path.app_bower + 'fonts'));
-    });
-
-    gulp.task('copy-bower-bootstrap-less', function() {
-        return gulp.src(path.bower_components + 'bootstrap/less/**/*.*')
-            .pipe(gulp.dest(path.app_bower + 'less/bootstrap'));
     });
 
 
@@ -130,121 +80,120 @@
     gulp.task('build', function(cb) {
         runSequence(
             'clean-build',
-            'build-bower',
             [
-                'build-root',
+                'build-assets',
+                'build-bower',
+//                'build-root',
 
-                'build-landing-page-css',
-                'build-app-css',
-                'build-fonts',
-                'build-img',
-                'build-js',
                 'build-less',
-                'build-partials'
+//                'build-fonts',
+//                'build-img',
+                'build-js',
+                'build-html'
             ],
             cb
         );
-    });
-
-    gulp.task('build-bower', function(cb) {
-        runSequence(
-            [
-                'copy-bower-components',
-                'clean-build-bower'
-            ],
-            [
-                'build-bower-css',
-                'build-bower-fonts',
-                'build-bower-js',
-                'build-bower-less',
-                'build-bower-partials'
-            ],
-            cb
-        );
-    });
-
-    // bower
-    gulp.task('build-bower-css', function() {
-        return gulp.src([path.app_bower + path.css])
-            .pipe(minifyCSS({ keepSpecialComments: 0 }))
-            .pipe(gulp.dest(path.build_bower + 'css'));
-    });
-
-    gulp.task('build-bower-fonts', function() {
-        return gulp.src(path.app_bower + path.fonts)
-            .pipe(gulp.dest(path.build_bower + 'fonts'));
-    });
-
-    gulp.task('build-bower-js', function() {
-        return gulp.src(path.app_bower + path.js)
-            .pipe(gulp.dest(path.build_bower + 'js'));
-    });
-
-    gulp.task('build-bower-less', function() {
-        return gulp.src(path.app_bower + path.less)
-            .pipe(gulp.dest(path.build_bower + 'less'));
-    });
-
-    gulp.task('build-bower-partials', function() {
-        return gulp.src(path.app_bower + path.partials)
-            .pipe(gulp.dest(path.build_bower + 'partials'));
     });
 
     // our assets
-    gulp.task('build-landing-page-css', function() {
-        return gulp.src([path.app + 'css/landing_page/landing_page.less'])
-            .pipe(changed(path.build + 'css'))
-            .pipe(less())
-            .pipe(minifyCSS({ keepSpecialComments: 0 }))
-            .pipe(gulp.dest(path.build + 'css/landing_page/'));
-    });
-
-    gulp.task('build-app-css', function() {
-        return gulp.src([path.app + 'css/app/app.less'])
-            .pipe(changed(path.build + 'css'))
-            .pipe(less())
-            .pipe(minifyCSS({ keepSpecialComments: 0 }))
-            .pipe(gulp.dest(path.build + 'css/app/'));
-    });
-
-    gulp.task('build-js', function() {
-        var bundleStream = browserify(path.app + 'js/app.js').bundle();
-
-        return bundleStream
-            .pipe(source('app.js'))
-            .pipe(streamify(uglify()))
-            .pipe(gulp.dest(path.build + 'js'));
-    });
-
-    gulp.task('build-fonts', function() {
-        return gulp.src(path.app + path.fonts)
-            .pipe(changed(path.build + 'fonts'))
-            .pipe(gulp.dest(path.build + 'fonts'));
-    });
-
-    gulp.task('build-img', function() {
-        return gulp.src(path.app + path.img)
-            .pipe(changed(path.build + 'img'))
-            .pipe(gulp.dest(path.build + 'img'));
+    gulp.task('build-assets', function() {
+        return gulp.src([path.app + 'assets/**'])
+            .pipe(changed(path.build + 'assets/'))
+            .pipe(gulp.dest(path.build + 'assets/'));
     });
 
     gulp.task('build-less', function() {
-        return gulp.src(path.app + path.less)
-            .pipe(changed(path.build + 'less'))
-            .pipe(gulp.dest(path.build + 'less'));
-    });
+        var name = pkg.name + '.min.less';
 
-    gulp.task('build-partials', function() {
-        return gulp.src(path.app + path.partials)
-            .pipe(changed(path.build + 'partials'))
-            .pipe(gulp.dest(path.build + 'partials'));
-    });
-
-    gulp.task('build-root', function() {
-        return gulp.src(path.app + '*.*')
-            .pipe(changed((path.build)))
+        return gulp.src([path.app + 'app.less'])
+            .pipe(changed(path.build))
+            .pipe(rename(name))
+            .pipe(less())
+            .pipe(autoprefixer())
+            .pipe(minifyCSS({ keepSpecialComments: 0 }))
             .pipe(gulp.dest(path.build));
     });
+
+    gulp.task('build-js', function() {
+        var name = pkg.name + '.min.js';
+
+        var libJS = [
+            path.bower + 'angular-spectrum-colorpicker/dist/angular-spectrum-colorpicker.min.js',
+        ];
+
+        var ourJS = [
+            path.app + 'less.config.js',
+
+            // components
+            path.app + 'components/**/*-module.js',
+            path.app + 'components/**/*-constant.js',
+            path.app + 'components/**/*-value.js',
+            path.app + 'components/**/*-filter.js',
+            path.app + 'components/**/*-service.js',
+            path.app + 'components/**/*-directive.js',
+            path.app + 'components/**/*-controller.js',
+            path.app + 'components/**/*.js',
+
+            // views
+            path.app + 'views/**/*-module.js',
+            path.app + 'views/**/*-constant.js',
+            path.app + 'views/**/*-value.js',
+            path.app + 'views/**/*-filter.js',
+            path.app + 'views/**/*-service.js',
+            path.app + 'views/**/*-directive.js',
+            path.app + 'views/**/*-controller.js',
+            path.app + 'views/**/*.js',
+
+            path.app + 'app.js',
+        ];
+
+        gulp.src(ourJS)
+            .pipe(jshint())
+            .pipe(jshint.reporter('default'));
+
+        return gulp.src(libJS.concat(ourJS))
+            .pipe(concat(name))
+            .pipe(ngAnnotate())
+            .pipe(gulpIf(inProduction, streamify(uglify())))
+            .pipe(gulp.dest(path.build));
+    });
+
+    gulp.task('build-bower', function() {
+        return gulp.src(path.bower + '**/*.*')
+            .pipe(changed(path.build + 'bower'))
+            .pipe(gulp.dest(path.build + 'bower'));
+    });
+
+    //gulp.task('build-fonts', function() {
+    //    return gulp.src(path.app + path.fonts)
+    //        .pipe(changed(path.build + 'fonts'))
+    //        .pipe(gulp.dest(path.build + 'fonts'));
+    //});
+    //
+    //gulp.task('build-img', function() {
+    //    return gulp.src(path.app + path.img)
+    //        .pipe(changed(path.build + 'img'))
+    //        .pipe(gulp.dest(path.build + 'img'));
+    //});
+
+    gulp.task('build-html', function() {
+        var htmlOpts = {keepUnassigned: true};
+
+        return gulp.src([
+            path.app + '**/*.html',
+            '!' + path.bower + '**',
+        ])
+            .pipe(changed(path.build))
+            .pipe(gulpIf(inProduction, htmlreplace({ development: '' }, htmlOpts)))
+            .pipe(gulpIf(!inProduction, htmlreplace({ production: '' }, htmlOpts)))
+            .pipe(gulp.dest(path.build));
+    });
+
+    //gulp.task('build-root', function() {
+    //    return gulp.src(path.app + '*.*')
+    //        .pipe(changed((path.build)))
+    //        .pipe(gulp.dest(path.build));
+    //});
 
 
     /**
@@ -253,7 +202,6 @@
     gulp.task('serve', function() {
         gulp.src(path.build)
             .pipe(webserver({
-                root: ['.'],
                 livereload: true,
                 fallback: 'index.html'
             }));
@@ -265,7 +213,7 @@
      */
     gulp.task('open', function() {
         return gulp.src(pkg.main)
-            .pipe(open("", { url: 'http://localhost:8000' }));
+            .pipe(open('', {url: 'http://localhost:8000'}));
     });
 
 
@@ -273,82 +221,187 @@
      Watch
      */
     gulp.task('watch', [
-        'watch-bower-components',
-        'watch-shared-css',
-        'watch-landing-page-css',
-        'watch-app-css',
-        'watch-fonts',
-        'watchify-js',
         'watch-less',
-        'watch-partials',
-        'watch-root'
+//        'watch-fonts',
+//        'watch-img',
+        'watch-js',
+        //'watch-less',
+        'watch-html',
+//        'watch-root'
     ]);
 
-    gulp.task('watch-bower-components', function() {
-        return gulp.watch([ path.bower_components ], ['build-bower']);
+    gulp.task('watch-less', function() {
+        return gulp.watch([
+            path.app + 'views/landing-page/**/*.less',
+            path.app + 'views/editor/**/*.less',
+        ], ['build-less']);
     });
 
-    gulp.task('watch-shared-css', function() {
-        return gulp.watch([ path.app + 'css/shared/**/*.*' ], ['build-landing-page-css', 'build-app-css']);
+    //gulp.task('watch-fonts', function() {
+    //    return gulp.watch([path.app + path.fonts], ['build-fonts']);
+    //});
+    //
+    //gulp.task('watch-img', function() {
+    //    return gulp.watch([path.app + path.img], ['build-img']);
+    //});
+
+    gulp.task('watch-js', function() {
+        return gulp.watch([path.app + '**/*.js'], ['build-js']);
     });
 
-    gulp.task('watch-landing-page-css', function() {
-        return gulp.watch([ path.app + 'css/landing_page/**/*.*' ], ['build-landing-page-css']);
+    gulp.task('watch-html', function() {
+        return gulp.watch([path.app + '**/*.html'], ['build-html']);
     });
 
-    gulp.task('watch-app-css', function() {
-        return gulp.watch([ path.app + 'css/app/**/*.*' ], ['build-app-css']);
+    //gulp.task('watch-root', function() {
+    //    return gulp.watch([path.app + '*.*'], ['build-root']);
+    //});
+
+
+    /**
+     Test
+     */
+    gulp.task('test', function(cb) {
+        runSequence(
+            'webdriver-update',
+            'protractor',
+            cb
+        );
     });
 
-    gulp.task('watch-fonts', function() {
-        return gulp.watch([ path.app + path.fonts ], ['build-fonts']);
+    gulp.task('e2e', function() {
+        gulp.src('test/e2e/**/*.spec.js')
+            .pipe(protractor({
+                configFile: 'test/protractor.conf.js'
+            }))
+            .on('error', function(e) {
+                throw e
+            });
     });
 
-    gulp.task('watchify-js', function() {
-        var bundler = watchify(browserify('./app/js/app.js', watchify.args));
+    gulp.task('webdriver-update', function(cb) {
+        child_process.exec('$(npm bin)/webdriver-manager update --standalone',
+            function(error, stdout, stderr) {
+                if (stdout) console.log(stdout);
+                if (stderr) console.log('stderr: \n' + stderr);
+                if (error) console.log('exec error: \n' + error);
+                cb();
+            });
+    });
 
-        bundler.on('update', rebundle);
+    gulp.task('iprotractor', function(cb) {
+        var cmd = 'node';
+        var args = [
+            path.node_modules + '/protractor/bin/elementexplorer.js',
+            'http://localhost:8000',
+        ];
+        var options = {
+            detached: true
+        };
 
-        function rebundle() {
-            return bundler.bundle()
-                .on('error', function(err) {
-                    gutil.log(err);
-                    throw err
-                })
-                .pipe(source('app.js'))
-                .pipe(gulp.dest(path.build + 'js'));
+        function logError(code, signal) {
+            if (code) process.stdout.write(gutil.colors.red('closed with code ' + code + '\n'));
+            if (signal) process.stdout.write('closed due to signal ' + signal + '\n');
         }
 
-        return rebundle();
+        process.stdin.on('data', function(data) {
+            iprotractor.stdin.write(data);
+        });
+
+        var iprotractor = child_process.spawn(cmd, args, options);
+
+        iprotractor.stdout.on('data', function(data) {
+            process.stdout.write(data);
+        });
+
+        iprotractor.stderr.on('data', function(data) {
+            process.stdout.write(gutil.colors.red('\nerr: ' + data));
+        });
+
+        iprotractor.on('error', function(err) {
+            console.log(err);
+        });
+
+        iprotractor.on('close', function(code, signal) {
+            if (code !== 0) {
+                logError(code, signal);
+            }
+            process.stdin.end();
+            process.kill();
+            cb();
+        });
     });
 
-    gulp.task('watch-less', function() {
-        return gulp.watch([ path.app + path.less ], ['build-less']);
-    });
+    gulp.task('protractor', function(cb) {
+        var configPath = path.test + 'protractor.conf.js';
+        var config = require(configPath).config;
 
-    gulp.task('watch-partials', function() {
-        return gulp.watch([ path.app + path.partials ], ['build-partials']);
-    });
+        var debug = yargs.argv.debug;
+        var suite = yargs.argv.suite;
 
-    gulp.task('watch-root', function() {
-        return gulp.watch([ path.app + '*.*'], ['build-root']);
-    });
+        var cmd = path.npm_bin + 'protractor';
+        var args = [configPath];
+        var options = {
+            detached: true
+        };
 
+        // add debug arg if present
+        if (debug) {
+            args.unshift(['debug'])
+        }
+
+        // error if suite arg does't exist in protractor config, otherwuse add the arg
+        if (suite && !config.suites.hasOwnProperty(suite)) {
+            process.stderr.write(gutil.colors.red('\nWhoops, there is no "' + suite + '" suite defined in ' + configPath + '\n\n'));
+            cb();
+            return;
+        } else {
+            args.push(['--suite', suite])
+        }
+
+
+        var protractor = child_process.spawn(cmd, args, options);
+
+        protractor.stdout.on('data', function(data) {
+            process.stdout.write(data);
+        });
+
+        protractor.stderr.on('data', function(data) {
+            process.stdout.write('err: ' + data);
+        });
+
+        protractor.on('error', function(err) {
+            process.stdout.write(gutil.colors.red('Protractor error signal and code: ' + err.signal + ', ' + err.code));
+        });
+
+        protractor.on('close', function(code, signal) {
+            if (code) {
+                process.stdout.write(gutil.colors.red('\nprotactor closed with code ' + code + '\n\n'));
+            }
+
+            if (signal) {
+                process.stdout.write('protactor closed due to signal ' + signal);
+            }
+
+            cb();
+        });
+
+    });
 
     /**
      Default
      */
     gulp.task('default', function(cb) {
         runSequence(
-            'copy-bower-components',
             'build',
+            'serve',
+            'watch',
             cb
         );
     });
 
     gulp.task('develop', function(cb) {
         runSequence(
-            'copy-bower-components',
             'build',
             'watch',
             'serve',

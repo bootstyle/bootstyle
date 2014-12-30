@@ -1,0 +1,72 @@
+// transitions
+.bs-transition(@properties...) {
+    -webkit-transition: @properties;
+    -moz-transition: @properties;
+    -ms-transition: @properties;
+    -o-transition: @properties;
+    transition: @properties;
+
+    -webkit-transition-duration: @bs-transition-timing-function;
+    -moz-transition-duration: @bs-transition-timing-function;
+    -ms-transition-duration: @bs-transition-timing-function;
+    -o-transition-duration: @bs-transition-timing-function;
+    transition-duration: @bs-transition-timing-function;
+
+    -webkit-transition-timing-function: @bs-transition-timing-function;
+    -moz-transition-timing-function: @bs-transition-timing-function;
+    -ms-transition-timing-function: @bs-transition-timing-function;
+    -o-transition-timing-function: @bs-transition-timing-function;
+    transition-timing-function: @bs-transition-timing-function;
+}
+
+.bs-transition-transforms() {
+    -webkit-transition: -webkit-transform @bs-transition-duration @bs-transition-timing-function;
+    -moz-transition: -moz-transform @bs-transition-duration @bs-transition-timing-function;
+    -ms-transition: -ms-transform @bs-transition-duration @bs-transition-timing-function;
+    -o-transition: -o-transform @bs-transition-duration @bs-transition-timing-function;
+    transition: transform @bs-transition-duration @bs-transition-timing-function;
+}
+
+.bs-transition-duration(@duration) {
+    -webkit-transition-duration: @duration;
+    -moz-transition-duration: @duration;
+    -ms-transition-duration: @duration;
+    -o-transition-duration: @duration;
+    transition-duration: @duration;
+}
+
+// transforms
+.bs-translate(@x, @y) {
+    -webkit-transform: translate(@x, @y);
+    -moz-transform: translate(@x, @y);
+    -ms-transform: translate(@x, @y);
+    -o-transform: translate(@x, @y);
+    transform: translate(@x, @y);
+}
+
+// buttons
+.bs-btn-variant(@bg-color) {
+    background: @bg-color;
+
+    &:hover, &:focus {
+        background: lighten(@bg-color, 5%);
+    }
+
+    &:active {
+        background: darken(@bg-color, 5%);
+    }
+}
+
+// utilities
+.bs-user-select(@user-select) {
+    -webkit-user-select: @user-select;
+    -moz-user-select: @user-select;
+    -ms-user-select: @user-select;
+    user-select: @user-select;
+}
+
+.bs-box-sizing(@sizing) {
+    -webkit-box-sizing: @sizing;
+    -moz-box-sizing: @sizing;
+    box-sizing: @sizing;
+}

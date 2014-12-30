@@ -39,14 +39,30 @@ Setup is a breeze:
 
 This does a few things.  See `scripts.setup` in `package.json`.
 
-1. `npm install` - installs all our nodejs dependencies, things like [Grunt](https://github.com/gruntjs/grunt), [Browserify](https://github.com/substack/node-browserify), and [Protractor](https://github.com/angular/protractor).
-    - postinstall: `$(npm bin)/webdriver-manager update` - downloads the latest [Selenium Webdriver](https://code.google.com/p/selenium/wiki/WebDriverJs) for [Protractor](https://github.com/angular/protractor) (facilitates e2e tests).
-3. `bower install` - installs all our browser components, things like [AngularJS](https://github.com/angular/angular), [LESS](https://github.com/less/less.js), and [Twitter Bootstrap](https://github.com/twbs/bootstrap).
-4. `grunt build` - copies and browserifies `app/` into `build/`.  `build/` is served on production and your local.
-5. `grunt serve:dev` - for convenience, we start the dev server so you can get right to playing with the app!
+1. `npm i gulp -g` - installs [gulp](https://github.com/gulpjs/gulp) globally
+2. `npm install` - installs all Bootstyle's node modules, things like local [gulp](https://github.com/gulpjs/gulp), [Browserify](https://github.com/substack/node-browserify), [Protractor](https://github.com/angular/protractor), see [package.json](https://github.com/levithomason/bootstyle/blob/master/package.json) for all dependencies.
+    - `postinstall`: `bower install` - installs all our browser components, things like [AngularJS](https://github.com/angular/angular), [LESS](https://github.com/less/less.js), and [Twitter Bootstrap](https://github.com/twbs/bootstrap).
+3. `webdriver_update` - downloads the latest [Selenium Webdriver](https://code.google.com/p/selenium/wiki/WebDriverJs) for [Protractor](https://github.com/angular/protractor) (facilitates e2e tests).
+4. `gulp`
+    - `copy-bower-components`: copies all bower assets to `/app`
+    - `build`: creates a build in `/build'
+    - `watch`: watches all files for changes, does incremental builds, and reloads the browser
+    - `serve`: starts the dev server at `localhost:8000`
+    - `open`: opens a browser for you
 
 ## Tests
 
-Bootstyle uses [protractor.js](https://github.com/angular/protractor) for functional testing.
+### E2E
 
-**Run Tests**: `npm test`
+Bootstyle uses [protractor.js](https://github.com/angular/protractor) for e2e tests.
+
+**E2E**: 'gulp e2e'  
+    Ensures webdrivers are up to date then runs protractor
+
+**Protractor**: 'gulp protractor'  
+    '--debug': runs in [debug mode](http://angular.github.io/protractor/#/debugging)  
+    '--suite <name>': run a single suite of tests defined in protractor.conf.js  
+
+**Interactive Protractor**: 'gulp iprotractor'  
+    A live [interactive](http://angular.github.io/protractor/#/debugging#testing-out-protractor-interactively) browser with CLI access to `browser`, `element`, and `protractor`
+    *Note: requires the dev server and selenium server to be running*

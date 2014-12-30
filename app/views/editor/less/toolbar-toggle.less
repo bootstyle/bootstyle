@@ -1,0 +1,31 @@
+.toolbar-btn {
+    position: fixed;
+    padding: 4px 8px;
+    top: 0;
+    left: 0;
+    font-size: 28px;
+    line-height: 1;
+    color: #EEE;
+    cursor: pointer;
+    // below modal backdrop & above navbar
+    z-index: 1031;
+    background: rgba(0,0,0,0.3);
+    .bs-transition-transforms();
+    .bs-translate(8px, 8px);
+    &:hover {
+        color: #fff;
+        background: rgba(0,0,0,0.5);
+    }
+}
+
+.show-toolbar {
+    .toolbar-btn {
+        .bs-translate(@bs-toolbar-container-width - 50px, 0px);
+        color: @bs-toolbar-label-color-secondary;
+        text-shadow: none;
+        background: transparent;
+        &:hover {
+            color: @bs-toolbar-title-color;
+        }
+    }
+}

@@ -1,0 +1,127 @@
+@import "../../bower/bootstrap/less/bootstrap";
+
+// bootstyle base styles
+@import "../../assets/less/mixins";
+@import "../../assets/less/utilities";
+@import "../../assets/less/variables";
+
+// bootstrap and variable overrides
+@import "bootstrap-variable-overrides";
+
+// landing page style
+.navbar {
+    border-bottom: none;
+    .navbar-brand {
+        padding: 10px;
+        color: rgba(0,0,0,0.4);
+        font-size: 12px;
+
+        .bs-brand {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    }
+}
+
+
+.jumbotron {
+    text-align: center;
+    margin-bottom: 0;
+
+    .bs-logo {
+        margin: 40px 0;
+
+        .bs-icon,
+        .bs-full {
+            margin: auto;
+            max-width: 100%;
+        }
+
+        .bs-icon {
+            width: 150px;
+        }
+        .bs-full {
+            width: 300px;
+        }
+    }
+
+    .bs-cta-button {
+        padding-top: 60px;
+        .btn {
+            background: none;
+            border: 2px solid #FFF;
+        }
+    }
+
+}
+
+.btn {
+    text-transform: uppercase;
+    font-weight: 100;
+}
+
+.bs-main-points-wrapper {
+    padding: 40px 0;
+    text-align: center;
+    background: screen(@brand-primary, #DDD);
+    background: @bs-gray;
+    color: #AAA;
+
+    .bs-main-point {
+        padding: 20px 0;
+
+        .bs-main-point-icon {
+            box-sizing: content-box;
+            display: inline-block;
+            margin: auto;
+            width: @bs-main-point-size;
+            height: @bs-main-point-size;
+            line-height: @bs-main-point-size;
+            font-size: 3em;
+            color: @brand-primary;
+            border: 2px solid @brand-primary;
+            border-radius: 999px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: #DDD;
+        }
+    }
+
+    .bs-more {
+        padding: 20px 0;
+        color: @brand-primary;
+    }
+
+}
+
+.bs-section {
+    padding: 100px 0;
+    border: 20px solid @bs-color-scheme-1;
+    
+    &:first-child {
+    }
+
+    .bs-section-header {
+        text-align: center;
+        font-size: 4em;
+        margin: 40px 0;
+    }
+
+    &.bs-section-about {
+
+    }
+    &.bs-section-why {
+
+    }
+    &.bs-section-features {
+
+    }
+    &.bs-section-pricing {
+
+    }
+    &.bs-section-footer {
+        background: @bs-color-scheme-1;
+        color: #FFF;
+    }
+}
