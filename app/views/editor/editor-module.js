@@ -11,7 +11,7 @@
         'bsApp.editor.codeEditor',
         'bsApp.fonts',
         'bsApp.less',
-//        'bsApp.editor.preview',
+        'bsApp.editor.preview',
         'bsApp.editor.toolbar'
     ]);
 }());

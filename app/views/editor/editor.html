@@ -1,26 +1,25 @@
-<link rel="stylesheet" href="css/app/app.css">
-<link rel="stylesheet/less" href="less/app.less">
-<bs-style bs-vars="{{ vars }}"></bs-style>
-<div class="#bs_app" ng-init="init()" ng-class="{ show_toolbar: toolbar.is_active }">
+<div class="bs-editor" ng-class="{ 'show-toolbar': editorCtrl.toolbar.is-active }">
+    <!--<link rel="stylesheet" href="css/app/app.css">-->
+    <!--<link rel="stylesheet/less" href="less/app.less">-->
 
-    <div class="bs_loading_container" ng-if="!initialized">
-        <div class="bs_loading">
-            <img src="img/icon-white.png" alt=""/>
+    <div class="bs-loading-container" ng-show="!editorCtrl.initialized">
+        <div class="bs-loading">
+            <img src="../../assets/img/icon-white.png" alt=""/>
         </div>
     </div>
 
-    <div ng-if="initialized">
+    <div ng-show="editorCtrl.initialized">
         <!-- Dynamic LESS -->
-        <ng-include src=" 'partials/app/_dynamic_less.html' "></ng-include>
-        <bs-toolbar></bs-toolbar>
-        <ng-include src=" 'partials/app/_toolbar_toggle.html' "></ng-include>
+        <ng-include src=" 'views/editor/dynamic-less.html' "></ng-include>
+        <!--<bs-toolbar></bs-toolbar>-->
+        <ng-include src=" 'views/editor/toolbar/toolbar-toggle.html' "></ng-include>
 
-        <div class="bs_content_area">
-            <ng-include src=" 'partials/app/_preview.html' " ng-hide="settings.html_mode"></ng-include>
-            <ng-include src=" 'partials/app/_code_editor.html' " ng-show="settings.html_mode"></ng-include>
+        <div class="bs-content-area">
+            <ng-include src=" 'views/editor/preview/preview.html' " ng-hide="editorCtrl.settings.isHtmlMode"></ng-include>
+            <ng-include src=" 'views/editor/code-editor/code-editor.html' " ng-show="editorCtrl.settings.isHtmlMode"></ng-include>
         </div>
 
-        <ng-include src=" 'partials/app/_download_modal.html' "></ng-include>
-        <ng-include src=" 'partials/app/_reset_modal.html' "></ng-include>
+        <ng-include src=" 'views/editor/download-modal.html' "></ng-include>
+        <ng-include src=" 'views/editor/reset-modal.html' "></ng-include>
     </div>
 </div>

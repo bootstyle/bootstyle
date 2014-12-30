@@ -1,6 +1,7 @@
 (function() {
     'use strict';
 
+    var autoprefixer = require('gulp-autoprefixer');
     var child_process = require('child_process');
     var concat = require('gulp-concat');
     var changed = require('gulp-changed');
@@ -18,6 +19,7 @@
     var protractor = require('gulp-protractor');
     var plumber = require('gulp-plumber');
     var runSequence = require('run-sequence');
+    var rename = require('gulp-rename');
     var streamify = require('gulp-streamify'); // wrap old gulp plugins to use streams: https://github.com/nfroidure/gulp-streamify
     var uglify = require('gulp-uglify');
     var webserver = require('gulp-webserver');
@@ -43,7 +45,7 @@
         del([path.build + '**/**'], cb);
     });
 
-    gulp.task('clean-build-landing-page-css', function(cb) {
+    gulp.task('clean-build-less', function(cb) {
         del([path.build + 'css/**'], cb);
     });
 
@@ -79,16 +81,14 @@
         runSequence(
             'clean-build',
             [
+                'build-assets',
                 'build-bower',
 //                'build-root',
 
-                'build-landing-page-css',
-                //'build-editor-css',
+                'build-less',
 //                'build-fonts',
 //                'build-img',
-                'build-assets',
                 'build-js',
-//                'build-less',
                 'build-html'
             ],
             cb
@@ -102,23 +102,21 @@
             .pipe(gulp.dest(path.build + 'assets/'));
     });
 
-    gulp.task('build-landing-page-css', function() {
-        return gulp.src([path.app + 'views/landing-page/landing-page.less'])
-            .pipe(changed(path.build + 'views/landing-page/'))
-            .pipe(less())
-            .pipe(minifyCSS({ keepSpecialComments: 0 }))
-            .pipe(gulp.dest(path.build + 'views/landing-page/'));
-    });
+    gulp.task('build-less', function() {
+        var name = pkg.name + '.min.less';
 
-    gulp.task('build-editor-css', function() {
-        return gulp.src([path.app + 'views/editor/less/editor.less'])
-            .pipe(changed(path.build + 'views/editor/less/'))
+        return gulp.src([path.app + 'app.less'])
+            .pipe(changed(path.build))
+            .pipe(rename(name))
             .pipe(less())
+            .pipe(autoprefixer())
             .pipe(minifyCSS({ keepSpecialComments: 0 }))
-            .pipe(gulp.dest(path.build + 'views/editor/less/'));
+            .pipe(gulp.dest(path.build));
     });
 
     gulp.task('build-js', function() {
+        var name = pkg.name + '.min.js';
+
         var libJS = [
             path.bower + 'angular-spectrum-colorpicker/dist/angular-spectrum-colorpicker.min.js',
         ];
@@ -154,7 +152,7 @@
             .pipe(jshint.reporter('default'));
 
         return gulp.src(libJS.concat(ourJS))
-            .pipe(concat('bootstyle.min.js'))
+            .pipe(concat(name))
             .pipe(ngAnnotate())
             .pipe(gulpIf(inProduction, streamify(uglify())))
             .pipe(gulp.dest(path.build));
@@ -177,12 +175,6 @@
     //        .pipe(changed(path.build + 'img'))
     //        .pipe(gulp.dest(path.build + 'img'));
     //});
-    //
-    gulp.task('build-less', function() {
-        return gulp.src(path.app + '**/*.less')
-            .pipe(changed(path.build + 'less'))
-            .pipe(gulp.dest(path.build + 'less'));
-    });
 
     gulp.task('build-html', function() {
         var htmlOpts = {keepUnassigned: true};
@@ -229,29 +221,22 @@
      Watch
      */
     gulp.task('watch', [
-//        'watch-shared-css',
-//        'watch-landing-page-css',
-//        'watch-app-css',
+        'watch-less',
 //        'watch-fonts',
 //        'watch-img',
         'watch-js',
-        'watch-less',
+        //'watch-less',
         'watch-html',
 //        'watch-root'
     ]);
 
-    //gulp.task('watch-shared-css', function() {
-    //    return gulp.watch([path.app + 'css/shared/**/*.*'], ['build-landing-page-css', 'build-editor-css']);
-    //});
-    //
-    //gulp.task('watch-landing-page-css', function() {
-    //    return gulp.watch([path.app + 'css/landing_page/**/*.*'], ['build-landing-page-css']);
-    //});
-    //
-    //gulp.task('watch-app-css', function() {
-    //    return gulp.watch([path.app + 'css/app/**/*.*'], ['build-editor-css']);
-    //});
-    //
+    gulp.task('watch-less', function() {
+        return gulp.watch([
+            path.app + 'views/landing-page/**/*.less',
+            path.app + 'views/editor/**/*.less',
+        ], ['build-less']);
+    });
+
     //gulp.task('watch-fonts', function() {
     //    return gulp.watch([path.app + path.fonts], ['build-fonts']);
     //});
@@ -262,10 +247,6 @@
 
     gulp.task('watch-js', function() {
         return gulp.watch([path.app + '**/*.js'], ['build-js']);
-    });
-
-    gulp.task('watch-less', function() {
-        return gulp.watch([path.app + '**/*.less'], ['build-less']);
     });
 
     gulp.task('watch-html', function() {

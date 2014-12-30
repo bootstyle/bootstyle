@@ -5,8 +5,8 @@
         return {
             restrict: 'E',
             replace: true,
-            scope: false,
-            templateUrl: 'views/editor/toolbar.html',
+            scope: {},
+            templateUrl: 'views/editor/toolbar/toolbar.html',
             link: function(scope, elem, attrs) {
                 // todo: the toggle stuff should be in here
 

@@ -17,6 +17,11 @@
 
         vm.init = function() {
             vm.initialized = true;
+
+            vm.settings = {
+                showToolbar: true,
+                isHtmlMode: false
+            };
         };
 
         vm.init();

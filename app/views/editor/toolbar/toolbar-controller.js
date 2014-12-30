@@ -36,15 +36,6 @@
 
             
             /*
-             Init settings which don't require a LESS recompile here
-             */
-            $scope.settings = {
-                showToolbar: true,
-                htmlMode: false
-            };
-
-
-            /*
              Init stylesheets
              */
             $scope.stylesheets = {
@@ -55,12 +46,6 @@
                     {name: 'Stripe', path: 'less/buttons-stripe.less'}
                 ]
             };
-
-
-            read_file('partials/app/_preview-bootstyle.html', function(fileContents) {
-                $scope.preview.set_html(fileContents);
-                $scope.initialized = true;
-            });
         };
 
         ////////////////////////////  END INIT  ////////////////////////////
@@ -91,17 +76,6 @@
             $scope.ctrls.bodyFontFamily.style = headingsStyle;
             $scope.ctrls.headingsFontFamily.control = bodyControl;
             $scope.ctrls.headingsFontFamily.style = bodyStyle;
-        };
-
-
-        /*
-         Preview
-         */
-        $scope.preview = {
-            html: null,
-            setHtml: function(html) {
-                $scope.preview.html = html;
-            }
         };
 
 
